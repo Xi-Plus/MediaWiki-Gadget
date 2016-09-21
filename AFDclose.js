@@ -1,7 +1,9 @@
 if (decodeURI(location.search).match(/\?title=Wikipedia:頁面存廢討論\/記錄\/\d+\/\d+\/\d+&action=edit&section=/) !== null) {
 	var text = prompt("Result","r");
 	if (text == "" || text == null) text = "r";
-	wpTextbox1.innerHTML = wpTextbox1.innerHTML.replace(/(==.+==)/, "$1\n{{delh|"+text+"}}")+"----\n:已處理。—~~~~\n{{delf}}\n";
+	var msg = prompt("Message","已處理");
+	if (msg == "" || msg == null) msg = "已處理";
+	wpTextbox1.innerHTML = wpTextbox1.innerHTML.replace(/(==.+==)/, "$1\n{{delh|"+text+"}}")+"----\n:"+msg+"。—~~~~\n{{delf}}\n";
 	var text = prompt("Summary","關閉");
 	if (text == null) text = "關閉";
 	wpSummary.value = wpSummary.value+text;
