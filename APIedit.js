@@ -58,7 +58,7 @@ function APIedit (pagename, summary, editfunc) {
 			success: function success(data) {
 				console.log(data);
 				console.log("editPage Success");
-				// location.reload();
+				location.reload();
 			},
 			error: function error(e) {
 				alert("editPage Error!");
@@ -67,8 +67,3 @@ function APIedit (pagename, summary, editfunc) {
 	}
 	getPageContent();
 }
-function edit(content){
-	return "{{用戶沙盒|plain=yes}}\n" + content;
-}
-pagename = mw.config.get('wgPageName');
-APIedit(pagename, "加上[[T:用戶沙盒]]", edit)
