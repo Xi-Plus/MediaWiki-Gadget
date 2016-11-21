@@ -43,7 +43,14 @@ if (mw.config.get('wgPageName') === "Special:最新页面") {
 		});
 
 	}
+	function partolall() {
+		if (! confirm("確定巡查全部"+document.getElementsByClassName("not-patrolled").length+"個？")) return;
+		for (var i = 0; i < document.getElementsByClassName("not-patrolled").length; i++) {
+			document.all["patrol_"+i].click();
+		}
+	}
 	for (var i = 0; i < document.getElementsByClassName("not-patrolled").length; i++) {
 		document.getElementsByClassName("not-patrolled")[i].innerHTML+='<a id="patrol_'+i+'" onclick="patrol('+i+','+document.getElementsByClassName("not-patrolled")[i].children[0].href.match(/oldid=(\d+)/)[1]+')">巡查</a>';
 	}
+	document.all["mw-content-text"].children[9].innerHTML+='<li><a onclick="partolall();">巡查全部</a></li>';
 }
