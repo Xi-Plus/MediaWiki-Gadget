@@ -1,4 +1,4 @@
-function APIedit (pagename, summary, editfunc) {
+function APIedit (pagename, summary, editfunc, norefresh = false) {
 	content = "";
 	revisions = "";
     function getPageContent() {
@@ -58,7 +58,7 @@ function APIedit (pagename, summary, editfunc) {
 			success: function success(data) {
 				console.log(data);
 				console.log("editPage Success");
-				location.reload();
+				if (!norefresh) location.reload();
 			},
 			error: function error(e) {
 				alert("editPage Error!");
