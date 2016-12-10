@@ -12,7 +12,10 @@ function APIedit (pagename, summary, editfunc, norefresh = false) {
 				getPageRevision();
 			},
 			error: function error(e) {
-				alert("getPageContent Error!");
+				content = "";
+				revisions = "";
+				console.log("getPageContent Error!");
+				editPage();
 			}
 		});
 	}
@@ -29,6 +32,7 @@ function APIedit (pagename, summary, editfunc, norefresh = false) {
 			},
 			success: function success(data) {
 				console.log("getPageRevision Success");
+				console.log(data);
 				var info = data.query.pages;
 				for (var key in info) {
 					revisions = info[key].revisions[0].timestamp;
