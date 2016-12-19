@@ -13,7 +13,7 @@ if (decodeURI(location.search).match(/\?title=Wikipedia:頁面存廢討論\/記�
 	if(confirm("Save?")) wpSave.click();
 } else if (location.search.match(/\?title=.+&action=edit/) !== null) {
 	var arr = wpTextbox1.innerHTML.match(/{{[avT]fd\|.*?date=(\d+)[\/-](\d+)[\/-](\d+).*?}}/i);
-	wpTextbox1.innerHTML = wpTextbox1.innerHTML.replace(/{{[avT]fd.+?}}/i,"").replace(/&lt;noinclude&gt; *&lt;\/noinclude&gt;/i,"");
+	wpTextbox1.innerHTML = wpTextbox1.innerHTML.replace(/{{[avT]fd.+?}}\n?/i,"").replace(/&lt;noinclude&gt; *&lt;\/noinclude&gt;/i,"");
 	wpSummary.value = "關閉[[Wikipedia:頁面存廢討論/記錄/"+arr[1]+"/"+arr[2]+"/"+arr[3]+"]]";
 	if(confirm("Save?")) wpSave.click();
 } else {
