@@ -17,3 +17,7 @@ document.getElementById("p-navigation").children[1].children[0].innerHTML +=
 		'<a href="/wiki/Wikipedia:需要管理員注意的用戶名">UAA</a> '+
 		'<a href="/wiki/Wikipedia:用戶查核請求">RFCU</a>'+
 	'</li>';
+document.getElementById("p-tb").children[1].children[0].innerHTML +=
+	'<li>'+
+		'<a href="https://tools.wmflabs.org/copyvios/?lang=zh&project=wikipedia&oldid=&action=search&use_engine=1&use_links=1&turnitin=1&title='+mw.config.get('wgPageName')+'" target="_blank">Copyvio Detector</a> '+
+	'</li>';
