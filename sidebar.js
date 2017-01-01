@@ -1,8 +1,8 @@
 var today = new Date();
 var yesterday = new Date();
-yesterday.setDate(today.getUTCDate()-1);
 var tdby = new Date();
-tdby.setDate(yesterday.getUTCDate()-1);
+yesterday.setUTCDate(today.getUTCDate()-1);
+tdby.setUTCDate(today.getUTCDate()-2);
 document.getElementById("p-navigation").children[1].children[0].innerHTML +=
 	'<li>'+
 		'<a href="/wiki/Wikipedia:頁面存廢討論">AFD</a> '+
