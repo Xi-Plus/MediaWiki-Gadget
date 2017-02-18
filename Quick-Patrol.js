@@ -54,7 +54,7 @@ if (mw.config.get('wgPageName') === "Special:最新页面") {
 	}
 	for (var i = 0;; i++) {
 		if (document.all["mw-content-text"].children[i] === undefined) {
-			alert("無法插入全部巡查按鈕");
+			console.log("無法插入全部巡查按鈕");
 			break;
 		} else if (document.all["mw-content-text"].children[i].tagName === "UL") {
 			document.all["mw-content-text"].children[i].innerHTML+='<li><a onclick="partolall();">巡查全部</a></li>';
