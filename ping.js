@@ -12,11 +12,11 @@ for (var i = list.length - 1; i >= 0; i--) {
 		break;
 	}
 }
-var indent = myPrefix.match(/^(\:+)/mg);
+var indent = myPrefix.match(/^([\:*]+)/mg);
 if (indent === null) {
 	indent = ":";
 } else {
-	indent = indent[indent.length-1]+":";
+	indent = indent[indent.length-1]+indent[indent.length-1][0];
 }
 wpTextbox1.value = myPrefix + indent+ "{{ping|"+username+"}}" + mySuffix;
 
