@@ -33,6 +33,7 @@ if (mw.config.get('wgPageName') === "Special:最新页面") {
 				console.log(data);
 				if (data.error !== undefined) {
 					document.all["patrol_"+id].innerHTML = "API失敗：" + data.error.info;
+					document.all["patrol_"+id].style.color="#F00";
 				} else {
 					document.all["patrol_"+id].innerHTML = "已巡查";
 					document.all["patrol_"+id].style["pointer-events"]="none";
@@ -41,6 +42,7 @@ if (mw.config.get('wgPageName') === "Special:最新页面") {
 			},
 			error: function error(e) {
 				document.all["patrol_"+id].innerHTML = "Ajax失敗";
+				document.all["patrol_"+id].style.color="#F00";
 			}
 		});
 
