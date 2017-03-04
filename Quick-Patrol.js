@@ -35,6 +35,8 @@ if (mw.config.get('wgPageName') === "Special:最新页面") {
 					document.all["patrol_"+id].innerHTML = "API失敗：" + data.error.info;
 				} else {
 					document.all["patrol_"+id].innerHTML = "已巡查";
+					document.all["patrol_"+id].style["pointer-events"]="none";
+					document.all["patrol_"+id].style.color="#888";
 				}
 			},
 			error: function error(e) {
