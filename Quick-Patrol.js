@@ -50,7 +50,9 @@ if (mw.config.get('wgPageName') === "Special:最新页面") {
 	function partolall() {
 		if (! confirm("確定巡查全部"+document.getElementsByClassName("not-patrolled").length+"個？")) return;
 		for (var i = 0; i < document.getElementsByClassName("not-patrolled").length; i++) {
-			document.all["patrol_"+i].click();
+			if (document.all["patrol_"+i].style["pointer-events"] != "none") {
+				document.all["patrol_"+i].click();
+			}
 		}
 	}
 	for (var i = 0; i < document.getElementsByClassName("not-patrolled").length; i++) {
