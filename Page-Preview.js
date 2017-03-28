@@ -18,8 +18,7 @@ if (["Special:短页面", "Special:无跨wiki"].indexOf(mw.config.get('wgPageNam
 }
 if (mw.config.get('wgPageName') === "Special:短页面") {
 	function getlink(idx) {
-		link = items[idx].children[1].href;
-		link += "?action=raw";
+		link = "https://zh.wikipedia.org/w/index.php?title="+items[idx].children[1].href.substr(30)+"&action=raw";
 		return link;
 	}
 	function checkshort(idx, data) {
@@ -45,8 +44,7 @@ if (mw.config.get('wgPageName') === "Special:短页面") {
 }
 if (mw.config.get('wgPageName') === "Special:无跨wiki") {
 	function getlink(idx) {
-		link = items[idx].children[0].href;
-		link += "?action=raw";
+		link = "https://zh.wikipedia.org/w/index.php?title="+items[idx].children[0].href.substr(30)+"&action=raw";
 		return link;
 	}
 	function checkinterwiki(idx, data) {
