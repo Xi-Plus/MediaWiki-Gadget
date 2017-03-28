@@ -19,4 +19,4 @@ if ($html === false) {
 	$res["status"] = false;
 	$res["result"] = "match";
 }
-echo "showcount(".json_encode($res).");";
+echo json_encode($res);
