@@ -35,6 +35,12 @@ if (mw.config.get('wgPageName') === "Special:短页面") {
 		if (data.match(/{{Copyvio/i)) {
 			write(idx, "[<span style='color: blue;'>Copyvio</span>]");
 		}
+		if (data.match(/{{Expand/i)) {
+			write(idx, "[<span style='color: orange;'>擴充</span>]");
+		}
+		if (data.match(/{{notability/i)) {
+			write(idx, "[關注度]");
+		}
 		if (data.match(/#重定向/i)) {
 			write(idx, "[重定向]");
 		}
