@@ -1,4 +1,4 @@
-function APIedit (pagename, summary, editfunc, norefresh = false) {
+function APIedit (pagename, summary, editfunc, minoredit = false, norefresh = false) {
 	content = "";
 	revisions = "";
     function getPageContent() {
@@ -47,7 +47,7 @@ function APIedit (pagename, summary, editfunc, norefresh = false) {
 	}
 	function editPage() {
 		content = editfunc(content);
-		$.ajax({
+		temp = {
 			type: 'POST',
 			url: location.protocol + mw.config.get('wgServer') + mw.config.get('wgScriptPath') + '/api.php',
 			data: {
@@ -67,7 +67,11 @@ function APIedit (pagename, summary, editfunc, norefresh = false) {
 			error: function error(e) {
 				alert("editPage Error!");
 			}
-		});
+		};
+		if (minoredit) {
+			temp.data.minor = "";
+		}
+		$.ajax(temp);
 	}
 	getPageContent();
 }
