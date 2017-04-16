@@ -41,7 +41,7 @@ if (mw.config.get('wgPageName') === "Special:短页面") {
 		if (data.match(/{{notability/i)) {
 			write(idx, "[關注度]");
 		}
-		if (data.match(/#重定向/i)) {
+		if (data.match(/#(重定向|REDIRECT)/i)) {
 			write(idx, "[重定向]");
 		}
 		if (data.match(/{{disambig}}/i)) {
