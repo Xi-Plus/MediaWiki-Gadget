@@ -12,7 +12,9 @@ if (username !== "" && username !== null) {
 	wpTextbox1.value = myPrefix + "{{subst:unsigned|" + username + "}}" + mySuffix;
 	wpSummary.value = "[[T:unsigned|補簽名]] [[User:"+username+"|"+username+"]]（[[User talk:"+username+"|對話]]｜[[Special:Contributions/"+username+"|貢獻]]）";
 	wpMinoredit.click();
-	finish = function(){wpSave.click();};
+	finish = function(){
+		if(confirm("Save?")) wpSave.click();
+	};
 	if(confirm("Uw-tilde?")) APIedit("User_talk:"+username, "單層級通知：沒有在討論頁上簽名，於[["+mw.config.get('wgPageName')+"]]", edit, true, finish);
 	else finish();
 }
