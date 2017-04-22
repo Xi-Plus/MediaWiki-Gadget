@@ -1,6 +1,9 @@
-function APIedit (pagename, summary, editfunc, minoredit = false, norefresh = false) {
+function APIedit (pagename, summary, editfunc, minoredit = false, finish = location.reload()) {
 	content = "";
 	revisions = "";
+	if (finish === false) {
+		finish = function(){};
+	}
     function getPageContent() {
 		$.ajax({
 			type: 'GET',
@@ -62,7 +65,7 @@ function APIedit (pagename, summary, editfunc, minoredit = false, norefresh = fa
 			success: function success(data) {
 				console.log(data);
 				console.log("editPage Success");
-				if (!norefresh) location.reload();
+				finish();
 			},
 			error: function error(e) {
 				alert("editPage Error!");
