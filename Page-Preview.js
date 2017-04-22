@@ -26,7 +26,7 @@ if (mw.config.get('wgPageName') === "Special:短页面") {
 		if (data.match(/{{(d\||delete|db-)/i)) {
 			write(idx, "[<span style='color: red;'>CSD</span>]");
 		}
-		if (data.match(/{{vfd/i)) {
+		if (data.match(/{{[av]fd/i)) {
 			write(idx, "[<span style='color: red;'>VFD</span>]");
 		}
 		if (data.match(/{{substub/i)) {
