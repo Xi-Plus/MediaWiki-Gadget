@@ -7,7 +7,7 @@ if (decodeURI(location.search).match(/\?title=Wikipedia:頁面存廢討論\/記�
 	var msg = prompt("Message","已處理");
 	if (msg == "" || msg == null) msg = "已處理";
 	wpTextbox1.innerHTML = wpTextbox1.innerHTML.replace(/(==.+==)/, "$1\n{{delh|"+text+"}}").replace(/&lt;section end=backlog \/&gt;\n?/, "")+"----\n:"+msg+"。—~~~~\n{{delf}}\n";
-	var text = prompt("Summary","關閉");
+	var text = prompt("Summary","關閉，理由："+text+" / "+msg);
 	if (text == null) text = "關閉";
 	wpSummary.value = wpSummary.value+text;
 	if(confirm("Save?")) wpSave.click();
