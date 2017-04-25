@@ -23,7 +23,7 @@ if (mw.config.get('wgPageName') === "Special:短页面") {
 	}
 	function checkshort(idx, data) {
 		write(idx, "["+data.length+" 字]");
-		if (data.match(/{{(d\||delete|db-)/i)) {
+		if (data.match(/{{(d\||delete|db)/i)) {
 			write(idx, "[<span style='color: red;'>CSD</span>]");
 		}
 		if (data.match(/{{[av]fd/i)) {
