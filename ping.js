@@ -3,10 +3,10 @@ javascript:
 
 var myPrefix = wpTextbox1.value.substring(0, wpTextbox1.selectionStart);
 var mySuffix = wpTextbox1.value.substring(wpTextbox1.selectionEnd);
-var list = myPrefix.match(/\[\[User( talk)?:[^|\]]+[^\]]*\]\]/gi);
+var list = myPrefix.match(/\[\[(User|User talk|用户|用户讨论):[^|\]]+[^\]]*\]\]/gi);
 var username = "";
 for (var i = list.length - 1; i >= 0; i--) {
-	var temp = list[i].match(/\[\[User(?: talk)?:([^|\]]+)[^\]]*\]\]/i);
+	var temp = list[i].match(/\[\[(?:User|User talk|用户|用户讨论):([^|\]]+)[^\]]*\]\]/i);
 	if (temp !== null && temp[1] != "A2093064") {
 		username = temp[1];
 		break;
