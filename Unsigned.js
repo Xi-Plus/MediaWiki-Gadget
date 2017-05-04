@@ -15,7 +15,7 @@ if (username !== "" && username !== null) {
 	finish = function(){
 		if(confirm("Save?")) wpSave.click();
 	};
-	if(confirm("Uw-tilde?")) APIedit("User_talk:"+username, "單層級通知：沒有在討論頁上簽名，於[["+mw.config.get('wgPageName')+"]]", edit, true, finish);
+	if(confirm("Uw-tilde?")) APIedit("User_talk:"+username, "單層級通知：沒有在討論頁上簽名，於[["+mw.config.get('wgPageName')+"]]", edit, false, finish);
 	else finish();
 }
 
