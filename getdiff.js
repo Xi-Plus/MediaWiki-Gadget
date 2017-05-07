@@ -13,6 +13,10 @@ for (var i = searchs.length - 1; i >= 0; i--) {
 }
 if (diff === "prev") {
 	prompt("wikitext", "[[Special:diff/"+oldid+"]]");
+} else if (diff === "next") {
+	alert("cannot get");
+} else if (diff === "" && oldid !== "") {
+	prompt("wikitext", "[[Special:固定链接/"+oldid+"]]");
 } else {
 	prompt("wikitext", "[[Special:diff/"+diff+"]]");
 }
