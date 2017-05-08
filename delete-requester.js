@@ -1,4 +1,4 @@
-if (document.getElementsByClassName("metadata plainlinks ambox ambox-speedy")[0] !== undefined) {
+if (document.getElementById("speedy-delete") !== null) {
 	$.ajax({
 		type: "GET",
 		url: "https://zh.wikipedia.org/w/api.php",
@@ -15,14 +15,16 @@ if (document.getElementsByClassName("metadata plainlinks ambox ambox-speedy")[0]
 			var path = mw.config.get('wgArticlePath');
 			for (var id in data.query.pages) {
 				var page = data.query.pages[id];
+				var requester = [];
 				for (var i = 0; i < page.revisions.length; i++) {
 					if (page.revisions[i].tags.indexOf("添加刪除模板") !== -1) {
 						var user = page.revisions[i].user;
-						message = '提刪者為<a href="' + path.replace('$1', 'User:' + user) + '">' + user + '</a>';
-						break;
+						requester.push('<a href="' + path.replace('$1', 'User:' + user) + '">' + user + '</a>');
 					}
 				}
-				break;
+				if (requester.length != 0) {
+					message = "提刪者為" + requester.join("、");
+				}
 			}
 			document.getElementsByClassName("mw-indicators mw-body-content")[0].innerHTML += message;
 		},
