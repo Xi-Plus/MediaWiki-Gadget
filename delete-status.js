@@ -5,11 +5,6 @@ if (document.getElementById("speedy-delete") !== null) {
 	node.style = "margin-left: 5px;";
 	node.innerHTML = '提刪者：<span id="delrequester">未取得</span>';
 	document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
-	var node = document.createElement("span");
-	node.id = "delete-log";
-	node.style = "margin-left: 5px;";
-	node.innerHTML = '刪除紀錄：<span id="dellog">未取得</span>';
-	document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
 	$.ajax({
 		type: "GET",
 		url: "https://zh.wikipedia.org/w/api.php",
@@ -43,6 +38,13 @@ if (document.getElementById("speedy-delete") !== null) {
 			delrequester.innerHTML = "抓取錯誤";
 		}
 	});
+}
+if (mw.config.get('wgAction') === "view" || mw.config.get('wgAction') === "edit") {
+	var node = document.createElement("span");
+	node.id = "delete-log";
+	node.style = "margin-left: 5px;";
+	node.innerHTML = '刪除紀錄：<span id="dellog">未取得</span>';
+	document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
 	$.ajax({
 		type: "GET",
 		url: "https://zh.wikipedia.org/w/api.php",
@@ -50,7 +52,7 @@ if (document.getElementById("speedy-delete") !== null) {
 			action: "query",
 			format: "json",
 			list: "logevents",
-			leprop: "comment",
+			leprop: "comment|type",
 			letype: "delete",
 			letitle: mw.config.get('wgPageName')
 		},
@@ -59,7 +61,21 @@ if (document.getElementById("speedy-delete") !== null) {
 			var path = mw.config.get('wgArticlePath');
 			var log = [];
 			for (var i = 0; i < data.query.logevents.length; i++) {
-				log.push(data.query.logevents[i].comment)
+				var comment = data.query.logevents[i].comment;
+				if (data.query.logevents[i].action === "restore") {
+					comment = "還原";
+				} else if (data.query.logevents[i].action === "revision") {
+					continue;
+				} else if (comment === "") {
+					comment = "空";
+				} else if (comment === "[[WP:CSD#G8|G8]]: 删除以便移动") {
+					continue;
+				} else {
+					comment = comment.replace(/\[\[WP\:CSD\#(.+?)\|.+?\]\].+/g, "$1");
+					comment = comment.replace(/存废讨论通过：\[\[(.+?)\]\] \(\[\[WP\:TW\|TW\]\]\)/g, '<a href="' + path.replace('$1', '$1#' + mw.config.get('wgPageName')) + '">存廢</a>');
+					comment = comment.replace("侵犯版权", "侵權");
+				}
+				log.push(comment);
 			}
 			if (log.length != 0) {
 				message = log.join("、");
