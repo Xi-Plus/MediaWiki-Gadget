@@ -12,7 +12,7 @@ if (/^Wikipedia:頁面存廢討論\/記錄\/\d+\/\d+\/\d+$/.test(mw.config.get('
 			toc.children[0].children[1].style["color"] = "#000000";
 			toc.children[0].children[1].style["font-weight"] = "bold";
 			cntcls ++;
-		} else if (article.children[0].classList.contains('new')) {
+		} else if (article.children[0] !== undefined && article.children[0].classList.contains('new')) {
 			toc.children[0].children[1].style["color"] = "#ba0000";
 			cntdel ++;
 		}
