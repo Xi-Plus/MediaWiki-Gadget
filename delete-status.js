@@ -39,7 +39,7 @@ if (document.getElementById("speedy-delete") !== null) {
 		}
 	});
 }
-if (mw.config.get('wgArticleId') !== 0 && (mw.config.get('wgAction') === "view" || mw.config.get('wgAction') === "edit")) {
+if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === "view" || mw.config.get('wgAction') === "edit")) {
 	var node = document.createElement("span");
 	node.id = "delete-log";
 	node.style = "margin-left: 5px;";
