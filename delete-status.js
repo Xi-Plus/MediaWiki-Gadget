@@ -43,7 +43,7 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 	var node = document.createElement("span");
 	node.id = "delete-log";
 	node.style = "margin-left: 5px;";
-	node.innerHTML = '刪除紀錄：<span id="dellog">未取得</span>';
+	node.innerHTML = '<a href="' + path.replace('$1', 'Special:日志/delete?page=' + mw.config.get('wgPageName')) + '">刪除紀錄</a>：<span id="dellog">未取得</span>';
 	document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
 	$.ajax({
 		type: "GET",
@@ -81,6 +81,7 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 					comment = comment.replace(/.*\[\[WP:CV.*/, "侵權");
 					comment = comment.replace(/^内容为：.+/, "空");
 					comment = comment.replace(/^content was.+/, "空");
+					comment = comment.replace(/^大量删除\[\[Special:Contributions\/.+/, "批刪");
 				}
 				log.push(comment);
 			}
