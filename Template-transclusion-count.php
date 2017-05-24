@@ -1,7 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 $res = array("status" => true, "result" => "");
-$url = "https://tools.wmflabs.org/templatecount/index.php?lang=zh&namespace=10&name=".urlencode($_GET["title"]);
+$url = "https://tools.wmflabs.org/templatecount/index.php?lang=zh&namespace=".$_GET["namespace"]."&name=".urlencode($_GET["title"]);
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);

@@ -1,4 +1,4 @@
-if (mw.config.get('wgNamespaceNumber') == 10) {
+if (mw.config.get('wgNamespaceNumber') == 10 || mw.config.get('wgNamespaceNumber') == 828) {
 	var path = mw.config.get('wgArticlePath');
 	var node = document.createElement("span");
 	node.id = "template-transclusion-count";
@@ -6,7 +6,7 @@ if (mw.config.get('wgNamespaceNumber') == 10) {
 	document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
 	$.ajax({
 		type: 'GET',
-		url: "https://xiplus.twbbs.org/Xiplus-zhWP/Template-transclusion-count.php?title="+mw.config.get('wgTitle'),
+		url: "https://xiplus.twbbs.org/Xiplus-zhWP/Template-transclusion-count.php?namespace="+mw.config.get('wgNamespaceNumber')+"&title="+mw.config.get('wgTitle'),
 		success: function success(data) {
 			data = JSON.parse(data);
 			if (data.status) {
