@@ -1,18 +1,29 @@
 javascript:
 (function(){
 
-var c=prompt("Watch All?\n+ Watch\n- Unwatch", "+");
-var q="";
-if (c=="+") q="watch";
-else if (c=="-") q="unwatch";
-if (q!="") {
-	var l=document.getElementsByClassName("mw-contributions-title").length;
-	for (var i = 0; i < l; i++) {
-		pg.fn.modifyWatchlist(document.getElementsByClassName("mw-contributions-title")[i].innerText, q);
+var c = prompt("Watch All?\n+ Watch\n- Unwatch", "+");
+var q = "";
+if (c === "+") q = "watch";
+else if (c === "-") q = "unwatch";
+if (q !== "") {
+	var watched = [];
+	var titles = document.getElementsByClassName("mw-contributions-title");
+	var len = titles.length;
+	for (var i = 0; i < len; i++) {
+		var title = titles[i].innerText;
+		if (!watched.includes(title)) {
+			pg.fn.modifyWatchlist(title, q);
+			watched.push(title);
+		}
 	}
-	var l=document.getElementsByClassName("mw-newpages-pagename").length;
-	for (var i = 0; i < l; i++) {
-		pg.fn.modifyWatchlist(document.getElementsByClassName("mw-newpages-pagename")[i].innerText, q);
+	var titles = document.getElementsByClassName("mw-newpages-pagename");
+	var len = titles.length;
+	for (var i = 0; i < len; i++) {
+		var title = titles[i].innerText;
+		if (!watched.includes(title)) {
+			pg.fn.modifyWatchlist(title, q);
+			watched.push(title);
+		}
 	}
 }
 
