@@ -10,6 +10,10 @@ if (q!="") {
 	for (var i = 0; i < l; i++) {
 		pg.fn.modifyWatchlist(document.getElementsByClassName("mw-contributions-title")[i].innerText, q);
 	}
+	var l=document.getElementsByClassName("mw-newpages-pagename").length;
+	for (var i = 0; i < l; i++) {
+		pg.fn.modifyWatchlist(document.getElementsByClassName("mw-newpages-pagename")[i].innerText, q);
+	}
 }
 
 })();
