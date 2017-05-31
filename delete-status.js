@@ -40,6 +40,7 @@ if (document.getElementById("speedy-delete") !== null) {
 	});
 }
 if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === "view" || mw.config.get('wgAction') === "edit")) {
+	var path = mw.config.get('wgArticlePath');
 	var node = document.createElement("span");
 	node.id = "delete-log";
 	node.style = "margin-left: 5px;";
@@ -71,17 +72,19 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 				} else if (comment.match("删除以便移动") !== null) {
 					continue;
 				} else {
-					comment = comment.replace(/\[\[(?:WP|Wikipedia)\:CSD\#(.+?)\|.+?\]\].+/g, "$1");
-					comment = comment.replace(/CSD ([AGOF]\d{1,2}).+/g, "$1");
+					comment = comment.replace(/.*\[\[:?(?:WP|Wikipedia)\:CSD\#([^|\]]+).*/g, "$1");
 					comment = comment.replace(/(?:存废讨论通过|存廢討論通過)[：:] *\[\[(.+?)\]\].*/g, '<a href="' + path.replace('$1', '$1#' + mw.config.get('wgPageName')) + '">存廢</a>');
 					comment = comment.replace(/根據投票結果刪除.*/, "存廢");
 					comment = comment.replace("列入[[WP:CV|侵权验证页面]]超过七日", "侵權");
 					comment = comment.replace(/侵犯版权.*/, "侵權");
 					comment = comment.replace(/侵犯版權.*/, "侵權");
+					comment = comment.replace(/存廢討論通過.*/, "存廢");
 					comment = comment.replace(/.*\[\[WP:CV.*/, "侵權");
 					comment = comment.replace(/^内容为：.+/, "空");
 					comment = comment.replace(/^content was.+/, "空");
+					comment = comment.replace(/^make space.*/, "G8");
 					comment = comment.replace(/^大量删除\[\[Special:Contributions\/.+/, "批刪");
+					comment = comment.replace(/.*?([AGOF]\d{1,2}).*/i, "$1");
 				}
 				log.push(comment);
 			}
