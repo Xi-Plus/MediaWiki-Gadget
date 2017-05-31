@@ -73,7 +73,7 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 					continue;
 				} else {
 					comment = comment.replace(/.*\[\[:?(?:WP|Wikipedia)\:CSD\#([^|\]]+).*/g, "$1");
-					comment = comment.replace(/(?:存废讨论通过|存廢討論通過)[：:] *\[\[(.+?)\]\].*/g, '<a href="' + path.replace('$1', '$1#' + mw.config.get('wgPageName')) + '">存廢</a>');
+					comment = comment.replace(/.*?(Wikipedia:頁面存廢討論\/記錄\/\d{4}\/\d{2}\/\d{2}).*/g, '<a href="' + path.replace('$1', '$1#' + mw.config.get('wgPageName')) + '">存廢</a>');
 					comment = comment.replace(/根據投票結果刪除.*/, "存廢");
 					comment = comment.replace("列入[[WP:CV|侵权验证页面]]超过七日", "侵權");
 					comment = comment.replace(/侵犯版权.*/, "侵權");
