@@ -84,7 +84,7 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 					comment = comment.replace(/^content was.+/, "空");
 					comment = comment.replace(/^make space.*/, "G8");
 					comment = comment.replace(/^大量删除\[\[Special:Contributions\/.+/, "批刪");
-					comment = comment.replace(/.*?([AGOF]\d{1,2}).*/i, "$1");
+					comment = comment.replace(/.*?([AGOFR]\d{1,2}).*/i, "$1");
 				}
 				log.push(comment);
 			}
