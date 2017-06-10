@@ -71,6 +71,10 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 					comment = "空";
 				} else if (comment.match("删除以便移动") !== null) {
 					continue;
+				} else if (comment.match("被取代的非自由版权图像版本") !== null) {
+					continue;
+				} else if (comment.match("被取代的非自由图像版本") !== null) {
+					continue;
 				} else {
 					comment = comment.replace(/.*\[\[:?(?:WP|Wikipedia)\:CSD\#([^|\]]+).*/g, "$1");
 					comment = comment.replace(/.*?(Wikipedia:(頁面|檔案)存廢討論\/記錄\/\d{4}\/\d{2}\/\d{2}).*/g, '<a href="' + path.replace('$1', '$1#' + mw.config.get('wgPageName')) + '">存廢</a>');
