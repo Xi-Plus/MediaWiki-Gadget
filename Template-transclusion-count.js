@@ -2,6 +2,7 @@ if (mw.config.get('wgNamespaceNumber') == 10 || mw.config.get('wgNamespaceNumber
 	var path = mw.config.get('wgArticlePath');
 	var node = document.createElement("span");
 	node.id = "template-transclusion-count";
+	node.style = "margin-left: 5px;";
 	node.innerHTML = '<a href="' + path.replace('$1', 'Special:链入页面/' + mw.config.get('wgPageName') + '?hidelinks=1&hideredirs=1') + '">使用量</a>：<a id="ttclink" href="https://tools.wmflabs.org/templatecount/index.php?lang=zh&namespace='+mw.config.get('wgNamespaceNumber')+'&name='+mw.config.get('wgTitle')+'">未取得</a>';
 	document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
 	$.ajax({
