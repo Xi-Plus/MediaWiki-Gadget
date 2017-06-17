@@ -1,8 +1,10 @@
-function APIedit (pagename, summary, editfunc, minoredit = false, finish = location.reload()) {
+function APIedit (pagename, summary, editfunc, minoredit = false, finish) {
 	content = "";
 	revisions = "";
-	if (finish === false) {
+	if (finish === undefined) {
 		finish = function(){};
+	} else if (finish === false) {
+		finish = function(){location.reload()};
 	}
     function getPageContent() {
 		$.ajax({
