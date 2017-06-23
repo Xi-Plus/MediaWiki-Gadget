@@ -29,7 +29,7 @@ if (mw.config.get('wgPageName') === "Special:短页面") {
 		if (data.match(/{{[av]fd/i)) {
 			write(idx, "[<span style='color: red;'>VFD</span>]");
 		}
-		if (data.match(/{{substub/i)) {
+		if (data.match(/{{(substub|小小作品)/i)) {
 			write(idx, "[<span style='color: orange;'>Substub</span>]");
 		}
 		if (data.match(/{{Copyvio/i)) {
