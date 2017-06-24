@@ -2,9 +2,9 @@ function APIedit (pagename, summary, editfunc, minoredit = false, finish) {
 	content = "";
 	revisions = "";
 	if (finish === undefined) {
-		finish = function(){};
-	} else if (finish === false) {
 		finish = function(){location.reload()};
+	} else if (finish === false) {
+		finish = function(){};
 	}
     function getPageContent() {
 		$.ajax({
