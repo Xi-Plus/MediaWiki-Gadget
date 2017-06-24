@@ -9,7 +9,7 @@ function APIedit (pagename, summary, editfunc, minoredit = false, finish) {
     function getPageContent() {
 		$.ajax({
 			type: 'GET',
-			url: 'https://zh.wikipedia.org/w/index.php?title='+pagename+'&action=raw',
+			url: mw.config.get("wgServer")+mw.config.get("wgArticlePath").replace("$1", pagename)+'?action=raw',
 			success: function success(data) {
 				content = data;
 				console.log(data);
@@ -27,7 +27,7 @@ function APIedit (pagename, summary, editfunc, minoredit = false, finish) {
 	function getPageRevision() {
 		$.ajax({
 			type: 'POST',
-			url: location.protocol + mw.config.get('wgServer') + mw.config.get('wgScriptPath') + '/api.php',
+			url: mw.config.get('wgServer') + mw.config.get('wgScriptPath') + '/api.php',
 			data: {
 				'action': 'query',
 				'format': 'json',
@@ -54,7 +54,7 @@ function APIedit (pagename, summary, editfunc, minoredit = false, finish) {
 		content = editfunc(content);
 		temp = {
 			type: 'POST',
-			url: location.protocol + mw.config.get('wgServer') + mw.config.get('wgScriptPath') + '/api.php',
+			url: mw.config.get('wgServer') + mw.config.get('wgScriptPath') + '/api.php',
 			data: {
 				'action': 'edit',
 				'format': 'json',
