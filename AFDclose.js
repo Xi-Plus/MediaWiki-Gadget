@@ -5,7 +5,7 @@ if (decodeURI(location.search).match(/\?title=Wikipedia:頁面存廢討論\/記�
 	var text = prompt("Result","r");
 	if (text == "" || text == null) text = "r";
 	var msg = prompt("Message","已處理");
-	if (msg == "" || msg == null) msg = "已處理";
+	if (msg == null) msg = "已處理";
 	var backlog = true;
 	if (wpTextbox1.value.match("<section end=backlog />") === null) {
 		backlog = false;
