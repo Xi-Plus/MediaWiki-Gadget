@@ -1,8 +1,11 @@
 if (/^Wikipedia:頁面存廢討論\/記錄\/\d+\/\d+\/\d+$/.test(mw.config.get('wgPageName'))) {
 	var list = $(".mw-headline a");
-	for (var i = list.length - 1; i >= 0; i--) {
+	for (var i = 0; i < list.length; i++) {
 		if (list[i].getAttribute("href").indexOf("/") === 0) {
-			list[i].outerHTML += '(<a href="/wiki/Special:日志/delete?page='+list[i].innerText+'">刪紀錄</a>)';
+			var node = document.createElement("a");
+			node.href = "/wiki/Special:日志/delete?page="+list[i].innerText;
+			node.innerText = "(刪紀錄)";
+			list[i].parentElement.nextElementSibling.appendChild(node);
 		}
 	}
 }
