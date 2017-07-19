@@ -5,7 +5,7 @@ if (/^Wikipedia:頁面存廢討論\/記錄\/\d+\/\d+\/\d+$/.test(mw.config.get('
 			var node = document.createElement("a");
 			node.href = "/wiki/Special:日志/delete?page="+list[i].innerText;
 			node.innerText = "(刪紀錄)";
-			list[i].parentElement.nextElementSibling.appendChild(node);
+			list[i].parentElement.parentElement.appendChild(node);
 		}
 	}
 }
