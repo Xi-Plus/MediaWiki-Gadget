@@ -22,7 +22,7 @@ $.ajax({
 		}
 		if (username === null || username === "") {
 			alert("讀取編者錯誤");
-		} else {
+		} else if (confirm("補簽名: "+username)) {
 			next();
 		}
 	},
@@ -44,7 +44,7 @@ function finish(){
 };
 
 function next(){
-	if (confirm("Uw-tilde?"+username)) {
+	if (confirm("Uw-tilde?")) {
 		APIedit("User_talk:"+username, "單層級通知：沒有在討論頁上簽名，於[["+mw.config.get('wgPageName')+"]]", noticeedit, false, finish);
 	} else {
 		finish();
