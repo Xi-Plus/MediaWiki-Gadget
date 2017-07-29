@@ -28,7 +28,11 @@ if (q !== "") {
 		}
 	} else if (mw.config.get('wgCanonicalNamespace') === "Category") {
 		$(".mw-category-generated a").each(function(i,e){
-			pg.fn.modifyWatchlist(e.innerText, q);
+			if (e.classList.contains("CategoryTreeLabelCategory")) {
+				pg.fn.modifyWatchlist("Category:"+e.innerText, q);
+			} else {
+				pg.fn.modifyWatchlist(e.innerText, q);
+			}
 		});
 	}
 }
