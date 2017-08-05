@@ -4,7 +4,7 @@ javascript:
 var username = "";
 $.ajax({
 	type: "GET",
-	url: "https://zh.wikipedia.org/w/api.php",
+	url: mw.config.get("wgServer")+mw.config.get("wgScriptPath")+"/api.php",
 	data: {
 		action: "query",
 		format: "json",
