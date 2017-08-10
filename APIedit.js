@@ -9,7 +9,7 @@ function APIedit (pagename, summary, editfunc, minoredit = false, finish) {
     function getPageContent() {
 		$.ajax({
 			type: 'GET',
-			url: mw.config.get("wgServer")+mw.config.get("wgArticlePath").replace("$1", pagename)+'?action=raw',
+			url: mw.config.get("wgServer")+mw.config.get("wgScriptPath")+'/index.php?title='+pagename+'&action=raw',
 			success: function success(data) {
 				content = data;
 				console.log(data);
