@@ -1,4 +1,4 @@
-function APIedit (pagename, summary, editfunc, minoredit = false, finish) {
+function APIedit (pagename, summary, editfunc, minoredit = false, finish, testmode = false) {
 	content = "";
 	revisions = "";
 	if (finish === undefined) {
@@ -52,6 +52,10 @@ function APIedit (pagename, summary, editfunc, minoredit = false, finish) {
 	}
 	function editPage() {
 		content = editfunc(content);
+		if (testmode) {
+			console.log(content);
+			return ;
+		}
 		temp = {
 			type: 'POST',
 			url: mw.config.get('wgServer') + mw.config.get('wgScriptPath') + '/api.php',
