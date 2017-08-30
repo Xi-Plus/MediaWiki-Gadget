@@ -82,10 +82,10 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 					comment = comment.replace(/.*?(G1|G2|G3|G5|G8|G10|G11|G12|G13|G14|G15|G16|A1|A2|A3|A5|A6|R2|R3|R5|F1|F3|F4|F5|F6|F7|O1|O3|O4)[^\d].*/i, "$1");
 					comment = comment.replace(/.*?((Wikipedia|维基百科):(頁面|檔案)存廢討論\/記錄\/\d{4}\/\d{2}\/\d{2}).*/g, '<a href="' + path.replace('$1', '$1#' + mw.config.get('wgPageName')) + '">存廢</a>');
 					comment = comment.replace(/根據投票結果刪除.*/, "存廢");
-					comment = comment.replace("列入[[WP:CV|侵权验证页面]]超过七日", "侵權");
-					comment = comment.replace(/侵犯版权.*/, "侵權");
-					comment = comment.replace(/侵犯版權.*/, "侵權");
-					comment = comment.replace(/存廢討論通過.*/, "存廢");
+					comment = comment.replace(/.*列入\[\[WP:CV\|侵权验证页面]]超过七日.*/, "侵權");
+					comment = comment.replace(/.*侵犯版权.*/, "侵權");
+					comment = comment.replace(/.*侵犯版權.*/, "侵權");
+					comment = comment.replace(/.*存廢討論通過.*/, "存廢");
 					comment = comment.replace(/.*\[\[WP:CV.*/, "侵權");
 					comment = comment.replace(/^content was.+/, "空");
 					comment = comment.replace(/^make space.*/, "G8");
