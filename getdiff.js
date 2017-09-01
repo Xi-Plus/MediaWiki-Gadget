@@ -16,9 +16,9 @@ if (diff === "prev") {
 } else if (diff === "next") {
 	alert("cannot get");
 } else if (diff === "" && oldid !== "") {
-	prompt("wikitext", "[[Special:固定链接/"+oldid+"]]");
+	prompt("wikitext", "[[Special:PermaLink/"+oldid+"]]");
 } else {
-	prompt("wikitext", "[[Special:diff/"+diff+"]]");
+	prompt("wikitext", "[[Special:Diff/"+diff+"]]");
 }
 
 })();
