@@ -48,7 +48,6 @@ function getPatrollCount() {
 		}).done( function ( data ) {
 			unpatrollUsertalk.innerHTML = data.query.recentchanges.length;
 		});
-	console.log("update PatrollCount");
 }
-setInterval(getPatrollCount, 60*1000);
+setInterval(getPatrollCount, 10*1000);
 getPatrollCount();

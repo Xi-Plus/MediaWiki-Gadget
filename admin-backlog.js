@@ -25,7 +25,6 @@ function getCSD() {
 				document.all["adminbacklog-csd"].innerHTML = 'CSD ' + item.categoryinfo.size;
 			});
 		});
-	console.log("update CSD");
 }
 function getEP() {
 	api.get({
@@ -38,7 +37,6 @@ function getEP() {
 				document.all["adminbacklog-ep"].innerHTML = 'EP ' + item.categoryinfo.pages;
 			});
 		});
-	console.log("update EP");
 }
 function getUB() {
 	api.get({
@@ -51,7 +49,6 @@ function getUB() {
 				document.all["adminbacklog-ub"].innerHTML = 'UB ' + item.categoryinfo.pages;
 			});
 		});
-	console.log("update EP");
 }
 setInterval(getCSD, 10*1000);
 getCSD();
