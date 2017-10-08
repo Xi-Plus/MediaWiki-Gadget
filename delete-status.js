@@ -5,6 +5,11 @@ if (document.getElementById("speedy-delete") !== null) {
 	node.style = "margin-left: 5px;";
 	node.innerHTML = '提刪者：<span id="delrequester">未取得</span>';
 	document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
+	var node = document.createElement("span");
+	node.id = "contributor-list";
+	node.style = "margin-left: 5px;";
+	node.innerHTML = '貢獻：<a id="contributor">未取得</a>';
+	document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
 	$.ajax({
 		type: "GET",
 		url: "https://zh.wikipedia.org/w/api.php",
@@ -22,10 +27,14 @@ if (document.getElementById("speedy-delete") !== null) {
 			for (var id in data.query.pages) {
 				var page = data.query.pages[id];
 				var requester = [];
+				var contributors = [];
 				for (var i = 0; i < page.revisions.length; i++) {
+					var user = page.revisions[i].user;
 					if (page.revisions[i].tags.indexOf("添加刪除模板") !== -1) {
-						var user = page.revisions[i].user;
 						requester.push('<a href="' + path.replace('$1', 'User:' + user) + '">' + user + '</a>');
+					}
+					if (contributors.indexOf(user) === -1) {
+						contributors.push(user);
 					}
 				}
 				if (requester.length != 0) {
@@ -33,6 +42,8 @@ if (document.getElementById("speedy-delete") !== null) {
 				}
 			}
 			delrequester.innerHTML = message;
+			contributor.innerHTML = contributors.length+"人"+page.revisions.length+"編輯";
+			contributor.setAttribute("onclick", "mw.notify(['貢獻者：<br>"+contributors.join("<br>")+"'])");
 		},
 		error: function error(e) {
 			delrequester.innerHTML = "抓取錯誤";
