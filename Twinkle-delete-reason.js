@@ -3,7 +3,7 @@ if (document.all["delete-reason"] !== undefined) {
 	console.log(reason);
 	reason = reason.replace("孤立页面，比如没有主页面的[[WP:TALK|讨论页]]、指向空页面的[[WP:R|重定向]]等；*</strong>", "");
 	reason = reason.replace("；*如该页为讨论页存档，请加入&#123;&#123;[[Template:talkarchive|talkarchive]]&#125;&#125;以彰显", "");
-	reason = reason.replace("；**请考虑复查[[Special:WhatLinksHere/Portal:Animals/Categories|链入页面]]", "");
+	reason = reason.replace(/；\*\*请考虑复查\[\[Special:WhatLinksHere\/.+?\|链入页面]]/, "");
 	reason = reason.replace("；*</strong>请复查历史", "");
 	reason = reason.replace("；**模板无链入页面；**请考虑应否移至其他名称", "");
 	reason = reason.replace("曾经根据[[WP:AFD|頁面存廢討論]]、[[WP:CV|侵權審核]]或[[WP:FFD|檔案存廢討論]]結果删除後又重新創建的内容，而有關內容與已刪除版本''相同或非常相似''，無論標題是否相同", "曾经根据頁面存廢討論、侵權審核或檔案存廢討論結果删除後又重新創建的内容");
