@@ -9,7 +9,7 @@ function getTranslatewikiLink(str) {
 	if (match !== undefined) {
 		$(match).each(function(i, m){
 			m = m.substr(1);
-			res.push('<a href="https://translatewiki.net/wiki/MediaWiki:'+m+'/'+lang+'" target="_blank">('+m+')</a>');
+			res.push('<a href="https://translatewiki.net/wiki/MediaWiki:'+m+'/'+lang+'" target="_blank">('+m+')</a><sup><a href="'+mw.config.get("wgServer")+mw.config.get("wgArticlePath").replace('$1', 'MediaWiki:'+m)+'" target="_blank">local</a></sup>');
 		});
 	}
 	return res;
