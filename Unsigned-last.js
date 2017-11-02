@@ -1,6 +1,8 @@
 javascript:
 (function(){
 
+/* 本工具需配合 https://github.com/Xi-Plus/Xiplus-zhWP/blob/master/APIedit.js 使用 */
+
 var username = "";
 $.ajax({
 	type: "GET",

@@ -1,8 +1,10 @@
 javascript:
 (function(){
 
+/* 本工具需配合 https://github.com/Xi-Plus/Xiplus-zhWP/blob/master/APIedit.js 使用 */
+
 function edit(content){
-	return content + "\n==請在討論頁簽名==\n{{subst:Uw-tilde|"+mw.config.get('wgPageName')+"}}--~~~~";
+	return content + "\n==您忘了簽名==\n{{subst:Uw-tilde|"+mw.config.get('wgPageName')+"}}--~~~~";
 }
 
 var myPrefix = wpTextbox1.value.substring(0, wpTextbox1.selectionStart);
