@@ -27,23 +27,28 @@ if (document.getElementById("speedy-delete") !== null) {
 			for (var id in data.query.pages) {
 				var page = data.query.pages[id];
 				var requester = [];
-				var contributors = [];
+				var contributors = {};
 				for (var i = 0; i < page.revisions.length; i++) {
 					var user = page.revisions[i].user;
 					if (page.revisions[i].tags.indexOf("添加刪除模板") !== -1) {
 						requester.push('<a href="' + path.replace('$1', 'User:' + user) + '">' + user + '</a>');
 					}
-					if (contributors.indexOf(user) === -1) {
-						contributors.push(user);
+					if (contributors[user] === undefined) {
+						contributors[user] = 0;
 					}
+					contributors[user]++;
 				}
 				if (requester.length != 0) {
 					message = requester.join("、");
 				}
 			}
 			delrequester.innerHTML = message;
-			contributor.innerHTML = contributors.length+"人"+page.revisions.length+"編輯";
-			contributor.setAttribute("onclick", "mw.notify(['貢獻者：<br>"+contributors.join("<br>")+"'])");
+			contributor.innerHTML = Object.keys(contributors).length+"人"+page.revisions.length+"編輯";
+			var contributorstring = "";
+			$.each(contributors, function(user, count) {
+				contributorstring += user+" *"+count+"<br>";
+			});
+			contributor.setAttribute("onclick", "mw.notify(['貢獻者：<br>"+contributorstring+"'])");
 		},
 		error: function error(e) {
 			delrequester.innerHTML = "抓取錯誤";
