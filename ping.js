@@ -20,7 +20,7 @@ var indent = myPrefix.match(/^([\:*]+)/mg);
 if (indent === null) {
 	indent = ":";
 } else {
-	indent = indent[indent.length-1]+indent[indent.length-1][0];
+	indent = indent[indent.length-1][0]+indent[indent.length-1];
 }
 wpTextbox1.value = myPrefix + indent+ "{{ping|"+username+"}}" + mySuffix;
 
