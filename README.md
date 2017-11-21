@@ -15,6 +15,7 @@
 | HRTProtectLink.js | v | 下拉選單增加HRT保護連結 |  |
 | History-User-Color.js | h | 相同用戶高亮相同顏色 |  |
 | LinkSearchEditlink.js | v | 在Special:LinkSearch顯示編輯連結 |  |
+| LTAIPsort.js | v | 在LTA頁面排序IP列表 |  |
 | MediawikiFetchFromMainpage.js | e | Mediawiki空間載入主頁面源碼 |  |
 | Page-Preview.js | v | 在特殊頁預覽頁面狀況 | ```Special:短页面```、```Special:无跨wiki```、```Special:断链页面``` |
 | PatrollCount.js | v | 頁頂顯示未巡查量 | 條目討論、用戶、用戶討論空間 |
@@ -34,6 +35,7 @@
 | category-change.js | v | 添加使用過濾器來檢視分類變更連結 | 似乎已失效？ |
 | delete-status.js | v | 顯示刪除狀態 | 包含```提刪者```、```貢獻者```、```刪除日誌``` |
 | fix使用無效自封閉HTML標籤的頁面.js | e |  |  |
+| forceEditSection.js | v | 在__NOEDITSECTION__的頁面仍然顯示編輯章節連結 |  |
 | getSearchResult.js | v | 將搜尋結果產生列表 | 於```Special:Search``` |
 | getdiff.js | o | 在差異/固定版本模式下取得差異/固定版本內部連結 | ```Special:Diff```或```Special:PermaLink``` |
 | hide-logout-btn.js | v | 隱藏登出按鈕 |  |
