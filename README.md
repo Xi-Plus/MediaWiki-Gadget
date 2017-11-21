@@ -14,6 +14,7 @@
 | EditWatchlist-check.js | v | 編輯監視清單大量選取 |  |
 | HRTProtectLink.js | v | 下拉選單增加HRT保護連結 |  |
 | History-User-Color.js | h | 相同用戶高亮相同顏色 |  |
+| LinkSearchEditlink.js | v | 在Special:LinkSearch顯示編輯連結 |  |
 | MediawikiFetchFromMainpage.js | e | Mediawiki空間載入主頁面源碼 |  |
 | Page-Preview.js | v | 在特殊頁預覽頁面狀況 | ```Special:短页面```、```Special:无跨wiki```、```Special:断链页面``` |
 | PatrollCount.js | v | 頁頂顯示未巡查量 | 條目討論、用戶、用戶討論空間 |
