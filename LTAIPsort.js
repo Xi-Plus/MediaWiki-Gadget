@@ -34,7 +34,7 @@ for (var i = 0; i < text.length; i++) {
 		a = a.match(/\*\*{{IPvandal\|([^}]+)}}/)[1];
 		b = b.match(/\*\*{{IPvandal\|([^}]+)}}/)[1];
 		return cmpip(a, b);
-	})
+	});
 	newtext += t.join("\n")+"\n";
 }
 wpTextbox1.value = newtext;
