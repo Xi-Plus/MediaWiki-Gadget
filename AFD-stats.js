@@ -4,7 +4,7 @@ if (/^Wikipedia:頁面存廢討論\/記錄\/\d+\/\d+\/\d+$/.test(mw.config.get('
 	var cntcls = 0;
 	for (var i = 1; document.getElementsByClassName("tocsection-"+i)[0] !== undefined; i++) {
 		var toc = document.getElementsByClassName("tocsection-"+i)[0];
-		var title = toc.children[0].href.substr(toc.children[0].href.indexOf("#")+1);
+		var title = decodeURI(toc.children[0].href.substr(toc.children[0].href.indexOf("#")+1));
 		if (toc.children[1] !== undefined) continue;
 		cntall ++;
 		article = document.getElementById(title);
