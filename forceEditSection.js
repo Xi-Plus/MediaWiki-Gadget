@@ -1,7 +1,7 @@
 javascript:
 (function(){
 
-if ($(".mw-editsection").length === 0 && $("h2 .mw-headline").length !== 0) {
+if ($(".mw-editsection").length === 0 && $(".mw-headline").length !== 0) {
 	function CreateEditSection(section) {
 		var ec = document.createElement("span");
 		ec.classList.add("mw-editsection");
