@@ -2,18 +2,12 @@
 
 /* 側欄 */
 /* sidebar link */
-document.all["n-mainpage-description"].hidden = true;
-document.all["n-indexpage"].hidden = true;
-document.all["n-Featured_content"].hidden = true;
-document.all["n-currentevents"].hidden = true;
-document.all["n-help"].hidden = true;
-document.all["n-portal"].hidden = true;
-document.all["n-Information_desk"].hidden = true;
-document.all["n-contact"].hidden = true;
-document.all["n-about"].hidden = true;
-document.all["n-sitesupport"].hidden = true;
-document.all["p-electronPdfService-sidebar-portlet-heading"].hidden = true;
-document.all["t-upload"].hidden = true;
+var hidelist = ["n-mainpage-description", "n-indexpage", "n-Featured_content", "n-currentevents", "n-help", "n-portal", "n-Information_desk", "n-contact", "n-about", "n-sitesupport", "p-electronPdfService-sidebar-portlet-heading", "t-upload"];
+for (var i = 0; i < hidelist.length; i++) {
+	if (hidelist[i] !== undefined) {
+		hidelist[i].hidden = true;
+	}
+}
 /* AFD link */
 var today = new Date();
 var yesterday = new Date();
