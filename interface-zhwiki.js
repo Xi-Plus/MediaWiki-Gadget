@@ -1,3 +1,20 @@
+/* 頂欄 */
+
+/* 側欄 */
+/* sidebar link */
+document.all["n-mainpage-description"].hidden = true;
+document.all["n-indexpage"].hidden = true;
+document.all["n-Featured_content"].hidden = true;
+document.all["n-currentevents"].hidden = true;
+document.all["n-help"].hidden = true;
+document.all["n-portal"].hidden = true;
+document.all["n-Information_desk"].hidden = true;
+document.all["n-contact"].hidden = true;
+document.all["n-about"].hidden = true;
+document.all["n-sitesupport"].hidden = true;
+document.all["p-electronPdfService-sidebar-portlet-heading"].hidden = true;
+document.all["t-upload"].hidden = true;
+/* AFD link */
 var today = new Date();
 var yesterday = new Date();
 var tdby = new Date();
