@@ -4,8 +4,8 @@
 /* sidebar link */
 var hidelist = ["n-mainpage-description", "n-indexpage", "n-Featured_content", "n-currentevents", "n-help", "n-portal", "n-Information_desk", "n-contact", "n-about", "n-sitesupport", "p-electronPdfService-sidebar-portlet-heading", "t-upload"];
 for (var i = 0; i < hidelist.length; i++) {
-	if (hidelist[i] !== undefined) {
-		hidelist[i].hidden = true;
+	if ($("#"+hidelist[i]).length) {
+		$("#"+hidelist[i])[0].hidden = true;
 	}
 }
 /* AFD link */
