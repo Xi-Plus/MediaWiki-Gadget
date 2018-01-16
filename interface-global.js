@@ -2,6 +2,23 @@
 document.all["pt-betafeatures"].hidden = true;
 document.all["pt-logout"].hidden = true;
 
+/* CentralAuth */
+function showCentralAuth(username) {
+	mw.loader.using(['mediawiki.util']).done(function(){
+		mw.util.addPortletLink(
+			'p-cactions',
+			'https://meta.wikimedia.org/wiki/Special:CentralAuth/'+username,
+			'CentralAuth'
+		);
+	});
+}
+if (mw.config.get('wgNamespaceNumber') === 2 || mw.config.get('wgNamespaceNumber') === 3) {
+	showCentralAuth(mw.config.get('wgTitle').replace(/^([^/]+).*$/, '$1'));
+}
+if (mw.config.get('wgCanonicalSpecialPageName') === 'Contributions') {
+	showCentralAuth(mw.config.get('wgRelevantUserName'));
+}
+
 /* 側欄 */
 /* mediawiki.util start */
 mw.loader.using(['mediawiki.util']).done(function () {
