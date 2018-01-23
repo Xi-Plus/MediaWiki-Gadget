@@ -7,7 +7,7 @@ function showCentralAuth(username) {
 	mw.loader.using(['mediawiki.util']).done(function(){
 		mw.util.addPortletLink(
 			'p-cactions',
-			'https://meta.wikimedia.org/wiki/Special:CentralAuth/'+username,
+			mw.config.get('wgServer')+mw.config.get('wgArticlePath').replace('$1', 'Special:CentralAuth/'+username),
 			'CentralAuth'
 		);
 	});
