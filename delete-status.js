@@ -31,7 +31,7 @@ if (document.getElementById("speedy-delete") !== null) {
 				for (var i = 0; i < page.revisions.length; i++) {
 					var user = page.revisions[i].user;
 					if (page.revisions[i].tags.indexOf("添加刪除模板") !== -1) {
-						requester.push('<a href="' + path.replace('$1', 'User:' + user) + '">' + user + '</a>');
+						requester.push('<a href="' + path.replace('$1', 'Special:Contributions/' + user) + '">' + user + '</a>');
 					}
 					if (contributors[user] === undefined) {
 						contributors[user] = 0;
