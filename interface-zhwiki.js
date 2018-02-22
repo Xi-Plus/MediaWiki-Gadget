@@ -30,7 +30,7 @@ if (mw.config.get('wgRelevantUserName') !== null) {
 	mw.util.addPortletLink(
 		'p-tb',
 		'/wiki/Special:滥用日志?wpSearchUser='+mw.config.get('wgRelevantUserName'),
-		'用戶濫用日誌',
+		'用戶過濾器日誌',
 		't-userabuselog',
 		'',
 		'',
@@ -41,7 +41,7 @@ if (mw.config.get('wgRelevantUserName') !== null) {
 mw.util.addPortletLink(
 	'p-tb',
 	'/wiki/Special:滥用日志?wpSearchTitle='+mw.config.get('wgPageName'),
-	'此頁濫用日誌',
+	'此頁過濾器日誌',
 	't-abuselog',
 	'',
 	'',
