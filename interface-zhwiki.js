@@ -37,16 +37,41 @@ if (mw.config.get('wgRelevantUserName') !== null) {
 		$('#t-blockip')
 	);
 }
+if (mw.config.get('wgCanonicalSpecialPageName') === 'AbuseLog' && $('.mw-abuselog-details-user_name').length) {
+	mw.util.addPortletLink(
+		'p-tb',
+		'/wiki/Special:滥用日志?wpSearchUser='+($('.mw-abuselog-details-user_name>td.mw-abuselog-var-value').text()),
+		'用戶過濾器日誌',
+		't-userabuselog',
+		'',
+		'',
+		$('#t-blockip')
+	);
+}
 
-mw.util.addPortletLink(
-	'p-tb',
-	'/wiki/Special:滥用日志?wpSearchTitle='+mw.config.get('wgPageName'),
-	'此頁過濾器日誌',
-	't-abuselog',
-	'',
-	'',
-	$('#t-specialpages')
-);
+if (mw.config.get('wgCanonicalSpecialPageName') === 'AbuseLog') {
+	if ($('.mw-abuselog-details-article_prefixedtext').length) {
+		mw.util.addPortletLink(
+			'p-tb',
+			'/wiki/Special:滥用日志?wpSearchTitle='+($('.mw-abuselog-details-article_prefixedtext>td.mw-abuselog-var-value').text()),
+			'此頁過濾器日誌',
+			't-abuselog',
+			'',
+			'',
+			$('#t-specialpages')
+		);
+	}
+} else {
+	mw.util.addPortletLink(
+		'p-tb',
+		'/wiki/Special:滥用日志?wpSearchTitle='+mw.config.get('wgPageName'),
+		'此頁過濾器日誌',
+		't-abuselog',
+		'',
+		'',
+		$('#t-specialpages')
+	);
+}
 
 mw.util.addPortletLink(
 	'p-tb',
