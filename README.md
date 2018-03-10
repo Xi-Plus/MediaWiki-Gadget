@@ -33,6 +33,7 @@
 | admin-backlog.js | v | 在頁頂顯示管理員積壓工作 | ```CSD```、```EP```、```Unblock``` |
 | block-time-convert.js | v | 封禁執行頁轉換時間 | ```Special:Block``` |
 | category-change.js | v | 添加使用過濾器來檢視分類變更連結 | 似乎已失效？ |
+| csd-reason-in-csd-cat.js | v | 在分類:快速刪除候選顯示頁面速刪理由 |  |
 | delete-status.js | v | 顯示刪除狀態 | 包含```提刪者```、```貢獻者```、```刪除日誌``` |
 | fix使用無效自封閉HTML標籤的頁面.js | e |  |  |
 | forceEditSection.js | v | 在__NOEDITSECTION__的頁面仍然顯示編輯章節連結 |  |

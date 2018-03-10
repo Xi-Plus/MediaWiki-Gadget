@@ -23,12 +23,15 @@ for (var i = 0; i < titlelist.length; i+=50) {
 			"rvprop": "content"
 		},
 		success: function success(data) {
-			window.x=data.query.pages;
 			for (i in data.query.pages) {
 				var page = data.query.pages[i];
 				if (page.missing === undefined) {
-					if ((m = page.revisions[0]["*"].match(/{{\s*(?:d|delete|csd|速删)\s*\|\s*(.+?)\s*}}/)) !== null) {
-						$(elements[page.title].parentElement).append("（"+m[1]+"）");
+					var title = page.title.replace(/ /g, "_");
+					if ((m = page.revisions[0]["*"].match(/{{\s*(?:d|delete|csd|速删)\s*\|\s*(.+?)\s*}}/i)) !== null) {
+						$(elements[title].parentElement).append("（"+m[1]+"）");
+					}
+					if ((m = page.revisions[0]["*"].match(/{{\s*(?:hang on|有爭議|有争议)\s*\|\s*(.+?)\s*}}/i)) !== null) {
+						$(elements[title].parentElement).append("（Hangon："+m[1]+"）");
 					}
 				}
 			}
