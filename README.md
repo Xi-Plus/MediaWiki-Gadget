@@ -31,6 +31,7 @@
 | Unsigned.js | e | 標記用戶未簽名 |  |
 | WatchAll.js | v | 在貢獻頁或分類頁監視所有頁面 | ```Special:Contributions```或```Category:``` |
 | admin-backlog.js | v | 在頁頂顯示管理員積壓工作 | ```CSD```、```EP```、```Unblock``` |
+| auto-unblock.js | o | 封禁期限小於現在自動變成解封 | ```Special:Block``` |
 | block-time-convert.js | v | 封禁執行頁轉換時間 | ```Special:Block``` |
 | category-change.js | v | 添加使用過濾器來檢視分類變更連結 | 似乎已失效？ |
 | csd-reason-in-csd-cat.js | v | 在分類:快速刪除候選顯示頁面速刪理由 |  |
