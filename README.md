@@ -40,6 +40,7 @@
 | getSearchResult.js | v | 將搜尋結果產生列表 | 於```Special:Search``` |
 | getdiff.js | o | 在差異/固定版本模式下取得差異/固定版本內部連結 | ```Special:Diff```或```Special:PermaLink``` |
 | hide-logout-btn.js | v | 隱藏登出按鈕 |  |
+| hide-long-summary.js | h | 隱藏過長的編輯摘要 |  |
 | hide-rollback-link.js | ho | 隱藏回退按鈕 | 於```Special:Watchlist```、```Special:Recentchangeslinked```、```action=history``` |
 | logout-check.js | v | 登出再次確認 |  |
 | patrollink-click.js | v | 點擊巡查連結 | 我懶( |
