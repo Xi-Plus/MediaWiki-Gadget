@@ -46,7 +46,7 @@ if (document.getElementById("speedy-delete") !== null) {
 			contributor.innerHTML = Object.keys(contributors).length+"人"+page.revisions.length+"編輯";
 			var contributorstring = "";
 			$.each(contributors, function(user, count) {
-				contributorstring += user+" *"+count+"<br>";
+				contributorstring += '<a href="' + path.replace('$1', 'Special:Contributions/' + user) + '">' + user + "</a> *" + count + "<br>";
 			});
 			contributor.setAttribute("onclick", "mw.notify(['貢獻者：<br>"+contributorstring+"'])");
 		},
