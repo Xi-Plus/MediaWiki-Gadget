@@ -26,6 +26,20 @@ mw.util.addPortletLink(
 	$('#t-specialpages')
 );
 
+window.removehiddenchars = function () {
+	importScript("User:Vanished user 1929210/removehiddenchars.js");
+	mw.notify("已去除不可見字元");
+}
+mw.util.addPortletLink(
+	"p-tb",
+	"javascript:removehiddenchars()",
+	"去除不可見字元",
+	't-removehiddenchars',
+	'',
+	'',
+	$('#t-specialpages')
+);
+
 if (mw.config.get('wgRelevantUserName') !== null) {
 	mw.util.addPortletLink(
 		'p-tb',
@@ -111,8 +125,9 @@ if (mw.config.get("wgNamespaceNumber") == 8) {
 			'<a href="/wiki/Wikipedia:頁面存廢討論/記錄/'+today.getUTCFullYear()+'/'+(today.getUTCMonth()+1<10?'0':'')+(today.getUTCMonth()+1)+'/'+(today.getUTCDate()<10?'0':'')+today.getUTCDate()+'">今</a>'+
 		'</li><li>'+
 			'<a href="/wiki/Wikipedia:当前的破坏">VIP</a> '+
+			'<a href="/wiki/Wikipedia:當前的編輯爭議">EWIP</a> '+
 			'<a href="/wiki/Wikipedia:请求保护页面">PT</a> '+
 			'<a href="/wiki/Wikipedia:需要管理員注意的用戶名">UAA</a> '+
-			'<a href="/wiki/Wikipedia:用戶查核請求">RFCU</a>'+
+			'<a href="/wiki/Wikipedia:元維基用戶查核協助請求">RFCU</a>'+
 		'</li>';
 })();
