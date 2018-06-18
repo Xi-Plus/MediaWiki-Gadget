@@ -1,3 +1,8 @@
+javascript:
+(function(){
+
+mw.loader.using(['mediawiki.api']).done(function(){
+
 var backlog = mw.util.addPortletLink(
 	'p-personal',
 	'#',
@@ -56,3 +61,7 @@ setInterval(getEP, 60*1000);
 getEP();
 setInterval(getUB, 5*60*1000);
 getUB();
+
+});
+
+})();

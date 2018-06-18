@@ -1,3 +1,8 @@
+javascript:
+(function(){
+
+mw.loader.using(['mediawiki.api']).done(function(){
+
 var patroll = mw.util.addPortletLink(
 	'p-personal',
 	'#',
@@ -51,3 +56,7 @@ function getPatrollCount() {
 }
 setInterval(getPatrollCount, 10*1000);
 getPatrollCount();
+
+});
+
+})();
