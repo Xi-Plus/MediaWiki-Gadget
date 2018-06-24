@@ -1,7 +1,7 @@
 javascript:
 (function(){
 
-if (mw.config.get('wgCanonicalSpecialPageName') !== "AbuseLog" || mw.config.get('wgPageName').indexOf("/") === -1) {
+if (mw.config.get('wgCanonicalSpecialPageName') !== "AbuseLog" || mw.config.get('wgPageName').indexOf("/") === -1 || mw.config.get("wgAbuseFilterVariables")["action"] !== "edit") {
 	return;
 }
 
