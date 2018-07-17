@@ -115,19 +115,20 @@ if (mw.config.get("wgNamespaceNumber") == 8) {
 	var tdby = new Date();
 	yesterday.setUTCDate(today.getUTCDate()-1);
 	tdby.setUTCDate(today.getUTCDate()-2);
-	document.getElementById("p-navigation").children[1].children[0].innerHTML +=
-		'<li>'+
-			'<a href="/wiki/Wikipedia:頁面存廢討論">AFD</a> '+
-			'<a href="/wiki/Wikipedia:頁面存廢討論/積壓討論">積壓</a> '+
-			'<a href="/wiki/Wikipedia:頁面存廢討論/記錄">本週</a> '+
-			'<a href="/wiki/Wikipedia:頁面存廢討論/記錄/'+tdby.getUTCFullYear()+'/'+(tdby.getUTCMonth()+1<10?'0':'')+(tdby.getUTCMonth()+1)+'/'+(tdby.getUTCDate()<10?'0':'')+tdby.getUTCDate()+'">前</a> '+
-			'<a href="/wiki/Wikipedia:頁面存廢討論/記錄/'+yesterday.getUTCFullYear()+'/'+(yesterday.getUTCMonth()+1<10?'0':'')+(yesterday.getUTCMonth()+1)+'/'+(yesterday.getUTCDate()<10?'0':'')+yesterday.getUTCDate()+'">昨</a> '+
-			'<a href="/wiki/Wikipedia:頁面存廢討論/記錄/'+today.getUTCFullYear()+'/'+(today.getUTCMonth()+1<10?'0':'')+(today.getUTCMonth()+1)+'/'+(today.getUTCDate()<10?'0':'')+today.getUTCDate()+'">今</a>'+
-		'</li><li>'+
-			'<a href="/wiki/Wikipedia:当前的破坏">VIP</a> '+
-			'<a href="/wiki/Wikipedia:當前的編輯爭議">EWIP</a> '+
-			'<a href="/wiki/Wikipedia:请求保护页面">PT</a> '+
-			'<a href="/wiki/Wikipedia:需要管理員注意的用戶名">UAA</a> '+
-			'<a href="/wiki/Wikipedia:元維基用戶查核協助請求">RFCU</a>'+
-		'</li>';
+
+	$('<li>'+
+		'<a href="/wiki/Wikipedia:頁面存廢討論">AFD</a> '+
+		'<a href="/wiki/Wikipedia:頁面存廢討論/積壓討論">積壓</a> '+
+		'<a href="/wiki/Wikipedia:頁面存廢討論/記錄">本週</a> '+
+		'<a href="/wiki/Wikipedia:頁面存廢討論/記錄/'+tdby.getUTCFullYear()+'/'+(tdby.getUTCMonth()+1<10?'0':'')+(tdby.getUTCMonth()+1)+'/'+(tdby.getUTCDate()<10?'0':'')+tdby.getUTCDate()+'">前</a> '+
+		'<a href="/wiki/Wikipedia:頁面存廢討論/記錄/'+yesterday.getUTCFullYear()+'/'+(yesterday.getUTCMonth()+1<10?'0':'')+(yesterday.getUTCMonth()+1)+'/'+(yesterday.getUTCDate()<10?'0':'')+yesterday.getUTCDate()+'">昨</a> '+
+		'<a href="/wiki/Wikipedia:頁面存廢討論/記錄/'+today.getUTCFullYear()+'/'+(today.getUTCMonth()+1<10?'0':'')+(today.getUTCMonth()+1)+'/'+(today.getUTCDate()<10?'0':'')+today.getUTCDate()+'">今</a>'+
+		'</li>').appendTo($('#p-navigation ul'));
+	$('<li>'+
+		'<a href="/wiki/Wikipedia:当前的破坏">VIP</a> '+
+		'<a href="/wiki/Wikipedia:當前的編輯爭議">EWIP</a> '+
+		'<a href="/wiki/Wikipedia:请求保护页面">PT</a> '+
+		'<a href="/wiki/Wikipedia:需要管理員注意的用戶名">UAA</a> '+
+		'<a href="/wiki/Wikipedia:元維基用戶查核協助請求">RFCU</a>'+
+		'</li>').appendTo($('#p-navigation ul'));
 })();
