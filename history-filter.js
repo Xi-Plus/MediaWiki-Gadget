@@ -8,6 +8,8 @@ if (mw.config.get('wgAction') !== "history") {
 	return;
 }
 
+mw.loader.using(['jquery.ui.dialog'], function() {
+
 var dialog = null,
 	config = {'username': '', 'comment': ''};
 
@@ -85,5 +87,7 @@ var $filter = $('<button />', {
 });
 $filter.on('click', main);
 $(".historysubmit.mw-history-compareselectedversions-button").after($filter);
+
+});
 
 })();
