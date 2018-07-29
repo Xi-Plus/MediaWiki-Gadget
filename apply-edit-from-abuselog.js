@@ -1,36 +1,65 @@
 javascript:
 (function(){
 
-if (mw.config.get('wgCanonicalSpecialPageName') !== "AbuseLog" || mw.config.get('wgPageName').indexOf("/") === -1 || mw.config.get("wgAbuseFilterVariables")["action"] !== "edit") {
+if (mw.config.get('wgCanonicalSpecialPageName') !== "AbuseLog" || mw.config.get('wgPageName').indexOf("/") === -1) {
 	return;
 }
 
-function applyEdit(){
+function applyEdit(type){
 mw.loader.using(['mediawiki.util']).done(function(){
+	var actionname = {
+		"edit": "編輯",
+		"move": "移動",
+	};
+
+	var url;
+	if (type === "edit") {
+		url = "/w/index.php?title=" + encodeURIComponent(mw.config.get("wgAbuseFilterVariables")["article_prefixedtext"]) + "&action=submit&editintro=Template:XSS-editnotice"
+	} else if (type === "move") {
+		url = "/w/index.php?title=Special:MovePage/" + encodeURIComponent(mw.config.get("wgAbuseFilterVariables")["moved_from_prefixedtext"])
+	}
 	var form = $("<form target='_blank' method='POST' style='display:none;'></form>").attr({
-	    action: "/w/index.php?title=" + encodeURIComponent(mw.config.get("wgAbuseFilterVariables")["article_prefixedtext"]) + "&action=submit&editintro=Template:XSS-editnotice"
+	    action: url
 	}).appendTo(document.body);
 
-	$('<input type="hidden" />').attr({
-		name: "wpTextbox1",
-		value: mw.config.get("wgAbuseFilterVariables")["new_wikitext"]}
-		).appendTo(form);
+	if (type === "edit") {
+		$('<input type="hidden" />').attr({
+			name: "wpTextbox1",
+			value: mw.config.get("wgAbuseFilterVariables")["new_wikitext"]}
+			).appendTo(form);
 
-	$('<input type="hidden" />').attr({
-		name: "wpDiff", value: "1"
-		}).appendTo(form);
+		$('<input type="hidden" />').attr({
+			name: "wpDiff",
+			value: "1"
+			}).appendTo(form);
 
-	$('<input type="hidden" />').attr({
-		name: "wpStarttime",
-		value: "0"
-		}).appendTo(form);
+		$('<input type="hidden" />').attr({
+			name: "wpStarttime",
+			value: "1"
+			}).appendTo(form);
 
-	var d = new Date();
-	var edittime = "" + d.getFullYear() + ("0" + (d.getMonth() + 1)).substr(-2) + ("0" + d.getDate()).substr(-2) + d.getHours() + d.getMinutes() + d.getSeconds();
-	$('<input type="hidden" />').attr({
-		name: "wpEdittime",
-		value: edittime
-		}).appendTo(form);
+		$('<input type="hidden" />').attr({
+			name: "wpRecreate",
+			value: ""
+			}).appendTo(form);
+
+		var d = new Date();
+		var edittime = "" + d.getFullYear() + ("0" + (d.getMonth() + 1)).substr(-2) + ("0" + d.getDate()).substr(-2) + d.getHours() + d.getMinutes() + d.getSeconds();
+		$('<input type="hidden" />').attr({
+			name: "wpEdittime",
+			value: edittime
+			}).appendTo(form);
+	} else if (type === "move") {
+		$('<input type="hidden" />').attr({
+			name: "wpNewTitle",
+			value: mw.config.get("wgAbuseFilterVariables")["moved_to_prefixedtext"]
+			}).appendTo(form);
+
+		$('<input type="hidden" />').attr({
+			name: "wpLeaveRedirect",
+			value: "1"
+			}).appendTo(form);
+	}
 
 	$('<input type="hidden" />').attr({
 		name: "wpEditToken",
@@ -57,20 +86,30 @@ mw.loader.using(['mediawiki.util']).done(function(){
 		return res;
 	}
 
-	summary += "於" + timestamp2mwtime(mw.config.get("wgAbuseFilterVariables")["timestamp"]) + "[[" + mw.config.get('wgPageName') + "|嘗試做出的編輯]]";
+	summary += "於" + timestamp2mwtime(mw.config.get("wgAbuseFilterVariables")["timestamp"]) + "[[" + mw.config.get('wgPageName') + "|嘗試做出的" + actionname[type] + "]]";
 	if (mw.config.get("wgAbuseFilterVariables")["summary"]) {
-		summary += "，編輯摘要為：" + mw.config.get("wgAbuseFilterVariables")["summary"]
+		summary += "，編輯" + actionname[type] + "為：" + mw.config.get("wgAbuseFilterVariables")["summary"]
 	} else {
-		summary += "，無編輯摘要";
+		summary += "，無" + actionname[type] + "摘要";
 	}
-	$('<input type="hidden" />').attr({name: "wpSummary", value: summary}).appendTo(form);
+
+	if (type === "edit") {
+		$('<input type="hidden" />').attr({name: "wpSummary", value: summary}).appendTo(form);
+	} else {
+		$('<input type="hidden" />').attr({name: "wpReason", value: summary}).appendTo(form);
+	}
 
 	form.submit();
 	form.remove();
 });
 }
 
-var btn = $('<a href="#">套用編輯</a>').insertAfter($("#mw-content-text>fieldset>p>span>a").last()).before(" | ");
-btn.on("click", applyEdit);
+if (mw.config.get("wgAbuseFilterVariables")["action"] === "edit") {
+	var btn = $('<a href="#">套用編輯</a>').insertAfter($("#mw-content-text>fieldset>p>span>a").last()).before(" | ");
+	btn.on("click", function(){applyEdit("edit");});
+} else if (mw.config.get("wgAbuseFilterVariables")["action"] === "move") {
+	var btn = $('<a href="#">套用移動</a>').insertAfter($("#mw-content-text>fieldset>p>span>a").last()).before(" | ");
+	btn.on("click", function(){applyEdit("move");});
+}
 
 })();
