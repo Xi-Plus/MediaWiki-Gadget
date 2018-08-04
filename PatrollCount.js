@@ -54,7 +54,9 @@ function getPatrollCount() {
 			unpatrollUsertalk.innerHTML = data.query.recentchanges.length;
 		});
 }
-setInterval(getPatrollCount, 10*1000);
+if (typeof window.PatrollCountInterval === "number") {
+	setInterval(getPatrollCount, PatrollCountInterval);
+}
 getPatrollCount();
 
 });

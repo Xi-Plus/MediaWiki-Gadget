@@ -56,13 +56,13 @@ function getUB() {
 		});
 }
 if (typeof window.AdminBacklogCSD === "number") {
-	setInterval(getCSD, 10*1000);
+	setInterval(getCSD, window.AdminBacklogCSD);
 }
 if (typeof window.AdminBacklogEP === "number") {
-	setInterval(getEP, 60*1000);
+	setInterval(getEP, window.AdminBacklogEP);
 }
 if (typeof window.AdminBacklogUB === "number") {
-	setInterval(getUB, 5*60*1000);
+	setInterval(getUB, window.AdminBacklogUB);
 }
 getCSD();
 getEP();
