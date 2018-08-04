@@ -55,11 +55,17 @@ function getUB() {
 			});
 		});
 }
-setInterval(getCSD, 10*1000);
+if (typeof window.AdminBacklogCSD === "number") {
+	setInterval(getCSD, 10*1000);
+}
+if (typeof window.AdminBacklogEP === "number") {
+	setInterval(getEP, 60*1000);
+}
+if (typeof window.AdminBacklogUB === "number") {
+	setInterval(getUB, 5*60*1000);
+}
 getCSD();
-setInterval(getEP, 60*1000);
 getEP();
-setInterval(getUB, 5*60*1000);
 getUB();
 
 });
