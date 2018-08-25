@@ -1,10 +1,4 @@
 if (document.getElementById("speedy-delete") !== null) {
-	var path = mw.config.get('wgArticlePath');
-	var node = document.createElement("span");
-	node.id = "delete-requester";
-	node.style = "margin-left: 5px;";
-	node.innerHTML = '提刪者：<span id="delrequester">未取得</span>';
-	document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
 	var node = document.createElement("span");
 	node.id = "contributor-list";
 	node.style = "margin-left: 5px;";
@@ -22,27 +16,18 @@ if (document.getElementById("speedy-delete") !== null) {
 			rvlimit: "50"
 		},
 		success: function success(data) {
-			var message = "找不到提刪者";
 			var path = mw.config.get('wgArticlePath');
 			for (var id in data.query.pages) {
 				var page = data.query.pages[id];
-				var requester = [];
 				var contributors = {};
 				for (var i = 0; i < page.revisions.length; i++) {
 					var user = page.revisions[i].user;
-					if (page.revisions[i].tags.indexOf("添加刪除模板") !== -1) {
-						requester.push('<a href="' + path.replace('$1', 'Special:Contributions/' + user) + '">' + user + '</a>');
-					}
 					if (contributors[user] === undefined) {
 						contributors[user] = 0;
 					}
 					contributors[user]++;
 				}
-				if (requester.length != 0) {
-					message = requester.join("、");
-				}
 			}
-			delrequester.innerHTML = message;
 			contributor.innerHTML = Object.keys(contributors).length+"人"+page.revisions.length+"編輯";
 			var contributorstring = "";
 			$.each(contributors, function(user, count) {
