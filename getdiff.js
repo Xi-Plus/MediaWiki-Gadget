@@ -1,24 +1,29 @@
 javascript:
 (function(){
 
-var searchs = document.location.search.substr(1).split("&");
-var diff = "";
-var oldid = "";
-for (var i = searchs.length - 1; i >= 0; i--) {
-	if (searchs[i].substr(0, 5) === "diff=") {
-		diff = searchs[i].substr(5);
-	} else if (searchs[i].substr(0, 6) === "oldid=") {
-		oldid = searchs[i].substr(6);
-	}
-}
-if (diff === "prev") {
-	prompt("wikitext", "[[Special:diff/"+oldid+"]]");
-} else if (diff === "next") {
-	alert("cannot get");
-} else if (diff === "" && oldid !== "") {
-	prompt("wikitext", "[[Special:PermaLink/"+oldid+"]]");
+mw.loader.using(["mediawiki.util", "mediawiki.notify"]).done(function(){
+
+var getp = mw.util.getParamValue;
+
+var link = "";
+if (getp("diff") === "prev" && getp("oldid")) {
+	link = "Special:Diff/" + getp("oldid");
+} else if (getp("diff") === "next") {
+	mw.notify("Cannot get link");
+	return;
+} else if (!getp("diff") && getp("oldid")) {
+	link = "Special:PermaLink/" + getp("oldid");
+} else if (getp("diff")) {
+	link = "Special:Diff/" + getp("diff");
 } else {
-	prompt("wikitext", "[[Special:Diff/"+diff+"]]");
+	mw.notify("Cannot get link");
+	return;
 }
+
+link += decodeURIComponent(location.hash);
+
+prompt("wikitext", "[[" + link + "]]");
+
+})();
 
 })();
