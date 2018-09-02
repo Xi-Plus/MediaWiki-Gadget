@@ -14,9 +14,9 @@ mw.loader.using(['mediawiki.util']).done(function(){
 
 	var url;
 	if (type === "edit") {
-		url = "/w/index.php?title=" + encodeURIComponent(mw.config.get("wgAbuseFilterVariables")["article_prefixedtext"]) + "&action=submit&editintro=Template:XSS-editnotice"
+		url = "/w/index.php?title=" + encodeURIComponent(mw.config.get("wgAbuseFilterVariables")["page_prefixedtitle"]) + "&action=submit&editintro=Template:XSS-editnotice"
 	} else if (type === "move") {
-		url = "/w/index.php?title=Special:MovePage/" + encodeURIComponent(mw.config.get("wgAbuseFilterVariables")["moved_from_prefixedtext"])
+		url = "/w/index.php?title=Special:MovePage/" + encodeURIComponent(mw.config.get("wgAbuseFilterVariables")["moved_from_prefixedtitle"])
 	}
 	var form = $("<form target='_blank' method='POST' style='display:none;'></form>").attr({
 	    action: url
@@ -52,7 +52,7 @@ mw.loader.using(['mediawiki.util']).done(function(){
 	} else if (type === "move") {
 		$('<input type="hidden" />').attr({
 			name: "wpNewTitle",
-			value: mw.config.get("wgAbuseFilterVariables")["moved_to_prefixedtext"]
+			value: mw.config.get("wgAbuseFilterVariables")["moved_to_prefixedtitle"]
 			}).appendTo(form);
 
 		$('<input type="hidden" />').attr({
