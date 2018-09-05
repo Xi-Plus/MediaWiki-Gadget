@@ -1,20 +1,17 @@
 javascript:
 (function(){
 
-mw.loader.using(["mediawiki.util", "mediawiki.notify"]).done(function(){
-
-var getp = mw.util.getParamValue;
+mw.loader.using(["mediawiki.notify"]).done(function(){
 
 var link = "";
-if (getp("diff") === "prev" && getp("oldid")) {
-	link = "Special:Diff/" + getp("oldid");
-} else if (getp("diff") === "next") {
-	mw.notify("Cannot get link");
-	return;
-} else if (!getp("diff") && getp("oldid")) {
-	link = "Special:PermaLink/" + getp("oldid");
-} else if (getp("diff")) {
-	link = "Special:Diff/" + getp("diff");
+if (mw.config.get("wgDiffNewId")) {
+	if ($(".diff-multi").length > 0) {
+		link = "Special:Diff/" + mw.config.get("wgDiffOldId") + "/" + mw.config.get("wgDiffNewId");
+	} else {
+		link = "Special:Diff/" + mw.config.get("wgDiffNewId");
+	}
+} else if (mw.config.get("wgRevisionId")) {
+	link = "Special:PermaLink/" + mw.config.get("wgRevisionId");
 } else {
 	mw.notify("Cannot get link");
 	return;
