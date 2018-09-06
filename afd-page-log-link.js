@@ -1,3 +1,5 @@
+(function(){
+
 if (/^Wikipedia:頁面存廢討論\/記錄\/\d+\/\d+\/\d+$/.test(mw.config.get('wgPageName'))) {
 	var list = $(".mw-headline a");
 	for (var i = 0; i < list.length; i++) {
@@ -9,3 +11,5 @@ if (/^Wikipedia:頁面存廢討論\/記錄\/\d+\/\d+\/\d+$/.test(mw.config.get('
 		}
 	}
 }
+
+})();
