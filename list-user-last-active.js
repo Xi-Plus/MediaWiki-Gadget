@@ -12,6 +12,23 @@ if (mw.config.get('wgCanonicalSpecialPageName') !== "Listusers") {
 	return;
 }
 
+function wgULS(hans, hant, cn, tw, hk, sg, zh, mo, my)
+/* 修改自 https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-site-lib.js&oldid=36816755 */
+{
+	var wg = mw.config.get('wgUserLanguage');
+	var ret = {
+        'zh': zh || hans || hant || cn || tw || hk || sg || mo || my,
+        'zh-hans': hans || cn || sg || my,
+        'zh-hant': hant || tw || hk || mo,
+        'zh-cn': cn || hans || sg || my,
+        'zh-sg': sg || hans || cn || my,
+        'zh-tw': tw || hant || hk || mo,
+        'zh-hk': hk || hant || mo || tw,
+        'zh-mo': mo || hant || hk || tw
+    }
+    return ret[wg] || zh || hans || hant || cn || tw || hk || sg || mo || my;
+};
+
 function add_leading_zero(number)
 {
 	if (number < 10)
