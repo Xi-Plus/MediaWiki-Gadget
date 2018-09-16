@@ -8,9 +8,11 @@ if (add === null) {
 }
 add = add.replace(/\\n/g, "<br>");
 
+var prefix = (mw.config.get('wgServer') + mw.config.get('wgArticlePath')).replace(/^\/\//, "").replace("$1", "");
 var text = "";
-$(".mw-search-result-heading").each(function(i, e) {
-	text += add.replace(/\$1/g, e.children[0].innerText);
+$(".mw-search-result-heading>a").each(function(i, e) {
+	var page = decodeURI(e.href.split(prefix)[1]);
+	text += add.replace(/\$1/g, page);
 });
 
 var win = window.open("", "Search Result");
