@@ -12,7 +12,7 @@ javascript: (function() {
         if (e == 'nocreate-missing') {
             mw.notify('頁面不存在');
         } else {
-            mw.notify('未知錯誤');
+            mw.notify('未知錯誤：'+e);
         }
     });
 
