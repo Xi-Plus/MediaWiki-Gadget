@@ -6,7 +6,7 @@ if (mw.config.get('wgPageName') !== "Category:快速删除候选") return;
 var titlelist = [];
 var elements = {};
 $("#mw-pages a").each(function(i, e){
-	var title = decodeURIComponent(e.href.substr(30));
+	var title = decodeURIComponent(e.href.replace(/.*?\/wiki\//, ''));
 	titlelist.push(title);
 	elements[title] = e;
 });
