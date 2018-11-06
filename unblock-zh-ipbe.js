@@ -1,3 +1,4 @@
+// <nowiki>
 (function(){
 
 if (typeof(UnblockZhIpbe) == 'undefined')
@@ -182,3 +183,4 @@ if (UnblockZhIpbe.enableOn) {
 }
 
 })();
+// </nowiki>
