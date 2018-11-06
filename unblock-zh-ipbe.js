@@ -118,7 +118,7 @@ function Report(username, urllong) {
     });
 }
 
-if (UnblockZhIpbe.enableOn) {
+if (UnblockZhIpbe.enableOn()) {
     var clickLink = mw.util.addPortletLink(
         'p-cactions',
         '#',
