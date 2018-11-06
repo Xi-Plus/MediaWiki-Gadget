@@ -106,10 +106,12 @@ function NotifyUser(username, duration) {
 }
 
 function Report(username, urllong) {
-    new mw.Api().newSection('Wikipedia:權限申請/申請IP封禁例外權',
-        '',
-        '{{subst:rfp|' + username + '|2=[' + urllong + ' unblock-zh]|status=+}}--~~~~'
-    ).then(function(e) {
+    new mw.Api().edit('Wikipedia:權限申請/申請IP封禁例外權', function(revision) {
+        return {
+            text: revision.content + '\n\n{{subst:rfp|' + username + '|2=[' + urllong + ' unblock-zh]|status=+}}--~~~~',
+            summary: '授予 ' + username + ' IP封禁例外權備案'
+        };
+    }).then(function(e) {
         mw.notify('成功為 ' + username + ' 備案');
     }, function(e) {
         mw.notify('未知錯誤：' + e);
