@@ -30,7 +30,9 @@ javascript: (function() {
         if (e.import.length === 0) {
             mw.notify('沒有匯入任何頁面');
         } else {
-            mw.notify('成功匯入');
+            for (var i = 0; i < e.import.length; i++) {
+                mw.notify('成功匯入 ' + e.import[i].title + ' ' + e.import[i].revisions + ' 個版本');
+            }
         }
     }, function(e) {
         mw.notify('未知錯誤：' + e);
