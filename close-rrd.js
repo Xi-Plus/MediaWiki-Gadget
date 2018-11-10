@@ -121,7 +121,7 @@
             content = content.replace(/{{Revdel/g, splittoken + '{{Revdel');
             contents = content.split(splittoken);
             contents[key] = contents[key].trim();
-            contents[key] = contents[key].replace(/^(\|\s*status\s*=\s*)(.*)$/m, '$1' + status);
+            contents[key] = contents[key].replace(/^(\|\s*status\s*=[ \t]*)(.*)$/m, '$1' + status);
             contents[key] += '\n:' + reason;
             if (reason2.trim() !== '') {
                 contents[key] += '：' + reason2;
