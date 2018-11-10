@@ -101,7 +101,7 @@
                 buttons: [{
                     text: '確定',
                     click: function() {
-                        processEdit(key, $(this).find('#status').val(), $(this).find('#reason').val(), $(this).find('#reason2').val());
+                        processEdit(key, title, $(this).find('#status').val(), $(this).find('#reason').val(), $(this).find('#reason2').val());
                         $(this).dialog('close');
                     }
                 }, {
@@ -114,7 +114,7 @@
         });
     }
 
-    function processEdit(key, status, reason, reason2) {
+    function processEdit(key, title, status, reason, reason2) {
         new mw.Api().edit('Wikipedia:修订版本删除请求', function(revision) {
             content = revision.content;
             splittoken = 'CLOSE_RRD_SPLIT_TOKEN';
@@ -128,14 +128,14 @@
             }
             contents[key] += '。--~~~~\n\n';
             content = contents.join("");
-            $($('div.mw-parser-output>div.plainlinks')[key]).find('.closeRrdBtn span').css('color', 'grey');
+            $($('div.mw-parser-output>div.plainlinks')[key - 1]).find('.closeRrdBtn span').css('color', 'grey');
             return {
                 text: content,
                 summary: '關閉請求',
                 minor: true
             };
         }).then(function(e) {
-            mw.notify('已關閉一則請求');
+            mw.notify('已關閉 ' + title);
         }, function(e) {
             mw.notify('未知錯誤：' + e);
         });
