@@ -84,12 +84,15 @@
             html += '<br>';
             html += '理由<br>';
             html += '<select id="reason">';
-            html += '<option value=":刪除。">:刪除。</option>';
-            html += '<option value=":部份刪除。">:部份刪除。</option>';
-            html += '<option value=":未刪除。">:未刪除。</option>';
-            html += '<option value=":未刪除，未達RD2準則。">:未刪除，未達RD2準則。</option>';
-            html += '<option value=":未刪除，未達RD3準則。">:未刪除，未達RD3準則。</option>';
+            html += '<option value="刪除">刪除</option>';
+            html += '<option value="部份刪除">部份刪除</option>';
+            html += '<option value="未刪除">未刪除</option>';
+            html += '<option value="未刪除，未達RD2準則">未刪除，未達RD2準則</option>';
+            html += '<option value="未刪除，未達RD3準則">未刪除，未達RD3準則</option>';
             html += '</select>';
+            html += '<br>';
+            html += '附加理由<br>';
+            html += '<input type="text" id="reason2" size="40">';
             html += '</div>';
             $(html).dialog({
                 title: '關閉修訂版本刪除請求 - ' + title,
@@ -98,7 +101,7 @@
                 buttons: [{
                     text: '確定',
                     click: function() {
-                        processEdit(key, $(this).find('#status').val(), $(this).find('#reason').val());
+                        processEdit(key, $(this).find('#status').val(), $(this).find('#reason').val(), $(this).find('#reason2').val());
                         $(this).dialog('close');
                     }
                 }, {
@@ -111,7 +114,7 @@
         });
     }
 
-    function processEdit(key, status, reason) {
+    function processEdit(key, status, reason, reason2) {
         new mw.Api().edit('Wikipedia:修订版本删除请求', function(revision) {
             content = revision.content;
             splittoken = 'CLOSE_RRD_SPLIT_TOKEN';
@@ -119,7 +122,11 @@
             contents = content.split(splittoken);
             contents[key] = contents[key].trim();
             contents[key] = contents[key].replace(/^(\|\s*status\s*=\s*)(.*)$/m, '$1' + status);
-            contents[key] += '\n' + reason + '--~~~~\n\n';
+            contents[key] += '\n:' + reason;
+            if (reason2.trim() !== '') {
+                contents[key] += '：' + reason2;
+            }
+            contents[key] += '。--~~~~\n\n';
             content = contents.join("");
             $($('div.mw-parser-output>div.plainlinks')[key]).find('.closeRrdBtn span').css('color', 'grey');
             return {
