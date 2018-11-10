@@ -1,7 +1,7 @@
 // <nowiki>
 (function() {
 
-    if (mw.config.get('wgPageName') !== 'Wikipedia:修订版本删除请求') {
+    if (mw.config.get('wgPageName') !== 'Wikipedia:修订版本删除请求' || mw.config.get('wgAction') !== 'view') {
         return;
     }
 
@@ -145,7 +145,7 @@
         window.content = result.content;
         var lenintext = result.content.split("{{Revdel").length - 1;
         if ($('div.mw-parser-output>div.plainlinks').length !== lenintext) {
-            mw.notify('抓取章節錯誤，在HTML找到 ' + $('div.mw-parser-output>div.plainlinks').length + '個章節，在原始碼找到 ' + lenintext + ' 個章節');
+            mw.notify('抓取章節錯誤，在HTML找到 ' + $('div.mw-parser-output>div.plainlinks').length + ' 個章節，在原始碼找到 ' + lenintext + ' 個章節');
         } else {
             showCloseButton();
         }
