@@ -1,4 +1,5 @@
-javascript: (function() {
+// <nowiki>
+(function() {
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:修订版本删除请求') {
         return;
@@ -145,3 +146,4 @@ javascript: (function() {
 
 }
 )();
+// </nowiki>
