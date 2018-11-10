@@ -131,13 +131,18 @@
             $($('div.mw-parser-output>div.plainlinks')[key - 1]).find('.closeRrdBtn span').css('color', 'grey');
             return {
                 text: content,
+                basetimestamp: revision.timestamp,
                 summary: '關閉請求',
                 minor: true
             };
         }).then(function(e) {
             mw.notify('已關閉 ' + title);
         }, function(e) {
-            mw.notify('未知錯誤：' + e);
+            if (e == 'editconflict') {
+                mw.notify('關閉 ' + title + ' 時發生編輯衝突');
+            } else {
+                mw.notify('關閉 ' + title + ' 時發生未知錯誤：' + e);
+            }
         });
     }
 
