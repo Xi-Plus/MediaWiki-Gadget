@@ -79,7 +79,18 @@ function NotifyUser(username, duration) {
         prop: 'info',
         titles: usertalk
     }).done(function(data) {
-        if (Object.values(data.query.pages)[0].contentmodel == 'flow-board') {
+        var page = Object.values(data.query.pages)[0];
+        if (page.missing !== undefined) {
+            new mw.Api().create(
+                usertalk,
+                { summary: '授予IP封禁例外權通知' },
+                message
+            ).then(function(e) {
+                mw.notify('成功發送通知給 ' + username);
+            }, function(e) {
+                mw.notify('未知錯誤：' + e);
+            });
+        } else if (page.contentmodel == 'flow-board') {
             new mw.Api().postWithEditToken({
                 action: 'flow',
                 page: usertalk,
@@ -93,10 +104,12 @@ function NotifyUser(username, duration) {
                 mw.notify('未知錯誤：' + e);
             });
         } else {
-            new mw.Api().newSection(usertalk,
-                '',
-                message
-            ).then(function(e) {
+            new mw.Api().edit(usertalk, function(revision) {
+                return {
+                    text: (revision.content + '\n\n' + message).trim(),
+                    summary: '授予IP封禁例外權通知'
+                };
+            }).then(function(e) {
                 mw.notify('成功發送通知給 ' + username);
             }, function(e) {
                 mw.notify('未知錯誤：' + e);
