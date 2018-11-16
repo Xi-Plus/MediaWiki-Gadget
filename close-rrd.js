@@ -1,6 +1,17 @@
 // <nowiki>
 (function() {
 
+	if (typeof(CloseRrd) == 'undefined')
+	    CloseRrd = {};
+
+	if (typeof(CloseRrd.summary) == 'undefined') {
+	    CloseRrd.summary = '關閉請求';
+	}
+
+	if (typeof(CloseRrd.reason) == 'undefined') {
+	    CloseRrd.summary = ['刪除', '部份刪除', '未刪除', '未達RD2準則', '未刪除，未達RD3準則'];
+	}
+
     if (mw.config.get('wgPageName') !== 'Wikipedia:修订版本删除请求' || mw.config.get('wgAction') !== 'view') {
         return;
     }
@@ -84,11 +95,9 @@
             html += '<br>';
             html += '理由<br>';
             html += '<select id="reason">';
-            html += '<option value="刪除">刪除</option>';
-            html += '<option value="部份刪除">部份刪除</option>';
-            html += '<option value="未刪除">未刪除</option>';
-            html += '<option value="未刪除，未達RD2準則">未刪除，未達RD2準則</option>';
-            html += '<option value="未刪除，未達RD3準則">未刪除，未達RD3準則</option>';
+            for (var i = 0; i < CloseRrd.summary.length; i++) {
+            	html += '<option value="' + CloseRrd.summary[i] + '">' + CloseRrd.summary[i] + '</option>'
+            }
             html += '</select>';
             html += '<br>';
             html += '附加理由<br>';
@@ -132,7 +141,7 @@
             return {
                 text: content,
                 basetimestamp: revision.timestamp,
-                summary: '關閉請求',
+                summary: CloseRrd.summary,
                 minor: true
             };
         }).then(function(e) {
