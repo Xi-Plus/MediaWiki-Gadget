@@ -95,8 +95,8 @@
             html += '<br>';
             html += '理由<br>';
             html += '<select id="reason">';
-            for (var i = 0; i < CloseRrd.summary.length; i++) {
-                html += '<option value="' + CloseRrd.summary[i] + '">' + CloseRrd.summary[i] + '</option>'
+            for (var i = 0; i < CloseRrd.reason.length; i++) {
+                html += '<option value="' + CloseRrd.reason[i] + '">' + CloseRrd.reason[i] + '</option>'
             }
             html += '</select>';
             html += '<br>';
