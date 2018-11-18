@@ -68,10 +68,10 @@
         titles.each(function(key, current) {
             var node = current.getElementsByClassName('mw-headline')[0];
             var title = $(current).find('.mw-headline')[0].id;
-            if (title == '（过滤器日志）') {
+            if (title.match(/^（过滤器日志）/)) {
             	title = '（無標題）';
             } else {
-            	title = title.replace(/（过滤器日志）$/, '');
+            	title = title.replace(/（过滤器日志）.*/, '');
             }
 
             var tmpNode = delNode.cloneNode(true);
@@ -138,7 +138,7 @@
             content = content.replace(/^===/gm, splittoken + '===');
             contents = content.split(splittoken);
             contents[key] = contents[key].trim();
-            contents[key] = contents[key].replace(/{{bugstatus\|status=([^|]*)\|res=([^|]*)}}/, '{{bugstatus|status=' + status + '|res=' + res + '}}');
+            contents[key] = contents[key].replace(/{{bugstatus\|status=([^|\n}]*?)\|res=([^|\n}]*?)}}/, '{{bugstatus|status=' + status + '|res=' + res + '}}');
             if (comment.replace(/[\s:*]/g, '') !== '') {
                 contents[key] += '\n' + comment.trim() + '。--~~~~';
             }
