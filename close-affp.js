@@ -8,7 +8,9 @@
         CloseAffp.summary = '關閉報告';
     }
 
-    if (mw.config.get('wgPageName') !== 'Wikipedia:防滥用过滤器/错误报告' || mw.config.get('wgAction') !== 'view') {
+    if (mw.config.get('wgPageName') !== 'Wikipedia:防滥用过滤器/错误报告'
+        || mw.config.get('wgAction') !== 'view'
+        || mw.config.get('wgRevisionId') !== mw.config.get('wgCurRevisionId')) {
         return;
     }
 
@@ -69,9 +71,9 @@
             var node = current.getElementsByClassName('mw-headline')[0];
             var title = $(current).find('.mw-headline')[0].id;
             if (title.match(/^（过滤器日志）/)) {
-            	title = '（無標題）';
+                title = '（無標題）';
             } else {
-            	title = title.replace(/（过滤器日志）.*/, '');
+                title = title.replace(/（过滤器日志）.*/, '');
             }
 
             var tmpNode = delNode.cloneNode(true);

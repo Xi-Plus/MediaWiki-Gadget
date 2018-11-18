@@ -8,7 +8,9 @@
         CloseVip.summary = '關閉報告';
     }
 
-    if (mw.config.get('wgPageName') !== 'Wikipedia:当前的破坏' || mw.config.get('wgAction') !== 'view') {
+    if (mw.config.get('wgPageName') !== 'Wikipedia:当前的破坏'
+        || mw.config.get('wgAction') !== 'view'
+        || mw.config.get('wgRevisionId') !== mw.config.get('wgCurRevisionId')) {
         return;
     }
 
@@ -66,9 +68,9 @@
         delNode.appendChild(delLink);
 
         titles.each(function(key, current) {
-        	if (key == 0) {
-        		return;
-        	}
+            if (key == 0) {
+                return;
+            }
             var node = current.getElementsByClassName('mw-headline')[0];
             var title = $(current).find('.mw-headline').children()[0].id;
             title = title.replace(/{{vandal\|(.*?)}}/, '$1');
@@ -135,11 +137,11 @@
                 buttons: [{
                     text: '確定',
                     click: function() {
-                    	if ($(this).find('#comment').val().trim() !== '') {
-                    		processEdit(key, title, $(this).find('#comment').val());
-                    	} else {
-                    		mw.notify('動作已取消');
-                    	}
+                        if ($(this).find('#comment').val().trim() !== '') {
+                            processEdit(key, title, $(this).find('#comment').val());
+                        } else {
+                            mw.notify('動作已取消');
+                        }
                         $(this).dialog('close');
                     }
                 }, {
@@ -160,12 +162,12 @@
             contents = content.split(splittoken);
             contents[key] = contents[key].trim();
             if (comment.trim() !== '') {
-            	if (contents[key].match(/^\*\s*处理：[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m)) {
-            		contents[key] = contents[key].replace(/^(\*\s*处理：)[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m, '$1' + comment + '。--~~~~');
+                if (contents[key].match(/^\*\s*处理：[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m)) {
+                    contents[key] = contents[key].replace(/^(\*\s*处理：)[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m, '$1' + comment + '。--~~~~');
 
-            	} else {
-            		contents[key] += '\n* 处理：' + comment + '。--~~~~';
-            	}
+                } else {
+                    contents[key] += '\n* 处理：' + comment + '。--~~~~';
+                }
             }
             contents[key] += '\n\n';
             content = contents.join("");

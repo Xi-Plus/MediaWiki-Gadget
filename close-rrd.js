@@ -12,7 +12,9 @@
         CloseRrd.reason = ['刪除', '部份刪除', '未刪除', '未刪除，未達RD2準則', '未刪除，未達RD3準則'];
     }
 
-    if (mw.config.get('wgPageName') !== 'Wikipedia:修订版本删除请求' || mw.config.get('wgAction') !== 'view') {
+    if (mw.config.get('wgPageName') !== 'Wikipedia:修订版本删除请求'
+        || mw.config.get('wgAction') !== 'view'
+        || mw.config.get('wgRevisionId') !== mw.config.get('wgCurRevisionId')) {
         return;
     }
 
