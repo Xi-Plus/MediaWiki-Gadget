@@ -103,6 +103,7 @@
             html += '<option value="{{VIP|fp}}">錯誤提報，編輯並非破壞（機器人）</option>';
             html += '<option value="{{VIP|c}}">編輯爭議。請考慮解決爭議，或提報至EWIP</option>';
             html += '<option value="{{VIP|np}}">封禁乃用以預防破壞而非懲罰</option>';
+            html += '<option value="{{VIP|p}}">已保護頁面</option>';
             html += '<option value="{{VIP|d}}">已刪除頁面</option>';
             html += '<option value="{{VIP|n}}">注意</option>';
             html += '<option value="{{VIP|s}}">疑似共享IP，由多人共用</option>';
