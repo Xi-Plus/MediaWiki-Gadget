@@ -113,7 +113,7 @@
             html += '<option value="{{VIP|u}}">此頁僅處理破壞，請轉此處提報不當用戶名</option>';
             html += '<option value="{{VIP|r}}">此頁僅處理破壞，請轉此處提報保護頁面</option>';
             html += '<option value="{{VIP|sp}}">此頁僅處理破壞，請轉此處提報用戶核查</option>';
-            html += '<option value="{{VIP|e|X}}">陳舊報告，用戶近期沒有編輯X</option>';
+            html += '<option value="{{VIP|e|X}}">陳舊報告，用戶已停止編輯/用戶近期已沒有編輯X</option>';
             html += '<option value="{{VIP|sn|X}}">報告即時但現已陳舊，用戶最後破壞距今已有X。如用戶再次進行破壞，請回報</option>';
             html += '<option value="{{VIP|ow|Y}}">陳舊警告，最近警告於Y以前發出</option>';
             html += '<option value="{{VIP|q}}">問題</option>';
