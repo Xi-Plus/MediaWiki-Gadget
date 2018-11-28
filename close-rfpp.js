@@ -159,7 +159,7 @@
             }
             contents[key] += '\n\n';
             content = contents.join("");
-            $($('#bodyContent').find('h2:has(.mw-headline), h3:has(.mw-headline)')[key - 1]).find('.CloseRfppBtn span').css('color', 'grey');
+            $($('#bodyContent').find('h2:has(.mw-headline), h3:has(.mw-headline)')[key]).find('.CloseRfppBtn span').css('color', 'grey');
             return {
                 text: content,
                 basetimestamp: revision.timestamp,
