@@ -88,7 +88,7 @@ mw.loader.using(['mediawiki.util']).done(function(){
 
 	summary += "於" + timestamp2mwtime(mw.config.get("wgAbuseFilterVariables")["timestamp"]) + "[[" + mw.config.get('wgPageName') + "|嘗試做出的" + actionname[type] + "]]";
 	if (mw.config.get("wgAbuseFilterVariables")["summary"]) {
-		summary += "，編輯" + actionname[type] + "為：" + mw.config.get("wgAbuseFilterVariables")["summary"]
+		summary += "，" + actionname[type] + "摘要為：" + mw.config.get("wgAbuseFilterVariables")["summary"]
 	} else {
 		summary += "，無" + actionname[type] + "摘要";
 	}
