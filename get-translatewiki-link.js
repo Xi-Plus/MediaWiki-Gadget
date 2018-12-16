@@ -59,7 +59,7 @@ function main() {
 	});
 }
 
-mw.loader.using('mediawiki.util').done(function() {
+mw.loader.using(['mediawiki.util', 'mediawiki.notify']).done(function() {
 	if (mw.util.getParamValue('uselang') === 'qqx') {
 		var node = mw.util.addPortletLink('p-cactions', '#', '取得translatewiki連結');
 		$(node).click(function(e) {
