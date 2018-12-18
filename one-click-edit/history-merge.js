@@ -1,17 +1,9 @@
 javascript: (function() {
 
-    var pagename = mw.config.get('wgPageName');
-    var targetname = null;
-    var m = pagename.match(/^User:Sz-iwbot\/Unihan\/(.+?)$/);
-    if (m) {
-        targetname = m[1];
-    } else {
-        var m = pagename.match(/^(.+?)_1$/);
-        if (m) {
-            targetname = m[1];
-        }
-    }
-    if (targetname) {
+    var pagename = decodeURIComponent($("#history-merge-source").text());
+    var targetname = mw.config.get('wgPageName');
+
+    if (pagename) {
         var content = null;
 
         new mw.Api().get({
@@ -48,6 +40,7 @@ javascript: (function() {
                         mw.notify('還原成功');
 
                         new mw.Api().edit(targetname, function(revision) {
+                            content = content.replace(/\{\{\s*(Histmerge|History[ _]merge)\s*(\|(?:\{\{[^{}]*\}\}|[^{}])*)?\}\}\s*/ig, "");
                             return {
                                 text: content,
                                 summary: '合併歷史',
@@ -75,7 +68,7 @@ javascript: (function() {
         });
 
     } else {
-        mw.notify('無法解析名稱');
+        mw.notify('無法取得來源頁面');
     }
 
 }
