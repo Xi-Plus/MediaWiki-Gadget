@@ -93,8 +93,12 @@
 
         $(".mw-revdelundel-link").each(function(i, e) {
             var url = $(e).find("a").attr("href");
-            target = mw.util.getParamValue("target", url);
-            id = mw.util.getParamValue("ids", url);
+            
+            var type = mw.util.getParamValue("type", url);
+            if (type != 'revision') return;
+
+            var target = mw.util.getParamValue("target", url);
+            var id = mw.util.getParamValue("ids", url);
             var $filter = $('<input />', {
                 'type': 'checkbox',
                 'class': 'mass-revision-delete-checkbox',
