@@ -11,26 +11,32 @@ if (mw.config.get('wgCanonicalSpecialPageName') !== "Contributions") {
 mw.loader.using(['jquery.ui.dialog'], function() {
 
 var dialog = null,
-	config = {'pagename': '', 'comment': ''};
+	config = {'pagename': '', 'comment': '', 'diffbytes1': '', 'diffbytes2': ''};
 
 function saveconfig(){
 	config.pagename = $('#filterPagename').val();
 	config.comment = $('#filterComment').val();
+	config.diffbytes1 = $('#filterDiffBytes1').val();
+	config.diffbytes2 = $('#filterDiffBytes2').val();
 }
 
 function main(){
 	var html =
 	'<div>' +
 	'頁面名稱<br>' +
-	'<input type="text" name="pagename" id="filterPagename" size="40"><br>' +
+	'<input type="text" id="filterPagename" size="40"><br>' +
 	'<br>' +
 	'編輯摘要<br>' +
-	'<input type="text" name="comment" id="filterComment" size="40"><br>' +
+	'<input type="text" id="filterComment" size="40"><br>' +
+	'<br>' +
+	'<input type="text" id="filterDiffBytes1" type="number" size="10"> &le; 變更大小 &le; <input type="text" id="filterDiffBytes2" type="number" size="10"><br>' +
 	'</div>';
 	if (dialog) {
 		dialog.html(html).dialog("open");
 		$('#filterPagename').val(config.pagename);
 		$('#filterComment').val(config.comment);
+		$('#filterDiffBytes1').val(config.diffbytes1);
+		$('#filterDiffBytes2').val(config.diffbytes2);
 		return null;
 	}
 	dialog = $(html).dialog({
@@ -73,6 +79,14 @@ function filter(){
 			return;
 		}
 		if (regexComment && !$(e).find('.comment').text().match(regexComment)) {
+			$(e).hide();
+			return;
+		}
+		if (config.diffbytes1 && +$(e).find('.mw-diff-bytes').text() < config.diffbytes1) {
+			$(e).hide();
+			return;
+		}
+		if (config.diffbytes2 && +$(e).find('.mw-diff-bytes').text() > config.diffbytes2) {
 			$(e).hide();
 			return;
 		}
