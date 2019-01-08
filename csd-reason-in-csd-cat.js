@@ -5,8 +5,8 @@ if (mw.config.get('wgPageName') !== "Category:快速删除候选") return;
 
 var titlelist = [];
 var elements = {};
-$("#mw-pages a").each(function(i, e){
-	var title = decodeURIComponent(e.href.replace(/.*?\/wiki\//, ''));
+$(".mw-category-generated a").each(function(i, e){
+	var title = decodeURIComponent(e.href.replace(/^.*?\/wiki\/(.+?)(?:\?.+)?$/, '$1'));
 	titlelist.push(title);
 	elements[title] = e;
 });
@@ -28,7 +28,11 @@ for (var i = 0; i < titlelist.length; i+=50) {
 				if (page.missing === undefined) {
 					var title = page.title.replace(/ /g, "_");
 					if ((m = page.revisions[0]["*"].match(/{{\s*(?:d|delete|csd|速删|速刪)\s*\|\s*(.+?)\s*}}/i)) !== null) {
-						$(elements[title].parentElement).append("（"+m[1]+"）");
+						if ((m2 = m[1].match(/bot=Jimmy-bot\|([^|}]+)/)) !== null) {
+							$(elements[title].parentElement).append("（"+m2[1]+"）");
+						} else {
+							$(elements[title].parentElement).append("（"+m[1]+"）");
+						}
 					}
 					if (page.revisions[0]["*"].match(/{{\s*Notmandarin\s*\|/i)) {
 						$(elements[title].parentElement).append("（G14）");
