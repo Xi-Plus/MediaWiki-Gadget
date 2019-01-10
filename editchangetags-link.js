@@ -1,12 +1,13 @@
 (function(){
 
 $(".mw-revdelundel-link").each(function(i, e){
+	var url = $(e).find("a").attr("href");
 	var link = $("<a>")
 	.attr({
 		href: mw.util.wikiScript()+"?"+$.param({
 			action: 'editchangetags',
-			type: 'revision',
-			ids: mw.util.getParamValue('ids', $(e).find("a").attr("href"))
+			type: mw.util.getParamValue('type', url),
+			ids: mw.util.getParamValue('ids', url)
 		}),
 	})
 	.text("編輯標籤")
