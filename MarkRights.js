@@ -1,5 +1,7 @@
 /**
- * 修改自 https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-MarkRights.js&oldid=50678903
+ * 修改自
+ * https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-MarkRights.js&oldid=50678903
+ * https://zh.wikipedia.org/w/index.php?title=Draft:MediaWiki:Gadget-MarkRights.js/50678903&oldid=52825311
  */
 
 /**
@@ -11,6 +13,28 @@
  */
 
 $(function () {
+    var groups = {
+        // 全站管理型权限
+        bureaucrat: {list: [], class: "markrights-bureaucrat"},
+        checkuser: {list: [], class: "markrights-checkuser"},
+        oversight: {list: [], class: "markrights-oversight"},
+        sysop: {list: [], class: "markrights-sysop"},
+        'interface-admin': {list: [], class: "markrights-interface-admin"},
+        // 页面管理型权限
+        patroller: {list: [], class: "markrights-patroller"},
+        rollbacker: {list: [], class: "markrights-rollbacker"},
+        autoreviewer: {list: [], class: "markrights-autoreviewer"},
+        // 大量操作型权限
+        accountcreator: {list: [], class: "markrights-accountcreator"},
+        'massmessage-sender': {list: [], class: "markrights-massmessage-sender"},
+        // 确认权限
+        confirmed: {list: [], class: "markrights-confirmed"},
+        // 机器权限
+        bot: {list: [], class: "markrights-bot"},
+        flood: {list: [], class: "markrights-flood"},
+        // IPBE
+        'ipblock-exempt': {list: [], class: "markrights-ipblock-exempt"},
+    };
     var markUG = function () {
         var $users = $('a.mw-userlink:not(.mw-anonuserlink)');
         var users = {};
@@ -36,75 +60,19 @@ $(function () {
             n++;
         }
 
-        var sysoplist = [];
-        var interfaceadminlist = [];
-        var bureaucratlist = [];
-        var culist = [];
-        var oslist = [];
-        var plist = [];
-        var rlist = [];
-        var alist = [];
-        var ipbelist = [];
-        var comlist = [];
-        var acclist = [];
-        var floodlist = [];
-        var mmslist = [];
-        var botlist = [];
-
         var done = function () {
-            var j;
-            // 全站管理型权限
-            for (j=0; j<bureaucratlist.length; j++) {
-                $('a.mw-userlink[title="User:' + bureaucratlist[j] + '"]').append('<sup class="markrights-bureaucrat"></sup>');
-            }
-            for (j=0; j<culist.length; j++) {
-                $('a.mw-userlink[title="User:' + culist[j] + '"]').append('<sup class="markrights-checkuser"></sup>');
-             }
-            for (j=0; j<oslist.length; j++) {
-                $('a.mw-userlink[title="User:' + oslist[j] + '"]').append('<sup class="markrights-oversight"></sup>');
-            }
-            for (j=0; j<sysoplist.length; j++) {
-                $('a.mw-userlink[title="User:' + sysoplist[j] + '"]').append('<sup class="markrights-sysop"></sup>');
-            }
-            for (j=0; j<interfaceadminlist.length; j++) {
-                $('a.mw-userlink[title="User:' + interfaceadminlist[j] + '"]').append('<sup class="markrights-interface-admin"></sup>');
-            }
-            // 页面管理型权限
-            for (j=0; j<plist.length; j++) {
-                $('a.mw-userlink[title="User:' + plist[j] + '"]').append('<sup class="markrights-patroller"></sup>');
-            }
-            for (j=0; j<rlist.length; j++) {
-                $('a.mw-userlink[title="User:' + rlist[j] + '"]').append('<sup class="markrights-rollbacker"></sup>');
-            }
-            for (j=0; j<alist.length; j++) {
-                $('a.mw-userlink[title="User:' + alist[j] + '"]').append('<sup class="markrights-autoreviewer"></sup>');
-            }
-            // 大量操作型权限
-            for (j=0; j<acclist.length; j++) {
-                $('a.mw-userlink[title="User:' + acclist[j] + '"]').append('<sup class="markrights-accountcreator"></sup>');
-            }
-            for (j=0; j<mmslist.length; j++) {
-                $('a.mw-userlink[title="User:' + mmslist[j] + '"]').append('<sup class="markrights-massmessage-sender"></sup>');
-            }
-            // 确认权限
-            for (j=0; j<comlist.length; j++) {
-                $('a.mw-userlink[title="User:' + comlist[j] + '"]').append('<sup class="markrights-confirmed"></sup>');
-            }
-            // 机器权限
-            for (j=0; j<botlist.length; j++) {
-                $('a.mw-userlink[title="User:' + botlist[j] + '"]').append('<sup class="markrights-bot"></sup>');
-            }
-            for (j=0; j<floodlist.length; j++) {
-                $('a.mw-userlink[title="User:' + floodlist[j] + '"]').append('<sup class="markrights-flood"></sup>');
-            }
-            // IPBE
-            for (j=0; j<ipbelist.length; j++) {
-                $('a.mw-userlink[title="User:' + ipbelist[j] + '"]').append('<sup class="markrights-ipblock-exempt"></sup>');
+            var group, user, j;
+            for (group in groups) {
+                if (groups.hasOwnProperty(group)) {
+                    for (j=0; j<groups[group].list.length; j++) {
+                        $('a.mw-userlink[title="User:' + groups[group].list[j] + '"]').append('<sup class="' + groups[group].class + '"></sup>');
+                    }
+                }
             }
         };
 
         var process = function (data) {
-            var users;
+            var users, group;
             if (data.query && data.query.users) {
                 users = data.query.users;
             } else {
@@ -113,48 +81,10 @@ $(function () {
             for (var i=0; i<users.length; i++) {
                 var user = users[i];
                 if (user.groups) {
-                    if (user.groups.indexOf('bureaucrat') > -1) {
-                        bureaucratlist.push(user.name);
-                    }
-                    // Due to Office Actions
-                    if (user.groups.indexOf('checkuser') > -1) {
-                        culist.push(user.name);
-                    }
-                    if (user.groups.indexOf('oversight') > -1) {
-                        oslist.push(user.name);
-                    }
-                    if (user.groups.indexOf('sysop') > -1) {
-                        sysoplist.push(user.name);
-                    }
-                    if (user.groups.indexOf('interface-admin') > -1) {
-                        interfaceadminlist.push(user.name);
-                    }
-                    if (user.groups.indexOf('patroller') > -1) {
-                        plist.push(user.name);
-                    }
-                    if (user.groups.indexOf('rollbacker') > -1) {
-                        rlist.push(user.name);
-                    }
-                    if (user.groups.indexOf('autoreviewer') > -1) {
-                        alist.push(user.name);
-                    }
-                    if (user.groups.indexOf('accountcreator') > -1) {
-                        acclist.push(user.name);
-                    }
-                    if (user.groups.indexOf('massmessage-sender') > -1) {
-                        mmslist.push(user.name);
-                    }
-                    if (user.groups.indexOf('confirmed') > -1) {
-                        comlist.push(user.name);
-                    }
-                    if (user.groups.indexOf('bot') > -1) {
-                        botlist.push(user.name);
-                    }
-                    if (user.groups.indexOf('flood') > -1) {
-                        floodlist.push(user.name);
-                    }
-                    if (user.groups.indexOf('ipblock-exempt') > -1) {
-                        ipbelist.push(user.name);
+                    for (group in groups) {
+                        if (groups.hasOwnProperty(group) && user.groups.indexOf(group) > -1) {
+                            groups[group].list.push(user.name);
+                        }
                     }
                 }
             }
