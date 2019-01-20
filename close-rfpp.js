@@ -121,7 +121,7 @@
 			html += '<option value="{{RFPP|ew}}">考慮舉報3RR，這可能是一兩個用戶間的編輯戰</option>';
             html += '</select><br>';
             html += '留言<br>';
-            html += '<input type="text" id="comment" size="40">';
+            html += '<input type="text" id="comment" size="85">';
             html += '</div>';
             $(html).dialog({
                 title: '關閉報告 - ' + title,
