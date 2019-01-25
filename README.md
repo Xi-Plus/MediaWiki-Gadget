@@ -3,6 +3,8 @@
 
 | 檔案 | 類型 | 功能 | 備註 |
 | --- | --- | --- | --- |
+| get-list | o | 取得頁面標題列表 |  |
+| one-click-edit | v | 一鍵編輯 |  |
 | AFD-stats.js | v | 在存廢討論顯示已/未處理/需關閉個數 |  |
 | AFDclose.js | e | 關閉存廢討論，供Twinkle無法處理狀況 |  |
 | AFDpagelog.js | v | 存廢討論中增加頁面日誌連結 |  |
@@ -27,7 +29,7 @@
 | SRGreport.js | e | 在meta:SRG快速請求 |  |
 | SpecialInterlanguageLink.js | v | 特殊頁跨語言連結 |  |
 | T210739.js | o | 在移動頁面時增加刪除目標頁按鈕 | `Special:MovePage` |
-| Template-transclusion-count.js<br>Template-transclusion-count.php | v | 顯示模板引用量 | 需配合`Template-transclusion-count.php` |
+| Template-transclusion-count.js<br>Template-transclusion-count.php | v | 顯示模板引用量 |  |
 | Twinkle-delete-reason.js | v | 更換Twinkle速刪理由 | 配合`Twinkle` |
 | Unsigned-last.js | a | 標記最後編輯用戶未簽名 |  |
 | Unsigned.js | e | 標記用戶未簽名 |  |
