@@ -9,7 +9,7 @@
     }
 
     if (typeof(CloseRrd.reason) == 'undefined') {
-        CloseRrd.reason = ['刪除', '部份刪除', '未刪除', '未刪除，未達RD2準則', '未刪除，未達RD3準則'];
+        CloseRrd.reason = ['刪除', '部份刪除', '未刪除', '未刪除，未達RD2準則', '未刪除，未達RD3準則', ''];
     }
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:修订版本删除请求'
@@ -93,6 +93,7 @@
             html += '<option value="+">+</option>';
             html += '<option value="-">-</option>';
             html += '<option value="OH">OH</option>';
+            html += '<option value="新申請">新申請</option>';
             html += '</select>';
             html += '<br>';
             html += '理由<br>';
@@ -133,11 +134,21 @@
             contents = content.split(splittoken);
             contents[key] = contents[key].trim();
             contents[key] = contents[key].replace(/^(\|\s*status\s*=[ \t]*)(.*)$/m, '$1' + status);
-            contents[key] += '\n:' + reason;
-            if (reason2.trim() !== '') {
-                contents[key] += '：' + reason2;
+            contents[key] += '\n:';
+            var newreason = '';
+            if (reason.trim() !== '') {
+                newreason += reason;
             }
-            contents[key] += '。--~~~~\n\n';
+            if (reason2.trim() !== '') {
+                if (newreason !== '') {
+                    newreason += '：';
+                }
+                newreason += reason2;
+            }
+            if (newreason !== '' && newreason.search(/[.?!;。？！；]$/) === -1) {
+                newreason += '。';
+            }
+            contents[key] += newreason + '--~~~~\n\n';
             content = contents.join("");
             $($('div.mw-parser-output>div.plainlinks')[key - 1]).find('.closeRrdBtn span').css('color', 'grey');
             return {
