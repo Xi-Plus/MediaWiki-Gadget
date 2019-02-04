@@ -6,7 +6,7 @@ javascript: (function() {
     }
 
     var usertalk = 'User talk:' + mw.config.get('wgRelevantUserName');
-    
+
     if (!confirm('向 ' + usertalk + '發送')) {
         mw.notify('已取消發送通知');
         return;
@@ -31,7 +31,7 @@ javascript: (function() {
                 nttopic: '授予IP封禁例外權通知',
                 ntcontent: message,
                 ntformat: 'wikitext',
-            }).then(function(e) {
+            }).then(function() {
                 mw.notify('成功發送授予IP封禁例外權通知');
             }, function(e) {
                 mw.notify('未知錯誤：' + e);
@@ -40,7 +40,7 @@ javascript: (function() {
             new mw.Api().newSection(usertalk,
                 '',
                 '{{subst:Ipexemptgranted|temp=1}}'
-            ).then(function(e) {
+            ).then(function() {
                 mw.notify('成功發送授予IP封禁例外權通知');
             }, function(e) {
                 mw.notify('未知錯誤：' + e);

@@ -1,6 +1,5 @@
 if (document.all["delete-reason"] !== undefined) {
 	var reason = decodeURIComponent(document.all["delete-reason"].innerText);
-	console.log(reason);
 	/* G 5 */reason = reason.replace("曾经根据[[WP:AFD|頁面存廢討論]]、[[WP:CV|侵權審核]]或[[WP:FFD|檔案存廢討論]]結果删除後又重新創建的内容，而有關內容與已刪除版本''相同或非常相似''，無論標題是否相同", "曾经根据頁面存廢討論、侵權審核或檔案存廢討論結果删除後又重新創建的内容");
 	/* G10 */reason = reason.replace("（对條目内容无实际修改的除外；提請須出於善意，及附有合理原因）", "");
 	/* G15 */reason = reason.replace("孤立页面，比如没有主页面的[[WP:TALK|讨论页]]、指向空页面的[[WP:R|重定向]]等；*</strong>", "");
@@ -16,5 +15,4 @@ if (document.all["delete-reason"] !== undefined) {
 	/* O 4 */reason = reason.replace("（没有条目也没有子类别）", "");
 	reason = reason.replace("[[WP:CSD|CSD]]:+", "");
 	document.all["delete-reason"].innerText = encodeURIComponent(reason);
-	console.log("repalced delete-reason");
 }

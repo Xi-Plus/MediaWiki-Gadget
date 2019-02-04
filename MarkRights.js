@@ -12,39 +12,39 @@
  *
  */
 
-$(function () {
+$(function() {
     var groups = {
         // 全站管理型权限
-        bureaucrat: {list: [], class: "markrights-bureaucrat"},
-        checkuser: {list: [], class: "markrights-checkuser"},
-        oversight: {list: [], class: "markrights-oversight"},
-        sysop: {list: [], class: "markrights-sysop"},
-        'interface-admin': {list: [], class: "markrights-interface-admin"},
+        bureaucrat: { list: [], class: "markrights-bureaucrat" },
+        checkuser: { list: [], class: "markrights-checkuser" },
+        oversight: { list: [], class: "markrights-oversight" },
+        sysop: { list: [], class: "markrights-sysop" },
+        'interface-admin': { list: [], class: "markrights-interface-admin" },
         // 页面管理型权限
-        patroller: {list: [], class: "markrights-patroller"},
-        rollbacker: {list: [], class: "markrights-rollbacker"},
-        autoreviewer: {list: [], class: "markrights-autoreviewer"},
+        patroller: { list: [], class: "markrights-patroller" },
+        rollbacker: { list: [], class: "markrights-rollbacker" },
+        autoreviewer: { list: [], class: "markrights-autoreviewer" },
         // 大量操作型权限
-        accountcreator: {list: [], class: "markrights-accountcreator"},
-        'massmessage-sender': {list: [], class: "markrights-massmessage-sender"},
+        accountcreator: { list: [], class: "markrights-accountcreator" },
+        'massmessage-sender': { list: [], class: "markrights-massmessage-sender" },
         // 确认权限
-        confirmed: {list: [], class: "markrights-confirmed"},
+        confirmed: { list: [], class: "markrights-confirmed" },
         // 机器权限
-        bot: {list: [], class: "markrights-bot"},
-        flood: {list: [], class: "markrights-flood"},
+        bot: { list: [], class: "markrights-bot" },
+        flood: { list: [], class: "markrights-flood" },
         // IPBE
-        'ipblock-exempt': {list: [], class: "markrights-ipblock-exempt"},
+        'ipblock-exempt': { list: [], class: "markrights-ipblock-exempt" },
     };
-    var markUG = function () {
+    var markUG = function() {
         var $users = $('a.mw-userlink:not(.mw-anonuserlink)');
         var users = {};
-        $users.each(function (index, link) {
+        $users.each(function(index, link) {
             users[link.textContent] = true;
         });
 
         var queue1 = [];
         var queue2 = [];
-        var i=0, n=0;
+        var i = 0, n = 0;
         for (var user in users) {
             queue1.push(user);
             i++;
@@ -60,25 +60,25 @@ $(function () {
             n++;
         }
 
-        var done = function () {
-            var group, user, j;
+        var done = function() {
+            var group, j;
             for (group in groups) {
                 if (groups.hasOwnProperty(group)) {
-                    for (j=0; j<groups[group].list.length; j++) {
+                    for (j = 0; j < groups[group].list.length; j++) {
                         $('a.mw-userlink[title="User:' + groups[group].list[j] + '"]').append('<sup class="' + groups[group].class + '"></sup>');
                     }
                 }
             }
         };
 
-        var process = function (data) {
+        var process = function(data) {
             var users, group;
             if (data.query && data.query.users) {
                 users = data.query.users;
             } else {
                 users = [];
             }
-            for (var i=0; i<users.length; i++) {
+            for (var i = 0; i < users.length; i++) {
                 var user = users[i];
                 if (user.groups) {
                     for (group in groups) {
@@ -94,7 +94,7 @@ $(function () {
             }
         };
         var api = new mw.Api();
-        for (var j=0; j<queue2.length; j++) {
+        for (var j = 0; j < queue2.length; j++) {
             api.get({
                 format: 'json',
                 action: 'query',

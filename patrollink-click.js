@@ -1,6 +1,6 @@
 javascript:
-(function(){
+(function() {
 
-document.getElementsByClassName("patrollink")[0].children[0].click();
+    document.getElementsByClassName("patrollink")[0].children[0].click();
 
 })();

@@ -33,7 +33,7 @@
             html += '刪除摘要<br>';
             html += '<input type="text" id="comment" size="75">';
             html += '</div>';
-            dialog = $(html).dialog({
+            var dialog = $(html).dialog({ // eslint-disable-line no-unused-vars
                 title: '批量版本刪除',
                 minWidth: 515,
                 minHeight: 150,
@@ -41,9 +41,9 @@
                     text: '確定',
                     click: function() {
                         if ($(this).find('#comment').val().trim() !== '') {
-                            process($(this).find('#comment').val(), $.map($(".mrd-hide:checked"), function(e, i) {
+                            process($(this).find('#comment').val(), $.map($(".mrd-hide:checked"), function(e, i) { // eslint-disable-line no-unused-vars
                                 return e.value
-                            }).join("|"), $.map($(".mrd-show:checked"), function(e, i) {
+                            }).join("|"), $.map($(".mrd-show:checked"), function(e, i) { // eslint-disable-line no-unused-vars
                                 return e.value
                             }).join("|"));
                         } else {
@@ -84,7 +84,7 @@
                 hide: hide,
                 show: show,
                 reason: comment
-            }).then(function(e) {
+            }).then(function() {
                 mw.notify('成功刪除 ' + target + ' 的 ' + count + ' 個版本');
             }, function(e) {
                 mw.notify('未知錯誤：' + e);

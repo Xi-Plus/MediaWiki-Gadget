@@ -1,14 +1,15 @@
 // <nowiki>
+/* globals CloseRrd:true */
 (function() {
 
-    if (typeof(CloseRrd) == 'undefined')
+    if (typeof CloseRrd == 'undefined')
         CloseRrd = {};
 
-    if (typeof(CloseRrd.summary) == 'undefined') {
+    if (typeof CloseRrd.summary == 'undefined') {
         CloseRrd.summary = '關閉請求';
     }
 
-    if (typeof(CloseRrd.reason) == 'undefined') {
+    if (typeof CloseRrd.reason == 'undefined') {
         CloseRrd.reason = ['刪除', '部份刪除', '未刪除', '未刪除，未達RD2準則', '未刪除，未達RD3準則', ''];
     }
 
@@ -42,9 +43,9 @@
                 reject('nocreate-missing');
             }
             revision = page.revisions[0];
-            content = revision.content;
-            basetimestamp = revision.timestamp;
-            curtimestamp = data.curtimestamp;
+            var content = revision.content;
+            var basetimestamp = revision.timestamp;
+            var curtimestamp = data.curtimestamp;
             resolve({
                 content: content,
                 basetimestamp: basetimestamp,
@@ -128,10 +129,10 @@
 
     function processEdit(key, title, status, reason, reason2) {
         new mw.Api().edit('Wikipedia:修订版本删除请求', function(revision) {
-            content = revision.content;
-            splittoken = 'CLOSE_RRD_SPLIT_TOKEN';
+            var content = revision.content;
+            const splittoken = 'CLOSE_RRD_SPLIT_TOKEN';
             content = content.replace(/{{Revdel/g, splittoken + '{{Revdel');
-            contents = content.split(splittoken);
+            var contents = content.split(splittoken);
             contents[key] = contents[key].trim();
             contents[key] = contents[key].replace(/^(\|\s*status\s*=[ \t]*)(.*)$/m, '$1' + status);
             contents[key] += '\n:';
@@ -157,7 +158,7 @@
                 summary: CloseRrd.summary,
                 minor: true
             };
-        }).then(function(e) {
+        }).then(function() {
             mw.notify('已關閉 ' + title);
         }, function(e) {
             if (e == 'editconflict') {

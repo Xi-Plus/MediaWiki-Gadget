@@ -1,13 +1,26 @@
 {
     "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
     "env": {
         "browser": true,
-        "jquery": true
+        "jquery": true,
+        "es6": true
     },
     "globals": {
-        "mw": true
+        "mw": true,
+        "OO": true,
+        "importScript": true,
+        "wgULS": true,
+        "wpTextbox1": true,
+        "wpMinoredit": true,
+        "wpSummary": true,
+        "wpSave": true,
+        "wpDiff": true
     },
     "rules": {
-        "no-unused-labels": "off"
+        "no-unused-labels": "off",
+        "no-redeclare": "off"
     }
 }

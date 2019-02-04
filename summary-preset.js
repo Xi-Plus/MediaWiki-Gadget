@@ -1,6 +1,7 @@
 /*
  * 使用說明請見 https://zh.wikipedia.org/wiki/User:Xiplus/js/summary-preset
  */
+/* globals SummaryPreset:true */
 
 (function(){
 

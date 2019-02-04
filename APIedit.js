@@ -1,25 +1,22 @@
-function APIedit (pagename, summary, editfunc, minoredit = false, finish, testmode = false) {
-	content = "";
-	revisions = "";
+function APIedit(pagename, summary, editfunc, minoredit = false, finish, testmode = false) { // eslint-disable-line no-unused-vars
+	var content = "";
+	var revisions = "";
 	if (finish === undefined) {
-		finish = function(){location.reload()};
+		finish = function() { location.reload() };
 	} else if (finish === false) {
-		finish = function(){};
+		finish = function() { };
 	}
-    function getPageContent() {
+	function getPageContent() {
 		$.ajax({
 			type: 'GET',
-			url: mw.config.get("wgServer")+mw.config.get("wgScriptPath")+'/index.php?title='+encodeURIComponent(pagename)+'&action=raw',
+			url: mw.config.get("wgServer") + mw.config.get("wgScriptPath") + '/index.php?title=' + encodeURIComponent(pagename) + '&action=raw',
 			success: function success(data) {
 				content = data;
-				console.log(data);
-				console.log("getPageContent Success");
 				getPageRevision();
 			},
-			error: function error(e) {
+			error: function error() {
 				content = "";
 				revisions = "";
-				console.log("getPageContent Error!");
 				editPage();
 			}
 		});
@@ -36,8 +33,6 @@ function APIedit (pagename, summary, editfunc, minoredit = false, finish, testmo
 				'titles': pagename
 			},
 			success: function success(data) {
-				console.log("getPageRevision Success");
-				console.log(data);
 				var info = data.query.pages;
 				for (var key in info) {
 					revisions = info[key].revisions[0].timestamp;
@@ -45,7 +40,7 @@ function APIedit (pagename, summary, editfunc, minoredit = false, finish, testmo
 				}
 				editPage();
 			},
-			error: function error(e) {
+			error: function error() {
 				alert("getPageRevision Error!");
 			}
 		});
@@ -53,10 +48,9 @@ function APIedit (pagename, summary, editfunc, minoredit = false, finish, testmo
 	function editPage() {
 		content = editfunc(content);
 		if (testmode) {
-			console.log(content);
-			return ;
+			return;
 		}
-		temp = {
+		var temp = {
 			type: 'POST',
 			url: mw.config.get('wgServer') + mw.config.get('wgScriptPath') + '/api.php',
 			data: {
@@ -68,12 +62,10 @@ function APIedit (pagename, summary, editfunc, minoredit = false, finish, testmo
 				'text': content,
 				'token': mw.user.tokens.get('editToken')
 			},
-			success: function success(data) {
-				console.log(data);
-				console.log("editPage Success");
+			success: function success() {
 				finish();
 			},
-			error: function error(e) {
+			error: function error() {
 				alert("editPage Error!");
 			}
 		};

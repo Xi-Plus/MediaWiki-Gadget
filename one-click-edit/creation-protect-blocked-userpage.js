@@ -18,7 +18,7 @@ javascript: (function() {
         protections: 'create=sysop',
         expiry: "infinite",
         reason: "被永久封禁的用戶頁"
-    }).then(function(e) {
+    }).then(function() {
         mw.notify('成功保護');
     }, function(e) {
         mw.notify('未知錯誤：' + e);

@@ -1,3 +1,5 @@
+/* globals contributor, dellog */
+
 if (document.getElementById("speedy-delete") !== null) {
 	var node = document.createElement("span");
 	node.id = "contributor-list";
@@ -28,15 +30,15 @@ if (document.getElementById("speedy-delete") !== null) {
 					contributors[user]++;
 				}
 			}
-			contributor.innerHTML = Object.keys(contributors).length+"人"+page.revisions.length+"編輯";
+			contributor.innerHTML = Object.keys(contributors).length + "人" + page.revisions.length + "編輯";
 			var contributorstring = "";
 			$.each(contributors, function(user, count) {
 				contributorstring += '<a href="' + path.replace('$1', 'Special:Contributions/' + user) + '">' + user + "</a> *" + count + "<br>";
 			});
-			contributor.setAttribute("onclick", "mw.notify(['貢獻者：<br>"+contributorstring+"'])");
+			contributor.setAttribute("onclick", "mw.notify(['貢獻者：<br>" + contributorstring + "'])");
 		},
-		error: function error(e) {
-			delrequester.innerHTML = "抓取錯誤";
+		error: function error() {
+			alert("抓取錯誤");
 		}
 	});
 }
@@ -64,7 +66,7 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 			var log = [];
 			for (var i = 0; i < data.query.logevents.length; i++) {
 				var comment = data.query.logevents[i].comment;
-				console.log(comment);
+				console.log(comment); // eslint-disable-line no-console
 				if (data.query.logevents[i].action === "restore") {
 					comment = "還原";
 				} else if (data.query.logevents[i].action === "revision") {
@@ -78,7 +80,7 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 				} else if (comment.match("被取代的非自由图像版本") !== null) {
 					continue;
 				} else {
-					comment = comment.replace(/\[\[:?(?:WP|Wikipedia)\:CSD\#([^|\]]+)/g, "$1");
+					comment = comment.replace(/\[\[:?(?:WP|Wikipedia):CSD#([^|\]]+)/g, "$1");
 					comment = comment.replace(/^内容为：.+/, "空");
 					comment = comment.replace(/(?:^|.*[^A-Fa-f\d:])(G1|G2|G3|G5|G8|G10|G11|G12|G13|G14|G15|G16|A1|A2|A3|A5|A6|R2|R3|R5|F1|F3|F4|F5|F6|F7|O1|O3|O4)(?:[^A-Fa-f\d:].*|$)/i, "$1");
 					comment = comment.replace(/.*?((Wikipedia|维基百科):(頁面|檔案)存廢討論\/記錄\/\d{4}\/\d{2}\/\d{2}).*/g, '<a href="' + path.replace('$1', '$1#' + mw.config.get('wgPageName')) + '">存廢</a>');
@@ -99,7 +101,7 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 			}
 			dellog.innerHTML = message;
 		},
-		error: function error(e) {
+		error: function error() {
 			dellog.innerHTML = "抓取錯誤";
 		}
 	});

@@ -1,1 +1,1 @@
-document.all["pt-logout"].hidden=true;
+document.all["pt-logout"].hidden = true;

@@ -6,13 +6,13 @@ javascript: (function() {
             summary: 'Null edit',
             minor: true
         };
-    }).then(function(e) {
+    }).then(function() {
         mw.notify('成功');
     }, function(e) {
         if (e == 'nocreate-missing') {
             mw.notify('頁面不存在');
         } else {
-            mw.notify('未知錯誤：'+e);
+            mw.notify('未知錯誤：' + e);
         }
     });
 

@@ -1,10 +1,11 @@
 // <nowiki>
+/* globals CloseMove:true */
 (function() {
 
-    if (typeof(CloseMove) == 'undefined')
+    if (typeof CloseMove == 'undefined')
         CloseMove = {};
 
-    if (typeof(CloseMove.summary) == 'undefined') {
+    if (typeof CloseMove.summary == 'undefined') {
         CloseMove.summary = ['已完成移動', '未完成移動，未提出理由', '未完成移動，根據討論頁意見', '未完成移動，未有共識'];
     }
 
@@ -13,17 +14,17 @@
     }
 
     function showCloseButton() {
-    	var button = document.createElement('a');
-    	button.innerText = '移除模板';
-    	button.setAttribute('style', 'font-size: small');
-    	$(button).click(function() {
+        var button = document.createElement('a');
+        button.innerText = '移除模板';
+        button.setAttribute('style', 'font-size: small');
+        $(button).click(function() {
             processClose();
             return false;
         });
-		$('.ambox-move').find("td.mbox-text").children('span').children('small').after(button);
+        $('.ambox-move').find("td.mbox-text").children('span').children('small').after(button);
     }
 
-    function processClose(key, title) {
+    function processClose() {
         mw.loader.using(['jquery.ui.dialog'], function() {
             var html = '<div>';
             html += '編輯摘要<br>';
@@ -58,7 +59,7 @@
 
     function processEdit(reason, reason2) {
         new mw.Api().edit(mw.config.get('wgPageName'), function(revision) {
-            content = revision.content;
+            var content = revision.content;
             content = content.replace(/\{\{\s*Requested move\s*(\|(?:\{\{[^{}]*\}\}|[^{}])*)?\}\}\s*/i, '');
             if (reason2.trim() !== '') {
                 reason += '：' + reason2;
@@ -69,7 +70,7 @@
                 summary: reason,
                 minor: false
             };
-        }).then(function(e) {
+        }).then(function() {
             mw.notify('已移除移動請求模板');
         }, function(e) {
             if (e == 'editconflict') {

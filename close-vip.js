@@ -1,10 +1,11 @@
 // <nowiki>
+/* globals CloseVip:true */
 (function() {
 
-    if (typeof(CloseVip) == 'undefined')
+    if (typeof CloseVip == 'undefined')
         CloseVip = {};
 
-    if (typeof(CloseVip.summary) == 'undefined') {
+    if (typeof CloseVip.summary == 'undefined') {
         CloseVip.summary = '關閉報告';
     }
 
@@ -38,9 +39,9 @@
                 reject('nocreate-missing');
             }
             revision = page.revisions[0];
-            content = revision.content;
-            basetimestamp = revision.timestamp;
-            curtimestamp = data.curtimestamp;
+            var content = revision.content;
+            var basetimestamp = revision.timestamp;
+            var curtimestamp = data.curtimestamp;
             resolve({
                 content: content,
                 basetimestamp: basetimestamp,
@@ -157,10 +158,10 @@
 
     function processEdit(key, title, comment) {
         new mw.Api().edit('Wikipedia:当前的破坏', function(revision) {
-            content = revision.content;
-            splittoken = 'CLOSE_SPLIT_TOKEN';
+            var content = revision.content;
+            const splittoken = 'CLOSE_SPLIT_TOKEN';
             content = content.replace(/^===/gm, splittoken + '===');
-            contents = content.split(splittoken);
+            var contents = content.split(splittoken);
             contents[key] = contents[key].trim();
             if (comment.trim() !== '') {
                 if (contents[key].match(/^\*\s*处理：[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m)) {
@@ -179,7 +180,7 @@
                 summary: CloseVip.summary,
                 minor: true
             };
-        }).then(function(e) {
+        }).then(function() {
             mw.notify('已關閉 ' + title);
         }, function(e) {
             if (e == 'editconflict') {
@@ -193,7 +194,7 @@
     getPageContent.then(function(result) {
         window.content = result.content;
         var lenintext = result.content.split(/^===/gm).length - 1;
-        var leninhtml = $('#bodyContent').find('h3').length -1;
+        var leninhtml = $('#bodyContent').find('h3').length - 1;
         if (leninhtml !== lenintext) {
             mw.notify('抓取章節錯誤，在HTML找到 ' + leninhtml + ' 個章節，在原始碼找到 ' + lenintext + ' 個章節');
         } else {

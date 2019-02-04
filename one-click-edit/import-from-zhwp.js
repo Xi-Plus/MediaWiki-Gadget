@@ -1,13 +1,13 @@
 javascript: (function() {
 
     var interwikipage = mw.config.get('wgPageName');
-    ;if (interwikipage === null) {
+    if (interwikipage === null) {
         mw.notify('未能抓取頁面名稱');
         return;
     }
 
     var namespace = mw.config.get('wgNamespaceNumber');
-    ;if (namespace === null) {
+    if (namespace === null) {
         mw.notify('未能抓取頁面命名空間');
         return;
     }

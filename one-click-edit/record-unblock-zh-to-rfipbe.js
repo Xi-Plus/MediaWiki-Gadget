@@ -13,7 +13,7 @@ javascript: (function() {
     new mw.Api().newSection('Wikipedia:權限申請/申請IP封禁例外權',
         '',
         '{{subst:rfp|' + mw.config.get('wgRelevantUserName') + '|2=[' + url + ' unblock-zh]|status=+}}--~~~~'
-    ).then(function(e) {
+    ).then(function() {
         mw.notify('成功備案IPBE授權');
     }, function(e) {
         mw.notify('未知錯誤：' + e);

@@ -1,10 +1,11 @@
 // <nowiki>
+/* globals CloseAffp:true */
 (function() {
 
-    if (typeof(CloseAffp) == 'undefined')
+    if (typeof CloseAffp == 'undefined')
         CloseAffp = {};
 
-    if (typeof(CloseAffp.summary) == 'undefined') {
+    if (typeof CloseAffp.summary == 'undefined') {
         CloseAffp.summary = '關閉報告';
     }
 
@@ -38,9 +39,9 @@
                 reject('nocreate-missing');
             }
             revision = page.revisions[0];
-            content = revision.content;
-            basetimestamp = revision.timestamp;
-            curtimestamp = data.curtimestamp;
+            var content = revision.content;
+            var basetimestamp = revision.timestamp;
+            var curtimestamp = data.curtimestamp;
             resolve({
                 content: content,
                 basetimestamp: basetimestamp,
@@ -135,10 +136,10 @@
 
     function processEdit(key, title, status, res, comment) {
         new mw.Api().edit('Wikipedia:防滥用过滤器/错误报告', function(revision) {
-            content = revision.content;
-            splittoken = 'CLOSE_RRD_SPLIT_TOKEN';
+            var content = revision.content;
+            const splittoken = 'CLOSE_RRD_SPLIT_TOKEN';
             content = content.replace(/^===/gm, splittoken + '===');
-            contents = content.split(splittoken);
+            var contents = content.split(splittoken);
             contents[key] = contents[key].trim();
             contents[key] = contents[key].replace(/{{bugstatus\|status=([^|\n}]*?)\|res=([^|\n}]*?)}}/, '{{bugstatus|status=' + status + '|res=' + res + '}}');
             if (comment.replace(/[\s:*]/g, '') !== '') {
@@ -153,7 +154,7 @@
                 summary: CloseAffp.summary,
                 minor: true
             };
-        }).then(function(e) {
+        }).then(function() {
             mw.notify('已關閉 ' + title);
         }, function(e) {
             if (e == 'editconflict') {

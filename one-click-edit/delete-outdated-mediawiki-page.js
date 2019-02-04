@@ -39,7 +39,7 @@ javascript: (function() {
         action: 'delete',
         title: pagename,
         reason: reason
-    }).then(function(e) {
+    }).then(function() {
         mw.notify('成功刪除');
     }, function(e) {
         mw.notify('未知錯誤：' + e);

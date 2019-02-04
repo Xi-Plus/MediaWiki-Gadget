@@ -19,7 +19,7 @@ javascript: (function() {
                 action: 'delete',
                 title: targetname,
                 reason: '刪除以便移動'
-            }).then(function(e) {
+            }).then(function() {
                 mw.notify('刪除成功');
 
                 new mw.Api().postWithEditToken({
@@ -29,24 +29,24 @@ javascript: (function() {
                     movetalk: 1,
                     noredirect: 1,
                     reason: '合併歷史'
-                }).then(function(e) {
+                }).then(function() {
                     mw.notify('移動成功');
 
                     new mw.Api().postWithEditToken({
                         action: 'undelete',
                         title: targetname,
                         reason: '合併歷史'
-                    }).then(function(e) {
+                    }).then(function() {
                         mw.notify('還原成功');
 
-                        new mw.Api().edit(targetname, function(revision) {
+                        new mw.Api().edit(targetname, function() {
                             content = content.replace(/\{\{\s*(Histmerge|History[ _]merge)\s*(\|(?:\{\{[^{}]*\}\}|[^{}])*)?\}\}\s*/ig, "");
                             return {
                                 text: content,
                                 summary: '合併歷史',
                                 minor: true
                             };
-                        }).then(function(e) {
+                        }).then(function() {
                             mw.notify('編輯成功');
 
                         }, function(e) {

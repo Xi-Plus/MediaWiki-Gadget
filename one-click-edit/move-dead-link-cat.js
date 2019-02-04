@@ -15,7 +15,7 @@ javascript: (function() {
             movetalk: 1,
             noredirect: 1,
             reason: '移動到正確日期格式'
-        }).then(function(e) {
+        }).then(function() {
             mw.notify('成功');
             location.reload();
         }, function(e) {
