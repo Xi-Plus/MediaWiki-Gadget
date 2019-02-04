@@ -20,7 +20,7 @@ javascript: (function() {
         anononly: 1,
         nocreate: 1,
         allowusertalk: 1,
-    }).then(function(e) {
+    }).then(function() {
         mw.notify('成功封鎖');
     }, function(e) {
         mw.notify('未知錯誤：' + e);
