@@ -1,0 +1,10 @@
+{
+  "name": "mediawiki-gadget",
+  "private": true,
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^5.13.0"
+  }
+}
