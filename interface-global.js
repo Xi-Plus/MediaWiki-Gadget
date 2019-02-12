@@ -134,7 +134,7 @@ mw.loader.using(['mediawiki.util']).done(function() {
 		} else {
 			mw.util.addPortletLink(
 				'p-cactions',
-				mw.config.get('wgServer') + mw.config.get('wgArticlePath').replace('$1', 'Special:CentralAuth/' + username),
+				mw.config.get('wgServer') + mw.config.get('wgArticlePath').replace('$1', 'Special:CentralAuth') + '?target=' + encodeURIComponent(username),
 				'全域帳號'
 			);
 		}
