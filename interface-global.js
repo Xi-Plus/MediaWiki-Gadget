@@ -50,24 +50,14 @@
 
 
 	/* FakeRollback */
-	switch (mw.config.get('wgDBname')) {
-		case 'enwiki':
-		case 'zhwiki':
-			break;
-		default:
-			mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:WhitePhosphorus/js/FakeRollback.js&oldid=18757250&action=raw&ctype=text/javascript'); // 11:25, 4 January 2019 (UTC)
-			break;
+	if ($.inArray('sysop', mw.config.get('wgUserGroups')) === -1) {
+		mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:WhitePhosphorus/js/FakeRollback.js&oldid=18757250&action=raw&ctype=text/javascript'); // 11:25, 4 January 2019 (UTC)
 	}
 
 
 	/* AutoUndo */
-	switch (mw.config.get('wgDBname')) {
-		case 'enwiki':
-		case 'zhwiki':
-			break;
-		default:
-			mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:WhitePhosphorus/js/AutoUndo.js&oldid=17704572&action=raw&ctype=text/javascript'); // 08:47, 5 August 2018 (UTC)
-			break;
+	if ($.inArray('sysop', mw.config.get('wgUserGroups')) === -1) {
+		mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:Xiplus/js/AutoUndo.js&action=raw&ctype=text/javascript'); // 08:47, 5 August 2018 (UTC)
 	}
 
 
