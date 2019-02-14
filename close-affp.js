@@ -143,7 +143,11 @@
             contents[key] = contents[key].trim();
             contents[key] = contents[key].replace(/{{bugstatus\|status=([^|\n}]*?)\|res=([^|\n}]*?)}}/, '{{bugstatus|status=' + status + '|res=' + res + '}}');
             if (comment.replace(/[\s:*]/g, '') !== '') {
-                contents[key] += '\n' + comment.trim() + '。--~~~~';
+                comment = comment.trim();
+                if (comment.search(/[.?!;。？！；]$/) === -1) {
+                    comment += '。';
+                }
+                contents[key] += '\n' + comment + '--~~~~';
             }
             contents[key] += '\n\n';
             content = contents.join("");

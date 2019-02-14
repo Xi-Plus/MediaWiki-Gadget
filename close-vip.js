@@ -163,12 +163,16 @@
             content = content.replace(/^===/gm, splittoken + '===');
             var contents = content.split(splittoken);
             contents[key] = contents[key].trim();
-            if (comment.trim() !== '') {
+            comment = comment.trim();
+            if (comment !== '') {
+                if (comment.search(/[.?!;。？！；]$/) === -1) {
+                    comment += '。';
+                }
                 if (contents[key].match(/^\*\s*处理：[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m)) {
-                    contents[key] = contents[key].replace(/^(\*\s*处理：)[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m, '$1' + comment + '。--~~~~');
+                    contents[key] = contents[key].replace(/^(\*\s*处理：)[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m, '$1' + comment + '--~~~~');
 
                 } else {
-                    contents[key] += '\n* 处理：' + comment + '。--~~~~';
+                    contents[key] += '\n* 处理：' + comment + '--~~~~';
                 }
             }
             contents[key] += '\n\n';

@@ -155,8 +155,12 @@
             content = content.replace(/^==/gm, splittoken + '==');
             var contents = content.split(splittoken);
             contents[key] = contents[key].trim();
-            if (comment.trim() !== '') {
-                contents[key] += '\n* ' + comment + '。--~~~~';
+            comment = comment.trim();
+            if (comment !== '') {
+                if (comment.search(/[.?!;。？！；]$/) === -1) {
+                    comment += '。';
+                }
+                contents[key] += '\n* ' + comment + '--~~~~';
             }
             contents[key] += '\n\n';
             content = contents.join("");
