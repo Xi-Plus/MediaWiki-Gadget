@@ -1,6 +1,10 @@
 javascript:
 (function() {
 
+	if (!mw.config.get('wgIsProbablyEditable')) {
+		return;
+	}
+
 	function CreateEditSection(section) {
 		var ec = document.createElement("span");
 		ec.classList.add("mw-editsection");
