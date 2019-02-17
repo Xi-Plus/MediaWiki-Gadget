@@ -52,6 +52,16 @@
 					hasmsg = true;
 				});
 			}
+			if (el.attr("placeholder")) {
+				res = getTranslatewikiLink(el.attr("placeholder"));
+				if (res.length > 0) {
+					msg += "<br>placeholder: ";
+				}
+				$(res).each(function(i, a) {
+					msg += a + " ";
+					hasmsg = true;
+				});
+			}
 			if (hasmsg) {
 				mw.notify([msg]);
 			}
