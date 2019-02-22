@@ -1,7 +1,7 @@
 javascript:
 (function() {
 
-    if (mw.config.get('wgCanonicalSpecialPageName') !== 'Log' || mw.config.get('wgPageName').replace(/^Special:[^/]+\//, '') !== 'move') {
+    if (mw.config.get('wgCanonicalSpecialPageName') !== 'Log') {
         return;
     }
 
