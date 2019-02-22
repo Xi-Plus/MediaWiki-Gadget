@@ -8,6 +8,7 @@ javascript: (function() {
         };
     }).then(function() {
         mw.notify('成功');
+        location.reload();
     }, function(e) {
         if (e == 'nocreate-missing') {
             mw.notify('頁面不存在');
