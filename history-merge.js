@@ -5,6 +5,10 @@
 
 mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-ui-windows', 'mediawiki.storage']).done(function() {
 
+    if (!mw.config.get('wgIsProbablyEditable')) {
+        return;
+    }
+
     (function($, mw, OO) {
         'use strict';
         var messages, targetPageName = mw.config.get('wgPageName'), api = new mw.Api();
