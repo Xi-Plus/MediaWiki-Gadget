@@ -21,6 +21,12 @@
     },
     "rules": {
         "no-unused-labels": "off",
-        "no-redeclare": "off"
+        "no-redeclare": "off",
+        "no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ]
     }
 }
