@@ -88,13 +88,9 @@
         mw.loader.using(['jquery.ui.dialog'], function() {
             var html = '<div>';
             html += '{{RFPP}}<br>';
-            html += '<select id="rfpp" onchange="$(this.parentElement).find(\'#comment\')[0].value += this.value; this.value = \'\';">';
+            html += '<select class="rfpp">';
             html += '<option value="">選擇</option>';
             html += '<option value="{{RFPP|ch}}">正在檢查以確定是否需要保護</option>';
-            html += '<option value="{{RFPP|s|X}}">半保護X，X過後系統會自動解除此頁保護</option>';
-            html += '<option value="{{RFPP|p|X}}">全保護X，X過後系統會自動解除此頁保護</option>';
-            html += '<option value="{{RFPP|m|X}}">移動保護X，X過後系統會自動解除此頁保護</option>';
-            html += '<option value="{{RFPP|t|X}}">白紙保護X ，X過後系統會自動解除此頁保護</option>';
             html += '<option value="{{RFPP|do}}">完成</option>';
             html += '<option value="{{RFPP|no}}">未完成</option>';
             html += '<option value="{{RFPP|d}}">拒絕</option>';
@@ -121,8 +117,28 @@
             html += '<option value="{{RFPP|w}}">請求者取消</option>';
             html += '<option value="{{RFPP|ew}}">考慮舉報3RR，這可能是一兩個用戶間的編輯戰</option>';
             html += '</select><br>';
+            html += '{{RFPP}}（保護）<br>';
+            html += '<select class="rfpp2">';
+            html += '<option value="">選擇等級</option>';
+            html += '<option value="s">半保護X，X過後系統會自動解除此頁保護</option>';
+            html += '<option value="p">全保護X，X過後系統會自動解除此頁保護</option>';
+            html += '<option value="m">移動保護X，X過後系統會自動解除此頁保護</option>';
+            html += '<option value="t">白紙保護X ，X過後系統會自動解除此頁保護</option>';
+            html += '</select>';
+            html += '<select class="rfpptime">';
+            html += '<option value="">選擇時長</option>';
+            html += '<option value="1天">1天</option>';
+            html += '<option value="3天">3天</option>';
+            html += '<option value="1週">1週</option>';
+            html += '<option value="2週">2週</option>';
+            html += '<option value="1個月">1個月</option>';
+            html += '<option value="3個月">3個月</option>';
+            html += '<option value="6個月">6個月</option>';
+            html += '<option value="1年">1年</option>';
+            html += '<option value="indef">無限期</option>';
+            html += '</select><br>';
             html += '留言<br>';
-            html += '<input type="text" id="comment" size="85">';
+            html += '<input type="text" class="comment" size="85">';
             html += '</div>';
             $(html).dialog({
                 title: '關閉報告 - ' + title,
@@ -131,8 +147,8 @@
                 buttons: [{
                     text: '確定',
                     click: function() {
-                        if ($(this).find('#comment').val().trim() !== '') {
-                            processEdit(key, title, $(this).find('#comment').val());
+                        if ($(this).find('.comment').val().trim() !== '') {
+                            processEdit(key, title, $(this).find('.comment').val());
                         } else {
                             mw.notify('動作已取消');
                         }
@@ -145,6 +161,26 @@
                     }
                 }]
             });
+            $('.rfpp').on('change', function(e) {
+                var comment = $(e.target).parent().find(".comment");
+                var rfpp = $(e.target).parent().find(".rfpp");
+                if (rfpp.val() != '') {
+                    comment.val(comment.val() + rfpp.val());
+                    rfpp.val('');
+                }
+            });
+            function selectRFPP2(e) {
+                var comment = $(e.target).parent().find(".comment");
+                var rfpp2 = $(e.target).parent().find(".rfpp2");
+                var rfpptime = $(e.target).parent().find(".rfpptime");
+                if (rfpp2.val() != '' && rfpptime.val() != '') {
+                    comment.val(comment.val() + '{{RFPP|' + rfpp2.val() + '|' + rfpptime.val() + '}}');
+                    rfpp2.val('');
+                    rfpptime.val('');
+                }
+            }
+            $('.rfpp2').on('change', selectRFPP2);
+            $('.rfpptime').on('change', selectRFPP2);
         });
     }
 
