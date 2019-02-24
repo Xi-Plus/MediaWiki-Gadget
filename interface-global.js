@@ -69,6 +69,12 @@
 		mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:Xiplus/js/cvn-smart-gadget.js&action=raw&ctype=text/javascript');
 
 
+		/* history-merge */
+		if ($.inArray('sysop', mw.config.get('wgUserGroups')) !== -1) {
+			mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:Xiplus/js/history-merge.js&action=raw&ctype=text/javascript');
+		}
+
+
 		/* list-user-last-active */
 		switch (mw.config.get('wgDBname')) {
 			case 'zhwiki':
