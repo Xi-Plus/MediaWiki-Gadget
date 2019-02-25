@@ -342,8 +342,6 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
          * Save options in storage
          */
         MergeDialog.prototype.saveOptions = function() {
-            // mw.storage.set('history-merge-always-lowest-id', this.mergeAlwaysLowestId.isSelected());
-            // mw.storage.set('history-merge-unwatch', this.mergeUnwatch.isSelected());
             mw.storage.set('history-merge-summary', this.mergeSummary.getValue());
             mw.storage.set('history-merge-keep-target-content', this.mergeKeepTargetContent.isSelected());
             mw.storage.set('history-merge-leave-redirect', this.mergeLeaveRedirect.isSelected());
@@ -382,6 +380,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
 
         MergeDialog.prototype.cancel = function() {
             this.saveOptions();
+            removePending();
             this.close();
         };
 
@@ -514,12 +513,6 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 });
             });
         }
-
-        // Export section
-        // currently just for [[MediaWiki:Gadget-EmptyDetect.js]], just launchDialog is exposed
-        window.mergeTool = {
-            launchDialog: launchDialog
-        };
     }(jQuery, mediaWiki, OO));
 
 });
