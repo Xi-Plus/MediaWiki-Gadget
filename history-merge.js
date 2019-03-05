@@ -27,15 +27,15 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     mergePendingNotification: 'history-merge.js已經運行，請前往其他需要合併的頁面。',
                     mergeProcess: '開始合併',
                     mergeSummary: '編輯摘要：',
-                    mergeThisPage: '合併此頁',
+                    mergeThisPage: '這個頁面是要合併歷史的目標頁面。',
                     mergeWithInput: '要和此頁合併的頁面（來源頁面）：',
-                    mergeWithProgress: '合併',
+                    mergeWithProgress: '合併歷史至此頁',
                     mergeWizard: '合併頁面歷史',
                     moveSource: '移動來源頁面……',
                     postpone: '和其他頁合併',
                     postponeTitle: '儲存此頁名稱以和其他頁合併',
-                    selectForMerging: '選擇合併頁',
-                    selectForMergingTitle: '記住這個頁面是要合併的來源頁面。',
+                    selectForMerging: '合併歷史至他頁',
+                    selectForMergingTitle: '這個頁面是要合併歷史的來源頁面。',
                     undeleteTarget: '還原來源頁面……',
                 }
             },
@@ -491,7 +491,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             $(function() {
                 $('#ca-merge-queue-process, #ca-merge, #ca-merge-select').remove();
                 $(mw.util.addPortletLink(
-                    'p-cactions',
+                    'p-tb',
                     '#',
                     messages.mergeWithProgress,
                     'ca-merge',
@@ -502,7 +502,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 });
 
                 $(mw.util.addPortletLink(
-                    'p-cactions',
+                    'p-tb',
                     '#',
                     messages.selectForMerging,
                     'ca-merge-select',
