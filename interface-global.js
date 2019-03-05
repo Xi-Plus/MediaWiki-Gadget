@@ -107,7 +107,11 @@
 
 		/* CentralAuth */
 		function showCentralAuth(username) {
-			if (username.match('^\\d+\\.\\d+\\.\\d+\\.\\d+$') !== null || username.match('^[0-9a-fA-F]+:[0-9a-fA-F:]+$')) {
+			if (username === undefined) {
+				return;
+			}
+			if (mw.util.isIPAddress(username, true)) {
+				username = username.replace(/\/\d+$/, '');
 				mw.util.addPortletLink(
 					'p-cactions',
 					'https://tools.wmflabs.org/meta/stalktoy/' + username,
@@ -122,6 +126,11 @@
 					'p-cactions',
 					'http://whois.tanet.edu.tw/showWhoisPublic.php?queryString=' + username,
 					'TANet'
+				);
+				mw.util.addPortletLink(
+					'p-cactions',
+					'https://tools.wmflabs.org/ipcheck/index.php?ip=' + username,
+					'Proxy Checker'
 				);
 			} else {
 				mw.util.addPortletLink(
@@ -140,6 +149,8 @@
 			showCentralAuth(mw.config.get('wgTitle').replace(/^([^/]+).*$/, '$1'));
 		} else if (mw.config.get('wgRelevantUserName') !== null) {
 			showCentralAuth(mw.config.get('wgRelevantUserName'));
+		} else if (mw.config.get('wgCanonicalSpecialPageName') === 'Contributions') {
+			showCentralAuth($('[name="target"]').val());
 		}
 
 		/* Admin list */
