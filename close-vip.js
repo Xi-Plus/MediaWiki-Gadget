@@ -6,7 +6,7 @@
         CloseVip = {};
 
     if (typeof CloseVip.summary == 'undefined') {
-        CloseVip.summary = '關閉報告';
+        CloseVip.summary = '關閉報告 via [[User:Xiplus/js/close-vip.js|close-vip]]';
     }
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:当前的破坏'

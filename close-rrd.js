@@ -6,7 +6,7 @@
         CloseRrd = {};
 
     if (typeof CloseRrd.summary == 'undefined') {
-        CloseRrd.summary = '關閉請求';
+        CloseRrd.summary = '關閉請求 via [[User:Xiplus/js/close-rrd.js|close-rrd]]';
     }
 
     if (typeof CloseRrd.reason == 'undefined') {

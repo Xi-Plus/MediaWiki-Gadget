@@ -6,7 +6,7 @@
         CloseAffp = {};
 
     if (typeof CloseAffp.summary == 'undefined') {
-        CloseAffp.summary = '關閉報告';
+        CloseAffp.summary = '關閉報告 via [[User:Xiplus/js/close-affp.js|close-affp]]';
     }
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:防滥用过滤器/错误报告'

@@ -6,7 +6,7 @@
         CloseRfpp = {};
 
     if (typeof CloseRfpp.summary == 'undefined') {
-        CloseRfpp.summary = '關閉請求';
+        CloseRfpp.summary = '關閉請求 via [[User:Xiplus/js/close-rfpp.js|close-rfpp]]';
     }
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:请求保护页面'

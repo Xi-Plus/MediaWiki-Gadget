@@ -9,6 +9,10 @@
         CloseMove.summary = ['已完成移動', '未完成移動，未提出理由', '未完成移動，根據討論頁意見', '未完成移動，未有共識'];
     }
 
+    if (typeof CloseMove.summarySuffix == 'undefined') {
+        CloseMove.summarySuffix = ' via [[User:Xiplus/js/close-move.js|close-move]]';
+    }
+
     if ($('.ambox-move').length === 0) {
         return;
     }
@@ -64,6 +68,7 @@
             if (reason2.trim() !== '') {
                 reason += '：' + reason2;
             }
+            reason += CloseMove.summarySuffix;
             return {
                 text: content,
                 basetimestamp: revision.timestamp,
