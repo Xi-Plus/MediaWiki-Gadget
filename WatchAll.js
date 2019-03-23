@@ -1,12 +1,16 @@
 javascript:
 (function() {
 	function modifyWatchlist(title, action) {
-		mw.loader.using('mediawiki.api').then(function() {
-			var api = mw.Api();
+		mw.loader.using('mediawiki.api', 'mediawiki.notify').then(function() {
+			var api = new mw.Api();
 			if (action == 'watch') {
-				api.watch(title);
+				api.watch(title).then(function() {
+					mw.notify('已監視 ' + title);
+				});
 			} else {
-				api.unwatch(title);
+				api.unwatch(title).then(function() {
+					mw.notify('已取消監視 ' + title);
+				});
 			}
 		});
 	}
