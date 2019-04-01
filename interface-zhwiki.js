@@ -97,14 +97,6 @@ mw.loader.using(['mediawiki.util']).done(function() {
 		$('#t-specialpages')
 	);
 
-	if (mw.config.get("wgNamespaceNumber") == 8) {
-		mw.util.addPortletLink(
-			'p-cactions',
-			'https://translatewiki.net/wiki/' + mw.config.get("wgPageName").split("/")[0] + '/zh-hant?action=edit',
-			'translatewiki'
-		);
-	}
-
 });
 /* mediawiki.util end */
 
