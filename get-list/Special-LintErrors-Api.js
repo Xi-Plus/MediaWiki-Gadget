@@ -24,7 +24,6 @@ javascript: (function() {
 
         data.query.linterrors.forEach(function(page) {
             if (template && page.templateInfo.name != template) {
-                console.log(template, page.templateInfo.name);
                 return;
             }
             result += page.title + "<br>";
