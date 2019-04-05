@@ -33,6 +33,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     mergeWizard: '合併頁面歷史',
                     moveSource: '移動來源頁面……',
                     moveTalk: '移動討論頁',
+                    noRestore: '不還原目標頁面',
                     postpone: '和其他頁合併',
                     postponeTitle: '儲存此頁名稱以和其他頁合併',
                     selectForMerging: '合併歷史至他頁',
@@ -130,14 +131,16 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
          *
          * @constructor
          */
-        function Merger(mergeSourcePagename, mergeSummary, mergeLeaveRedirect, mergeKeepTargetContent, loadMergeDestination) {
+        function Merger(mergeSourcePagename, mergeSummary, mergeMoveTalk, mergeLeaveRedirect, mergeNoRestore, mergeKeepTargetContent, loadMergeDestination) {
             OO.EventEmitter.call(this);
             this.mergeSourcePagename = mergeSourcePagename;
             this.mergeSummary = mergeSummary;
             if (/^\w/.test(this.mergeSummary)) {
                 this.mergeSummary = ' ' + this.mergeSummary;
             }
+            this.mergeMoveTalk = mergeMoveTalk;
             this.mergeLeaveRedirect = mergeLeaveRedirect;
+            this.mergeNoRestore = mergeNoRestore;
             this.mergeKeepTargetContent = mergeKeepTargetContent;
             this.loadMergeDestination = loadMergeDestination;
         }
@@ -180,13 +183,15 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
 
             deferred = deferred.then(function() {
                 self.emit('progress', messages.moveSource);
-                return moveSource(from, to, self.mergeSummary, self.moveTalk, self.leaveRedirect);
+                return moveSource(from, to, self.mergeSummary, self.mergeMoveTalk, self.leaveRedirect);
             });
 
-            deferred = deferred.then(function() {
-                self.emit('progress', messages.undeleteTarget);
-                return undeleteTarget(to, revids);
-            });
+            if (!self.mergeNoRestore) {
+                deferred = deferred.then(function() {
+                    self.emit('progress', messages.undeleteTarget);
+                    return undeleteTarget(to, revids);
+                });
+            }
 
             deferred.then(function() {
                 if (self.loadMergeDestination) {
@@ -316,6 +321,18 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     }
                 )
             ]);
+            this.mergeNoRestore = new OO.ui.CheckboxInputWidget({
+                selected: mw.storage.get('history-merge-no-restore') === 'true'
+            });
+            fieldset.addItems([
+                new OO.ui.FieldLayout(
+                    this.mergeNoRestore,
+                    {
+                        align: 'inline',
+                        label: messages.noRestore
+                    }
+                )
+            ]);
             this.loadMergeDestination = new OO.ui.CheckboxInputWidget({
                 selected: mw.storage.get('history-merge-load-destination') === 'true'
             });
@@ -361,6 +378,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             mw.storage.set('history-merge-keep-target-content', this.mergeKeepTargetContent.isSelected());
             mw.storage.set('history-merge-move-talk', this.mergeMoveTalk.isSelected());
             mw.storage.set('history-merge-leave-redirect', this.mergeLeaveRedirect.isSelected());
+            mw.storage.set('history-merge-no-restore', this.mergeNoRestore.isSelected());
             mw.storage.set('history-merge-load-destination', this.loadMergeDestination.isSelected());
         };
 
@@ -371,7 +389,9 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             var merger = new Merger(
                 this.mergeSourcePagename.getValue(),
                 this.mergeSummary.getValue(),
+                this.mergeMoveTalk.isSelected(),
                 this.mergeLeaveRedirect.isSelected(),
+                this.mergeNoRestore.isSelected(),
                 this.mergeKeepTargetContent.isSelected(),
                 this.loadMergeDestination.isSelected()
             );
