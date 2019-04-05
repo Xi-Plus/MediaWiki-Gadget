@@ -38,7 +38,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     postponeTitle: '儲存此頁名稱以和其他頁合併',
                     selectForMerging: '合併歷史至他頁',
                     selectForMergingTitle: '這個頁面是要合併歷史的來源頁面。',
-                    undeleteTarget: '還原來源頁面……',
+                    undeleteTarget: '還原目標頁面……',
                 }
             },
                 chain = mw.language.getFallbackLanguageChain(),
