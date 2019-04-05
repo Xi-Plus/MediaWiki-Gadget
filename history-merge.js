@@ -32,6 +32,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     mergeWithProgress: '合併歷史至此頁',
                     mergeWizard: '合併頁面歷史',
                     moveSource: '移動來源頁面……',
+                    moveTalk: '移動討論頁',
                     postpone: '和其他頁合併',
                     postponeTitle: '儲存此頁名稱以和其他頁合併',
                     selectForMerging: '合併歷史至他頁',
@@ -95,14 +96,16 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
         /**
          * Move source page to target page
          */
-        function moveSource(from, to, summary, redirect) {
+        function moveSource(from, to, summary, movetalk, redirect) {
             var data = {
                 action: 'move',
                 from: from,
                 to: to,
-                movetalk: 1,
                 reason: summary
             };
+            if (movetalk) {
+                data.movetalk = 1;
+            }
             if (!redirect) {
                 data.noredirect = 1;
             }
@@ -177,7 +180,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
 
             deferred = deferred.then(function() {
                 self.emit('progress', messages.moveSource);
-                return moveSource(from, to, self.mergeSummary, self.leaveRedirect);
+                return moveSource(from, to, self.mergeSummary, self.moveTalk, self.leaveRedirect);
             });
 
             deferred = deferred.then(function() {
@@ -289,6 +292,18 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     }
                 )
             ]);
+            this.mergeMoveTalk = new OO.ui.CheckboxInputWidget({
+                selected: mw.storage.get('history-merge-move-talk') === 'true'
+            });
+            fieldset.addItems([
+                new OO.ui.FieldLayout(
+                    this.mergeMoveTalk,
+                    {
+                        align: 'inline',
+                        label: messages.moveTalk
+                    }
+                )
+            ]);
             this.mergeLeaveRedirect = new OO.ui.CheckboxInputWidget({
                 selected: mw.storage.get('history-merge-leave-redirect') === 'true'
             });
@@ -344,6 +359,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
         MergeDialog.prototype.saveOptions = function() {
             mw.storage.set('history-merge-summary', this.mergeSummary.getValue());
             mw.storage.set('history-merge-keep-target-content', this.mergeKeepTargetContent.isSelected());
+            mw.storage.set('history-merge-move-talk', this.mergeMoveTalk.isSelected());
             mw.storage.set('history-merge-leave-redirect', this.mergeLeaveRedirect.isSelected());
             mw.storage.set('history-merge-load-destination', this.loadMergeDestination.isSelected());
         };
