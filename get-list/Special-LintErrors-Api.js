@@ -4,18 +4,29 @@ javascript: (function() {
         mw.notify('未能檢測Lint錯誤類別');
     }
 
+    var template = prompt('通過模板？');
+
     var type = mw.config.get('wgPageName').substr(19);
 
-    new mw.Api().get({
+    var qdata = {
         "action": "query",
         "format": "json",
         "list": "linterrors",
         "lntcategories": type,
         "lntlimit": "max"
-    }).done(function(data) {
+    };
+    if (mw.util.getParamValue('namespace')) {
+        qdata['lntnamespace'] = mw.util.getParamValue('namespace');
+    }
+
+    new mw.Api().get(qdata).done(function(data) {
         var result = "";
 
         data.query.linterrors.forEach(function(page) {
+            if (template && page.templateInfo.name != template) {
+                console.log(template, page.templateInfo.name);
+                return;
+            }
             result += page.title + "<br>";
         });
 
