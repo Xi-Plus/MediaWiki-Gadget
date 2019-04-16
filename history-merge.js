@@ -17,7 +17,9 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             var translations = {
                 'zh-hant': {
                     copyTargetContent: '複製目標頁內容至來源頁……',
+                    copyTargetSummary: '準備進行合併歷史 ([[:m:User:Xiplus/js/history-merge.js|history-merge]])',
                     deleteTarget: '刪除目標頁面……',
+                    deleteTargetSummary: '刪除以便移動 ([[:m:User:Xiplus/js/history-merge.js|history-merge]])',
                     errorWhile: '"$1"時出錯：',
                     leaveRedirect: '留下重新導向',
                     loadMergeDestination: '成功時載入目標頁',
@@ -38,7 +40,9 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     postponeTitle: '儲存此頁名稱以和其他頁合併',
                     selectForMerging: '合併歷史至他頁',
                     selectForMergingTitle: '這個頁面是要合併歷史的來源頁面。',
+                    summarySuffix: ' ([[:m:User:Xiplus/js/history-merge.js|history-merge]])',
                     undeleteTarget: '還原目標頁面……',
+                    undeleteTargetSummary: '合併歷史 ([[:m:User:Xiplus/js/history-merge.js|history-merge]])',
                 }
             },
                 chain = mw.language.getFallbackLanguageChain(),
@@ -76,7 +80,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             return api.edit(from, function() {
                 return {
                     text: '{{subst:msgnw:' + to + '}}',
-                    summary: '準備進行合併歷史',
+                    summary: messages.copyTargetSummary,
                     nocreate: true,
                     minor: true
                 };
@@ -90,7 +94,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             return api.postWithEditToken({
                 action: 'delete',
                 title: to,
-                reason: '刪除以便移動'
+                reason: messages.deleteTargetSummary
             });
         }
 
@@ -102,7 +106,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 action: 'move',
                 from: from,
                 to: to,
-                reason: summary
+                reason: summary + messages.summarySuffix
             };
             if (movetalk) {
                 data.movetalk = 1;
@@ -121,7 +125,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 action: 'undelete',
                 title: to,
                 timestamps: revids,
-                reason: '合併歷史'
+                reason: messages.undeleteTargetSummary
             });
         }
 
