@@ -187,7 +187,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
 
             deferred = deferred.then(function() {
                 self.emit('progress', messages.moveSource);
-                return moveSource(from, to, self.mergeSummary, self.mergeMoveTalk, self.leaveRedirect);
+                return moveSource(from, to, self.mergeSummary, self.mergeMoveTalk, self.mergeLeaveRedirect);
             });
 
             if (!self.mergeNoRestore) {
