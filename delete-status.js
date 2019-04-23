@@ -73,7 +73,7 @@ if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === 
 					continue;
 				} else if (comment === "") {
 					comment = "空";
-				} else if (comment.match("删除以便移动") !== null) {
+				} else if (comment.match(/(删除以便移动|刪除以便移動)/) !== null) {
 					continue;
 				} else if (comment.match("被取代的非自由版权图像版本") !== null) {
 					continue;
