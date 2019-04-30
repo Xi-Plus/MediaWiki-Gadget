@@ -79,7 +79,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
         function copyTarget(from, to) {
             return api.edit(from, function() {
                 return {
-                    text: '{{subst:msgnw:' + to + '}}',
+                    text: '{{subst:msgnw::' + to + '}}',
                     summary: messages.copyTargetSummary,
                     nocreate: true,
                     minor: true
