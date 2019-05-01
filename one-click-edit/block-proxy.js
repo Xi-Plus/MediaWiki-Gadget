@@ -12,7 +12,7 @@ javascript: (function() {
     }
 
     var reason = '{{blocked proxy}}';
-    var expiry = '2 years';
+    var expiry = '63113904 seconds';
     if (!confirm('封鎖 ' + user + ' ？\n理由：' + reason + '\n期限：' + expiry)) {
         return;
     }
