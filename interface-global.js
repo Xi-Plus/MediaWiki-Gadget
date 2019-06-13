@@ -63,6 +63,9 @@
 			mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:WhitePhosphorus/js/AutoUndo.js&action=raw&ctype=text/javascript');
 		}
 
+		/* AutoUndoGlobal */
+		mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:WhitePhosphorus/js/AutoUndoGlobal.js&action=raw&ctype=text/javascript');
+
 
 		/* cvn-smart */
 		// mw.loader.load('https://xiplus.ddns.net/wikipedia_rc/gadget.js');
@@ -86,7 +89,10 @@
 
 
 		/* smart rollback */
-		if(typeof(smartRollbackConfig) === 'undefined') smartRollbackConfig = {};
+		if (typeof window.smartRollbackConfig === 'undefined') {
+			window.smartRollbackConfig = {};
+		}
+		var smartRollbackConfig = window.smartRollbackConfig;
 		smartRollbackConfig.toolLinkMethod = 'p-tb';
 		smartRollbackConfig.editSummaries = ['批量回退無意義文字', '批量回退破壞'];
 		mw.loader.load('//meta.wikimedia.org/w/index.php?title=User:Hoo_man/smart_rollback.js&action=raw&ctype=text/javascript');
@@ -184,6 +190,7 @@
 		switch (mw.config.get('wgDBname')) {
 			case 'enwiki':
 			// case 'simplewiki':
+			case 'test2wiki':
 			case 'zh_classicalwiki':
 			case 'zhwiki':
 			case 'zhwikibooks':
