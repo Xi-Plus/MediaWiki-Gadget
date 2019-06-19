@@ -14,6 +14,10 @@
         }
     }
 
+    if (typeof (UnblockZhIpbe.summarySuffix) != 'string') {
+        UnblockZhIpbe.summarySuffix = ' via [[User:Xiplus/js/unblock-zh-ipbe.js|unblock-zh-ipbe]]';
+    }
+
     if (typeof (UnblockZhIpbe.duration) != 'object') {
         UnblockZhIpbe.duration = ['3 months', '6 months'];
     }
@@ -61,7 +65,7 @@
             user: username,
             add: 'ipblock-exempt',
             expiry: duration,
-            reason: urlshort
+            reason: urlshort + UnblockZhIpbe.summarySuffix
         }).then(function() {
             mw.notify('成功授予 ' + username + ' IPBE ' + duration);
         }, function(e) {
@@ -85,7 +89,7 @@
             if (page.missing !== undefined) {
                 new mw.Api().create(
                     usertalk,
-                    { summary: '授予IP封禁例外權通知' },
+                    { summary: '授予IP封禁例外權通知' + UnblockZhIpbe.summarySuffix },
                     message
                 ).then(function() {
                     mw.notify('成功發送通知給 ' + username);
@@ -109,7 +113,7 @@
                 new mw.Api().edit(usertalk, function(revision) {
                     return {
                         text: (revision.content + '\n\n' + message).trim(),
-                        summary: '授予IP封禁例外權通知'
+                        summary: '授予IP封禁例外權通知' + UnblockZhIpbe.summarySuffix
                     };
                 }).then(function() {
                     mw.notify('成功發送通知給 ' + username);
@@ -124,7 +128,7 @@
         new mw.Api().edit('Wikipedia:權限申請/申請IP封禁例外權', function(revision) {
             return {
                 text: revision.content + '\n\n{{subst:rfp|' + username + '|2=[' + urllong + ' unblock-zh]|status=+}}--~~~~',
-                summary: '授予 ' + username + ' IP封禁例外權備案'
+                summary: '授予 ' + username + ' IP封禁例外權備案' + UnblockZhIpbe.summarySuffix
             };
         }).then(function() {
             mw.notify('成功為 ' + username + ' 備案');
