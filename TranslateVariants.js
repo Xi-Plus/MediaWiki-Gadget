@@ -24,7 +24,7 @@
 	}
 
 	function main() {
-		const langs = ['zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
+		const langs = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
 		const langname = {
 			'zh': '原始',
 			'zh-hans': '简体',
@@ -69,6 +69,12 @@
 			text = text.replace(/[[\]{}<>|:*'_#&\s]/gim, function(s) {
 				return "&#" + s.charCodeAt(0) + ";";
 			});
+			text = text.replace(/-&#123;(.+?)&#125;-/g, function(s) {
+				return s
+					.replace('-&#123;', '-{')
+					.replace('&#125;-', '}-')
+					.replace(/&#58;/g, ':')
+			});
 			let p = [];
 			langs.forEach(lang => {
 				p.push(
@@ -88,9 +94,13 @@
 			let table = $('<div id="TranslateVariants">').prependTo('#bodyContent');
 			$('<div style="color:red">提醒：TranslateVariants小工具仍在試驗階段，編輯完成後亦請複查真正做出的編輯是否正確！</div>').appendTo(table);
 			const basename = mw.config.get('wgPageName').replace(/\/zh$/, '');
-			let editlangs = [['', 'zh']];
+			let editlangs = [];
 			langs.forEach(lang => {
-				editlangs.push(['/' + lang, lang]);
+				if (lang == 'zh') {
+					editlangs.push(['', lang]);
+				} else {
+					editlangs.push(['/' + lang, lang]);
+				}
 			});
 			let diffTables = {}
 			editlangs.forEach(lang => {
