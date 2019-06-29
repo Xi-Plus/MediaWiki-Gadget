@@ -86,6 +86,7 @@
 			return Promise.all(p);
 		}).then(function() {
 			let table = $('<div id="TranslateVariants">').prependTo('#bodyContent');
+			$('<div style="color:red">提醒：TranslateVariants小工具仍在試驗階段，編輯完成後亦請複查真正做出的編輯是否正確！</div>').appendTo(table);
 			const basename = mw.config.get('wgPageName').replace(/\/zh$/, '');
 			let editlangs = [['', 'zh']];
 			langs.forEach(lang => {
