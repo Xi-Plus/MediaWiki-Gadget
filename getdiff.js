@@ -17,7 +17,10 @@ javascript:
 			return;
 		}
 
-		link += decodeURIComponent(location.hash);
+		var hash = decodeURIComponent(location.hash);
+		hash = hash.replace(/{/g, '&#x7B;');
+		hash = hash.replace(/}/g, '&#x7D;');
+		link += hash;
 
 		prompt("wikitext", "[[" + link + "]]");
 
