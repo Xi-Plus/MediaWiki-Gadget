@@ -94,7 +94,7 @@
 			});
 			let diffTables = {}
 			editlangs.forEach(lang => {
-				diffTables[lang[1]] = $('<div id="TranslateVariants-diff-' + lang[1] + '">').wrap('<table></table>').appendTo(table);
+				diffTables[lang[1]] = $('<div id="TranslateVariants-diff-' + lang[1] + '">').appendTo(table);
 				$('<hr>').appendTo(table);
 			});
 			editlangs.forEach(lang => {
@@ -151,7 +151,7 @@
 								mw.notify('編輯 ' + targetTitle + ' 發生錯誤：' + e);
 							});
 						});
-						$('<table>').html(diff).appendTo(diffTable);
+						$('<table class="diff">').html(diff).prepend('<colgroup><col class="diff-marker"><col class="diff-content"><col class="diff-marker"><col class="diff-content"></colgroup>').appendTo(diffTable);
 					}
 				});
 			});
