@@ -73,7 +73,7 @@
 			langs.forEach(lang => {
 				p.push(
 					api.parse(
-						'{{NoteTA|G1=MediaWiki|G2=IT}}<div id="TVcontent">' + text + '</div>',
+						'{{NoteTA|G1=IT|G2=MediaWiki}}<div id="TVcontent">' + text + '</div>',
 						{
 							'uselang': lang,
 							'prop': 'text'
