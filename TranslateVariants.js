@@ -128,7 +128,7 @@
 					}
 					let diff = page.revisions[0].diff.body;
 					if (diff == '') {
-						$('<div>No change</div>').appendTo(diffTable);
+						$('<div>無變更</div>').appendTo(diffTable);
 					} else {
 						let submit = $('<button>發佈變更</button>').appendTo(diffTable);
 						submit.on('click', function() {
