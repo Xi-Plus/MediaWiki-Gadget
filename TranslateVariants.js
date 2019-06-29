@@ -19,8 +19,8 @@
 	if (typeof (TranslateVariants) == 'undefined') {
 		TranslateVariants = {};
 	}
-	if (typeof (TranslateVariants.summarySuffix) != 'string') {
-		TranslateVariants.summarySuffix = ' via [[User:Xiplus/js/TranslateVariants.js|TranslateVariants]]'
+	if (typeof (TranslateVariants.summary) != 'string') {
+		TranslateVariants.summary = '自動轉換變體自[[$1]] via [[User:Xiplus/js/TranslateVariants.js|TranslateVariants]]'
 	}
 
 	function main() {
@@ -116,7 +116,7 @@
 							this.remove();
 							api.create(
 								targetTitle,
-								{ summary: '自動轉換變體自[[' + mw.config.get('wgPageName') + ']]' + TranslateVariants.summarySuffix },
+								{ summary: TranslateVariants.summary.replace(/\$1/g, mw.config.get('wgPageName')) },
 								newtext
 							).then(function() {
 								mw.notify('已編輯 ' + targetTitle);
@@ -139,7 +139,7 @@
 								function() {
 									return {
 										text: newtext,
-										summary: '自動轉換變體自[[' + mw.config.get('wgPageName') + ']]' + TranslateVariants.summarySuffix,
+										summary: TranslateVariants.summary.replace(/\$1/g, mw.config.get('wgPageName')),
 										nocreate: false
 									};
 								}
