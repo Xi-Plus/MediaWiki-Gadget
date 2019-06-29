@@ -100,7 +100,7 @@
 			editlangs.forEach(lang => {
 				let newtext = result[lang[1]];
 				let targetTitle = basename + lang[0];
-				api.get({
+				api.post({
 					action: 'query',
 					prop: 'revisions',
 					titles: [targetTitle],
@@ -124,7 +124,9 @@
 								mw.notify('編輯 ' + targetTitle + ' 發生錯誤：' + e);
 							});
 						});
-						$('<pre>').html(newtext).appendTo(diffTable);
+						$('<pre>').html(newtext.replace(/[<>&]/gim, function(s) {
+							return "&#" + s.charCodeAt(0) + ";";
+						})).appendTo(diffTable);
 						return;
 					}
 					let diff = page.revisions[0].diff.body;
