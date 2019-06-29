@@ -108,10 +108,10 @@
 					formatversion: '2',
 				}).then(function(data) {
 					let diffTable = diffTables[lang[1]];
-					$('<div>' + lang[1] + '（' + langname[lang[1]] + '）' + '</div>').appendTo(diffTable);
+					let tool = $('<div><a href="' + mw.util.getUrl(targetTitle) + '">' + lang[1] + '（' + langname[lang[1]] + '）</a>（<a href="' + mw.util.getUrl(targetTitle, { action: 'edit' }) + '">編</a>）</div>').appendTo(diffTable);
 					let page = data.query.pages[0];
 					if (page.missing) {
-						let submit = $('<button>發佈頁面</button>').appendTo(diffTable);
+						let submit = $('<button style="float: right;">發佈頁面</button>').appendTo(tool);
 						submit.on('click', function() {
 							this.remove();
 							api.create(
@@ -129,9 +129,9 @@
 					}
 					let diff = page.revisions[0].diff.body;
 					if (diff == '') {
-						$('<div>無變更</div>').appendTo(diffTable);
+						$('<span style="float: right;">無變更</span>').appendTo(tool);
 					} else {
-						let submit = $('<button>發佈變更</button>').appendTo(diffTable);
+						let submit = $('<button style="float: right;">發佈變更</button>').appendTo(tool);
 						submit.on('click', function() {
 							this.remove();
 							api.edit(
