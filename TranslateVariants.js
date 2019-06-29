@@ -66,7 +66,7 @@
 			let text = data.content;
 			result['zh'] = text;
 
-			text = text.replace(/[[\]{}<>|:*'#&\s]/gim, function(s) {
+			text = text.replace(/[[\]{}<>|:*'_#&\s]/gim, function(s) {
 				return "&#" + s.charCodeAt(0) + ";";
 			});
 			let p = [];
