@@ -64,10 +64,10 @@ mw.loader.using(['mediawiki.util']).done(function() {
 	}
 
 	if (mw.config.get('wgCanonicalSpecialPageName') === 'AbuseLog') {
-		if ($('.mw-abuselog-details-article_prefixedtext').length) {
+		if (mw.config.get("wgAbuseFilterVariables") && mw.config.get("wgAbuseFilterVariables")["page_prefixedtitle"]) {
 			mw.util.addPortletLink(
 				'p-tb',
-				'/wiki/Special:滥用日志?wpSearchTitle=' + ($('.mw-abuselog-details-article_prefixedtext>td.mw-abuselog-var-value').text()),
+				'/wiki/Special:滥用日志?wpSearchTitle=' + mw.config.get("wgAbuseFilterVariables")["page_prefixedtitle"],
 				'此頁過濾器日誌',
 				't-abuselog',
 				'',
