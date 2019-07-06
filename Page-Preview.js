@@ -48,11 +48,6 @@ function checkshort(idx, data) {
 	}
 }
 
-function getlink(idx) {
-	var link = "https://zh.wikipedia.org/w/index.php?title=" + items[idx].children[0].href.substr(30) + "&action=raw";
-	return link;
-}
-
 function checkinterwiki(idx, data) {
 	write(idx, "[" + data.length + " 字]");
 	if (data.match(/{{Interlanguage links/i)) {
