@@ -58,7 +58,7 @@ function checkinterwiki(idx, data) {
 	}
 }
 
-function checkinterwiki(idx, data) {
+function checkdeadlink(idx, data) {
 	write(idx, "[" + data.length + " 字]");
 	if (data.match(/{{Dead end/i)) {
 		write(idx, "[無連結]");
@@ -86,6 +86,6 @@ if (mw.config.get('wgPageName') === "Special:无跨wiki") {
 
 if (mw.config.get('wgPageName') === "Special:断链页面") {
 	for (var i = 0; i < items.length; i++) {
-		getpage(i, getlink(i), checkinterwiki);
+		getpage(i, getlink(i), checkdeadlink);
 	}
 }
