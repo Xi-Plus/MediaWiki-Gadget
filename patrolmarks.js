@@ -33,7 +33,7 @@
 				let pagename = $(e).find('>a:nth-child(2)').text();
 				let oldpagename = $(e).find('.mw-newpages-oldtitle').text();
 				if (oldpagename) {
-					pagename = oldpagename.replace(/最初建立的名稱為 '(.+)'/, '$1').replace(/最初创建为“(.+?)”/, '$1');
+					pagename = oldpagename.replace(/最初建立的名稱為 "(.+?)"/, '$1').replace(/最初创建为“(.+?)”/, '$1');
 				}
 				let creator = $(e).find('a.mw-userlink').text();
 				let oldid = mw.util.getParamValue('oldid', $(e).find('>a:first()').attr('href'));
