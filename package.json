@@ -1,10 +1,12 @@
 {
+  "version": "1.0.0",
   "name": "mediawiki-gadget",
   "private": true,
   "scripts": {
     "lint": "eslint ."
   },
   "devDependencies": {
-    "eslint": "^5.13.0"
+    "babel-eslint": "^10.0.2",
+    "eslint": "^5.16.0"
   }
 }

@@ -1,8 +1,6 @@
 {
     "extends": "eslint:recommended",
-    "parserOptions": {
-        "ecmaVersion": 6
-    },
+    "parser": "babel-eslint",
     "env": {
         "browser": true,
         "jquery": true,
