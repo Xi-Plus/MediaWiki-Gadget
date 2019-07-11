@@ -69,6 +69,7 @@
 			text = text.replace(/[[\]{}<>|:*'_#&\s]/gim, function(s) {
 				return "&#" + s.charCodeAt(0) + ";";
 			});
+			text = text.replace(/(&#91;&#91;)((?:(?!&#124;)(?!&#93;).)+?)(&#124;(?:(?!&#93;).)+?&#93;&#93;)/, '$1-{$2}-$3');
 			text = text.replace(/-&#123;(.+?)&#125;-/g, function(s) {
 				return s
 					.replace('-&#123;', '-{')
