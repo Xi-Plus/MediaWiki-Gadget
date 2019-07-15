@@ -1,8 +1,16 @@
-javascript:
+// <nowiki>
+/* globals AEFA:true */
 (function() {
 
 	if (mw.config.get('wgCanonicalSpecialPageName') !== "AbuseLog" || mw.config.get('wgPageName').indexOf("/") === -1) {
 		return;
+	}
+
+	if (typeof (AEFA) == 'undefined') {
+		AEFA = {};
+	}
+	if (typeof (AEFA.summary) != 'string') {
+		AEFA.summary = ' via [[User:Xiplus/js/apply-edit-from-abuselog.js|AEFA]]';
 	}
 
 	function applyEdit(type) {
@@ -94,6 +102,8 @@ javascript:
 				summary += "，無" + actionname[type] + "摘要";
 			}
 
+			summary += AEFA.summary;
+
 			if (type === "edit") {
 				$('<input type="hidden" />').attr({ name: "wpSummary", value: summary }).appendTo(form);
 			} else {
@@ -114,3 +124,5 @@ javascript:
 	}
 
 })();
+
+// </nowiki>
