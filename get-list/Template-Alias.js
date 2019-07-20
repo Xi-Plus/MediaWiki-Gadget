@@ -10,7 +10,7 @@ javascript: (async () => {
         'prop': 'redirects',
         'titles': mw.config.get('wgPageName')
     }).then(async data => {
-        let pageids = $.map(data.query.pages[mw.config.get('wgArticleId')].redirects, redirect => redirect.pageid).join('|');
+        let pageids = mw.config.get('wgArticleId') + '|' + $.map(data.query.pages[mw.config.get('wgArticleId')].redirects, redirect => redirect.pageid).join('|');
 
         await api.get({
             'action': 'query',
