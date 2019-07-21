@@ -25,6 +25,10 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     this.page = 'rrd';
                     break;
 
+                case 'Wikipedia:请求保护页面':
+                    this.page = 'rfpp';
+                    break;
+
                 default:
                     this.page = null;
                     break;
@@ -55,14 +59,17 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             if (this.page === null) {
                 return;
             }
-            switch (this.page) {
-                case 'rrd':
-                    if (!this.markClass) {
+            if (!this.markClass) {
+                switch (this.page) {
+                    case 'rrd':
                         this.filteRrd();
-                    }
-                    break;
+                        break;
+                    case 'rfpp':
+                        this.filteRfpp();
+                        break;
+                }
+                this.markClass = true;
             }
-            this.markClass = true;
             this.cssRule.disabled = true;
             var rule = '';
             switch (this.filtertype) {
@@ -108,6 +115,37 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 el.classList.add(requesterclassuser);
                 let now = $(el).next()[0];
                 while (now !== undefined && now.tagName !== 'DIV') {
+                    now.classList.add(self.requesterclassdefault);
+                    now.classList.add(requesterclassuser);
+                    now = $(now).next()[0];
+                }
+            });
+        }
+
+        /**
+         * Filter in RFPP
+         */
+        Filter.prototype.filteRfpp = function() {
+            var self = this;
+
+            $('.mw-parser-output>h3').each(function(_, el) {
+                var username = null, m;
+                $($(el).next().find('a').get().reverse()).each(function(_, link) {
+                    if ((m = link.href.match(/(index\.php\?title=|\/wiki\/)(User:|User_talk:|Special:%E7%94%A8%E6%88%B7%E8%B4%A1%E7%8C%AE\/)([^/&]+?)(&|$)/)) !== null) {
+                        username = decodeURIComponent(m[3]);
+                        return false;
+                    }
+                });
+                if (username === null) {
+                    return;
+                }
+
+                var requesterclassuser = self.requesterclassuser + username.replace(/ /g, '_');
+
+                el.classList.add(self.requesterclassdefault);
+                el.classList.add(requesterclassuser);
+                let now = $(el).next()[0];
+                while (now !== undefined && $.inArray(now.tagName, ['H2', 'H3']) === -1) {
                     now.classList.add(self.requesterclassdefault);
                     now.classList.add(requesterclassuser);
                     now = $(now).next()[0];
