@@ -41,6 +41,8 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
 
                 this.markClass = false;
                 this.cssRule = mw.util.addCSS('');
+
+                this.filter();
             }
         }
         OO.mixinClass(Filter, OO.EventEmitter);
@@ -247,18 +249,19 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
         // Initialization
         if (mw.config.get('wgAction') === 'view') {
             var filter = new Filter();
-            filter.filter();
 
-            $(mw.util.addPortletLink(
-                'p-cactions',
-                '#',
-                '篩選提報',
-                'rf-filter',
-                '點擊以篩選提報'
-            )).click(function(event) {
-                event.preventDefault();
-                launchDialog(filter);
-            });
+            if (filter.page !== null) {
+                $(mw.util.addPortletLink(
+                    'p-cactions',
+                    '#',
+                    '篩選提報',
+                    'rf-filter',
+                    '點擊以篩選提報'
+                )).click(function(event) {
+                    event.preventDefault();
+                    launchDialog(filter);
+                });
+            }
         }
 
     }(jQuery, mediaWiki, OO));
