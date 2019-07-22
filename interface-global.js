@@ -259,16 +259,6 @@
 			$('#t-specialpages')
 		);
 
-		mw.util.addPortletLink(
-			'p-tb',
-			'/wiki/?curid=' + mw.config.get('wgArticleId'),
-			'頁面ID短網址',
-			't-shorturl',
-			'',
-			'',
-			$('#t-info')
-		);
-
 		if (mw.config.get("wgNamespaceNumber") == 8) {
 			mw.util.addPortletLink(
 				'p-cactions',
@@ -295,6 +285,10 @@
 
 		/* mediawiki.util */
 	});
+
+
+	/* CurIDLink */
+	mw.loader.load('https://meta.wikimedia.org/w/index.php?title=MediaWiki:Gadget-CurIDLink.js&action=raw&ctype=text/javascript');
 
 
 	/* shortURL */
