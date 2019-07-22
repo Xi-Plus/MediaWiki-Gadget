@@ -1,21 +1,22 @@
 /* eslint-disable no-console */
 /* eslint-disable no-fallthrough */
+// <nowiki>
 
 (function() {
 
+
+	/* 反importScript */
+	var whitelist = ["Xiplus", "A2093064-test", "A2093064-bot"];
+	if (whitelist.indexOf(mw.config.get('wgUserName')) === -1) {
+		alert("請勿importScript User:Xiplus/global.js！可能有未預期的危害發生。");
+		return;
+	}
+
+	console.log("using User:Xiplus/global.js");
+
+
 	mw.loader.using(['mediawiki.util']).done(function() {
 		/* mediawiki.util */
-
-		console.log("using User:Xiplus/global.js");
-
-
-		/* 反importScript */
-		var whitelist = ["Xiplus", "A2093064-test", "A2093064-bot"];
-		if (whitelist.indexOf(mw.config.get('wgUserName')) === -1) {
-			alert("請勿importScript User:Xiplus/global.js！可能有未預期的危害發生。");
-			return;
-		}
-
 
 		// mw.loader.load('https://xiplus.ddns.net/Xiplus-zhWP/APIedit.js');
 		mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:Xiplus/js/APIedit.js&action=raw&ctype=text/javascript');
@@ -35,7 +36,7 @@
 				if (w.sectionNumber == -1) {
 					return ' ';
 				}
-				if (w.sectionNumber == 0) {
+				if (w.sectionNumber === 0) {
 					return '/* 首段 */ ';
 				}
 				return '/* ' + w.sectionName + ' */ ';
@@ -224,6 +225,28 @@
 				break;
 		}
 
+		/* tagger */
+		if ($.inArray('sysop', mw.config.get('wgUserGroups')) === -1) {
+			switch (mw.config.get('wgDBname')) {
+				case 'enwiki':
+					break;
+				default:
+					if (typeof (taggerConfig) == 'undefined') taggerConfig = {};
+					taggerConfig.noDeleteOnly = false;
+
+					if (typeof (taggerConfig) == 'undefined') taggerConfig = {};
+					taggerConfig.tags = [];
+					taggerConfig.editSummary = [];
+					taggerConfig.tags[1] = '{{delete|Vandalism}}';
+					taggerConfig.editSummary[taggerConfig.tags[1]] = '+delete';
+					taggerConfig.tags[2] = '{{delete|Nonsense}}';
+					taggerConfig.editSummary[taggerConfig.tags[2]] = '+delete';
+					taggerConfig.tags.other = 'This is used for the option you have to select to be able to insert a custom template';
+					mw.loader.load('//meta.wikimedia.org/w/index.php?title=User:Hoo_man/tagger.js&action=raw&ctype=text/javascript');
+					break;
+			}
+		}
+
 		/* 側欄 */
 		mw.util.addPortletLink(
 			'p-tb',
@@ -238,7 +261,7 @@
 		mw.util.addPortletLink(
 			'p-tb',
 			'/wiki/?curid=' + mw.config.get('wgArticleId'),
-			'短網址',
+			'頁面ID短網址',
 			't-shorturl',
 			'',
 			'',
@@ -272,6 +295,17 @@
 		/* mediawiki.util */
 	});
 
+
+	/* shortURL */
+	mw.loader.using(['mediawiki.util', 'oojs-ui', 'mediawiki.ForeignApi', 'mediawiki.notify']).done(function() {
+		mw.loader.getScript('https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-site-lib.js&action=raw&ctype=text/javascript').then(function() {
+			mw.loader.load('https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-shortURL.js&action=raw&ctype=text/javascript');
+		});
+	});
+
+
 	console.log("global.js end");
 
 })();
+
+// </nowiki>
