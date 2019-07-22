@@ -288,8 +288,19 @@
 
 
 	/* CurIDLink */
-	new mw.ForeignApi('//meta.wikimedia.org/w/api.php').loadMessages(['Link-by-id', 'Link-by-id-desc']).done(function() {
-		mw.loader.load('https://meta.wikimedia.org/w/index.php?title=MediaWiki:Gadget-CurIDLink.js&action=raw&ctype=text/javascript');
+	mw.loader.using(['mediawiki.api', 'mediawiki.ForeignApi', 'mediawiki.notify']).then(function() {
+		if (mw.config.get('wgDBname') === 'metawiki') {
+			var api = new mw.Api();
+		} else {
+			var api = new mw.ForeignApi('//meta.wikimedia.org/w/api.php');
+		}
+		api.loadMessagesIfMissing(['Link-by-id', 'Link-by-id-desc']).then(function() {
+			mw.loader.load('https://meta.wikimedia.org/w/index.php?title=MediaWiki:Gadget-CurIDLink.js&action=raw&ctype=text/javascript');
+		}, function() {
+			mw.notify('Load CurIDLink messages failed', { type: 'error' })
+		});
+	}, function() {
+		console.error('Load CurIDLink dependencies failed');
 	});
 
 
