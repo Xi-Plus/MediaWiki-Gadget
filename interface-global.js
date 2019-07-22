@@ -231,7 +231,8 @@
 				case 'enwiki':
 					break;
 				default:
-					if (typeof (taggerConfig) == 'undefined') taggerConfig = {};
+					if (typeof (window.taggerConfig) == 'undefined') window.taggerConfig = {};
+					var taggerConfig = window.taggerConfig;
 					taggerConfig.noDeleteOnly = false;
 
 					if (typeof (taggerConfig) == 'undefined') taggerConfig = {};
