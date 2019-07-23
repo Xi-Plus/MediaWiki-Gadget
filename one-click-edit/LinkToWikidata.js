@@ -7,10 +7,27 @@ javascript:
 (function() {
 	var localname = mw.config.get('wgPageName');
 	var targetname = localname.replace(mw.config.get('wgFormattedNamespaces')[4], "Project");
-	targetname = targetname.replace("維基學院", "維基百科");
-	/* 取得中文維基對應條目的名字 */
+	var lang = prompt('Lang:', 'zh');
+	var site = prompt('Site:\n'
+		+ 'wikibooks\n'
+		+ 'wikidata\n'
+		+ 'wikimedia\n'
+		+ 'wikinews\n'
+		+ 'wikipedia\n'
+		+ 'wikiquote\n'
+		+ 'wikisource\n'
+		+ 'wikiversity\n'
+		+ 'wikivoyage\n'
+		+ 'wiktionary\n'
+		, 'wikipedia');
+	var url = lang + '.' + site + '.org';
+	if (!confirm('Url: ' + url)) {
+		return;
+	}
+
+	/* 取得對應條目的名字 */
 	$.ajax({
-		url: 'https://zh.wikipedia.org/w/api.php',
+		url: 'https://' + url + '/w/api.php',
 		type: 'POST',
 		dataType: 'jsonp',
 		data: {
@@ -41,7 +58,7 @@ javascript:
 				}
 			}
 			if (!hastitle) {
-				mw.notify('找不到中文維基對應條目，可能是因為尚未建立或者名稱不一致。');
+				mw.notify('找不到對應條目，可能是因為尚未建立或者名稱不一致。');
 			} else {
 				/* 加入連結 */
 				var api = new mw.ForeignApi('https://www.wikidata.org/w/api.php');
