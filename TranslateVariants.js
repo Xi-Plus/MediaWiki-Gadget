@@ -2,7 +2,7 @@
 /* globals TranslateVariants:true */
 (function() {
 
-	if (mw.config.get('wgPageName').match(/MediaWiki:.+\/zh/)) {
+	if (mw.config.get('wgPageName').match(/^MediaWiki:[^/]+(\/zh)?$/)) {
 		let link = mw.util.addPortletLink(
 			'p-cactions',
 			'#',
@@ -87,6 +87,8 @@
 						}
 					).then(function(data) {
 						result[lang] = $('<div/>').html(data).find('#TVcontent').text();
+					}, function(err) {
+						mw.notify('請求時發生錯誤：' + err);
 					})
 				);
 			})
