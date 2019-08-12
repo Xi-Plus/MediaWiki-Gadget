@@ -99,6 +99,7 @@
             html += '<option value="{{VIP|nesw}}">警告後無編輯。如用戶在獲充分警告後繼續進行破壞，請回報</option>';
             html += '<option value="{{VIP|4im}}">最近警告不當，4im層級僅適用於嚴重破壞</option>';
             html += '<option value="{{VIP|ns}}">未獲充分警告。如用戶已獲充分警告並繼續進行破壞，請回報</option>';
+            html += '<option value="{{VIP|dc}}">拒絕</option>';
             html += '<option value="{{VIP|nv}}">編輯並非破壞。請確保其最近編輯構成破壞後再重新提報</option>';
             html += '<option value="{{VIP|b}}">拒絕，實際情況可能並非如此（機器人）</option>';
             html += '<option value="{{VIP|fp}}">錯誤提報，編輯並非破壞（機器人）</option>';
