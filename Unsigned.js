@@ -12,7 +12,7 @@ javascript:
 	var username = prompt("Username");
 	if (username !== "" && username !== null) {
 		wpTextbox1.value = myPrefix + "{{subst:unsigned|" + username + "}}" + mySuffix;
-		wpSummary.value = "[[T:unsigned|補簽名]] [[User:" + username + "|" + username + "]]（[[User talk:" + username + "|對話]]｜[[Special:Contributions/" + username + "|貢獻]]）";
+		wpSummary.value = "[[Template:Unsigned|補簽名]] [[User:" + username + "|" + username + "]]（[[User talk:" + username + "|對話]]｜[[Special:Contributions/" + username + "|貢獻]]）";
 		wpMinoredit.click();
 		var finish = function() {
 			if (confirm("Save?")) wpSave.click();
