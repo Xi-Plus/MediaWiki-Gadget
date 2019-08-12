@@ -40,7 +40,7 @@ javascript:
 	}
 
 	function finish() {
-		APIedit(mw.config.get('wgPageName'), "[[T:unsigned|補簽名]] [[User:" + username + "|" + username + "]]（[[User talk:" + username + "|對話]]｜[[Special:Contributions/" + username + "|貢獻]]）", unsignedit, true);
+		APIedit(mw.config.get('wgPageName'), "[[Template:Unsigned|補簽名]] [[User:" + username + "|" + username + "]]（[[User talk:" + username + "|對話]]｜[[Special:Contributions/" + username + "|貢獻]]）", unsignedit, true);
 	}
 
 	function next() {
