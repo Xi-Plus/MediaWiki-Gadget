@@ -155,8 +155,13 @@
 			}
 			mw.util.addPortletLink(
 				'p-cactions',
+				'https://xtools.wmflabs.org/globalcontribs/' + username,
+				'全域貢獻 (xtools)'
+			);
+			mw.util.addPortletLink(
+				'p-cactions',
 				'https://tools.wmflabs.org/guc/?by=date&user=' + username,
-				'全域貢獻'
+				'全域貢獻 (guc)'
 			);
 		}
 		if (mw.config.get('wgNamespaceNumber') === 2 || mw.config.get('wgNamespaceNumber') === 3) {
@@ -242,6 +247,8 @@
 					taggerConfig.editSummary[taggerConfig.tags[1]] = '+delete';
 					taggerConfig.tags[2] = '{{delete|Nonsense}}';
 					taggerConfig.editSummary[taggerConfig.tags[2]] = '+delete';
+					taggerConfig.tags[3] = '{{delete|Vandalism. Created by LTA from zhwiki.}}';
+					taggerConfig.editSummary[taggerConfig.tags[3]] = '+delete';
 					taggerConfig.tags.other = 'This is used for the option you have to select to be able to insert a custom template';
 					mw.loader.load('//meta.wikimedia.org/w/index.php?title=User:Hoo_man/tagger.js&action=raw&ctype=text/javascript');
 					break;
