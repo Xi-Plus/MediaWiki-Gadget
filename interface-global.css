@@ -1,0 +1,16 @@
+.localcomments {
+	white-space: normal !important;
+}
+
+.inline-text-blocked {
+	color: black !important;
+	background-color: #AAA !important;
+}
+
+#pt-betafeatures {
+	display: none;
+}
+
+#pt-logout {
+	display: none;
+}

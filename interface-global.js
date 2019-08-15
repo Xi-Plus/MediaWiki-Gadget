@@ -112,13 +112,6 @@
 		mw.loader.load('//www.mediawiki.org/w/index.php?title=MediaWiki:Gadget-UTCLiveClock.js&action=raw&ctype=text/javascript');
 
 
-
-
-
-		/* 頂欄 */
-		document.all["pt-betafeatures"].hidden = true;
-		document.all["pt-logout"].hidden = true;
-
 		/* CentralAuth */
 		function showCentralAuth(username) {
 			if (username === undefined) {
