@@ -103,11 +103,6 @@
 		mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:Xiplus/js/get-translatewiki-link.js&action=raw&ctype=text/javascript');
 
 
-		/* LinkToWikidata */
-		if (mw.config.get('wgDBname').match(/^zhwik|enwiki/) && mw.config.get('wgDBname') != 'zhwiki') {
-			mw.loader.load('https://xiplus.ddns.net/Xiplus-zhWP/LinkToWikidata.js');
-		}
-
 		/* UTC clock */
 		mw.loader.load('//www.mediawiki.org/w/index.php?title=MediaWiki:Gadget-UTCLiveClock.js&action=raw&ctype=text/javascript');
 
