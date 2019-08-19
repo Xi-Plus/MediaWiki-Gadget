@@ -1,5 +1,11 @@
 // <nowiki>
 /* globals UnblockZhIpbe:true */
+/**
+ * 使用方法：
+ * 1. 前往[[Special:Userrights/使用者名稱]]
+ * 2. 在右上角「更多」選單中選取「處理Unblock-zh的IPBE請求」
+ * 3. 按照提示操作
+ */
 (function() {
 
     if (typeof (UnblockZhIpbe) == 'undefined')
