@@ -5,6 +5,11 @@ javascript:
  */
 
 (function() {
+	if ($.inArray(mw.config.get('wgNamespaceNumber'), [2, 3, 8]) !== -1) {
+		// Disabled on User, User talk, Mediawiki namespace.
+		return;
+	}
+
 	var localname = mw.config.get('wgPageName');
 	var targetname = localname.replace(mw.config.get('wgFormattedNamespaces')[4], "Project");
 	var lang = prompt('Lang:', 'zh');
