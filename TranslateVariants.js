@@ -3,14 +3,16 @@
 (function() {
 
 	if (mw.config.get('wgPageName').match(/^MediaWiki:[^/]+(\/zh)?$/)) {
-		let link = mw.util.addPortletLink(
-			'p-cactions',
-			'#',
-			'轉換變體'
-		)
-		$(link).on('click', function() {
-			this.remove();
-			main();
+		mw.loader.using(['mediawiki.api', 'mediawiki.ForeignApi']).then(function() {
+			let link = mw.util.addPortletLink(
+				'p-cactions',
+				'#',
+				'轉換變體'
+			)
+			$(link).on('click', function() {
+				this.remove();
+				main();
+			});
 		});
 	} else {
 		return;
@@ -39,6 +41,12 @@
 		let result = {};
 
 		var api = new mw.Api();
+		var zhwpapi;
+		if (mw.config.get('wgDBname') === 'zhwiki') {
+			var zhwpapi = new mw.Api();
+		} else {
+			var zhwpapi = new mw.ForeignApi('//zh.wikipedia.org/w/api.php');
+		}
 		api.get({
 			action: 'query',
 			prop: 'revisions',
@@ -79,7 +87,7 @@
 			let p = [];
 			langs.forEach(lang => {
 				p.push(
-					api.parse(
+					zhwpapi.parse(
 						'{{NoteTA|G1=IT|G2=MediaWiki}}<div id="TVcontent">' + text + '</div>',
 						{
 							'uselang': lang,
