@@ -1,5 +1,8 @@
 // <nowiki>
 /* globals TranslateVariants:true */
+/**
+ * 使用說明請見 https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants
+ */
 (function() {
 
 	if (mw.config.get('wgPageName').match(/^MediaWiki:[^/]+(\/zh)?$/)) {
