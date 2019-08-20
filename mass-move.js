@@ -25,7 +25,7 @@ var PAGES = [
 var REASON = '轉為全站小工具';
 
 PAGES.forEach(page => {
-	console.log(page);
+	console.log(page); // eslint-disable-line no-console
 	var api = new mw.Api();
 	api.postWithEditToken({
 		action: 'move',
