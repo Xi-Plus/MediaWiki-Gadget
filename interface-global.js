@@ -183,7 +183,7 @@
 		/* Twinkle */
 		switch (mw.config.get('wgDBname')) {
 			case 'enwiki':
-			// case 'simplewiki':
+			case 'simplewiki':
 			case 'test2wiki':
 			case 'zh_classicalwiki':
 			case 'zhwiki':
