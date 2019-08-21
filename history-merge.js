@@ -1,6 +1,7 @@
 /*global jQuery, mediaWiki, OO*/
 /*
  * 修改自 https://www.wikidata.org/w/index.php?title=MediaWiki:Gadget-Merge.js&oldid=835856716
+ * 使用方法請見 https://meta.wikimedia.org/wiki/User:Xiplus/js/history-merge
  */
 
 mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-ui-windows', 'mediawiki.storage']).done(function() {
