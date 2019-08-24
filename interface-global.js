@@ -54,9 +54,11 @@
 
 
 		/* FakeRollback */
+		/*
 		if ($.inArray('sysop', mw.config.get('wgUserGroups')) === -1) {
 			mw.loader.load('https://meta.wikimedia.org/w/index.php?title=User:WhitePhosphorus/js/FakeRollback.js&action=raw&ctype=text/javascript');
 		}
+		*/
 
 
 		/* AutoUndo */
@@ -299,6 +301,40 @@
 		mw.loader.getScript('https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-site-lib.js&action=raw&ctype=text/javascript').then(function() {
 			mw.loader.load('https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-shortURL.js&action=raw&ctype=text/javascript');
 		});
+	});
+
+
+	/* Sandbox link */
+	mw.loader.using(['mediawiki.util']).done(function() {
+		var link, label;
+		switch (mw.config.get('wgContentLanguage')) {
+			case 'zh':
+				link = '沙盒';
+				label = '沙盒';
+				break;
+
+			default:
+				link = 'sandbox';
+				label = 'Sandbox';
+				break;
+		}
+		switch (mw.config.get('wgDBname')) {
+			case 'enwiki':
+			case 'zhwiki':
+			case 'zhwikiversity':
+				break;
+			default:
+				mw.util.addPortletLink(
+					'p-personal',
+					'/wiki/User:Xiplus/' + link,
+					label,
+					'pt-sandbox',
+					'',
+					'',
+					'#pt-preferences'
+				);
+				break;
+		}
 	});
 
 
