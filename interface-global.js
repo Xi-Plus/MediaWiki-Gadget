@@ -196,13 +196,8 @@
 			case 'zhwiktionary':
 				break;
 			default:
-				console.log("載入 Gadget-site-lib.js");
-				mw.loader.load('//zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-site-lib.js&action=raw&ctype=text/javascript');
-				console.log("測試版Twinkle");
-				mw.loader.using(['mediawiki.user', 'mediawiki.util', 'mediawiki.RegExp', 'mediawiki.Title', 'jquery.ui.dialog', 'jquery.tipsy']).done(function() {
-					console.log("Loading");
-					mw.loader.load('//zh.wikipedia.org/w/index.php?title=User:Xiplus/Twinkle-dev.js&action=raw&ctype=text/javascript');
-				});
+				console.log("Load Twinkle-global");
+				mw.loader.load('//meta.wikimedia.org/w/index.php?title=User:Xiplus/Twinkle.js&action=raw&ctype=text/javascript');
 				break;
 		}
 
