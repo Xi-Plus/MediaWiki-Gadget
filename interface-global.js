@@ -297,7 +297,7 @@
 
 
 	/* shortURL */
-	mw.loader.using(['mediawiki.util', 'oojs-ui', 'mediawiki.ForeignApi', 'mediawiki.notify']).done(function() {
+	mw.loader.using(['mediawiki.util', 'oojs-ui', 'mediawiki.ForeignApi', 'mediawiki.notify', 'oojs-ui-windows', 'mediawiki.widgets']).done(function() {
 		mw.loader.getScript('https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-site-lib.js&action=raw&ctype=text/javascript').then(function() {
 			mw.loader.load('https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-shortURL.js&action=raw&ctype=text/javascript');
 		});
@@ -305,37 +305,31 @@
 
 
 	/* Sandbox link */
-	mw.loader.using(['mediawiki.util']).done(function() {
-		var link, label;
-		switch (mw.config.get('wgContentLanguage')) {
-			case 'zh':
-				link = '沙盒';
-				label = '沙盒';
-				break;
+	if ($('#pt-sandbox').length === 0) {
+		mw.loader.using(['mediawiki.util']).done(function() {
+			var link, label;
+			switch (mw.config.get('wgContentLanguage')) {
+				case 'zh':
+					link = '沙盒';
+					label = '沙盒';
+					break;
 
-			default:
-				link = 'sandbox';
-				label = 'Sandbox';
-				break;
-		}
-		switch (mw.config.get('wgDBname')) {
-			case 'enwiki':
-			case 'zhwiki':
-			case 'zhwikiversity':
-				break;
-			default:
-				mw.util.addPortletLink(
-					'p-personal',
-					'/wiki/User:Xiplus/' + link,
-					label,
-					'pt-sandbox',
-					'',
-					'',
-					'#pt-preferences'
-				);
-				break;
-		}
-	});
+				default:
+					link = 'sandbox';
+					label = 'Sandbox';
+					break;
+			}
+			mw.util.addPortletLink(
+				'p-personal',
+				'/wiki/User:Xiplus/' + link,
+				label,
+				'pt-sandbox',
+				'',
+				'',
+				'#pt-preferences'
+			);
+		});
+	}
 
 
 	console.log("global.js end");
