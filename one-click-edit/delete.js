@@ -1,6 +1,6 @@
 javascript: (function() {
 
-    new mw.Api().edit(mw.config.get('wgPageName'), function(revision) {
+    new mw.Api().edit(mw.config.get('wgPageName'), function(_revision) {
         return {
             text: '{{delete|Vandalism}}',
             summary: '+delete'
