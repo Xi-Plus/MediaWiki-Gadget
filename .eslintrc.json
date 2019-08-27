@@ -10,6 +10,7 @@
         "mw": true,
         "OO": true,
         "importScript": true,
+        "importStylesheet": true,
         "wgULS": true,
         "wpTextbox1": true,
         "wpMinoredit": true,
