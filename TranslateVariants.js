@@ -99,7 +99,7 @@
 					).then(function(data) {
 						result[lang] = $('<div/>').html(data).find('#TVcontent').text();
 					}, function(err) {
-						mw.notify('請求時發生錯誤：' + err);
+						mw.notify('解析' + lang + '時發生錯誤：' + err);
 					})
 				);
 			})
@@ -177,6 +177,8 @@
 						});
 						$('<table class="diff">').html(diff).prepend('<colgroup><col class="diff-marker"><col class="diff-content"><col class="diff-marker"><col class="diff-content"></colgroup>').appendTo(diffTable);
 					}
+				}, function(err) {
+					mw.notify('取得' + lang + '差異時發生錯誤：' + err);
 				});
 			});
 		});
