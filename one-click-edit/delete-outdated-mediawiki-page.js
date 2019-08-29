@@ -25,6 +25,9 @@ javascript: (function() {
         case 'zhwiktionary':
             reason = '[[Wiktionary:CSD|G8]]: 管理员因技术原因删除页面；更新介面訊息，直接使用translatewiki';
             break;
+        case 'zhwikinews':
+            reason = '過時介面訊息，直接使用translatewiki';
+            break;
         default:
             mw.notify('不支援在此Wiki上執行');
             return;
