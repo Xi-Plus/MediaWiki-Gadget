@@ -60,8 +60,10 @@
 			runlangs = defaultlangs;
 		}
 
-		var langqueue = runlangs.split(',').map(function(s) {
-			return s.trim()
+		var langqueue = runlangs.split(',').map(function(lang) {
+			return lang.trim()
+		}).filter(function(lang) {
+			return langs.indexOf(lang) !== -1
 		});
 
 		api.get({
