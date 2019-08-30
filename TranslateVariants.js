@@ -53,10 +53,15 @@
 		var basepagetext = '';
 		let table = $('<div id="TranslateVariants">').prependTo('#bodyContent');
 		$('<div style="color:red">提醒：TranslateVariants小工具仍在試驗階段，編輯完成後亦請複查真正做出的編輯是否正確！</div>').appendTo(table);
-		var langqueue = [];
 
-		langs.forEach(lang => {
-			langqueue.push(lang);
+		var defaultlangs = 'zh,zh-hans,zh-cn,zh-my,zh-sg,zh-hant,zh-hk,zh-mo,zh-tw';
+		var runlangs = prompt('轉換以下語言（以逗號隔開）：', defaultlangs);
+		if (runlangs === null) {
+			runlangs = defaultlangs;
+		}
+
+		var langqueue = runlangs.split(',').map(function(s) {
+			return s.trim()
 		});
 
 		api.get({
