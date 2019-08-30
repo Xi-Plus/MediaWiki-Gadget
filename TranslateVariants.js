@@ -94,6 +94,7 @@
 				return s
 					.replace('-&#123;', '-{')
 					.replace('&#125;-', '}-')
+					.replace('&#124;', '|')
 					.replace(/&#58;/g, ':')
 			});
 			basepagetext = text;
