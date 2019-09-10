@@ -6,7 +6,7 @@ javascript:
 
 (function() {
 	if ($.inArray(mw.config.get('wgNamespaceNumber'), [2, 3, 8]) !== -1) {
-		// Disabled on User, User talk, Mediawiki namespace.
+		/* Disabled on User, User talk, Mediawiki namespace. */
 		return;
 	}
 
@@ -76,7 +76,7 @@ javascript:
 							mw.notify('已取消建立項目。');
 							return;
 						}
-						var targetsite = prompt('目標項目網站代碼:', 'enwiki');
+						var targetsite = prompt('目標項目網站代碼:', 'zhwiki');
 						if (!targetsite) {
 							mw.notify('已取消建立項目。');
 							return;
@@ -86,12 +86,13 @@ javascript:
 							'new': 'item',
 							token: data.query.tokens.csrftoken,
 							'data': JSON.stringify({
-								labels: {
-									zh: {
-										language: 'zh',
-										value: title,
-									},
-								},
+								labels: [{
+									language: 'zh',
+									value: title,
+								}, {
+									language: lang,
+									value: title,
+								}],
 								sitelinks: [{
 									site: targetsite,
 									title: title,
