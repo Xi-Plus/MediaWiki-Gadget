@@ -76,6 +76,11 @@ javascript:
 							mw.notify('已取消建立項目。');
 							return;
 						}
+						var targetsite = prompt('目標項目網站代碼:', 'enwiki');
+						if (!targetsite) {
+							mw.notify('已取消建立項目。');
+							return;
+						}
 						api.post({
 							action: 'wbeditentity',
 							'new': 'item',
@@ -88,7 +93,7 @@ javascript:
 									},
 								},
 								sitelinks: [{
-									site: 'zhwiki',
+									site: targetsite,
 									title: title,
 								}, {
 									site: mw.config.get('wgDBname'),
