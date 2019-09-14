@@ -12,6 +12,9 @@ javascript:
 			'',
 			'#pt-userpage'
 		);
+		if (!backlog) {
+			return;
+		}
 		var path = mw.config.get('wgArticlePath');
 		backlog.innerHTML =
 			'<a id="adminbacklog-csd" href="' + path.replace('$1', 'Category:快速删除候选') + '">CSD 未取得</a> ' +
