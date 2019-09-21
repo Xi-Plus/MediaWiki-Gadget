@@ -4,7 +4,7 @@
         return;
     }
 
-    mw.loader.using(['mediawiki.util', 'mediawiki.api', 'jquery.ui.dialog', 'jquery.checkboxShiftClick'], function() {
+    mw.loader.using(['mediawiki.util', 'mediawiki.api', 'jquery.ui.dialog']).then(function() {
 
         function main() {
             var html = '<div>';
@@ -93,7 +93,7 @@
 
         $(".mw-revdelundel-link").each(function(i, e) {
             var url = $(e).find("a").attr("href");
-            
+
             var type = mw.util.getParamValue("type", url);
             if (type != 'revision') return;
 
@@ -108,7 +108,10 @@
             });
             $(e).after($filter);
         });
-        $('.mass-revision-delete-checkbox').checkboxShiftClick();
+
+        mw.loader.getScript('https://meta.wikimedia.org/w/index.php?title=User:Xiplus/js/checkboxShiftClick.js&action=raw&ctype=text/javascript').then(function() {
+            $('.mass-revision-delete-checkbox').checkboxShiftClick();
+        });
 
         var $filter = $('<button />', {
             'type': 'button',
