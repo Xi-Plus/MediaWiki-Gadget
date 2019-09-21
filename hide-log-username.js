@@ -6,6 +6,10 @@
 
     mw.loader.using(['mediawiki.util', 'mediawiki.api', 'jquery.ui.dialog'], function() {
 
+        if (mw.util.isIPAddress(mw.config.get('wgRelevantUserName'))) {
+            return;
+        }
+
         function main() {
             var html = '<div>';
             html += '常見刪除原因<br>';
