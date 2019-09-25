@@ -112,7 +112,7 @@
             html += '<option value="dup">重複</option>';
             html += '</select><br>';
             html += '留言<br>';
-            html += '<input type="text" id="comment" size="40" value="::">';
+            html += '<input type="text" id="comment" size="40" value=":">';
             html += '</div>';
             $(html).dialog({
                 title: '關閉過濾器錯誤報告 - ' + title,
