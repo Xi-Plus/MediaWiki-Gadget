@@ -60,6 +60,11 @@
                 "leuser": badname,
                 "lelimit": "max",
             }).then(function(data) {
+                if (data.query.logevents.length == 0) {
+                    mw.notify('沒有可刪除的操作者日誌');
+                    return;
+                }
+
                 var logids = $.map(data.query.logevents, function(e) {
                     return e.logid;
                 }).join('|');
@@ -85,6 +90,11 @@
                 "letitle": "User:" + badname,
                 "lelimit": "max"
             }).then(function(data) {
+                if (data.query.logevents.length == 0) {
+                    mw.notify('沒有可刪除的目標（User）日誌');
+                    return;
+                }
+
                 var logids = $.map(data.query.logevents, function(e) {
                     return e.logid;
                 }).join('|');
@@ -110,6 +120,11 @@
                 "letitle": "User talk:" + badname,
                 "lelimit": "max"
             }).then(function(data) {
+                if (data.query.logevents.length == 0) {
+                    mw.notify('沒有可刪除的目標（User talk）日誌');
+                    return;
+                }
+
                 var logids = $.map(data.query.logevents, function(e) {
                     return e.logid;
                 }).join('|');
