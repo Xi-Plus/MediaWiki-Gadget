@@ -96,7 +96,32 @@
                     hide: 'content',
                     reason: comment
                 }).then(function() {
-                    mw.notify('成功刪除日誌中的 ' + data.query.logevents.length + ' 個目標');
+                    mw.notify('成功刪除日誌中的 ' + data.query.logevents.length + ' 個目標（User）');
+                }, function(e) {
+                    mw.notify('未知錯誤：' + e);
+                });
+            });
+
+            api.get({
+                "action": "query",
+                "format": "json",
+                "list": "logevents",
+                "leprop": "ids",
+                "letitle": "User talk:" + badname,
+                "lelimit": "max"
+            }).then(function(data) {
+                var logids = $.map(data.query.logevents, function(e) {
+                    return e.logid;
+                }).join('|');
+
+                api.postWithEditToken({
+                    action: 'revisiondelete',
+                    type: 'logging',
+                    ids: logids,
+                    hide: 'content',
+                    reason: comment
+                }).then(function() {
+                    mw.notify('成功刪除日誌中的 ' + data.query.logevents.length + ' 個目標（User talk）');
                 }, function(e) {
                     mw.notify('未知錯誤：' + e);
                 });
