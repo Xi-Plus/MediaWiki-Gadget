@@ -120,6 +120,7 @@
             html += '<option value="請再次嘗試編輯">請再次嘗試編輯</option>';
             html += '<option value="請詳閱過濾器的警告訊息">請詳閱過濾器的警告訊息</option>';
             html += '<option value="過濾器無誤">過濾器無誤</option>';
+            html += '<option value="重複報告">重複報告</option>';
             html += '</select><br>';
             html += '<input type="text" id="comment" size="40" value=":">';
             html += '</div>';
