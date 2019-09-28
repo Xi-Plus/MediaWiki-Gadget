@@ -112,6 +112,15 @@
             html += '<option value="dup">重複</option>';
             html += '</select><br>';
             html += '留言<br>';
+            html += '<select id="vip" onchange="$(this.parentElement).find(\'#comment\')[0].value += this.value; this.value = \'\';">';
+            html += '<option value="">選擇</option>';
+            html += '<option value="{{Fixed}}">{{Fixed}}（已修復）</option>';
+            html += '<option value="{{Wontfix}}">{{Wontfix}}（不予修復）</option>';
+            html += '<option value="已協助編輯">已協助編輯</option>';
+            html += '<option value="請再次嘗試編輯">請再次嘗試編輯</option>';
+            html += '<option value="請詳閱過濾器的警告訊息">請詳閱過濾器的警告訊息</option>';
+            html += '<option value="過濾器無誤">過濾器無誤</option>';
+            html += '</select><br>';
             html += '<input type="text" id="comment" size="40" value=":">';
             html += '</div>';
             $(html).dialog({
