@@ -3,7 +3,7 @@
 	var lang = "zh-hant";
 
 	function getTranslatewikiLink(str) {
-		var match = str.match(/\(([^:)]+)/g);
+		var match = str.match(/\(([^:()]+)/g);
 		var res = [];
 		if (match !== undefined) {
 			$(match).each(function(i, m) {
