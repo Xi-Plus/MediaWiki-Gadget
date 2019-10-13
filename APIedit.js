@@ -60,7 +60,7 @@ function APIedit(pagename, summary, editfunc, minoredit = false, finish, testmod
 				'summary': summary,
 				'basetimestamp': revisions,
 				'text': content,
-				'token': mw.user.tokens.get('editToken')
+				'token': mw.user.tokens.get('csrfToken')
 			},
 			success: function success() {
 				finish();

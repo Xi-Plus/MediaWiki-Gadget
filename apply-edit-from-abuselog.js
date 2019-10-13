@@ -72,7 +72,7 @@
 
 			$('<input type="hidden" />').attr({
 				name: "wpEditToken",
-				value: mw.user.tokens.get('editToken')
+				value: mw.user.tokens.get('csrfToken')
 			}).appendTo(form);
 
 			var summary = "套用";
