@@ -99,7 +99,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 return $(el).find('a[href*="action=revisiondelete"]').length > 0;
             }).each(function(_, el) {
                 var username = null, m;
-                $($(el).next().find('a').get().reverse()).each(function(_, link) {
+                $(el).next().find('a').each(function(_, link) {
                     if ((m = link.href.match(/(index\.php\?title=|\/wiki\/)(User:|User_talk:|Special:%E7%94%A8%E6%88%B7%E8%B4%A1%E7%8C%AE\/)([^/&]+?)(&|$)/)) !== null) {
                         username = decodeURIComponent(m[3]);
                         return false;
