@@ -12,7 +12,7 @@ javascript: (function() {
         repalcement += "|sign=--~~~~";
     }
     repalcement += "}}\n\n";
-    wpTextbox1.value = wpTextbox1.value.replace(/\n*{{((?:Editprotected|EP)(?:\|.*?)?)}}\s*/i, repalcement);
+    wpTextbox1.value = wpTextbox1.value.replace(/\n*{{((?:Editprotected|Editprotect|Sudo|EP|请求编辑|請求編輯|编辑请求|編輯請求|請求編輯受保護的頁面|请求编辑受保护的页面|Editsemiprotected|FPER|Edit[ _]fully-protected)(?:\|.*?)?)}}\s*/i, repalcement);
     if (confirm("Save?")) {
         wpSave.click();
     }
