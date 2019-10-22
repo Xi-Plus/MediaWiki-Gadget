@@ -71,7 +71,6 @@
 				var log = [];
 				for (var i = 0; i < data.query.logevents.length; i++) {
 					var comment = data.query.logevents[i].comment;
-					console.log(comment); // eslint-disable-line no-console
 					if (data.query.logevents[i].action === "restore") {
 						comment = "還原";
 					} else if (data.query.logevents[i].action === "revision") {
