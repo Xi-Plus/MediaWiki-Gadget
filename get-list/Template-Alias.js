@@ -40,7 +40,13 @@ javascript: (async () => {
         return title;
     }).join('|') + ')';
 
+    let regexci = '(' + $.map(titles, title => {
+        title = title.replace(/ /, '[ _]');
+        return title;
+    }).join('|') + ')';
+
     result += '<br>Regex:<br>' + regex;
+    result += '<br>Regex (case insensitive):<br>' + regexci;
 
     var win = window.open('');
     win.document.body.innerHTML = result;
