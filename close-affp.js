@@ -118,11 +118,12 @@
             html += '<option value="{{Wontfix}}">{{Wontfix}}（不予修復）</option>';
             html += '<option value="已協助編輯">已協助編輯</option>';
             html += '<option value="請再次嘗試編輯">請再次嘗試編輯</option>';
+            html += '<option value="請至[[Wikipedia:互助客栈/求助]]尋求協助">請至Wikipedia:互助客栈/求助尋求協助</option>';
             html += '<option value="請詳閱過濾器的警告訊息">請詳閱過濾器的警告訊息</option>';
             html += '<option value="過濾器無誤">過濾器無誤</option>';
             html += '<option value="重複報告">重複報告</option>';
             html += '</select><br>';
-            html += '<input type="text" id="comment" size="40" value=":">';
+            html += '<input type="text" id="comment" size="70" value=":">';
             html += '</div>';
             $(html).dialog({
                 title: '關閉過濾器錯誤報告 - ' + title,
