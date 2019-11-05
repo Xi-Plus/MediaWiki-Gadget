@@ -101,8 +101,10 @@
 				return s
 					.replace('-&#123;', '-{')
 					.replace('&#125;-', '}-')
-					.replace('&#124;', '|')
-					.replace('&#62;', '>')
+					.replace(/&#124;/g, '|')
+					.replace(/&#32;/g, ' ')
+					.replace(/&#61;/g, '=')
+					.replace(/&#62;/g, '>')
 					.replace(/&#58;/g, ':')
 			});
 			basepagetext = text;
