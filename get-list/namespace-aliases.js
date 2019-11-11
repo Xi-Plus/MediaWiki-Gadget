@@ -15,7 +15,7 @@ api.get({
 	var text = '';
 	for (const key in result) {
 		if (result.hasOwnProperty(key)) {
-			text += '* ' + key + '（{{ns:' + key + '}}）：&lt;nowiki&gt;' + result[key].join(', ') + '&lt;/nowiki&gt;<br>';
+			text += '* ' + key + '（{{ns:' + key + '}}）：' + result[key].map(function(v) { return '&lt;code&gt;' + v + '&lt;/code&gt;' }).join('、') + '<br>';
 		}
 	}
 
