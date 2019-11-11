@@ -31,26 +31,20 @@
 			}).appendTo(document.body);
 
 			if (type === "edit") {
+				$('<input name="wpAntispam" value="" type="hidden" />').appendTo(form);
+				$('<input name="wpUnicodeCheck" value="ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ" type="hidden" />').appendTo(form);
+				$('<input name="wpSection" value="" type="hidden" />').appendTo(form);
+				$('<input name="wpStarttime" value="1" type="hidden" />').appendTo(form);
+				$('<input name="wpAutoSummary" value="d41d8cd98f00b204e9800998ecf8427e" type="hidden" />').appendTo(form);
+				$('<input name="wpDiff" value="Show changes" type="hidden" />').appendTo(form);
+				$('<input name="wpUltimateParam" value="1" type="hidden" />').appendTo(form);
+				$('<input name="wpRecreate" value="" type="hidden" />').appendTo(form);
+
 				$('<input type="hidden" />').attr({
 					name: "wpTextbox1",
 					value: mw.config.get("wgAbuseFilterVariables")["new_wikitext"]
 				}
 				).appendTo(form);
-
-				$('<input type="hidden" />').attr({
-					name: "wpDiff",
-					value: "1"
-				}).appendTo(form);
-
-				$('<input type="hidden" />').attr({
-					name: "wpStarttime",
-					value: "1"
-				}).appendTo(form);
-
-				$('<input type="hidden" />').attr({
-					name: "wpRecreate",
-					value: ""
-				}).appendTo(form);
 
 				var d = new Date();
 				var edittime = "" + d.getFullYear() + ("0" + (d.getMonth() + 1)).substr(-2) + ("0" + d.getDate()).substr(-2) + d.getHours() + d.getMinutes() + d.getSeconds();
