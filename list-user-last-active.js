@@ -130,6 +130,8 @@
 
 	function check_last_active(name, el) {
 		var api = new mw.Api();
+		var maxdate = null;
+
 		api.get({
 			"action": "query",
 			"format": "json",
@@ -139,14 +141,35 @@
 			"ucdir": "older",
 			"ucprop": "timestamp"
 		}).done(function(data) {
-			var message;
-			if (data.query.usercontribs[0] === undefined) {
-				message = "（從未編輯）";
-			} else {
-				var date = new Date(data.query.usercontribs[0].timestamp);
-				message = "（最後編輯於 " + adjust_time(date) + "）";
+			if (data.query.usercontribs[0] !== undefined) {
+				maxdate = new Date(data.query.usercontribs[0].timestamp);
 			}
-			$(el).append(message);
+
+			api.get({
+				"action": "query",
+				"format": "json",
+				"list": "logevents",
+				"leprop": "timestamp",
+				"leuser": name,
+				"lelimit": "1"
+			}).done(function(data) {
+				if (data.query.logevents[0] !== undefined) {
+					var date = new Date(data.query.logevents[0].timestamp);
+					if (maxdate === null) {
+						maxdate = date;
+					} else if (date > maxdate) {
+						maxdate = data;
+					}
+				}
+
+				var message;
+				if (maxdate === null) {
+					message = "（從未有動作）";
+				} else {
+					message = "（最後動作於 " + adjust_time(date) + "）";
+				}
+				$(el).append(message);
+			});
 		});
 	}
 
