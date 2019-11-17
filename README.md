@@ -72,8 +72,9 @@
 | quick-patrol.js | v | 在`Special:最新页面`直接標記巡查 |  |
 | replacement-display.js | v | 替換維基語法後重新顯示頁面 | 不能用 |
 | saveto.js | e | 快速插入{{saveto}} |  |
-| summary-preset.js | e | 修改編輯摘要選單 |  |
 | shortcutbox-noredirect.js | v | shortcutbox重定向停用跳轉 |  |
+| summary-preset.js | e | 修改編輯摘要選單 |  |
+| templates-last-edit | a | 在頁面資訊頁顯示嵌入模板最近編輯時間 |  |
 | translatewiki-fix-punctuation.js | e | 在translatewiki修正標點符號 |  |
 | unblock-zh-ipbe.js | o | 快速處理unblock-zh | `Special:UserRights` |
 | watchlist-markseen.js | o | 在監視清單標記單一頁面已讀 | `Special:Watchlist` |
