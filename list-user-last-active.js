@@ -158,7 +158,7 @@
 					if (maxdate === null) {
 						maxdate = date;
 					} else if (date > maxdate) {
-						maxdate = data;
+						maxdate = date;
 					}
 				}
 
@@ -166,7 +166,7 @@
 				if (maxdate === null) {
 					message = "（從未有動作）";
 				} else {
-					message = "（最後動作於 " + adjust_time(date) + "）";
+					message = "（最後動作於 " + adjust_time(maxdate) + "）";
 				}
 				$(el).append(message);
 			});
