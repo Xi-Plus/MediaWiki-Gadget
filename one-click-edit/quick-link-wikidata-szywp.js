@@ -10,6 +10,8 @@ javascript:
 		return;
 	}
 
+	var wdsummary = 'via [[:w:szy:User:Xiplus/js/quick-link-wikidata-szywp.js|QLWszywp]]';
+
 	function LinkData(localurl, sitelang, sitecode) {
 		var pagename = prompt('輸入頁面名稱', window.getSelection().toString());
 		if (pagename === null) {
@@ -79,7 +81,8 @@ javascript:
 									site: mw.config.get('wgDBname'),
 									title: mw.config.get('wgPageName'),
 								}],
-							})
+							}),
+							summary: wdsummary,
 						}).done(function() {
 							mw.notify('成功建立新的維基數據項目。');
 							location.reload();
@@ -93,6 +96,7 @@ javascript:
 							token: data.query.tokens.csrftoken,
 							linksite: mw.config.get('wgDBname'),
 							linktitle: mw.config.get('wgPageName'),
+							summary: wdsummary,
 						}).done(function(data) {
 							if (data.success) {
 								mw.notify('成功連結至現有維基數據項目。');
