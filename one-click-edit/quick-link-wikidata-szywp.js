@@ -82,6 +82,7 @@ javascript:
 							})
 						}).done(function() {
 							mw.notify('成功建立新的維基數據項目。');
+							location.reload();
 						}).fail(function() {
 							mw.notify('存取維基數據時發生錯誤。');
 						});
@@ -95,6 +96,7 @@ javascript:
 						}).done(function(data) {
 							if (data.success) {
 								mw.notify('成功連結至現有維基數據項目。');
+								location.reload();
 							} else {
 								mw.notify('存取維基數據時發生錯誤。');
 							}
@@ -106,9 +108,9 @@ javascript:
 					mw.notify('存取維基數據時發生錯誤。');
 				});
 			}
-		}, function() {
+		}).fail(function() {
 			mw.notify('取得條目名稱時發生錯誤。');
-		})
+		});
 	}
 
 	var wikis = [
