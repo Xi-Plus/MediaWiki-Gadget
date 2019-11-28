@@ -1,5 +1,9 @@
 javascript:
 (function() {
+	if (mw.config.get('wgArticleId') === 0) {
+		return;
+	}
+
 	if ($.inArray(mw.config.get('wgNamespaceNumber'), [0, 10, 14]) === -1) {
 		/* Enabled on main, template, category namespaces only. */
 		return;
