@@ -14,7 +14,7 @@ javascript:
 		return;
 	}
 
-	var wdsummary = 'via [[:w:szy:User:Xiplus/js/quick-link-wikidata-szywp.js|QLWszywp]]';
+	var wdsummary = 'via [[:w:szy:User:Xiplus/js/quick-link-wikidata-szywp|QLWszywp]]';
 
 	function LinkData(localurl, sitelang, sitecode) {
 		var defaultpagename = window.getSelection().toString();
