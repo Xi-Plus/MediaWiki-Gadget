@@ -85,7 +85,7 @@ javascript:
 		for (let i = 0; i < Importer.wikis.length; i++) {
 			text += '\n' + (i + 1) + '. ' + Importer.wikis[i].text + ' ' + Importer.wikis[i].url;
 		}
-		var choose = parseInt(prompt(text), '1');
+		var choose = parseInt(prompt(text, '1'));
 		if (isNaN(choose)) {
 			mw.notify('動作已取消');
 			return;
