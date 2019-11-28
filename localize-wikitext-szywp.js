@@ -1,3 +1,4 @@
+// <nowiki>
 (function() {
 
 	if (mw.config.get('wgAction') !== 'edit') {
@@ -33,6 +34,8 @@
 		).then(function(data) {
 			var newtext = $('<div/>').html(data).find('#TVcontent').text();
 
+			newtext = newtext.replace('#重定向', '#REDIRECT');
+
 			wpTextbox1.value = newtext;
 			wpSummary.value = '本地化';
 			wpMinoredit.checked = true;
@@ -48,3 +51,4 @@
 	$(link).on('click', main);
 
 })();
+// </nowiki>
