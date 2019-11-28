@@ -11,6 +11,7 @@
 
 		let text = wpTextbox1.value;
 
+		text = text.replace('#重定向', '#REDIRECT');
 		text = text.replace(/[[\]{}<>|:*'_#&\s]/gim, function(s) {
 			return "&#" + s.charCodeAt(0) + ";";
 		});
@@ -33,8 +34,6 @@
 			}
 		).then(function(data) {
 			var newtext = $('<div/>').html(data).find('#TVcontent').text();
-
-			newtext = newtext.replace('#重定向', '#REDIRECT');
 
 			wpTextbox1.value = newtext;
 			wpSummary.value = '本地化';
