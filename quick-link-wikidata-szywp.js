@@ -17,7 +17,11 @@ javascript:
 	var wdsummary = 'via [[:w:szy:User:Xiplus/js/quick-link-wikidata-szywp.js|QLWszywp]]';
 
 	function LinkData(localurl, sitelang, sitecode) {
-		var pagename = prompt('輸入頁面名稱', window.getSelection().toString());
+		var defaultpagename = window.getSelection().toString();
+		if (defaultpagename === '') {
+			defaultpagename = mw.config.get('wgCanonicalNamespace') + ':' + mw.config.get('wgTitle');
+		}
+		var pagename = prompt('輸入頁面名稱', defaultpagename);
 		if (pagename === null) {
 			mw.notify('動作已取消');
 			return;
