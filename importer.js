@@ -1,10 +1,6 @@
 javascript:
 /* globals Importer:true */
 (function() {
-	if (mw.config.get('wgArticleId') !== 0) {
-		return;
-	}
-
 	if (!mw.config.get('wgIsProbablyEditable')) {
 		return;
 	}
@@ -34,7 +30,7 @@ javascript:
 		'userjs-importer-summary': Importer.summary,
 	});
 
-	function ImportPage(apiurl, interwiki) {
+	function ImportPageCore(apiurl, interwiki) {
 		var pagename = prompt('輸入目標Wiki頁面名稱', mw.config.get('wgCanonicalNamespace') + ':' + mw.config.get('wgTitle'));
 		if (pagename === null) {
 			mw.notify('動作已取消');
@@ -42,8 +38,8 @@ javascript:
 		}
 
 		/* 取得對應條目的名字 */
-		var api = new mw.ForeignApi(apiurl);
-		api.get({
+		var remoteapi = new mw.ForeignApi(apiurl);
+		remoteapi.get({
 			'action': 'query',
 			'format': 'json',
 			'prop': 'revisions',
@@ -64,7 +60,8 @@ javascript:
 			var revtimestamp = page.revisions[0].timestamp;
 			var content = page.revisions[0]['*'];
 			var editsummary = mw.msg('userjs-importer-summary', pagename, interwiki, revid, revuser, revtimestamp);
-			new mw.Api().create(
+			var localapi = new mw.Api();
+			localapi.create(
 				mw.config.get('wgPageName'),
 				{ summary: editsummary },
 				content
@@ -72,15 +69,30 @@ javascript:
 				mw.notify('成功建立頁面');
 				location.reload();
 			}).fail(function(e) {
-				mw.notify('建立時發生錯誤：' + e);
+				if (e === 'articleexists') {
+					localapi.edit(
+						mw.config.get('wgPageName'),
+						function() {
+							return {
+								text: content,
+								summary: editsummary,
+							};
+						}
+					).done(function() {
+						mw.notify('成功編輯頁面');
+					}).fail(function() {
+						mw.notify('編輯時發生錯誤：' + e);
+					});
+				} else {
+					mw.notify('建立時發生錯誤：' + e);
+				}
 			});
 		}).fail(function() {
 			mw.notify('取得頁面內容時發生錯誤');
 		});
 	}
 
-	var link = mw.util.addPortletLink('p-namespaces', '#', '匯入');
-	$(link).on('click', function() {
+	window.ImportPage = function() {
 		var text = '匯入來源：';
 		for (let i = 0; i < Importer.wikis.length; i++) {
 			text += '\n' + (i + 1) + '. ' + Importer.wikis[i].text + ' ' + Importer.wikis[i].url;
@@ -95,8 +107,13 @@ javascript:
 			mw.notify('輸入編號錯誤');
 			return;
 		}
-		ImportPage(wiki.url, wiki.interwiki);
-	});
+		ImportPageCore(wiki.url, wiki.interwiki);
+	}
+
+	if (mw.config.get('wgArticleId') === 0) {
+		var link = mw.util.addPortletLink('p-namespaces', '#', '匯入');
+		$(link).on('click', window.ImportPage);
+	}
 
 }
 )();
