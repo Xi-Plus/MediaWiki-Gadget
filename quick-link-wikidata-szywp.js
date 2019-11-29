@@ -107,6 +107,10 @@ javascript:
 						'props': 'sitelinks',
 						'sitefilter': 'szywiki'
 					}).done(function(data) {
+						if (data.entities[dataid].missing === '') {
+							mw.notify('該維基數據項目已被刪除，動作已取消');
+							return;
+						}
 						if (data.entities[dataid].sitelinks.hasOwnProperty('szywiki')) {
 							if (!confirm('該項目已連結到本維基的頁面「' + data.entities[dataid].sitelinks.szywiki.title + '」，您要改為連結到本頁面嗎？')) {
 								mw.notify('動作已取消');
