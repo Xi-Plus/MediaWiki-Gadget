@@ -11,7 +11,12 @@
 
 		let text = wpTextbox1.value;
 
+		// Special cases
 		text = text.replace('#重定向', '#REDIRECT');
+		if (mw.config.get('wgNamespaceNumber') === 828) { // Module
+			text = text.replace(/(wrappers\s*=\s*['"])Template:/, '$1taazihan mitudung:');
+		}
+
 		text = text.replace(/[[\]{}<>|:*'_#&\s]/gim, function(s) {
 			return "&#" + s.charCodeAt(0) + ";";
 		});
