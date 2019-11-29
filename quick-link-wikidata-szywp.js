@@ -9,6 +9,11 @@ javascript:
 		return;
 	}
 
+	if (mw.config.get('wgDiffOldId') !== null) {
+		/* When viewing diff, no wikibase link */
+		return;
+	}
+
 	if ($('#t-wikibase').length > 0) {
 		/* Disabled for linked pages */
 		return;
