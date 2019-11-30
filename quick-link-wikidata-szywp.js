@@ -22,11 +22,11 @@ javascript:
 	var wdsummary = 'via [[:w:szy:User:Xiplus/js/quick-link-wikidata-szywp|QLWszywp]]';
 
 	function LinkData(localurl, sitelang, sitecode) {
-		var defaultpagename = mw.config.get('wgCanonicalNamespace') + ':' + window.getSelection().toString();
+		var defaultpagename = window.getSelection().toString();
 		if (defaultpagename === '') {
-			defaultpagename = mw.config.get('wgCanonicalNamespace') + ':' + mw.config.get('wgTitle');
+			defaultpagename = mw.config.get('wgTitle');
 		}
-		var pagename = prompt('輸入頁面名稱', defaultpagename);
+		var pagename = prompt('輸入頁面名稱', mw.config.get('wgCanonicalNamespace') + ':' + defaultpagename);
 		if (pagename === null) {
 			mw.notify('動作已取消');
 			return;
