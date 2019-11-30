@@ -40,6 +40,8 @@
 		).then(function(data) {
 			var newtext = $('<div/>').html(data).find('#TVcontent').text();
 
+			newtext = newtext.replace(/{{模板檔案/g, '{{模板文件');
+
 			wpTextbox1.value = newtext;
 			wpSummary.value = '本地化';
 			wpMinoredit.checked = true;
