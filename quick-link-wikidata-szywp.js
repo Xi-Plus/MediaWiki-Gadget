@@ -22,7 +22,7 @@ javascript:
 	var wdsummary = 'via [[:w:szy:User:Xiplus/js/quick-link-wikidata-szywp|QLWszywp]]';
 
 	function LinkData(localurl, sitelang, sitecode) {
-		var defaultpagename = window.getSelection().toString();
+		var defaultpagename = mw.config.get('wgCanonicalNamespace') + ':' + window.getSelection().toString();
 		if (defaultpagename === '') {
 			defaultpagename = mw.config.get('wgCanonicalNamespace') + ':' + mw.config.get('wgTitle');
 		}
