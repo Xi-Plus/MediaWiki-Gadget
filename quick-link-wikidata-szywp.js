@@ -4,8 +4,8 @@ javascript:
 		return;
 	}
 
-	if ($.inArray(mw.config.get('wgNamespaceNumber'), [0, 10, 14, 828]) === -1) {
-		/* Enabled on main, template, category namespaces only. */
+	if ($.inArray(mw.config.get('wgNamespaceNumber'), [0, 4, 10, 14, 828]) === -1) {
+		/* Enabled on main, wikipedia, template, category namespaces only. */
 		return;
 	}
 
