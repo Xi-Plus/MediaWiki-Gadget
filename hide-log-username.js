@@ -26,7 +26,7 @@
             html += '<input type="text" id="comment" size="75">';
             html += '</div>';
             var dialog = $(html).dialog({ // eslint-disable-line no-unused-vars
-                title: '批量版本刪除',
+                title: '全面刪除於編輯和日誌中的用戶名',
                 minWidth: 515,
                 minHeight: 150,
                 buttons: [{
@@ -141,9 +141,46 @@
                     mw.notify('未知錯誤：' + e);
                 });
             });
+
+            api.get({
+                "action": "query",
+                "format": "json",
+                "list": "usercontribs",
+                "uclimit": "max",
+                "ucuser": badname,
+                "ucprop": "ids|title"
+            }).then(function(data) {
+                if (data.query.usercontribs.length == 0) {
+                    mw.notify('沒有可刪除的編輯');
+                    return;
+                }
+
+                var diffids = [];
+                data.query.usercontribs.forEach(contribution => {
+                    if (!diffids.hasOwnProperty(contribution.title)) {
+                        diffids[contribution.title] = [];
+                    }
+                    diffids[contribution.title].push(contribution.revid);
+                });
+
+                for (const title in diffids) {
+                    const ids = diffids[title].join('|');
+                    api.postWithEditToken({
+                        action: 'revisiondelete',
+                        type: 'revision',
+                        ids: ids,
+                        hide: 'user',
+                        reason: comment
+                    }).then(function() {
+                        mw.notify('成功刪除 ' + title + ' 的 ' + diffids[title].length + ' 個版本');
+                    }, function(e) {
+                        mw.notify('刪除 ' + title + ' 時發生未知錯誤：' + e);
+                    });
+                }
+            });
         }
 
-        $(mw.util.addPortletLink('p-cactions', '#', '日誌隱藏用戶名')).click(main);
+        $(mw.util.addPortletLink('p-cactions', '#', '全面隱藏用戶名')).click(main);
 
     });
 
