@@ -85,7 +85,7 @@
     }
 
     function processClose(key, title) {
-        mw.loader.using(['jquery.ui.dialog'], function() {
+        mw.loader.using(['jquery.ui'], function() {
             var html = '<div>';
             html += '{{RFPP}}<br>';
             html += '<select class="rfpp">';

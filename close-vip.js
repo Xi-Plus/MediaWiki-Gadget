@@ -86,7 +86,7 @@
     }
 
     function processClose(key, title) {
-        mw.loader.using(['jquery.ui.dialog'], function() {
+        mw.loader.using(['jquery.ui'], function() {
             var html = '<div>';
             html += '{{VIP}}<br>';
             html += '<select id="vip" onchange="$(this.parentElement).find(\'#comment\')[0].value += this.value; this.value = \'\';">';

@@ -87,7 +87,7 @@
     }
 
     function processClose(key, title) {
-        mw.loader.using(['jquery.ui.dialog'], function() {
+        mw.loader.using(['jquery.ui'], function() {
             var html = '<div>';
             html += '狀態<br>';
             html += '<select id="status">';

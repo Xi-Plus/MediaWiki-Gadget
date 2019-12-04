@@ -8,7 +8,7 @@
 		return;
 	}
 
-	mw.loader.using(['jquery.ui.dialog'], function() {
+	mw.loader.using(['jquery.ui'], function() {
 
 		var dialog = null,
 			config = { 'username': '', 'comment': '' };

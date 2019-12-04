@@ -4,7 +4,7 @@
         return;
     }
 
-    mw.loader.using(['mediawiki.util', 'mediawiki.api', 'jquery.ui.dialog'], function() {
+    mw.loader.using(['mediawiki.util', 'mediawiki.api', 'jquery.ui'], function() {
 
         if (mw.util.isIPAddress(mw.config.get('wgRelevantUserName'))) {
             return;

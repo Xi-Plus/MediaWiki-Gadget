@@ -4,7 +4,7 @@
         return;
     }
 
-    mw.loader.using(['mediawiki.util', 'mediawiki.api', 'jquery.ui.dialog']).then(function() {
+    mw.loader.using(['mediawiki.util', 'mediawiki.api', 'jquery.ui']).then(function() {
 
         function main() {
             var html = '<div>';

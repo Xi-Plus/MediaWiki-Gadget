@@ -29,7 +29,7 @@
     }
 
     function processClose() {
-        mw.loader.using(['jquery.ui.dialog'], function() {
+        mw.loader.using(['jquery.ui'], function() {
             var html = '<div>';
             html += '編輯摘要<br>';
             html += '<select id="summary">';
