@@ -9,10 +9,17 @@ javascript:
 		Importer = {};
 
 	if (typeof Importer.wikis !== 'object') {
-		Importer.wikis = [
-			{ text: '中維', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'zh' },
-			{ text: '英維', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'en' },
-		];
+		if (mw.config.get('wgWikiFamily') === 'wikipedia') {
+			Importer.wikis = [
+				{ text: '中維', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'zh' },
+				{ text: '英維', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'en' },
+			];
+		} else {
+			Importer.wikis = [
+				{ text: '中維', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'w:zh' },
+				{ text: '英維', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'w:en' },
+			];
+		}
 	}
 
 	if (typeof Importer.summary !== 'string') {
