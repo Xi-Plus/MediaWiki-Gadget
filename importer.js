@@ -11,13 +11,13 @@ javascript:
 	if (typeof Importer.wikis !== 'object') {
 		if (mw.config.get('wgWikiFamily') === 'wikipedia') {
 			Importer.wikis = [
-				{ text: '中維', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'zh' },
-				{ text: '英維', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'en' },
+				{ text: 'zhwp', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'zh' },
+				{ text: 'enwp', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'en' },
 			];
 		} else {
 			Importer.wikis = [
-				{ text: '中維', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'w:zh' },
-				{ text: '英維', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'w:en' },
+				{ text: 'zhwp', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'w:zh' },
+				{ text: 'enwp', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'w:en' },
 			];
 		}
 	}
@@ -30,7 +30,7 @@ javascript:
 		 * $4 - Revision User
 		 * $5 - Revision Timestamp
 		 */
-		Importer.summary = '從[[$2:Special:PermanentLink/$3|$2:$1]]匯入 via [[m:User:Xiplus/js/importer.js|importer.js]]';
+		Importer.summary = 'Imported from [[$2:Special:PermanentLink/$3|$2:$1]] via [[m:User:Xiplus/js/importer.js|importer.js]]';
 	}
 
 	mw.messages.set({
@@ -38,13 +38,13 @@ javascript:
 	});
 
 	function ImportPageCore(apiurl, interwiki) {
-		var pagename = prompt('輸入目標Wiki頁面名稱', mw.config.get('wgCanonicalNamespace') + ':' + mw.config.get('wgTitle'));
+		var pagename = prompt('Input target wiki page name', mw.config.get('wgCanonicalNamespace') + ':' + mw.config.get('wgTitle'));
 		if (pagename === null) {
-			mw.notify('動作已取消');
+			mw.notify('Cancelled');
 			return;
 		}
 
-		/* 取得對應條目的名字 */
+		/* Fetch target page name */
 		var remoteapi = new mw.ForeignApi(apiurl);
 		remoteapi.get({
 			'action': 'query',
@@ -59,7 +59,7 @@ javascript:
 				break;
 			}
 			if (page.missing === '') {
-				mw.notify('目標頁面不存在');
+				mw.notify('The target page does not exist.');
 				return;
 			}
 			var revid = page.revisions[0].revid;
@@ -73,7 +73,7 @@ javascript:
 				{ summary: editsummary },
 				content
 			).done(function() {
-				mw.notify('成功建立頁面');
+				mw.notify('Page created.');
 				location.reload();
 			}).fail(function(e) {
 				if (e === 'articleexists') {
@@ -86,39 +86,39 @@ javascript:
 							};
 						}
 					).done(function() {
-						mw.notify('成功編輯頁面');
+						mw.notify('Page edited.');
 					}).fail(function() {
-						mw.notify('編輯時發生錯誤：' + e);
+						mw.notify('An error occurred while editing:' + e);
 					});
 				} else {
-					mw.notify('建立時發生錯誤：' + e);
+					mw.notify('An error occurred while creating:' + e);
 				}
 			});
 		}).fail(function() {
-			mw.notify('取得頁面內容時發生錯誤');
+			mw.notify('An error occurred while fetching page content.');
 		});
 	}
 
 	window.ImportPage = function() {
-		var text = '匯入來源：';
+		var text = 'Import source:';
 		for (let i = 0; i < Importer.wikis.length; i++) {
 			text += '\n' + (i + 1) + '. ' + Importer.wikis[i].text + ' ' + Importer.wikis[i].url;
 		}
 		var choose = parseInt(prompt(text, '1'));
 		if (isNaN(choose)) {
-			mw.notify('動作已取消');
+			mw.notify('Cancelled');
 			return;
 		}
 		var wiki = Importer.wikis[choose - 1];
 		if (wiki === undefined) {
-			mw.notify('輸入編號錯誤');
+			mw.notify('Incorrect input');
 			return;
 		}
 		ImportPageCore(wiki.url, wiki.interwiki);
 	}
 
 	if (mw.config.get('wgArticleId') === 0) {
-		var link = mw.util.addPortletLink('p-namespaces', '#', '匯入');
+		var link = mw.util.addPortletLink('p-namespaces', '#', 'Import');
 		$(link).on('click', window.ImportPage);
 	}
 
