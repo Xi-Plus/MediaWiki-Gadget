@@ -1,9 +1,5 @@
 (function() {
 
-    var entity = JSON.parse(mw.config.get('wbEntity'));
-    var seeneps = parseInt(entity['claims']['P28'][0]['mainsnak']['datavalue']['value']['amount']);
-    var alleps = parseInt(entity['claims']['P27'][0]['mainsnak']['datavalue']['value']['amount']);
-
     function seenAddOne() {
         var api = new mw.Api();
         api.get({
@@ -43,7 +39,7 @@
 
     }
 
-    if (seeneps !== alleps) {
+    if ($('div#P28 div.wikibase-snakview-value').text() != $('div#P27 div.wikibase-snakview-value').text()) {
         $('<button style="margin-left: 10px;">+1</button>')
             .on('click', seenAddOne)
             .appendTo($('div#P28 div.wikibase-snakview-body'));
