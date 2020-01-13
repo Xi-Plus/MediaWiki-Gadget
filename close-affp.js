@@ -117,6 +117,7 @@
             html += '<option value="{{Fixed}}">{{Fixed}}（已修復）</option>';
             html += '<option value="{{Wontfix}}">{{Wontfix}}（不予修復）</option>';
             html += '<option value="已協助編輯">已協助編輯</option>';
+            html += '<option value="無效報告">無效報告</option>';
             html += '<option value="請再次嘗試編輯">請再次嘗試編輯</option>';
             html += '<option value="請至[[Wikipedia:互助客栈/求助]]尋求協助">請至Wikipedia:互助客栈/求助尋求協助</option>';
             html += '<option value="請詳閱過濾器的警告訊息">請詳閱過濾器的警告訊息</option>';
