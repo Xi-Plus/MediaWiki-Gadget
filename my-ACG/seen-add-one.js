@@ -42,7 +42,7 @@
     if ($('div#P28 div.wikibase-snakview-value').text() != $('div#P27 div.wikibase-snakview-value').text()) {
         $('<button style="margin-left: 10px;">+1</button>')
             .on('click', seenAddOne)
-            .appendTo($('div#P28 div.wikibase-snakview-body'));
+            .appendTo($('div#P28 div.wikibase-statementview-mainsnak div.wikibase-snakview-body'));
 
     }
 
