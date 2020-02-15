@@ -105,7 +105,7 @@ javascript:
 								language: sitelang,
 								value: title,
 							}, {
-								language: 'szy',
+								language: mw.config.get('wgContentLanguage'),
 								value: mw.config.get('wgPageName'),
 							}],
 							sitelinks: [{
@@ -130,14 +130,14 @@ javascript:
 						'ids': dataid,
 						'redirects': 'yes',
 						'props': 'sitelinks',
-						'sitefilter': 'szywiki'
+						'sitefilter': mw.config.get('wgDBname')
 					}).done(function(data) {
 						if (data.entities[dataid].missing === '') {
 							mw.notify('該維基數據項目已被刪除，動作已取消');
 							return;
 						}
-						if (data.entities[dataid].sitelinks.hasOwnProperty('szywiki')) {
-							if (!confirm('該項目已連結到本維基的頁面「' + data.entities[dataid].sitelinks.szywiki.title + '」，您要改為連結到本頁面嗎？')) {
+						if (data.entities[dataid].sitelinks.hasOwnProperty(mw.config.get('wgDBname'))) {
+							if (!confirm('該項目已連結到本維基的頁面「' + data.entities[dataid].sitelinks[mw.config.get('wgDBname')].title + '」，您要改為連結到本頁面嗎？')) {
 								mw.notify('動作已取消');
 								return;
 							}
