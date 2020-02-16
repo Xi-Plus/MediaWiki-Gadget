@@ -70,7 +70,7 @@ javascript:
 				api.get({
 					action: 'query',
 					meta: 'tokens'
-				}).done(function(data) {
+				}).done(function() {
 					if (!hasitem) {
 						if (!confirm("對應項目沒有維基數據。是否添加？")) {
 							mw.notify('已取消建立項目。');
