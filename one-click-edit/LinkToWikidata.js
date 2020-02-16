@@ -81,10 +81,9 @@ javascript:
 							mw.notify('已取消建立項目。');
 							return;
 						}
-						api.post({
+						api.postWithEditToken({
 							action: 'wbeditentity',
 							'new': 'item',
-							token: data.query.tokens.csrftoken,
 							'data': JSON.stringify({
 								labels: [{
 									language: 'zh',
@@ -107,10 +106,9 @@ javascript:
 							mw.notify('存取維基數據時發生錯誤。');
 						});
 					} else {
-						api.post({
+						api.postWithEditToken({
 							action: 'wbsetsitelink',
 							id: dataid,
-							token: data.query.tokens.csrftoken,
 							linksite: mw.config.get('wgDBname'),
 							linktitle: localname,
 						}).done(function(data) {

@@ -96,10 +96,9 @@ javascript:
 						return;
 					}
 					var targetsite = sitecode;
-					api.post({
+					api.postWithEditToken({
 						action: 'wbeditentity',
 						'new': 'item',
-						token: data.query.tokens.csrftoken,
 						'data': JSON.stringify({
 							labels: [{
 								language: sitelang,
