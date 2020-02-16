@@ -84,7 +84,7 @@
         });
     }
 
-    function processClose(key, title) {
+    function processClose(sectionid, title) {
         mw.loader.using(['jquery.ui'], function() {
             var html = '<div>';
             html += '{{RFPP}}<br>';
@@ -148,7 +148,7 @@
                     text: '確定',
                     click: function() {
                         if ($(this).find('.comment').val().trim() !== '') {
-                            processEdit(key, title, $(this).find('.comment').val());
+                            processEdit(sectionid, title, $(this).find('.comment').val());
                         } else {
                             mw.notify('動作已取消');
                         }
@@ -184,25 +184,25 @@
         });
     }
 
-    function processEdit(key, title, comment) {
+    function processEdit(sectionid, title, comment) {
         new mw.Api().edit('Wikipedia:请求保护页面', function(revision) {
             var content = revision.content;
             const splittoken = 'CLOSE_SPLIT_TOKEN';
             content = content.replace(/^==/gm, splittoken + '==');
             var contents = content.split(splittoken);
-            contents[key] = contents[key].trim();
+            var newtext = contents[sectionid];
+            newtext = newtext.trim();
             comment = comment.trim();
             if (comment !== '') {
                 if (comment.search(/[.?!;。？！；]$/) === -1) {
                     comment += '。';
                 }
-                contents[key] += '\n* ' + comment + '--~~~~';
+                newtext += '\n* ' + comment + '--~~~~';
             }
-            contents[key] += '\n\n';
-            content = contents.join("");
-            $($('#bodyContent').find('h2:has(.mw-headline), h3:has(.mw-headline)')[key]).find('.CloseRfppBtn span').css('color', 'grey');
+            $($('#bodyContent').find('h2:has(.mw-headline), h3:has(.mw-headline)')[sectionid]).find('.CloseRfppBtn span').css('color', 'grey');
             return {
-                text: content,
+                text: newtext,
+                section: sectionid,
                 basetimestamp: revision.timestamp,
                 summary: CloseRfpp.summary,
                 minor: true
