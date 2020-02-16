@@ -105,7 +105,7 @@ javascript:
 								value: title,
 							}, {
 								language: mw.config.get('wgContentLanguage'),
-								value: mw.config.get('wgPageName'),
+								value: mw.config.get('wgPageName').replace(/_/g, ' '),
 							}],
 							sitelinks: [{
 								site: targetsite,

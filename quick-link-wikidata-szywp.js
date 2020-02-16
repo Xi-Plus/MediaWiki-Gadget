@@ -80,7 +80,7 @@ javascript:
 								value: title,
 							}, {
 								language: 'szy',
-								value: mw.config.get('wgPageName'),
+								value: mw.config.get('wgPageName').replace(/_/g, ' '),
 							}],
 							sitelinks: [{
 								site: targetsite,
