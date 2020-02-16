@@ -79,14 +79,14 @@
 
             var tmpNode = delNode.cloneNode(true);
             $(tmpNode.firstChild).click(function() {
-                processClose(key + 1, title);
+                processClose(key + 2, title);
                 return false;
             });
             node.appendChild(tmpNode)
         });
     }
 
-    function processClose(key, title) {
+    function processClose(sectionid, title) {
         mw.loader.using(['jquery.ui'], function() {
             var html = '<div>';
             html += '狀態<br>';
@@ -133,7 +133,7 @@
                 buttons: [{
                     text: '確定',
                     click: function() {
-                        processEdit(key, title, $(this).find('#status').val(), $(this).find('#res').val(), $(this).find('#comment').val());
+                        processEdit(sectionid, title, $(this).find('#status').val(), $(this).find('#res').val(), $(this).find('#comment').val());
                         $(this).dialog('close');
                     }
                 }, {
@@ -146,26 +146,27 @@
         });
     }
 
-    function processEdit(key, title, status, res, comment) {
+    function processEdit(sectionid, title, status, res, comment) {
         new mw.Api().edit('Wikipedia:防滥用过滤器/错误报告', function(revision) {
             var content = revision.content;
             const splittoken = 'CLOSE_RRD_SPLIT_TOKEN';
             content = content.replace(/^===/gm, splittoken + '===');
             var contents = content.split(splittoken);
-            contents[key] = contents[key].trim();
-            contents[key] = contents[key].replace(/{{bugstatus\|status=([^|\n}]*?)\|res=([^|\n}]*?)}}/, '{{bugstatus|status=' + status + '|res=' + res + '}}');
+            var newtext = contents[sectionid - 1];
+            newtext = newtext.trim();
+            newtext = newtext.replace(/{{bugstatus\|status=([^|\n}]*?)\|res=([^|\n}]*?)}}/, '{{bugstatus|status=' + status + '|res=' + res + '}}');
             if (comment.replace(/[\s:*]/g, '') !== '') {
                 comment = comment.trim();
                 if (comment.search(/[.?!;。？！；]$/) === -1) {
                     comment += '。';
                 }
-                contents[key] += '\n' + comment + '--~~~~';
+                newtext += '\n' + comment + '--~~~~';
             }
-            contents[key] += '\n\n';
-            content = contents.join("");
-            $($('#bodyContent').find('h3')[key - 1]).find('.CloseAffpBtn span').css('color', 'grey');
+            newtext += '\n\n';
+            $($('#bodyContent').find('h3')[sectionid - 2]).find('.CloseAffpBtn span').css('color', 'grey');
             return {
-                text: content,
+                text: newtext,
+                section: sectionid,
                 basetimestamp: revision.timestamp,
                 summary: CloseAffp.summary,
                 minor: true
