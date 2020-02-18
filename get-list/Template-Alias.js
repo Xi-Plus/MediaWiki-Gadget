@@ -8,7 +8,8 @@ javascript: (async () => {
         'action': 'query',
         'format': 'json',
         'prop': 'redirects',
-        'titles': mw.config.get('wgPageName')
+        'titles': mw.config.get('wgPageName'),
+        'rdlimit': 'max',
     }).then(async data => {
         let pageids = mw.config.get('wgArticleId') + '|' + $.map(data.query.pages[mw.config.get('wgArticleId')].redirects, redirect => redirect.pageid).join('|');
 
@@ -40,10 +41,17 @@ javascript: (async () => {
         return title;
     }).join('|') + ')';
 
-    let regexci = '(' + $.map(titles, title => {
-        title = title.replace(/ /, '[ _]');
-        return title;
-    }).join('|') + ')';
+    let regexcilist = [];
+    let checkdup = [];
+    titles.forEach(title => {
+        if (checkdup.indexOf(title.toLowerCase()) !== -1) {
+            return;
+        }
+        checkdup.push(title.toLowerCase());
+        regexcilist.push(title.replace(/ /, '[ _]'));
+    });
+
+    let regexci = '(' + regexcilist.join('|') + ')';
 
     result += '<br>Regex:<br>' + regex;
     result += '<br>Regex (case insensitive):<br>' + regexci;
