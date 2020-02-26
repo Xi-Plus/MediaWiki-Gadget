@@ -27,11 +27,11 @@
 		for (var i = userlistel.length - 1; i >= 0; i--) {
 			userlistel[i].style.background = usertocolor[userlistel[i].children[0].innerText];
 		}
-		$(usercolorbtn).css('background', RandomColor()); // eslint-disable-line no-undef
+		$(this).css('background', RandomColor()); // eslint-disable-line no-undef
 	}
 
 	var $node = $('<button />', {
-		'id': 'usercolorbtn',
+		'class': 'historysubmit mw-history-usercolor-button mw-ui-button',
 		'type': 'button',
 		'title': '將相同的使用者名稱塗上相同的顏色',
 		'text': '使用者名稱上色',
