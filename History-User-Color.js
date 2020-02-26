@@ -27,7 +27,7 @@
 		for (var i = userlistel.length - 1; i >= 0; i--) {
 			userlistel[i].style.background = usertocolor[userlistel[i].children[0].innerText];
 		}
-		$(this).css('background', RandomColor()); // eslint-disable-line no-undef
+		$('.mw-history-usercolor-button').css('background', RandomColor()); // eslint-disable-line no-undef
 	}
 
 	var $node = $('<button />', {
