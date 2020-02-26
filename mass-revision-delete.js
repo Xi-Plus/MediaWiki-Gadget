@@ -114,6 +114,7 @@
         });
 
         var $filter = $('<button />', {
+            'class': 'mw-ui-button',
             'type': 'button',
             'title': '批量版本刪除',
             'text': '批量版本刪除'

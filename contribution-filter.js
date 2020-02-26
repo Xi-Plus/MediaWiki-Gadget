@@ -95,6 +95,7 @@
 		}
 
 		var $filter = $('<button />', {
+			'class': 'mw-ui-button',
 			'type': 'button',
 			'title': '對使用者貢獻進行篩選',
 			'text': '篩選使用者貢獻'
