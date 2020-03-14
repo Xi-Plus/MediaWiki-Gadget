@@ -100,7 +100,7 @@
             html += '<option value="ass">指定</option>';
             html += '<option value="new">新近</option>';
             html += '</select><br>';
-            html += '狀態<br>';
+            html += '處理<br>';
             html += '<select id="res">';
             html += '<option value="inv">無效</option>';
             html += '<option value="res">已解決</option>';
