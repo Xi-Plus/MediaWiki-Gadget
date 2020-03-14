@@ -25,7 +25,7 @@
             processClose();
             return false;
         });
-        $('.ambox-move').find("td.mbox-text").children('span').children('small').after(button);
+        $('.box-Requested_move').find("td.mbox-text").children('span').children('small').after(button);
     }
 
     function processClose() {
