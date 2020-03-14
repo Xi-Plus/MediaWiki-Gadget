@@ -9,8 +9,15 @@
         CloseRrd.summary = '關閉請求 via [[User:Xiplus/js/close-rrd.js|close-rrd]]';
     }
 
-    if (typeof CloseRrd.reason == 'undefined') {
-        CloseRrd.reason = ['刪除', '部份刪除', '未刪除', '未刪除，未達RD2準則', '未刪除，未達RD3準則', ''];
+    if (typeof CloseRrd.presetcomment == 'undefined') {
+        CloseRrd.presetcomment = [
+            '刪除。',
+            '部份刪除。',
+            '未刪除。',
+            '未刪除，未達RD2準則。',
+            '未刪除，未達RD3準則。',
+            '未刪除，頁面已被傳統刪除。'
+        ];
     }
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:修订版本删除请求'
@@ -89,7 +96,7 @@
     function processClose(key, title) {
         mw.loader.using(['jquery.ui'], function() {
             var html = '<div>';
-            html += '處理結果<br>';
+            html += '狀態<br>';
             html += '<select id="status">';
             html += '<option value="+">+</option>';
             html += '<option value="-">-</option>';
@@ -97,15 +104,14 @@
             html += '<option value="新申請">新申請</option>';
             html += '</select>';
             html += '<br>';
-            html += '理由<br>';
-            html += '<select id="reason">';
-            for (var i = 0; i < CloseRrd.reason.length; i++) {
-                html += '<option value="' + CloseRrd.reason[i] + '">' + CloseRrd.reason[i] + '</option>'
+            html += '留言<br>';
+            html += '<select id="presetcomment" onchange="$(this.parentElement).find(\'#comment\')[0].value += this.value; this.value = \'\';">';
+            html += '<option value="">選擇</option>';
+            for (var i = 0; i < CloseRrd.presetcomment.length; i++) {
+                html += '<option value="' + CloseRrd.presetcomment[i] + '">' + CloseRrd.presetcomment[i] + '</option>'
             }
-            html += '</select>';
-            html += '<br>';
-            html += '附加理由<br>';
-            html += '<input type="text" id="reason2" size="40">';
+            html += '</select><br>';
+            html += '<input type="text" id="comment" size="70" value=":">';
             html += '</div>';
             $(html).dialog({
                 title: '關閉修訂版本刪除請求 - ' + title,
@@ -114,7 +120,7 @@
                 buttons: [{
                     text: '確定',
                     click: function() {
-                        processEdit(key, title, $(this).find('#status').val(), $(this).find('#reason').val(), $(this).find('#reason2').val());
+                        processEdit(key, title, $(this).find('#status').val(), $(this).find('#comment').val());
                         $(this).dialog('close');
                     }
                 }, {
@@ -127,7 +133,7 @@
         });
     }
 
-    function processEdit(key, title, status, reason, reason2) {
+    function processEdit(key, title, status, comment) {
         new mw.Api().edit('Wikipedia:修订版本删除请求', function(revision) {
             var content = revision.content;
             const splittoken = 'CLOSE_RRD_SPLIT_TOKEN';
@@ -135,21 +141,14 @@
             var contents = content.split(splittoken);
             contents[key] = contents[key].trim();
             contents[key] = contents[key].replace(/^(\|\s*status\s*=[ \t]*)(.*)$/m, '$1' + status);
-            contents[key] += '\n:';
-            var newreason = '';
-            if (reason.trim() !== '') {
-                newreason += reason;
-            }
-            if (reason2.trim() !== '') {
-                if (newreason !== '') {
-                    newreason += '：';
+            // contents[key] += '\n:';
+            if (comment.replace(/[\s:*]/g, '') !== '') {
+                comment = comment.trim();
+                if (comment.search(/[.?!;。？！；]$/) === -1) {
+                    comment += '。';
                 }
-                newreason += reason2;
+                contents[key] += '\n' + comment + '--~~~~\n\n';
             }
-            if (newreason !== '' && newreason.search(/[.?!;。？！；]$/) === -1) {
-                newreason += '。';
-            }
-            contents[key] += newreason + '--~~~~\n\n';
             content = contents.join("");
             $($('div.mw-parser-output>div.plainlinks')[key - 1]).find('.closeRrdBtn span').css('color', 'grey');
             return {
