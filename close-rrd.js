@@ -141,7 +141,6 @@
             var contents = content.split(splittoken);
             contents[key] = contents[key].trim();
             contents[key] = contents[key].replace(/^(\|\s*status\s*=[ \t]*)(.*)$/m, '$1' + status);
-            // contents[key] += '\n:';
             if (comment.replace(/[\s:*]/g, '') !== '') {
                 comment = comment.trim();
                 if (comment.search(/[.?!;。？！；]$/) === -1) {
