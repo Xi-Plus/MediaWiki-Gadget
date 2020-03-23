@@ -5,8 +5,8 @@
     if (typeof CloseRfpp == 'undefined')
         CloseRfpp = {};
 
-    if (typeof CloseRfpp.summary == 'undefined') {
-        CloseRfpp.summary = '關閉請求 via [[User:Xiplus/js/close-rfpp.js|close-rfpp]]';
+    if (typeof CloseRfpp.summarySuffix == 'undefined') {
+        CloseRfpp.summarySuffix = ' via [[User:Xiplus/js/close-rfpp.js|close-rfpp]]';
     }
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:请求保护页面'
@@ -112,18 +112,18 @@
             html += '<option value="{{RFPP|au}}">已解除保護</option>';
             html += '<option value="{{RFPP|ap}}">已保護</option>';
             html += '<option value="{{RFPP|ad}}">已完成</option>';
-            html += '<option value="{{RFPP|q}}">問題</option>';
-            html += '<option value="{{RFPP|n}}">備註：</option>';
+            html += '<option value="{{RFPP|q}}" data-summary="回應">問題</option>';
+            html += '<option value="{{RFPP|n}}" data-summary="回應">備註：</option>';
             html += '<option value="{{RFPP|w}}">請求者取消</option>';
             html += '<option value="{{RFPP|ew}}">考慮舉報3RR，這可能是一兩個用戶間的編輯戰</option>';
             html += '</select><br>';
             html += '{{RFPP}}（保護）<br>';
             html += '<select class="rfpp2">';
             html += '<option value="">選擇等級</option>';
-            html += '<option value="s">半保護X，X過後系統會自動解除此頁保護</option>';
-            html += '<option value="p">全保護X，X過後系統會自動解除此頁保護</option>';
-            html += '<option value="m">移動保護X，X過後系統會自動解除此頁保護</option>';
-            html += '<option value="t">白紙保護X ，X過後系統會自動解除此頁保護</option>';
+            html += '<option value="s" data-summary="半保護">半保護X，X過後系統會自動解除此頁保護</option>';
+            html += '<option value="p" data-summary="全保護">全保護X，X過後系統會自動解除此頁保護</option>';
+            html += '<option value="m" data-summary="移動保護">移動保護X，X過後系統會自動解除此頁保護</option>';
+            html += '<option value="t" data-summary="白紙保護">白紙保護X ，X過後系統會自動解除此頁保護</option>';
             html += '</select>';
             html += '<select class="rfpptime">';
             html += '<option value="">選擇時長</option>';
@@ -139,16 +139,23 @@
             html += '</select><br>';
             html += '留言<br>';
             html += '<input type="text" class="comment" size="85">';
+            html += '編輯摘要<br>';
+            html += '<input type="text" class="summary" size="85" value="回應">';
             html += '</div>';
             $(html).dialog({
-                title: '關閉報告 - ' + title,
+                title: '關閉請求或留言 - ' + title,
                 minWidth: 590,
                 minHeight: 150,
                 buttons: [{
                     text: '確定',
                     click: function() {
                         if ($(this).find('.comment').val().trim() !== '') {
-                            processEdit(sectionid, title, $(this).find('.comment').val());
+                            processEdit(
+                                sectionid,
+                                title,
+                                $(this).find('.comment').val(),
+                                $(this).find('.summary').val()
+                            );
                         } else {
                             mw.notify('動作已取消');
                         }
@@ -164,8 +171,24 @@
             $('.rfpp').on('change', function(e) {
                 var comment = $(e.target).parent().find(".comment");
                 var rfpp = $(e.target).parent().find(".rfpp");
+                var summary = $(e.target).parent().find(".summary");
                 if (rfpp.val() != '') {
                     comment.val(comment.val() + rfpp.val());
+
+                    if (summary.val() === '回應') {
+                        summary.val('');
+                    }
+                    if (summary.val() !== '') {
+                        summary.val(summary.val() + '，');
+                    }
+                    var option = $('option:selected', rfpp);
+                    var dataSummary = option.attr('data-summary');
+                    if (dataSummary) {
+                        summary.val(summary.val() + dataSummary);
+                    } else {
+                        summary.val(summary.val() + option.text());
+                    }
+
                     rfpp.val('');
                 }
             });
@@ -173,8 +196,23 @@
                 var comment = $(e.target).parent().find(".comment");
                 var rfpp2 = $(e.target).parent().find(".rfpp2");
                 var rfpptime = $(e.target).parent().find(".rfpptime");
+                var summary = $(e.target).parent().find(".summary");
                 if (rfpp2.val() != '' && rfpptime.val() != '') {
                     comment.val(comment.val() + '{{RFPP|' + rfpp2.val() + '|' + rfpptime.val() + '}}');
+
+                    if (summary.val() === '回應') {
+                        summary.val('');
+                    }
+                    if (summary.val() !== '') {
+                        summary.val(summary.val() + '，');
+                    }
+                    var dataSummary = $('option:selected', rfpp2).attr('data-summary');
+                    if (dataSummary) {
+                        summary.val(summary.val() + dataSummary + $('option:selected', rfpptime).text());
+                    } else {
+                        summary.val('回應');
+                    }
+
                     rfpp2.val('');
                     rfpptime.val('');
                 }
@@ -184,7 +222,7 @@
         });
     }
 
-    function processEdit(sectionid, title, comment) {
+    function processEdit(sectionid, title, comment, summary) {
         new mw.Api().edit('Wikipedia:请求保护页面', function(revision) {
             var content = revision.content;
             const splittoken = 'CLOSE_SPLIT_TOKEN';
@@ -204,16 +242,16 @@
                 text: newtext,
                 section: sectionid,
                 basetimestamp: revision.timestamp,
-                summary: CloseRfpp.summary,
+                summary: '/* ' + title + ' */ ' + summary + CloseRfpp.summarySuffix,
                 minor: true
             };
         }).then(function() {
-            mw.notify('已關閉 ' + title);
+            mw.notify('已修改 ' + title);
         }, function(e) {
             if (e == 'editconflict') {
-                mw.notify('關閉 ' + title + ' 時發生編輯衝突');
+                mw.notify('修改 ' + title + ' 時發生編輯衝突');
             } else {
-                mw.notify('關閉 ' + title + ' 時發生未知錯誤：' + e);
+                mw.notify('修改 ' + title + ' 時發生未知錯誤：' + e);
             }
         });
     }
