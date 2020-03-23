@@ -235,7 +235,7 @@
                 if (comment.search(/[.?!;。？！；]$/) === -1) {
                     comment += '。';
                 }
-                newtext += '\n* ' + comment + '--~~~~';
+                newtext += '\n: ' + comment + '--~~~~';
             }
             $($('#bodyContent').find('h2:has(.mw-headline), h3:has(.mw-headline)')[sectionid]).find('.CloseRfppBtn span').css('color', 'grey');
             return {
