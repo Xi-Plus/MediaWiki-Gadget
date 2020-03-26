@@ -52,7 +52,7 @@
 		}
 		var basepagetext = '';
 		let table = $('<div id="TranslateVariants">').prependTo('#bodyContent');
-		$('<div style="color:red">提醒：TranslateVariants小工具仍在試驗階段，編輯完成後亦請複查真正做出的編輯是否正確！</div>').appendTo(table);
+		$('<div style="color:red">提醒：TranslateVariants工具使用IT及MediaWiki兩個轉換組進行自動轉換，請確認轉換結果是否正確！</div>').appendTo(table);
 
 		var defaultlangs = 'zh,zh-hans,zh-cn,zh-my,zh-sg,zh-hant,zh-hk,zh-mo,zh-tw';
 		var runlangs = prompt('轉換以下語言（以逗號隔開）：', defaultlangs);
