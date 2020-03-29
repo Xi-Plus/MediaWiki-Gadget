@@ -242,8 +242,7 @@
                 text: newtext,
                 section: sectionid,
                 basetimestamp: revision.timestamp,
-                summary: '/* ' + title + ' */ ' + summary + CloseRfpp.summarySuffix,
-                minor: true
+                summary: '/* ' + title + ' */ ' + summary + CloseRfpp.summarySuffix
             };
         }).then(function() {
             mw.notify('已修改 ' + title);
