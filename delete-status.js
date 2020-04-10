@@ -52,7 +52,7 @@
 		var node = document.createElement("span");
 		node.id = "delete-log";
 		node.style = "margin-left: 5px;";
-		node.innerHTML = '<a href="' + path.replace('$1', 'Special:日志?page=' + encodeURIComponent(mw.config.get('wgPageName'))) + '&hide_patrol_log=0">刪除紀錄</a>：<span id="dellog">未取得</span>';
+		node.innerHTML = '<a href="' + path.replace('$1', 'Special:日志?page=' + encodeURIComponent(mw.config.get('wgPageName'))) + '&hide_patrol_log=0">日誌</a>：<span id="dellog">未取得</span>';
 		document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
 		$.ajax({
 			type: "GET",
