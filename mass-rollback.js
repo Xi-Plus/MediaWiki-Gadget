@@ -1,7 +1,7 @@
 javascript:
 (function() {
 
-	mw.loader.using(['mediawiki.util', 'mediawiki.notify']).done(function() {
+	mw.loader.using(['mediawiki.util']).done(function() {
 
 		if (mw.util.getParamValue('mass-rollback') === null) {
 			return;

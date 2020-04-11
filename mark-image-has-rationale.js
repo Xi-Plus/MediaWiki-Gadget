@@ -1,6 +1,6 @@
 (function() {
 
-    mw.loader.using(['jquery', 'oojs-ui', 'mediawiki.util', 'mediawiki.api', 'mediawiki.notify'], function() {
+    mw.loader.using(['jquery', 'oojs-ui', 'mediawiki.util', 'mediawiki.api'], function() {
 
         if ($.inArray('合理使用理據待檢查影像', mw.config.get('wgCategories')) === -1) {
             return;

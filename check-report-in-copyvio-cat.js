@@ -6,7 +6,7 @@
 
 	if (mw.config.get('wgPageName') !== "Category:怀疑侵犯版权页面") return;
 
-	mw.loader.using(['mediawiki.api', 'mediawiki.notify']).done(function() {
+	mw.loader.using(['mediawiki.api']).done(function() {
 
 		function checkonpage(wikitext) {
 			$("#mw-pages a").each(function(i, e) {

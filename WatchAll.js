@@ -1,7 +1,7 @@
 javascript:
 (function() {
 	function modifyWatchlist(title, action) {
-		mw.loader.using('mediawiki.api', 'mediawiki.notify').then(function() {
+		mw.loader.using('mediawiki.api').then(function() {
 			var api = new mw.Api();
 			if (action == 'watch') {
 				api.watch(title).then(function() {

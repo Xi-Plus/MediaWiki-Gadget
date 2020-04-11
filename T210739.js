@@ -1,5 +1,5 @@
 /**
- * If you want to use this gadget as a user script, you need to load these modules: 'oojs-ui', 'mediawiki.api', 'mediawiki.notify'.
+ * If you want to use this gadget as a user script, you need to load these modules: 'oojs-ui', 'mediawiki.api'.
  * It's just like https://en.wikipedia.org/wiki/User:JJMC89/T210739.js
  *
  * And localize the following message.
