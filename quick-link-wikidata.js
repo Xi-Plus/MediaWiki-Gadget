@@ -166,7 +166,7 @@ javascript:
 	}
 
 	window.LinkData = function() {
-		var text = 'Import source:';
+		var text = 'Wiki to link:';
 		for (let i = 0; i < WDLinker.wikis.length; i++) {
 			text += '\n' + (i + 1) + '. ' + WDLinker.wikis[i].text + ' ' + WDLinker.wikis[i].url;
 		}
