@@ -39,7 +39,7 @@
 
     }
 
-    if ($('div#P28 div.wikibase-snakview-value').text() != $('div#P27 div.wikibase-snakview-value').text()) {
+    if ($('#P28 .wikibase-statementview-mainsnak .wikibase-snakview-value').text() != $('#P27 .wikibase-statementview-mainsnak .wikibase-snakview-value').text()) {
         $('<button style="margin-left: 10px;">+1</button>')
             .on('click', seenAddOne)
             .appendTo($('div#P28 div.wikibase-statementview-mainsnak div.wikibase-snakview-body'));
