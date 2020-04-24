@@ -138,7 +138,7 @@
             html += '<option value="indef">無限期</option>';
             html += '</select><br>';
             html += '留言<br>';
-            html += '<input type="text" class="comment" size="85">';
+            html += '<input type="text" class="comment" size="85"><br>';
             html += '編輯摘要<br>';
             html += '<input type="text" class="summary" size="85" value="回應">';
             html += '</div>';
