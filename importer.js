@@ -38,7 +38,7 @@ javascript:
 	});
 
 	function ImportPageCore(apiurl, interwiki) {
-		var pagename = prompt('Input target wiki page name', mw.config.get('wgCanonicalNamespace') + ':' + mw.config.get('wgTitle'));
+		var pagename = prompt('Input target wiki page name', (mw.config.get('wgCanonicalNamespace') + ':' + mw.config.get('wgTitle')).replace(/^:+/, ''));
 		if (pagename === null) {
 			mw.notify('Cancelled');
 			return;
