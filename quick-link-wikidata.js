@@ -32,7 +32,7 @@ javascript:
 			];
 		} else if (mw.config.get('wgContentLanguage') === 'zh') {
 			WDLinker.wikis = [
-				{ text: 'zhwp', url: 'https://zh.wikipedia.org/w/api.php', lang: 'en', sitecode: 'enwiki' },
+				{ text: 'zhwp', url: 'https://zh.wikipedia.org/w/api.php', lang: 'zh', sitecode: 'zhwiki' },
 				{ text: 'enwp', url: 'https://en.wikipedia.org/w/api.php', lang: 'en', sitecode: 'enwiki' },
 			];
 		} else {
