@@ -73,7 +73,11 @@
                 return;
             }
             var node = current.getElementsByClassName('mw-headline')[0];
-            var title = $(current).find('.mw-headline').children()[0].id;
+            var headlineChildren = $(current).find('.mw-headline').children();
+            if (headlineChildren.length === 0) {
+                return;
+            }
+            var title = headlineChildren[0].id;
             title = title.replace(/{{vandal\|(.*?)}}/, '$1');
 
             var tmpNode = delNode.cloneNode(true);
