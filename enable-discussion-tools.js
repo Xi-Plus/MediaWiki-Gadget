@@ -20,7 +20,7 @@
 		'p-tb',
 		url.href,
 		'Enable DiscussionTools',
-		't-debug'
+		't-dtenable'
     );
 
 }
