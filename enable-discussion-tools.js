@@ -14,6 +14,15 @@
         }
     });
 
+    var url = new URL(window.location.href);
+    url.searchParams.set('dtenable', '1');
+    mw.util.addPortletLink(
+		'p-tb',
+		url.href,
+		'Enable DiscussionTools',
+		't-debug'
+    );
+
 }
 )();
 // </nowiki>
