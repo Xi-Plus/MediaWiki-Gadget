@@ -31,16 +31,16 @@ javascript:
 						if (m !== null) {
 							var m2 = m[1].match(/bot=Jimmy-bot\|([^|}]+)/);
 							if (m2 !== null) {
-								$(elements[title].parentElement).append("（" + m2[1] + "）");
+								$(elements[title].parentElement).append(document.createTextNode("（" + m2[1] + "）"));
 							} else {
-								$(elements[title].parentElement).append("（" + m[1] + "）");
+								$(elements[title].parentElement).append(document.createTextNode("（" + m[1] + "）"));
 							}
 						}
 						if (page.revisions[0]["*"].match(/{{\s*Notmandarin\s*\|/i)) {
 							$(elements[title].parentElement).append("（G14）");
 						}
 						if ((m = page.revisions[0]["*"].match(/{{\s*(?:hang ?on|有爭議|有争议)\s*\|\s*(.+?)\s*}}/i)) !== null) {
-							$(elements[title].parentElement).append("（Hangon：" + m[1] + "）");
+							$(elements[title].parentElement).append(document.createTextNode("（Hangon：" + m[1] + "）"));
 						}
 					}
 				}
