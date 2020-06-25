@@ -42,7 +42,7 @@
 	};
 
 	var api,
-		tagLine = '（使用[[User:Xiplus/userRightsManager|userRightsManager]]）',
+		tagLine = '（使用[[User:Xiplus/js/userRightsManager|userRightsManager]]）',
 		permaLink, userName, dialog;
 
 	mw.loader.using(['oojs-ui', 'mediawiki.api', 'mediawiki.widgets.SelectWithInputWidget', 'mediawiki.widgets.expiry'], function() {
