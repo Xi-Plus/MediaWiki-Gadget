@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 // <nowiki>
 // Some UI code adapted from [[User:Mr. Stradivarius/gadgets/Draftify.js]]
 // Adapted from https://en.wikipedia.org/wiki/User:MusikAnimal/userRightsManager.js
@@ -229,8 +230,6 @@
 						this.expiryInput.getValue()
 					)
 				).then(function() {
-					debugger;
-
 					if (!!templates[permission]) {
 						addPromise(
 							self.issueTemplateProgressField,
