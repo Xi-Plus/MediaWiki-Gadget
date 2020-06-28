@@ -16,6 +16,11 @@
 				templates.push(title);
 				elmap[title] = e;
 			});
+			$('#mw-pageinfo-templates li>a[href^="https://zh.wikipedia.org/wiki/"]').each(function(i, e) {
+				var title = decodeURI($(e).attr('href')).substr(30).replace(/_/g, ' ').replace(/\?.+$/, '');
+				templates.push(title);
+				elmap[title] = e;
+			});
 		});
 
 		while (templates.length) {
