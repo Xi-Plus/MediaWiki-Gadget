@@ -5,8 +5,16 @@ javascript:
 	var mySuffix = wpTextbox1.value.substring(wpTextbox1.selectionEnd);
 	var username = prompt("Username");
 	if (username !== "" && username !== null) {
+		username = username.trim();
 		wpTextbox1.value = myPrefix + "{{subst:unsigned|" + username + "}}" + mySuffix;
-		wpSummary.value = "[[Template:Unsigned|補簽名]] [[User:" + username + "|" + username + "]]（[[User talk:" + username + "|對話]]｜[[Special:Contributions/" + username + "|貢獻]]）";
+		var summary = '[[Template:Unsigned|補簽名]]';
+		if (mw.util.isIPAddress(username)) {
+			summary += '[[User:' + username + '|' + username + ']]（[[User talk:' + username + '|對話]]｜[[Special:Contributions/' + username + '|貢獻]]）';
+		} else {
+			summary += '[[Special:Contributions/' + username + '|' + username + ']]（[[User talk:' + username + '|留言]]）';
+		}
+		wpSummary.value = summary;
+
 		wpMinoredit.click();
 
 		var finish = function() {
