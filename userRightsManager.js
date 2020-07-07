@@ -99,7 +99,8 @@
 			});
 			this.editPanel.$element.append(this.editFieldset.$element);
 			this.rightsChangeSummaryInput = new OO.ui.TextInputWidget({
-				value: ''
+				value: '',
+				placeholder: '可留空'
 			});
 			this.expiryInput = new mw.widgets.ExpiryWidget({
 				$overlay: $('.oo-ui-window'),
