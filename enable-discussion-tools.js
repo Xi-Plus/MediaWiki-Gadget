@@ -3,6 +3,10 @@
 (function() {
 
     $('a').each(function(i, e) {
+        var shorthref = e.getAttribute('href') || '';
+        if (shorthref.match(/^(|#)$/)) {
+            return;
+        }
         try {
             var url = new URL(e.href);
             if (url.host.match(/\.(wikipedia|wiktionary|wikiquote|wikisource|wikinews|wikivoyage|wikibooks|wikiversity|wikimedia|mediawiki|wikidata)\.org$/)) {
@@ -10,7 +14,7 @@
                 e.href = url.href;
             }
         } catch (err) {
-            console.log(e.href);
+            console.error(e, err);
         }
     });
 
