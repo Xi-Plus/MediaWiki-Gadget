@@ -79,17 +79,18 @@
             }
             var title = headlineChildren[0].id;
             title = title.replace(/{{vandal\|(.*?)}}/, '$1');
+            var sectionid = mw.util.getParamValue('section', $(current).find('.mw-editsection a')[0].href);
 
             var tmpNode = delNode.cloneNode(true);
             $(tmpNode.firstChild).click(function() {
-                processClose(key, title);
+                processClose(key, sectionid, title);
                 return false;
             });
             node.appendChild(tmpNode)
         });
     }
 
-    function processClose(key, title) {
+    function processClose(key, sectionid, title) {
         mw.loader.using(['jquery.ui'], function() {
             var html = '<div>';
             html += '{{VIP}}<br>';
@@ -145,7 +146,7 @@
                     text: '確定',
                     click: function() {
                         if ($(this).find('#comment').val().trim() !== '') {
-                            processEdit(key, title, $(this).find('#comment').val());
+                            processEdit(key, sectionid, title, $(this).find('#comment').val());
                         } else {
                             mw.notify('動作已取消');
                         }
@@ -161,30 +162,30 @@
         });
     }
 
-    function processEdit(key, title, comment) {
+    function processEdit(key, sectionid, title, comment) {
         new mw.Api().edit('Wikipedia:当前的破坏', function(revision) {
             var content = revision.content;
             const splittoken = 'CLOSE_SPLIT_TOKEN';
-            content = content.replace(/^===/gm, splittoken + '===');
+            content = content.replace(/^(===[^=])/gm, splittoken + '$1');
             var contents = content.split(splittoken);
-            contents[key] = contents[key].trim();
+            var newtext = contents[key];
+            newtext = newtext.trim();
             comment = comment.trim();
             if (comment !== '') {
                 if (comment.search(/[.?!;。？！；]$/) === -1) {
                     comment += '。';
                 }
-                if (contents[key].match(/^\*\s*处理：[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m)) {
-                    contents[key] = contents[key].replace(/^(\*\s*处理：)[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m, '$1' + comment + '--~~~~');
+                if (newtext.match(/^\*\s*处理：[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m)) {
+                    newtext = newtext.replace(/^(\*\s*处理：)[ \t]*(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?[ \t]*$/m, '$1' + comment + '--~~~~');
 
                 } else {
-                    contents[key] += '\n* 处理：' + comment + '--~~~~';
+                    newtext += '\n* 处理：' + comment + '--~~~~';
                 }
             }
-            contents[key] += '\n\n';
-            content = contents.join("");
-            $($('#bodyContent').find('h3')[key - 1]).find('.CloseVipBtn span').css('color', 'grey');
+            $($('#bodyContent').find('h3')[key]).find('.CloseVipBtn span').css('color', 'grey');
             return {
-                text: content,
+                text: newtext,
+                section: sectionid,
                 basetimestamp: revision.timestamp,
                 summary: CloseVip.summary,
                 minor: true
@@ -202,7 +203,7 @@
 
     getPageContent.then(function(result) {
         window.content = result.content;
-        var lenintext = result.content.split(/^===/gm).length - 1;
+        var lenintext = result.content.split(/^===[^=]/gm).length - 1;
         var leninhtml = $('#bodyContent').find('h3').length - 1;
         if (leninhtml !== lenintext) {
             mw.notify('抓取章節錯誤，在HTML找到 ' + leninhtml + ' 個章節，在原始碼找到 ' + lenintext + ' 個章節');
