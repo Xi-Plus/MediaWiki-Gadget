@@ -1,5 +1,18 @@
 // <nowiki>
 (function() {
+	var msgprefix = 'gadget-TranslateVariants-';
+	var messages = {
+		'translate-btn': '轉換變體',
+		'translate-doing': '正在從 $1 進行轉換', // fromlang
+		'translate-done': '已從 $1 轉換完成', // fromlang
+		'translate-error': '發生錯誤：$1', // error
+		'summary': '從[[$1/$2|/$2]]進行轉換', // basepagename, fromlang
+	};
+	for (const key in messages) {
+		if (!mw.messages.exists(msgprefix + key)) {
+			mw.messages.set(msgprefix + key, messages[key]);
+		}
+	}
 
 	var TranslateVariants = function(text, lang) {
 		return new Promise(function(resolve, reject) {
@@ -44,6 +57,7 @@
 			return;
 		}
 		currentlang = currentlang[1];
+		var basepagename = mw.config.get('wgPageName').replace(/\/(zh-hans|zh-hant|zh-hk)$/, '');
 
 		$('.mw-translate-adder').each(function(i, btn) {
 			var otherlink = btn.getAttribute('onclick').match(/"(#other-(zh-hans|zh-hant|zh-hk)-.+?)"/);
@@ -54,17 +68,21 @@
 			var fromlang = otherlink[2];
 
 			var newlink = $('<a>')
-				.text('轉換變體')
+				.text(mw.msg(msgprefix + 'translate-btn'))
 				.attr('class', 'mw-translate-adder mw-translate-adder-ltr');
 
 			newlink.on('click', function() {
-				mw.notify('正在從 ' + fromlang + ' 進行轉換', { tag: 'TranslateVariants' });
+				mw.notify(mw.msg(msgprefix + 'translate-doing', fromlang), { tag: 'TranslateVariants' });
 
 				TranslateVariants(text, currentlang).then(function(newtext) {
 					$('#wpTextbox1').val(newtext);
-					mw.notify('已從 ' + fromlang + ' 轉換完成', { tag: 'TranslateVariants' });
+
+					var summary = mw.msg(msgprefix + 'summary', basepagename, fromlang);
+					$('#wpSummary').val(summary);
+
+					mw.notify(mw.msg(msgprefix + 'translate-done', fromlang), { tag: 'TranslateVariants' });
 				}, function(err) {
-					mw.notify('發生錯誤：' + err);
+					mw.notify(mw.msg(msgprefix + 'translate-error', err));
 				});
 			});
 
@@ -72,7 +90,9 @@
 		})
 	};
 
-	main();
+	mw.loader.using(['mediawiki.ForeignApi']).then(function() {
+		main();
+	});
 
 })();
 // </nowiki>
