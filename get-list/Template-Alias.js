@@ -12,6 +12,7 @@ javascript: (async () => {
         'rdlimit': 'max',
     }).then(async data => {
         let pageids = mw.config.get('wgArticleId') + '|' + $.map(data.query.pages[mw.config.get('wgArticleId')].redirects, redirect => redirect.pageid).join('|');
+        pageids = pageids.replace(/\|$/, '');
 
         await api.get({
             'action': 'query',
