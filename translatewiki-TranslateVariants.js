@@ -3,8 +3,8 @@
 	var msgprefix = 'gadget-TranslateVariants-';
 	var messages = {
 		'translate-btn': '轉換變體',
-		'translate-doing': '正在從 $1 進行轉換', // fromlang
-		'translate-done': '已從 $1 轉換完成', // fromlang
+		'translate-doing': '正在從 $1 轉換至 $2', // fromlang, tolang
+		'translate-done': '從 $1 轉換至 $2 已完成', // fromlang, tolang
 		'translate-error': '發生錯誤：$1', // error
 		'summary': '從[[$1/$2|/$2]]進行轉換', // basepagename, fromlang
 	};
@@ -57,6 +57,13 @@
 			return;
 		}
 		currentlang = currentlang[1];
+		var reallangmap = {
+			'zh-hans': 'zh-cn',
+			'zh-hant': 'zh-tw',
+			'zh-hk': 'zh-hk',
+		};
+		var tolang = reallangmap[currentlang];
+
 		var basepagename = mw.config.get('wgPageName').replace(/\/(zh-hans|zh-hant|zh-hk)$/, '');
 
 		$('.mw-translate-adder').each(function(i, btn) {
@@ -72,15 +79,17 @@
 				.attr('class', 'mw-translate-adder mw-translate-adder-ltr');
 
 			newlink.on('click', function() {
-				mw.notify(mw.msg(msgprefix + 'translate-doing', fromlang), { tag: 'TranslateVariants' });
+				mw.notify(mw.msg(msgprefix + 'translate-doing', fromlang, tolang), { tag: 'TranslateVariants' });
 
-				TranslateVariants(text, currentlang).then(function(newtext) {
+				TranslateVariants(text, tolang).then(function(newtext) {
 					$('#wpTextbox1').val(newtext);
 
 					var summary = mw.msg(msgprefix + 'summary', basepagename, fromlang);
 					$('#wpSummary').val(summary);
 
-					mw.notify(mw.msg(msgprefix + 'translate-done', fromlang), { tag: 'TranslateVariants' });
+					$('#wpDiff').click();
+
+					mw.notify(mw.msg(msgprefix + 'translate-done', fromlang, tolang), { tag: 'TranslateVariants' });
 				}, function(err) {
 					mw.notify(mw.msg(msgprefix + 'translate-error', err));
 				});
