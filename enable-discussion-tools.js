@@ -2,6 +2,11 @@
 // <nowiki>
 (function() {
 
+	// Disable this gadget for users are enabled discussion tools in Beta feature
+	if (mw.user.options.get('discussiontools-betaenable')) {
+		return;
+	}
+
 	var updateLinks = function() {
 		$('a').each(function(i, e) {
 			var shorthref = e.getAttribute('href') || '';
