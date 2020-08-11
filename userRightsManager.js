@@ -13,6 +13,7 @@
 		'Wikipedia:權限申請/申請大量帳號建立權': 'accountcreator',
 		'Wikipedia:權限申請/申請檔案移動權': 'filemover',
 		'Wikipedia:權限申請/申請跨維基導入權': 'transwiki',
+		'Wikipedia:權限申請/申請模板編輯員': 'templateeditor',
 	}
 
 	var pageName = mw.config.get('wgPageName');
@@ -32,6 +33,7 @@
 		'accountcreator': '大量帳號建立者',
 		'filemover': '檔案移動員',
 		'transwiki': '跨維基匯入者',
+		'templateeditor': '模板編輯員',
 	};
 
 	var templates = {
