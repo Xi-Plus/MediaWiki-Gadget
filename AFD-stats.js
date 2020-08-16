@@ -1,7 +1,7 @@
 javascript:
 (function() {
 
-	if (/^Wikipedia:頁面存廢討論\/記錄\/\d+\/\d+\/\d+$/.test(mw.config.get('wgPageName')) && mw.config.get('wgArticleId') !== 0) {
+	if (/^Wikipedia:頁面存廢討論\/記錄\/\d+\/\d+\/\d+$/.test(mw.config.get('wgPageName')) && mw.config.get('wgArticleId') !== 0 && mw.config.get('wgAction') === 'view') {
 		var cntall = 0;
 		var cntdel = 0;
 		var cntcls = 0;
