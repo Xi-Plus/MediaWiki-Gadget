@@ -121,6 +121,7 @@
             html += '<select class="rfpp2">';
             html += '<option value="">選擇等級</option>';
             html += '<option value="s" data-summary="半保護">半保護X，X過後系統會自動解除此頁保護</option>';
+            html += '<option value="tp" data-summary="模板保護">模板保護X，X過後系統會自動解除此頁保護</option>';
             html += '<option value="p" data-summary="全保護">全保護X，X過後系統會自動解除此頁保護</option>';
             html += '<option value="m" data-summary="移動保護">移動保護X，X過後系統會自動解除此頁保護</option>';
             html += '<option value="t" data-summary="白紙保護">白紙保護X ，X過後系統會自動解除此頁保護</option>';
@@ -208,7 +209,11 @@
                     }
                     var dataSummary = $('option:selected', rfpp2).attr('data-summary');
                     if (dataSummary) {
-                        summary.val(summary.val() + dataSummary + $('option:selected', rfpptime).text());
+                        if (rfpptime.val() === 'indef') {
+                            summary.val(summary.val() + $('option:selected', rfpptime).text() + dataSummary);
+                        } else {
+                            summary.val(summary.val() + dataSummary + $('option:selected', rfpptime).text());
+                        }
                     } else {
                         summary.val('回應');
                     }
