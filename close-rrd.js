@@ -146,8 +146,9 @@
                 if (comment.search(/[.?!;。？！；]$/) === -1) {
                     comment += '。';
                 }
-                contents[key] += '\n' + comment + '--~~~~\n\n';
+                contents[key] += '\n' + comment + '--~~~~';
             }
+            contents[key] += '\n\n';
             content = contents.join("");
             $($('div.mw-parser-output>div.plainlinks')[key - 1]).find('.closeRrdBtn span').css('color', 'grey');
             return {
