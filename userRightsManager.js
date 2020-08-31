@@ -42,6 +42,7 @@
 		'rollbacker': 'Rollbackgranted',
 		'autoreviewer': 'Autopatrolgranted',
 		'massmessage-sender': 'MMSgranted',
+		'templateeditor': 'Template editor granted',
 	};
 
 	var api,
