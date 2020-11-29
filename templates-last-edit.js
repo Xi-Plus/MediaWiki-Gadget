@@ -11,13 +11,8 @@
 
 		var templates = [], elmap = [];
 		mw.loader.using(['mediawiki.api'], function() {
-			$('#mw-pageinfo-templates li>a[href^="/wiki/"]').each(function(i, e) {
-				var title = decodeURI($(e).attr('href')).substr(6).replace(/_/g, ' ');
-				templates.push(title);
-				elmap[title] = e;
-			});
-			$('#mw-pageinfo-templates li>a[href^="https://zh.wikipedia.org/wiki/"]').each(function(i, e) {
-				var title = decodeURI($(e).attr('href')).substr(30).replace(/_/g, ' ').replace(/\?.+$/, '');
+			$('#mw-pageinfo-templates li>a:first-child').each(function(i, e) {
+				var title = $(e).text();
 				templates.push(title);
 				elmap[title] = e;
 			});
