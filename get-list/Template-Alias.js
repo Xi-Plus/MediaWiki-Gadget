@@ -38,7 +38,7 @@ javascript: (async () => {
         if (title.match(/^[A-Z]/)) {
             title = '[' + title[0] + title[0].toLowerCase() + ']' + title.substr(1);
         }
-        title = title.replace(/ /, '[ _]');
+        title = title.replace(/ /, '[ _]+');
         return title;
     }).join('|') + ')';
 
@@ -49,7 +49,7 @@ javascript: (async () => {
             return;
         }
         checkdup.push(title.toLowerCase());
-        regexcilist.push(title.replace(/ /, '[ _]'));
+        regexcilist.push(title.replace(/ /, '[ _]+'));
     });
 
     let regexci = '(' + regexcilist.join('|') + ')';
