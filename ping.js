@@ -24,6 +24,6 @@ javascript:
 	} else {
 		indent = indent[indent.length - 1][0] + indent[indent.length - 1];
 	}
-	wpTextbox1.value = myPrefix + indent + "{{" + template + "|" + username + "}}" + mySuffix;
+	wpTextbox1.value = myPrefix + indent + "{{" + template + "|" + (username.includes('=') ? '1=' : '') + username + "}}" + mySuffix;
 
 })();
