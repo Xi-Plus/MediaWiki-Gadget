@@ -1,6 +1,6 @@
 javascript: (function() {
 
-    var interwikipage = mw.config.get('wgPageName');
+    var interwikipage = mw.config.get('wgCanonicalNamespace') + ':' + mw.config.get('wgTitle');
     if (interwikipage === null) {
         mw.notify('未能抓取頁面名稱');
         return;
