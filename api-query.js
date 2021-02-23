@@ -39,6 +39,17 @@
             rvslots: 'main',
         });
     }
+    if (mw.config.get('wgRelevantUserName')) {
+        buildBotton('User info', {
+            list: 'users',
+            ususers: mw.config.get('wgRelevantUserName'),
+            usprop: 'centralids|editcount|emailable|gender|groupmemberships|groups|implicitgroups|registration|rights',
+        });
+    }
+    buildBotton('My info', {
+        meta: 'userinfo',
+        uiprop: 'acceptlang|blockinfo|centralids|changeablegroups|editcount|email|groupmemberships|groups|hasmsg|implicitgroups|latestcontrib|options|ratelimits|realname|registrationdate|rights|theoreticalratelimits|unreadcount',
+    });
 
     if ($dom.children().length === 0) {
         $dom.append($('<span>Nothing</span>'));
