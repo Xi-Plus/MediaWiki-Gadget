@@ -19,6 +19,15 @@
         $dom.append(btn);
     };
 
+    if (mw.config.get('wgCanonicalSpecialPageName') === 'Userrights') {
+        buildBotton('User rights log', {
+            'list': 'logevents',
+            'leprop': 'comment|details|ids|parsedcomment|tags|timestamp|title|type|user|userid',
+            'letype': 'rights',
+            'letitle': 'User:' + mw.config.get('wgRelevantUserName'),
+            'lelimit': 'max'
+        });
+    }
     if (mw.config.get('wgDiffNewId')) {
         buildBotton('New revision', {
             prop: 'revisions',
