@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 // <nowiki>
-(function() {
+$(function() {
 	var variantList = ['zh-cn', 'zh-tw', 'zh-hk', 'zh-mo', 'zh-sg', 'zh-my'];
 	var pickVariant = function() {
 		return variantList[Math.floor(Math.random() * variantList.length)];
@@ -24,7 +24,6 @@
 		});
 	};
 
-	setTimeout(updateLinks, 1000);
-}
-)();
+	updateLinks();
+});
 // </nowiki>
