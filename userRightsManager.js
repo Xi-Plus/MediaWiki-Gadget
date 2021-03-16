@@ -91,7 +91,7 @@
 			return this.apiManager;
 		};
 		Dialog.prototype.getBodyHeight = function() {
-			return 208;
+			return 255;
 		};
 		Dialog.prototype.initialize = function() {
 			Dialog.super.prototype.initialize.call(this);
