@@ -1,3 +1,4 @@
+/* global Morebits */
 /* eslint-disable no-extra-boolean-cast */
 // <nowiki>
 // Some UI code adapted from [[User:Mr. Stradivarius/gadgets/Draftify.js]]
@@ -49,7 +50,7 @@
 		tagLine = '（使用[[User:Xiplus/js/userRightsManager|userRightsManager]]）',
 		permaLink, userName, dialog;
 
-	mw.loader.using(['oojs-ui', 'mediawiki.api', 'mediawiki.widgets.SelectWithInputWidget', 'mediawiki.widgets.expiry'], function() {
+	mw.loader.using(['oojs-ui', 'mediawiki.api', 'mediawiki.widgets.SelectWithInputWidget', 'mediawiki.widgets.expiry', 'ext.gadget.morebits'], function() {
 		api = new mw.Api();
 		$('.perm-assign-permissions a').on('click', function(e) {
 			if (permission === 'AutoWikiBrowser') return true;
@@ -101,6 +102,34 @@
 				expanded: false
 			});
 			this.editPanel.$element.append(this.editFieldset.$element);
+
+			var rightLogWapper = $('<span>');
+			var url = mw.util.getUrl('Special:Log/rights', { type: 'rights', page: 'User:' + userName });
+			$('<a>').text('最近權限日誌').attr({ 'href': url, 'target': '_blank' }).appendTo(rightLogWapper);
+			rightLogWapper.append('：');
+			var rightLogText = $('<span>').text('取得中').appendTo(rightLogWapper);
+			this.rightLog = new OO.ui.LabelWidget({
+				label: rightLogWapper
+			});
+
+			api.get({
+				action: 'query',
+				format: 'json',
+				list: 'logevents',
+				leaction: 'rights/rights',
+				letitle: 'User:' + userName,
+				lelimit: '1'
+			}).done(function(data) {
+				var logs = data.query.logevents;
+				if (logs.length === 0) {
+					rightLogText.text('沒有任何日誌');
+				} else {
+					var timestamp = new Morebits.date(logs[0].timestamp).calendar();
+					var rights = logs[0].params.newgroups.join('、') || '（無）';
+					rightLogText.text(timestamp + ' ' + logs[0].user + '將使用者群組改為' + rights);
+				}
+			});
+
 			this.rightsChangeSummaryInput = new OO.ui.TextInputWidget({
 				value: '',
 				placeholder: '可留空'
@@ -134,6 +163,7 @@
 			this.watchTalkPageCheckbox = new OO.ui.CheckboxInputWidget({
 				selected: false
 			});
+			this.editFieldset.addItems(this.rightLog);
 			var formElements = [
 				new OO.ui.FieldLayout(this.rightsChangeSummaryInput, {
 					label: wgULS('授权原因', '授權原因')
