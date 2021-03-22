@@ -3,16 +3,23 @@
 	// $(mw.util.addPortletLink('p-cactions', '#', '一条龙服务')).click(function(e) {
 	var api = new mw.Api();
 	var date = new Morebits.date();
+	var bulletinTitle = 'Template:Bulletin';
+	var archiveTitle = 'Wikipedia:公告欄/存檔/' + date.format('YYYY年');
+	var summarySuffix = ' via [[User:Xiplus/js/bulletin-editor|bulletin-editor]]';
+
 	api.get({
-		"action": "query",
-		"format": "json",
-		"prop": "revisions",
-		"titles": "Template:Bulletin",
-		"utf8": 1,
-		"rvprop": "content",
-		"rvslots": "main"
-	}).done(function(res) {
-		var bulletinText = Object.values(res.query.pages)[0].revisions[0].slots.main['*'];
+		action: 'query',
+		format: 'json',
+		prop: 'revisions',
+		titles: bulletinTitle,
+		rvprop: ['content', 'timestamp'],
+		formatversion: '2',
+		curtimestamp: true,
+	}).done(function(data) {
+		var revision = data.query.pages[0].revisions[0];
+		var basetimestamp = revision.timestamp;
+		var curtimestamp = data.curtimestamp;
+		var bulletinText = revision.content;
 		var flagStart = '<!-- manual start -->';
 		var flagEnd = '<!-- manual end -->';
 		var idxStart = bulletinText.indexOf(flagStart);
@@ -57,12 +64,9 @@
 					return;
 				}
 
-				// console.log('------------');
-
 				var tempText = '{{bulletin/item|';
 
 				tempText += row.find('.be-row-type').val().trim();
-				// console.log(row.find('.be-row-type').val());
 
 				var prefix = row.find('.be-row-prefix').val().trim();
 				var suffix = row.find('.be-row-suffix').val().trim();
@@ -86,8 +90,6 @@
 
 				tempText += '}}\n';
 
-				// console.log(tempText);
-
 				newText += tempText;
 			});
 
@@ -98,7 +100,7 @@
 			return bulletinText.substring(0, idxStart + flagStart.length) + '\n' + generateText() + bulletinText.substring(idxEnd);
 		}
 
-		function generateArchiveText() { // eslint-disable-line no-unused-vars
+		function generateArchiveText() {
 			var itemsText = $('#be-archive-zone .be-item')
 				.filter(function(idx, item) {
 					return $(item).find('.be-item-main').val().trim().length > 0;
@@ -138,9 +140,8 @@
 		}
 
 		function previewPage() {
-			// console.log(mergeMainText());
 			api.parse(mergeMainText(), {
-				title: 'Template:Bulletin',
+				title: bulletinTitle,
 				prop: 'text',
 			}).done(function(data) {
 				$('#be-preview-box').html(data);
@@ -150,33 +151,30 @@
 		}
 
 		function diffPage() {
-			// console.log(mergeMainText());
 			api.post({
 				action: 'query',
 				prop: 'revisions',
-				titles: 'Template:Bulletin',
+				titles: bulletinTitle,
 				rvdifftotext: mergeMainText(),
 				formatversion: '2',
 			}).done(function(data) {
 				var diff = data.query.pages[0].revisions[0].diff.body;
 				if (diff == '') {
-					$('#be-preview-box').html('無變更');
+					$('#be-preview-box').html('公告欄無變更');
 				} else {
 					$('#be-preview-box').html(diff);
 				}
 			}).fail(function(error) {
-				mw.notify('產生差異時發生錯誤：' + error);
+				mw.notify('產生差異時發生錯誤：' + error, { type: 'error' });
 			});
 		}
 
 		function diffArchive() {
-			var title = 'Wikipedia:公告欄/存檔/' + date.format('YYYY年');
-
 			api.get({
 				action: 'query',
 				prop: 'revisions',
 				rvprop: ['content'],
-				titles: title,
+				titles: archiveTitle,
 				formatversion: '2'
 			}).done(function(data) {
 				var page, text = '';
@@ -188,30 +186,52 @@
 				api.post({
 					action: 'query',
 					prop: 'revisions',
-					titles: title,
+					titles: archiveTitle,
 					rvdifftotext: mergeArchiveText(text),
 					formatversion: '2',
 				}).done(function(data) {
 					var diff = data.query.pages[0].revisions[0].diff.body;
 					if (diff == '') {
-						$('#be-preview-box').html('無變更');
+						$('#be-preview-box').html('存檔頁無變更');
 					} else {
 						$('#be-preview-box').html(diff);
 					}
 				}).fail(function(error) {
-					mw.notify('產生差異時發生錯誤：' + error);
+					mw.notify('產生差異時發生錯誤：' + error, { type: 'error' });
 				});
 			}).fail(function(error) {
-				mw.notify('產生差異時發生錯誤：' + error);
+				mw.notify('產生差異時發生錯誤：' + error, { type: 'error' });
 			});
 		}
 
-		function savePage() { // eslint-disable-line no-unused-vars
-			// if (!confirm('確認保存頁面？')) {
-			// 	mw.notify('已取消操作');
-			// 	return;
-			// }
-			// mw.notify('已保存頁面');
+		function savePage() {
+			if (!confirm('確認發布變更？')) {
+				mw.notify('已取消操作');
+				return;
+			}
+			api.edit(bulletinTitle, function() {
+				return {
+					text: mergeMainText(),
+					summary: $('#be-summary').val() + summarySuffix,
+					basetimestamp: basetimestamp,
+					starttimestamp: curtimestamp,
+				};
+			}).done(function() {
+				mw.notify('成功儲存公告欄');
+
+				api.edit(archiveTitle, function(revision) {
+					return {
+						text: mergeArchiveText(revision.content),
+						summary: '存檔' + summarySuffix,
+					};
+				}).done(function() {
+					mw.notify('成功儲存存檔頁');
+				}).fail(function(error) {
+					mw.notify('儲存存檔頁時發生錯誤：' + error, { type: 'error' });
+				});
+			}).fail(function(error) {
+				mw.notify('儲存公告欄時發生錯誤：' + error, { type: 'error' });
+			});
 		}
 
 		var $table = $('<table>').attr('id', 'be-active-zone').addClass('wikitable').appendTo($wrapper);
@@ -221,7 +241,6 @@
 		</tr>`).appendTo($table);
 		while (m) {
 			var $tr = $('<tr>').addClass('be-row').appendTo($table);
-			// console.log(m);
 			var tem = Morebits.wikitext.parseTemplate(mainText, m.index);
 
 			// td 1
@@ -254,7 +273,7 @@
 
 					// item input
 					$('<input>').addClass('be-item-text be-item-main').val(tem.parameters[i])
-						.attr('placeholder', '空的項目將在保存時自動被忽略')
+						.attr('placeholder', '空的項目將在儲存時自動被忽略')
 						.appendTo($li);
 
 					// hidden suffix input
@@ -273,20 +292,25 @@
 			$('<span>').text('Suffix: ').appendTo($itmes);
 			$('<input>').addClass('be-item-text be-row-suffix').val(tem.parameters.suffix).appendTo($itmes);
 
-			// console.log(tem);
 			m = re.exec(mainText);
 		}
 
 		var $archiveZone = $('<div>').attr('id', 'be-archive-zone').appendTo($wrapper);
-		$('<span>').text('存檔區（保存時會自動合併Prefix、Suffix）').appendTo($archiveZone);
+		$('<span>').text('存檔區（儲存時會自動合併Prefix、Suffix）').appendTo($archiveZone);
 		var $ul = $('<ul>').attr('id', 'be-archiveul').addClass('be-items').appendTo($archiveZone);
 
-		$('<button>').attr('id', 'be-preview').text('公告欄預覽').appendTo($wrapper)
+		$('<span>').text('編輯摘要：').appendTo($wrapper);
+		$('<input>').attr('id', 'be-summary').appendTo($wrapper);
+		$('<br>').appendTo($wrapper);
+
+		$('<button>').addClass('be-button').attr('id', 'be-preview').text('公告欄預覽').appendTo($wrapper)
 			.on('click', previewPage);
-		$('<button>').attr('id', 'be-diff-page').text('公告欄差異').appendTo($wrapper)
+		$('<button>').addClass('be-button').attr('id', 'be-diff-page').text('公告欄差異').appendTo($wrapper)
 			.on('click', diffPage);
-		$('<button>').attr('id', 'be-diff-archive').text('存檔差異').appendTo($wrapper)
+		$('<button>').addClass('be-button').attr('id', 'be-diff-archive').text('存檔差異').appendTo($wrapper)
 			.on('click', diffArchive);
+		$('<button>').addClass('be-button be-publish').attr('id', 'be-diff-archive').text('發布變更').appendTo($wrapper)
+			.on('click', savePage);
 
 		$('<div>').attr('id', 'be-preview-box').appendTo($wrapper);
 
@@ -325,13 +349,23 @@
 				margin-top: 16px;
 				border: 1px solid;
 			}
+			#be-summary {
+				width: 50%;
+			}
+			.be-button {
+				margin-right: 3px;
+			}
+			.be-publish {
+				color: #fff;
+				background-color: #36c;
+				border-color: #36c;
+			}
 		`).appendTo($wrapper);
 
-		// $wrapper.insertBefore($('#editform'));
 		$('#content').html($wrapper);
 
 		$(function() {
-			var oldList; // eslint-disable-line no-unused-vars
+			var oldList;
 			$('.be-items').sortable({
 				start: function(_event, ui) {
 					oldList = ui.item.parent();
