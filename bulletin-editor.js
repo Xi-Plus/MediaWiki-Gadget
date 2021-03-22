@@ -1,11 +1,14 @@
 /* global Morebits */
 (function() {
 	function main() {
+		var summarySuffix = ' via [[User:Xiplus/js/bulletin-editor|bulletin-editor]]';
+		var flagStart = '<!-- bulletin-editor-start -->';
+		var flagEnd = '<!-- bulletin-editor-end -->';
+
 		var api = new mw.Api();
 		var date = new Morebits.date();
 		var bulletinTitle = 'Template:Bulletin';
 		var archiveTitle = 'Wikipedia:公告欄/存檔/' + date.format('YYYY年');
-		var summarySuffix = ' via [[User:Xiplus/js/bulletin-editor|bulletin-editor]]';
 
 		api.get({
 			action: 'query',
@@ -20,8 +23,6 @@
 			var basetimestamp = revision.timestamp;
 			var curtimestamp = data.curtimestamp;
 			var bulletinText = revision.content;
-			var flagStart = '<!-- manual start -->';
-			var flagEnd = '<!-- manual end -->';
 			var idxStart = bulletinText.indexOf(flagStart);
 			var idxEnd = bulletinText.indexOf(flagEnd);
 			if (idxStart === -1 || idxEnd === -1) {
