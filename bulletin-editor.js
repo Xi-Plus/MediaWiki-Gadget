@@ -312,6 +312,8 @@
 			$('<button>').addClass('be-button be-publish').attr('id', 'be-diff-archive').text('發布變更').appendTo($wrapper)
 				.on('click', savePage);
 
+			$('<span>').text('警告：本工具未經測試，您需要複查您的編輯並對於負起完整責任。').css('color', 'red').appendTo($wrapper);
+
 			$('<div>').attr('id', 'be-preview-box').appendTo($wrapper);
 
 			$('<style>').html(`
@@ -379,7 +381,7 @@
 					},
 					change: function(_event, _ui) {
 					},
-					connectWith: ".be-items"
+					connectWith: '.be-items'
 				}).disableSelection();
 			});
 		}).fail(function(e) {
@@ -388,7 +390,10 @@
 	}
 
 	if (mw.config.get('wgPageName') === 'Template:Bulletin') {
-		mw.util.addPortletLink('p-cactions', '#', '公告欄編輯器').on('click', main);
+		mw.loader.using(['mediawiki.api'], function() {
+			var link = mw.util.addPortletLink('p-cactions', '#', '公告欄編輯器');
+			$(link).on('click', main);
+		});
 	}
 
 })();
