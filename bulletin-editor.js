@@ -17,31 +17,37 @@
 		var m = re.exec(text);
 		var $wrapper = $('<div>');
 
-		var moveToArchive = function(event) {
-			console.log(event);
-			window.temp = $(event.target).parent();
-			$('#be-archiveul').append($(event.target).parent());
+		function copyDataFromParent(item, row) {
+			item.find('.be-item-type').val(row.find('.be-row-type').val());
+			item.find('.be-item-prefix').val(row.find('.be-row-prefix').val());
+			item.find('.be-item-suffix').val(row.find('.be-row-suffix').val());
 		}
 
-		var $table = $('<table>').addClass('wikitable').appendTo($wrapper);
+		function moveToArchive(event) {
+			var item = $(event.target).parent();
+			copyDataFromParent(item, item.parents('.be-row'));
+			$('#be-archiveul').append(item);
+		}
+
+		var $table = $('<table>').attr('id', 'be-active-zone').addClass('wikitable').appendTo($wrapper);
 		$(`<tr>
 			<th style="width: 30px;">type</th>
 			<th style="width: 100%;">items</th>
 		</tr>`).appendTo($table);
 		while (m) {
-			var $tr = $('<tr>').appendTo($table);
-			console.log(m);
+			var $tr = $('<tr>').addClass('be-row').appendTo($table);
+			// console.log(m);
 			var tem = Morebits.wikitext.parseTemplate(text, m.index);
 
 			// td 1
-			var $type = $('<td>').addClass('be-typecol').appendTo($tr);
-			$('<input>').addClass('be-typeinput').val(tem.parameters[1]).appendTo($type);
+			var $type = $('<td>').addClass('be-type-col').appendTo($tr);
+			$('<input>').addClass('be-type-text be-row-type').val(tem.parameters[1]).appendTo($type);
 
 			// td 2
-			var $itmes = $('<td>').addClass('be-itemcol').appendTo($tr);
+			var $itmes = $('<td>').addClass('be-item-col').appendTo($tr);
 
 			var $type = $('<span>').text('Prefix: ').appendTo($itmes);
-			$('<input>').addClass('be-iteminput').val(tem.parameters.prefix).appendTo($itmes);
+			$('<input>').addClass('be-item-text be-row-prefix').val(tem.parameters.prefix).appendTo($itmes);
 
 			$('<br>').appendTo($itmes);
 			$('<span>').text('Items: ').appendTo($itmes);
@@ -54,11 +60,23 @@
 						'src': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/OOjs_UI_icon_move.svg',
 						'title': '調整順序或移動到其他項目',
 					}).appendTo($li);
-					$('<input>').addClass('be-typeinput').val(tem.parameters[1]).appendTo($li);
-					$('<input>').addClass('be-iteminput').val(tem.parameters[i])
+
+					// hidden type input
+					$('<input>').addClass('be-type-text be-item-type').val(tem.parameters[1]).appendTo($li);
+
+					// hidden prefix input
+					$('<input>').addClass('be-item-text be-item-prefix').appendTo($li);
+
+					// item input
+					$('<input>').addClass('be-item-text be-item-main').val(tem.parameters[i])
 						.attr('placeholder', '空的項目將在保存時自動被忽略')
 						.appendTo($li);
-					$('<img>').addClass('be-archivebtn').attr({
+
+					// hidden suffix input
+					$('<input>').addClass('be-item-text be-item-suffix').appendTo($li);
+
+					// archive button
+					$('<img>').addClass('be-archive-btn').attr({
 						'src': 'https://upload.wikimedia.org/wikipedia/commons/7/72/OOjs_UI_icon_tray.svg',
 						'title': '存檔',
 					}).appendTo($li).on('click', moveToArchive);
@@ -68,15 +86,15 @@
 			}
 
 			$('<span>').text('Suffix: ').appendTo($itmes);
-			$('<input>').addClass('be-iteminput').val(tem.parameters.suffix).appendTo($itmes);
+			$('<input>').addClass('be-item-text be-row-suffix').val(tem.parameters.suffix).appendTo($itmes);
 
-			console.log(tem);
+			// console.log(tem);
 			m = re.exec(text);
 		}
 
-		var $archivezone = $('<div>').attr('id', 'be-archivezone').appendTo($wrapper);
-		$('<span>').text('存檔區').appendTo($archivezone);
-		var $ul = $('<ul>').attr('id', 'be-archiveul').addClass('be-items').appendTo($archivezone);
+		var $archiveZone = $('<div>').attr('id', 'be-archive-zone').appendTo($wrapper);
+		$('<span>').text('存檔區（保存時會自動合併prefix、suffix）').appendTo($archiveZone);
+		var $ul = $('<ul>').attr('id', 'be-archiveul').addClass('be-items').appendTo($archiveZone);
 
 		$('#content').html($wrapper);
 		$('<style>').html(`
@@ -85,41 +103,42 @@
 				background: #ffffbb;
 				min-height: 30px;
 			}
-			.be-typeinput {
+			.be-type-text {
 				width: 30px;
 			}
-			.be-itemcol .be-typeinput {
+			.be-item-col .be-item-type,
+			.be-item-col .be-item-prefix,
+			.be-item-col .be-item-suffix {
 				display: none;
 			}
-			.be-iteminput {
+			.be-moving .be-item-type,
+			.be-moving .be-item-prefix,
+			.be-moving .be-item-suffix {
+				display: none;
+			}
+			.be-item-text {
 				width: 90%;
 			}
-			#be-archivezone .be-archivebtn {
+			#be-archive-zone .be-archive-btn {
 				display: none;
 			}
 		`).insertBefore($wrapper);
-		// $('ul.be-items li').css('display', 'inline');
 
 
 		$(function() {
-			var oldList, newList, item;
+			var oldList; // eslint-disable-line no-unused-vars
 			$('.be-items').sortable({
-				start: function(event, ui) {
-					// console.log('start', ui);
-					item = ui.item;
-					oldList = ui.item.parent().parent();
-					newList = ui.item.parent().parent();
+				start: function(_event, ui) {
+					oldList = ui.item.parent();
+					ui.item.addClass('be-moving');
 				},
 				stop: function(_event, ui) {
-					// console.log('stop', ui);
-					// console.log("Moved ", item.text(), " from ", oldList, " to ", newList);
-					if ($('#be-archivezone').has(ui.item).length) {
-						ui.item.find('.be-typeinput').val(oldList.parent().find('.be-typecol .be-typeinput').val());
+					if ($('#be-active-zone').has(oldList).length && $('#be-archive-zone').has(ui.item).length) {
+						copyDataFromParent(ui.item, oldList.parents('.be-row'));
 					}
+					ui.item.removeClass('be-moving');
 				},
-				change: function(event, ui) {
-					// console.log('change', ui);
-					// if (ui.sender) newList = ui.placeholder.parent().parent();
+				change: function(_event, _ui) {
 				},
 				connectWith: ".be-items"
 			}).disableSelection();
