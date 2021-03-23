@@ -273,62 +273,93 @@
 			}
 
 			var $table = $('<table>').attr('id', 'be-active-zone').addClass('wikitable').appendTo($wrapper);
-			$table.append($(`<tr>
-			<th style="width: 30px;">類別</th>
-			<th style="width: 100%;">公告內容</th>
-			</tr>`));
-			while (m) {
+			$table.append($('<tr>')
+				.append($('<th>').css('width', '30px').text('類別'))
+				.append($('<th>').css('width', '100%').text('公告內容'))
+			);
+
+			function createRow(type, prefix, suffix) {
+				type = type || '公告';
+				prefix = prefix || '';
+				suffix = suffix || '';
+
 				var $tr = $('<tr>').addClass('be-row').appendTo($table);
-				var tem = Morebits.wikitext.parseTemplate(mainText, m.index);
 
 				// td 1
 				var $type = $('<td>').addClass('be-type-col').appendTo($tr);
-				$type.append($('<input>').addClass('be-type-text be-row-type').val(tem.parameters[1]));
+				$type.append($('<input>').addClass('be-type-text be-row-type').val(type));
 
 				// td 2
 				var $items = $('<td>').addClass('be-item-col').appendTo($tr);
 
 				$items.append($('<span>').text('Prefix: '));
-				$items.append($('<input>').addClass('be-item-text be-row-prefix').val(tem.parameters.prefix));
+				$items.append($('<input>').addClass('be-item-text be-row-prefix').val(prefix));
 
 				$items.append($('<br>'));
 				$items.append($('<span>').text('Items: '));
+				$items.append($('<img>').attr({
+					'src': 'https://upload.wikimedia.org/wikipedia/commons/0/06/OOjs_UI_icon_add.svg',
+					'title': '增加一個公告項目',
+				}).on('click', function(event) {
+					createItem().prependTo($(event.target).parents('.be-item-col').find('.be-items'));
+				}));
 
-				var $ul = $('<ul>').addClass('be-items').appendTo($items);
+				$('<ul>').addClass('be-items').appendTo($items);
+
+				$items.append($('<span>').text('Suffix: '));
+				$items.append($('<input>').addClass('be-item-text be-row-suffix').val(suffix));
+
+				return $tr;
+			}
+
+			function createItem(text) {
+				text = text || '';
+
+				var $li = $('<li>').addClass('be-item').appendTo($ul);
+				$li.append($('<img>').attr({
+					'src': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/OOjs_UI_icon_move.svg',
+					'title': '調整順序或移動到其他項目',
+				}));
+
+				// hidden type input
+				$li.append($('<input>').addClass('be-type-text be-item-type'));
+
+				// hidden prefix input
+				$li.append($('<input>').addClass('be-item-text be-item-prefix'));
+
+				// item input
+				$li.append($('<input>').addClass('be-item-text be-item-main').val(text)
+					.attr('placeholder', '空的項目將在發布變更時自動被忽略')
+				);
+
+				// hidden suffix input
+				$li.append($('<input>').addClass('be-item-text be-item-suffix'));
+
+				// archive button
+				$li.append($('<img>').addClass('be-archive-btn').attr({
+					'src': 'https://upload.wikimedia.org/wikipedia/commons/7/72/OOjs_UI_icon_tray.svg',
+					'title': '存檔',
+				}).on('click', moveToArchive));
+
+				return $li;
+			}
+
+			while (m) {
+				var tem = Morebits.wikitext.parseTemplate(mainText, m.index);
+				var row = createRow(
+					tem.parameters[1],
+					tem.parameters.prefix,
+					tem.parameters.suffix
+				).appendTo($table);
+
+				var $ul = row.find('.be-items');
 				for (let i = 2; ; i++) {
 					if (tem.parameters.hasOwnProperty(i)) {
-						var $li = $('<li>').addClass('be-item').appendTo($ul);
-						$li.append($('<img>').attr({
-							'src': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/OOjs_UI_icon_move.svg',
-							'title': '調整順序或移動到其他項目',
-						}));
-
-						// hidden type input
-						$li.append($('<input>').addClass('be-type-text be-item-type').val(tem.parameters[1]));
-
-						// hidden prefix input
-						$li.append($('<input>').addClass('be-item-text be-item-prefix'));
-
-						// item input
-						$li.append($('<input>').addClass('be-item-text be-item-main').val(tem.parameters[i])
-							.attr('placeholder', '空的項目將在發布變更時自動被忽略')
-						);
-
-						// hidden suffix input
-						$li.append($('<input>').addClass('be-item-text be-item-suffix'));
-
-						// archive button
-						$li.append($('<img>').addClass('be-archive-btn').attr({
-							'src': 'https://upload.wikimedia.org/wikipedia/commons/7/72/OOjs_UI_icon_tray.svg',
-							'title': '存檔',
-						}).on('click', moveToArchive));
+						createItem(tem.parameters[i]).appendTo($ul);
 					} else {
 						break;
 					}
 				}
-
-				$items.append($('<span>').text('Suffix: '));
-				$items.append($('<input>').addClass('be-item-text be-row-suffix').val(tem.parameters.suffix));
 
 				m = re.exec(mainText);
 			}
