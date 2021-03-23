@@ -141,11 +141,20 @@
 			}
 
 			function previewPage() {
-				api.parse(mergeMainText(), {
+				api.post({
+					action: 'parse',
+					contentmodel: 'wikitext',
+					text: mergeMainText(),
 					title: bulletinTitle,
+					summary: $('#be-summary').val() + summarySuffix,
 					prop: 'text',
+					formatversion: '2',
 				}).done(function(data) {
-					$('#be-preview-box').html(data);
+					$('.be-preview-boxes').hide();
+					$('#be-summary-box').show();
+					$('#be-summary-body').html(data.parse.parsedsummary);
+					$('#be-preview-box').show();
+					$('#be-preview-body').html(data.parse.text);
 				}).fail(function(error) {
 					mw.notify('產生預覽時發生錯誤：' + error);
 				});
@@ -159,11 +168,15 @@
 					rvdifftotext: mergeMainText(),
 					formatversion: '2',
 				}).done(function(data) {
+					$('.be-preview-boxes').hide();
+					$('#be-diff-box').show();
 					var diff = data.query.pages[0].revisions[0].diff.body;
 					if (diff == '') {
-						$('#be-preview-box').html('公告欄無變更');
+						$('#be-diff-nochange').text('公告欄無變更').show();
+						$('#be-diff-body').hide();
 					} else {
-						$('#be-preview-box').html(diff);
+						$('#be-diff-nochange').hide();
+						$('#be-diff-body').html(diff).show();
 					}
 				}).fail(function(error) {
 					mw.notify('產生差異時發生錯誤：' + error, { type: 'error' });
@@ -191,11 +204,15 @@
 						rvdifftotext: mergeArchiveText(text),
 						formatversion: '2',
 					}).done(function(data) {
+						$('.be-preview-boxes').hide();
+						$('#be-diff-box').show();
 						var diff = data.query.pages[0].revisions[0].diff.body;
 						if (diff == '') {
-							$('#be-preview-box').html('存檔頁無變更');
+							$('#be-diff-nochange').text('存檔頁無變更').show();
+							$('#be-diff-body').hide();
 						} else {
-							$('#be-preview-box').html(diff);
+							$('#be-diff-nochange').hide();
+							$('#be-diff-body').html(diff).show();
 						}
 					}).fail(function(error) {
 						mw.notify('產生差異時發生錯誤：' + error, { type: 'error' });
@@ -315,7 +332,25 @@
 
 			$('<span>').text('警告：本工具未經測試，您需要複查您的編輯並對於負起完整責任。').css('color', 'red').appendTo($wrapper);
 
-			$('<div>').attr('id', 'be-preview-box').appendTo($wrapper);
+			var $summaryBox = $('<div>').attr('id', 'be-summary-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
+			$('<span>').text('公告欄編輯摘要預覽：').appendTo($summaryBox);
+			$('<span>').attr('id', 'be-summary-body').appendTo($summaryBox);
+
+			var $previewBox = $('<div>').attr('id', 'be-preview-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
+			$('<span>').attr('id', 'be-preview-body').appendTo($previewBox);
+
+			var $diffBox = $(`<div>`).attr('id', 'be-diff-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
+			$('<span>').attr('id', 'be-diff-nochange').hide().appendTo($diffBox);
+			$(`<table class="diff">
+			<colgroup>
+				<col class="diff-marker">
+				<col class="diff-content">
+				<col class="diff-marker">
+				<col class="diff-content">
+			</colgroup>
+			<tbody id="be-diff-body">
+			</tbody>
+			</table>`).appendTo($diffBox);
 
 			$('<style>').html(`
 			.be-items {
@@ -348,7 +383,9 @@
 			#be-editor {
 				margin-bottom: 16px;
 			}
-			#be-preview-box {
+			#be-summary-box,
+			#be-preview-box,
+			#be-diff-box {
 				margin-top: 16px;
 				border: 1px solid;
 			}
