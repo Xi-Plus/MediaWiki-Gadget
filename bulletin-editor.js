@@ -301,7 +301,7 @@
 				var $type = $('<td>').addClass('be-type-col').appendTo($tr);
 				$type.append($('<img>').addClass('be-sortable-row-handle').attr({
 					'src': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/OOjs_UI_icon_move.svg',
-					'title': '調整類別順序',
+					'title': '調整公告類別順序',
 				}));
 				$type.append($('<br>'));
 				$type.append($('<input>').addClass('be-type-text be-row-type').val(type));
@@ -335,7 +335,7 @@
 				var $li = $('<li>').addClass('be-item').appendTo($ul);
 				$li.append($('<img>').addClass('be-sortable-item-handle').attr({
 					'src': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/OOjs_UI_icon_move.svg',
-					'title': '調整順序或移動到其他項目',
+					'title': '調整公告項目順序或移動到其他公告類別',
 				}));
 
 				// hidden type input
