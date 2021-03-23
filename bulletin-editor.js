@@ -230,6 +230,13 @@
 				});
 			}
 
+			function showEditConflict() {
+				$('.be-preview-boxes').hide();
+				$('#be-conflict-box').show();
+				$('#be-conflict-main').val(mergeMainText());
+				$('#be-conflict-archive').val(generateArchiveText());
+			}
+
 			function savePage() {
 				if (!confirm('確認發布變更？')) {
 					mw.notify('已取消操作');
@@ -256,7 +263,12 @@
 						mw.notify('儲存存檔頁時發生錯誤：' + error, { type: 'error' });
 					});
 				}).fail(function(error) {
-					mw.notify('儲存公告欄時發生錯誤：' + error, { type: 'error' });
+					if (error === 'editconflict') {
+						showEditConflict();
+						mw.notify('儲存公告欄時發生編輯衝突，請從下方複製您的版本並使用傳統編輯框解決衝突', { type: 'error' });
+					} else {
+						mw.notify('儲存公告欄時發生錯誤：' + error, { type: 'error' });
+					}
 				});
 			}
 
@@ -322,7 +334,12 @@
 			}
 
 			var $archiveZone = $('<div>').attr('id', 'be-archive-zone').appendTo($wrapper);
-			$('<span>').text('存檔至' + archiveTitle + '（發布變更時會自動合併Prefix、Suffix）').appendTo($archiveZone);
+			$archiveZone.append(document.createTextNode('存檔至'));
+			$archiveZone.append($('<a>').attr({
+				href: mw.util.getUrl(archiveTitle),
+				target: '_blank',
+			}).text(archiveTitle));
+			$archiveZone.append(document.createTextNode('（發布變更時會自動合併Prefix、Suffix）'));
 			var $ul = $('<ul>').attr('id', 'be-archiveul').addClass('be-items').appendTo($archiveZone);
 
 			$('<span>').text('公告欄編輯摘要：').appendTo($wrapper);
@@ -339,6 +356,26 @@
 				.on('click', savePage);
 
 			$('<span>').text('警告：本工具未經測試，您需要複查您的編輯並對於負起完整責任。').css('color', 'red').appendTo($wrapper);
+
+			var $conflictBox = $('<div>').attr('id', 'be-conflict-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
+			$conflictBox.append($('<span>').attr('id', 'be-conflict-label').text('發生了編輯衝突！請從下方複製您的版本並使用傳統編輯框來完成您的編輯，或是重新載入公告欄編輯器（您之前的變更將遺失）。'));
+			$conflictBox.append($('<br>'))
+			$conflictBox.append($('<span>').text('公告欄文字'))
+			$conflictBox.append($(document.createTextNode('（')))
+			$conflictBox.append($('<a>').attr({
+				href: mw.util.getUrl(bulletinTitle, { action: 'edit' }),
+				target: '_blank',
+			}).text('編輯'))
+			$conflictBox.append($(document.createTextNode('）')))
+			$conflictBox.append($('<textarea>').attr({ id: 'be-conflict-main', rows: 10 }))
+			$conflictBox.append($('<span>').text('存檔頁文字'))
+			$conflictBox.append($(document.createTextNode('（')))
+			$conflictBox.append($('<a>').attr({
+				href: mw.util.getUrl(archiveTitle, { action: 'edit' }),
+				target: '_blank',
+			}).text('編輯'))
+			$conflictBox.append($(document.createTextNode('）')))
+			$conflictBox.append($('<textarea>').attr({ id: 'be-conflict-archive', rows: 5 }))
 
 			var $summaryBox = $('<div>').attr('id', 'be-summary-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
 			$('<span>').text('公告欄編輯摘要預覽：').appendTo($summaryBox);
@@ -391,11 +428,18 @@
 			#be-editor {
 				margin-bottom: 16px;
 			}
+			#be-conflict-box,
 			#be-summary-box,
 			#be-preview-box,
 			#be-diff-box {
 				margin-top: 16px;
 				border: 1px solid;
+			}
+			#be-conflict-box {
+				background: #fcc;
+			}
+			#be-conflict-label {
+				font-weight: bold;
 			}
 			#be-summary {
 				width: 50%;
