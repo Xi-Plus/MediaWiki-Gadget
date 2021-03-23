@@ -6,7 +6,7 @@
 (function() {
 
 	if (mw.config.get('wgPageName').match(/^MediaWiki:[^/]+(\/zh)?$/)) {
-		mw.loader.using(['mediawiki.api', 'mediawiki.ForeignApi']).then(function() {
+		mw.loader.using(['mediawiki.api', 'mediawiki.ForeignApi', 'mediawiki.diff.styles']).then(function() {
 			let link = mw.util.addPortletLink(
 				'p-cactions',
 				'#',
