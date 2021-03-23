@@ -273,62 +273,62 @@
 			}
 
 			var $table = $('<table>').attr('id', 'be-active-zone').addClass('wikitable').appendTo($wrapper);
-			$(`<tr>
+			$table.append($(`<tr>
 			<th style="width: 30px;">類別</th>
 			<th style="width: 100%;">公告內容</th>
-			</tr>`).appendTo($table);
+			</tr>`));
 			while (m) {
 				var $tr = $('<tr>').addClass('be-row').appendTo($table);
 				var tem = Morebits.wikitext.parseTemplate(mainText, m.index);
 
 				// td 1
 				var $type = $('<td>').addClass('be-type-col').appendTo($tr);
-				$('<input>').addClass('be-type-text be-row-type').val(tem.parameters[1]).appendTo($type);
+				$type.append($('<input>').addClass('be-type-text be-row-type').val(tem.parameters[1]));
 
 				// td 2
-				var $itmes = $('<td>').addClass('be-item-col').appendTo($tr);
+				var $items = $('<td>').addClass('be-item-col').appendTo($tr);
 
-				var $type = $('<span>').text('Prefix: ').appendTo($itmes);
-				$('<input>').addClass('be-item-text be-row-prefix').val(tem.parameters.prefix).appendTo($itmes);
+				$items.append($('<span>').text('Prefix: '));
+				$items.append($('<input>').addClass('be-item-text be-row-prefix').val(tem.parameters.prefix));
 
-				$('<br>').appendTo($itmes);
-				$('<span>').text('Items: ').appendTo($itmes);
+				$items.append($('<br>'));
+				$items.append($('<span>').text('Items: '));
 
-				var $ul = $('<ul>').addClass('be-items').appendTo($itmes);
+				var $ul = $('<ul>').addClass('be-items').appendTo($items);
 				for (let i = 2; ; i++) {
 					if (tem.parameters.hasOwnProperty(i)) {
 						var $li = $('<li>').addClass('be-item').appendTo($ul);
-						$('<img>').attr({
+						$li.append($('<img>').attr({
 							'src': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/OOjs_UI_icon_move.svg',
 							'title': '調整順序或移動到其他項目',
-						}).appendTo($li);
+						}));
 
 						// hidden type input
-						$('<input>').addClass('be-type-text be-item-type').val(tem.parameters[1]).appendTo($li);
+						$li.append($('<input>').addClass('be-type-text be-item-type').val(tem.parameters[1]));
 
 						// hidden prefix input
-						$('<input>').addClass('be-item-text be-item-prefix').appendTo($li);
+						$li.append($('<input>').addClass('be-item-text be-item-prefix'));
 
 						// item input
-						$('<input>').addClass('be-item-text be-item-main').val(tem.parameters[i])
+						$li.append($('<input>').addClass('be-item-text be-item-main').val(tem.parameters[i])
 							.attr('placeholder', '空的項目將在發布變更時自動被忽略')
-							.appendTo($li);
+						);
 
 						// hidden suffix input
-						$('<input>').addClass('be-item-text be-item-suffix').appendTo($li);
+						$li.append($('<input>').addClass('be-item-text be-item-suffix'));
 
 						// archive button
-						$('<img>').addClass('be-archive-btn').attr({
+						$li.append($('<img>').addClass('be-archive-btn').attr({
 							'src': 'https://upload.wikimedia.org/wikipedia/commons/7/72/OOjs_UI_icon_tray.svg',
 							'title': '存檔',
-						}).appendTo($li).on('click', moveToArchive);
+						}).on('click', moveToArchive));
 					} else {
 						break;
 					}
 				}
 
-				$('<span>').text('Suffix: ').appendTo($itmes);
-				$('<input>').addClass('be-item-text be-row-suffix').val(tem.parameters.suffix).appendTo($itmes);
+				$items.append($('<span>').text('Suffix: '));
+				$items.append($('<input>').addClass('be-item-text be-row-suffix').val(tem.parameters.suffix));
 
 				m = re.exec(mainText);
 			}
@@ -340,22 +340,18 @@
 				target: '_blank',
 			}).text(archiveTitle));
 			$archiveZone.append(document.createTextNode('（發布變更時會自動合併Prefix、Suffix）'));
-			var $ul = $('<ul>').attr('id', 'be-archiveul').addClass('be-items').appendTo($archiveZone);
+			$archiveZone.append($('<ul>').attr('id', 'be-archiveul').addClass('be-items'));
 
-			$('<span>').text('公告欄編輯摘要：').appendTo($wrapper);
-			$('<input>').attr('id', 'be-summary').appendTo($wrapper);
-			$('<br>').appendTo($wrapper);
+			$wrapper.append($('<span>').text('公告欄編輯摘要：'));
+			$wrapper.append($('<input>').attr('id', 'be-summary'));
+			$wrapper.append($('<br>'));
 
-			$('<button>').addClass('be-button').attr('id', 'be-preview').text('公告欄預覽').appendTo($wrapper)
-				.on('click', previewPage);
-			$('<button>').addClass('be-button').attr('id', 'be-diff-page').text('公告欄差異').appendTo($wrapper)
-				.on('click', diffPage);
-			$('<button>').addClass('be-button').attr('id', 'be-diff-archive').text('存檔差異').appendTo($wrapper)
-				.on('click', diffArchive);
-			$('<button>').addClass('be-button be-publish').attr('id', 'be-diff-archive').text('發布變更').appendTo($wrapper)
-				.on('click', savePage);
+			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-preview').text('公告欄預覽').on('click', previewPage));
+			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-diff-page').text('公告欄差異').on('click', diffPage));
+			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-diff-archive').text('存檔差異').on('click', diffArchive));
+			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-publish').text('發布變更').on('click', savePage));
 
-			$('<span>').text('警告：本工具未經測試，您需要複查您的編輯並對於負起完整責任。').css('color', 'red').appendTo($wrapper);
+			$wrapper.append($('<span>').text('警告：本工具未經測試，您需要複查您的編輯並對於負起完整責任。').css('color', 'red'));
 
 			var $conflictBox = $('<div>').attr('id', 'be-conflict-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
 			$conflictBox.append($('<span>').attr('id', 'be-conflict-label').text('發生了編輯衝突！請從下方複製您的版本並使用傳統編輯框來完成您的編輯，或是重新載入公告欄編輯器（您之前的變更將遺失）。'));
@@ -378,15 +374,15 @@
 			$conflictBox.append($('<textarea>').attr({ id: 'be-conflict-archive', rows: 5 }))
 
 			var $summaryBox = $('<div>').attr('id', 'be-summary-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
-			$('<span>').text('公告欄編輯摘要預覽：').appendTo($summaryBox);
-			$('<span>').attr('id', 'be-summary-body').appendTo($summaryBox);
+			$summaryBox.append($('<span>').text('公告欄編輯摘要預覽：'));
+			$summaryBox.append($('<span>').attr('id', 'be-summary-body'));
 
 			var $previewBox = $('<div>').attr('id', 'be-preview-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
-			$('<span>').attr('id', 'be-preview-body').appendTo($previewBox);
+			$previewBox.append($('<span>').attr('id', 'be-preview-body'));
 
 			var $diffBox = $(`<div>`).attr('id', 'be-diff-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
-			$('<span>').attr('id', 'be-diff-nochange').hide().appendTo($diffBox);
-			$(`<table class="diff">
+			$diffBox.append($('<span>').attr('id', 'be-diff-nochange').hide());
+			$diffBox.append($(`<table class="diff">
 			<colgroup>
 				<col class="diff-marker">
 				<col class="diff-content">
@@ -395,9 +391,9 @@
 			</colgroup>
 			<tbody id="be-diff-body">
 			</tbody>
-			</table>`).appendTo($diffBox);
+			</table>`));
 
-			$('<style>').html(`
+			$wrapper.append($('<style>').html(`
 			.be-items {
 				list-style-type: none;
 				background: #ffffbb;
@@ -447,12 +443,12 @@
 			.be-button {
 				margin-right: 3px;
 			}
-			.be-publish {
+			#be-publish {
 				color: #fff;
 				background-color: #36c;
 				border-color: #36c;
 			}
-			`).appendTo($wrapper);
+			`));
 
 			$('#bodyContent').html($wrapper);
 			$('#firstHeading').text('公告欄編輯器');
