@@ -10,6 +10,14 @@
 		var bulletinTitle = 'Template:Bulletin';
 		var archiveTitle = 'Wikipedia:公告欄/存檔/' + date.format('YYYY年');
 
+		$('#firstHeading').text('公告欄編輯器');
+
+		if (mw.config.get('wgUserGroups').indexOf('autoconfirmed') === -1) {
+			mw.notify('您沒有權限使用公告欄編輯器', { type: 'error' });
+			$('#bodyContent').html('您沒有權限使用公告欄編輯器。');
+			return;
+		}
+
 		api.get({
 			action: 'query',
 			format: 'json',
@@ -428,7 +436,7 @@
 		});
 	}
 
-	mw.loader.using(['mediawiki.api', 'mediawiki.diff.styles'], function() {
+	mw.loader.using(['ext.gadget.morebits', 'mediawiki.api', 'mediawiki.diff.styles'], function() {
 		if (mw.config.get('wgPageName') === 'Template:Bulletin') {
 			var link = mw.util.addPortletLink('p-cactions', '#', '公告欄編輯器');
 			$(link).on('click', main);
