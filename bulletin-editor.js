@@ -2,8 +2,8 @@
 (function() {
 	function main() {
 		var summarySuffix = ' via [[User:Xiplus/js/bulletin-editor|bulletin-editor]]';
-		var flagStart = '<!-- bulletin-editor-start -->';
-		var flagEnd = '<!-- bulletin-editor-end -->';
+		var flagStart = '请在此行下方编辑 -->';
+		var flagEnd = '<!-- 请在此行上方编辑';
 
 		var api = new mw.Api();
 		var date = new Morebits.date();
@@ -237,9 +237,9 @@
 
 			var $table = $('<table>').attr('id', 'be-active-zone').addClass('wikitable').appendTo($wrapper);
 			$(`<tr>
-			<th style="width: 30px;">type</th>
-			<th style="width: 100%;">items</th>
-		</tr>`).appendTo($table);
+			<th style="width: 30px;">類別</th>
+			<th style="width: 100%;">公告內容</th>
+			</tr>`).appendTo($table);
 			while (m) {
 				var $tr = $('<tr>').addClass('be-row').appendTo($table);
 				var tem = Morebits.wikitext.parseTemplate(mainText, m.index);
@@ -274,7 +274,7 @@
 
 						// item input
 						$('<input>').addClass('be-item-text be-item-main').val(tem.parameters[i])
-							.attr('placeholder', '空的項目將在儲存時自動被忽略')
+							.attr('placeholder', '空的項目將在發布變更時自動被忽略')
 							.appendTo($li);
 
 						// hidden suffix input
@@ -297,10 +297,10 @@
 			}
 
 			var $archiveZone = $('<div>').attr('id', 'be-archive-zone').appendTo($wrapper);
-			$('<span>').text('存檔區（儲存時會自動合併Prefix、Suffix）').appendTo($archiveZone);
+			$('<span>').text('存檔至' + archiveTitle + '（發布變更時會自動合併Prefix、Suffix）').appendTo($archiveZone);
 			var $ul = $('<ul>').attr('id', 'be-archiveul').addClass('be-items').appendTo($archiveZone);
 
-			$('<span>').text('編輯摘要：').appendTo($wrapper);
+			$('<span>').text('公告欄編輯摘要：').appendTo($wrapper);
 			$('<input>').attr('id', 'be-summary').appendTo($wrapper);
 			$('<br>').appendTo($wrapper);
 
@@ -363,9 +363,10 @@
 				background-color: #36c;
 				border-color: #36c;
 			}
-		`).appendTo($wrapper);
+			`).appendTo($wrapper);
 
-			$('#content').html($wrapper);
+			$('#bodyContent').html($wrapper);
+			$('#firstHeading').text('公告欄編輯器');
 
 			$(function() {
 				var oldList;
@@ -390,11 +391,14 @@
 		});
 	}
 
-	if (mw.config.get('wgPageName') === 'Template:Bulletin') {
-		mw.loader.using(['mediawiki.api'], function() {
+	mw.loader.using(['mediawiki.api', 'mediawiki.diff.styles'], function() {
+		if (mw.config.get('wgPageName') === 'Template:Bulletin') {
 			var link = mw.util.addPortletLink('p-cactions', '#', '公告欄編輯器');
 			$(link).on('click', main);
-		});
-	}
+		}
+		if (/\/bulletin-editor$/.test(mw.config.get('wgPageName'))) {
+			main();
+		}
+	});
 
 })();
