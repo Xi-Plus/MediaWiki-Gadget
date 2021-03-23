@@ -272,12 +272,19 @@
 				});
 			}
 
-			var $tbody = $('<tbody>');
+			var $tbody = $('<tbody>').attr('id', 'be-active-tbody');
 			$wrapper.append(
 				$('<table>').attr('id', 'be-active-zone').addClass('wikitable')
 					.append($('<thead>')
 						.append($('<tr>')
-							.append($('<th>').css('width', '30px').text('類別'))
+							.append($('<th>').css('width', '30px').text('類別')
+								.append($('<img>').attr({
+									'src': 'https://upload.wikimedia.org/wikipedia/commons/0/06/OOjs_UI_icon_add.svg',
+									'title': '增加一個公告類別',
+								}).on('click', function() {
+									var $row = createRow().prependTo($tbody);
+									createItem().appendTo($row.find('.be-items'));
+								})))
 							.append($('<th>').css('width', '100%').text('公告內容'))
 						)
 					).append($tbody)
@@ -292,6 +299,11 @@
 
 				// td 1
 				var $type = $('<td>').addClass('be-type-col').appendTo($tr);
+				$type.append($('<img>').addClass('be-sortable-row-handle').attr({
+					'src': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/OOjs_UI_icon_move.svg',
+					'title': '調整類別順序',
+				}));
+				$type.append($('<br>'));
 				$type.append($('<input>').addClass('be-type-text be-row-type').val(type));
 
 				// td 2
@@ -321,7 +333,7 @@
 				text = text || '';
 
 				var $li = $('<li>').addClass('be-item').appendTo($ul);
-				$li.append($('<img>').attr({
+				$li.append($('<img>').addClass('be-sortable-item-handle').attr({
 					'src': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/OOjs_UI_icon_move.svg',
 					'title': '調整順序或移動到其他項目',
 				}));
@@ -430,6 +442,9 @@
 			</table>`));
 
 			$wrapper.append($('<style>').html(`
+			.be-item-col {
+				min-width: 600px;
+			}
 			.be-items {
 				list-style-type: none;
 				background: #ffffbb;
@@ -492,6 +507,7 @@
 			$(function() {
 				var oldList;
 				$('.be-items').sortable({
+					handle: '.be-sortable-item-handle',
 					start: function(_event, ui) {
 						oldList = ui.item.parent();
 						ui.item.addClass('be-moving');
@@ -506,6 +522,9 @@
 					},
 					connectWith: '.be-items'
 				}).disableSelection();
+			});
+			$('#be-active-tbody').sortable({
+				handle: '.be-sortable-row-handle'
 			});
 		}).fail(function(e) {
 			mw.notify('載入內容時發生錯誤：' + e, { type: 'error' });
