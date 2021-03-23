@@ -252,13 +252,20 @@
 				}).done(function() {
 					mw.notify('成功儲存公告欄');
 
+					if (generateArchiveText() === '') {
+						mw.notify('沒有東西要存檔，即將重新載入頁面...');
+						setTimeout(function() { location.reload(); }, 1000);
+						return;
+					}
+
 					api.edit(archiveTitle, function(revision) {
 						return {
 							text: mergeArchiveText(revision.content),
 							summary: '存檔' + summarySuffix,
 						};
 					}).done(function() {
-						mw.notify('成功儲存存檔頁');
+						mw.notify('成功儲存存檔頁，即將重新載入頁面...');
+						setTimeout(function() { location.reload(); }, 1000);
 					}).fail(function(error) {
 						mw.notify('儲存存檔頁時發生錯誤：' + error, { type: 'error' });
 					});
