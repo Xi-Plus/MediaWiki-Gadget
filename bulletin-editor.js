@@ -272,10 +272,15 @@
 				});
 			}
 
-			var $table = $('<table>').attr('id', 'be-active-zone').addClass('wikitable').appendTo($wrapper);
-			$table.append($('<tr>')
-				.append($('<th>').css('width', '30px').text('類別'))
-				.append($('<th>').css('width', '100%').text('公告內容'))
+			var $tbody = $('<tbody>');
+			$wrapper.append(
+				$('<table>').attr('id', 'be-active-zone').addClass('wikitable')
+					.append($('<thead>')
+						.append($('<tr>')
+							.append($('<th>').css('width', '30px').text('類別'))
+							.append($('<th>').css('width', '100%').text('公告內容'))
+						)
+					).append($tbody)
 			);
 
 			function createRow(type, prefix, suffix) {
@@ -283,7 +288,7 @@
 				prefix = prefix || '';
 				suffix = suffix || '';
 
-				var $tr = $('<tr>').addClass('be-row').appendTo($table);
+				var $tr = $('<tr>').addClass('be-row').appendTo($tbody);
 
 				// td 1
 				var $type = $('<td>').addClass('be-type-col').appendTo($tr);
@@ -350,7 +355,7 @@
 					tem.parameters[1],
 					tem.parameters.prefix,
 					tem.parameters.suffix
-				).appendTo($table);
+				).appendTo($tbody);
 
 				var $ul = row.find('.be-items');
 				for (let i = 2; ; i++) {
