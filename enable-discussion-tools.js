@@ -22,14 +22,16 @@
 
 	setTimeout(updateLinks, 1000);
 
-	var url = new URL(window.location.href);
-	url.searchParams.set('dtenable', '1');
-	mw.util.addPortletLink(
-		'p-tb',
-		url.href,
-		'Enable DiscussionTools',
-		't-dtenable'
-	);
+	if (mw.util.getParamValue('dtenable') === null) {
+		var url = new URL(window.location.href);
+		url.searchParams.set('dtenable', '1');
+		mw.util.addPortletLink(
+			'p-tb',
+			url.href,
+			'Enable DiscussionTools',
+			't-dtenable'
+		);
+	}
 
 }
 )();
