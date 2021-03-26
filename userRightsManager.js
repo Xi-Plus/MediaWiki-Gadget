@@ -347,7 +347,7 @@
 			})
 			.then(function() {
 				content = content.trim();
-				content = content.replace(/:{{rfp\/status\|(.+?)}}/, ':{{rfp/status|+}}');
+				content = content.replace(/:{{Status\|(.+?)}}/i, ':{{Status|+}}');
 				content += closingRemarks;
 
 				return api.postWithEditToken({
