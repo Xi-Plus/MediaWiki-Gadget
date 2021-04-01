@@ -144,7 +144,7 @@
 					if (idx === -1) {
 						idx = 0;
 					}
-					return oldtext.substring(0, idx) + date.monthHeader() + '\n' + archiveText + oldtext.substring(idx);
+					return oldtext.substring(0, idx) + '\n' + date.monthHeader() + '\n' + archiveText + '\n' + oldtext.substring(idx);
 				}
 			}
 
