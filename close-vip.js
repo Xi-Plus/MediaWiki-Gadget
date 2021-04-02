@@ -77,8 +77,7 @@
             if (headlineChildren.length === 0) {
                 return;
             }
-            var title = headlineChildren[0].id;
-            title = title.replace(/{{vandal\|(.*?)}}/, '$1');
+            var title = headlineChildren[2].id;
             var sectionid = mw.util.getParamValue('section', $(current).find('.mw-editsection a')[0].href);
 
             var tmpNode = delNode.cloneNode(true);
