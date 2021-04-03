@@ -543,7 +543,7 @@
 			var link = mw.util.addPortletLink('p-cactions', '#', '公告欄編輯器');
 			$(link).on('click', main);
 		}
-		if (/\/bulletin-editor$/.test(mw.config.get('wgPageName'))) {
+		if (mw.config.get('wgCanonicalSpecialPageName') === 'Blankpage' && /\/bulletin-editor$/.test(mw.config.get('wgPageName'))) {
 			main();
 		}
 	});
