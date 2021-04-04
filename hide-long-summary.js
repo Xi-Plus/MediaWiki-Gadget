@@ -6,7 +6,7 @@ javascript:
 		if (e.innerText.length > limit) {
 			$(e).addClass("commentlong")
 			$('<a class="hidecomment">展開</a>').insertAfter(e);
-			var short = $('<span class="comment commentshort"></span>');
+			var short = $('<span class="comment comment--without-parentheses commentshort"></span>');
 			$(short).text(e.innerText.substr(0, limit + 1) + "..." + e.innerText.substr(-1));
 			$(short).insertAfter(e);
 			$(e.parentElement).find(">.commentlong").hide();
