@@ -12,7 +12,7 @@
 		document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
 		$.ajax({
 			type: 'GET',
-			url: "https://xiplus.ddns.net/Xiplus-zhWP/Template-transclusion-count.php?namespace=" + mw.config.get('wgNamespaceNumber') + "&title=" + encodeURIComponent(mw.config.get('wgTitle')),
+			url: "https://xiplus.ddns.net/MediaWiki-Gadget/Template-transclusion-count.php?namespace=" + mw.config.get('wgNamespaceNumber') + "&title=" + encodeURIComponent(mw.config.get('wgTitle')),
 			success: function success(data) {
 				data = JSON.parse(data);
 				if (data.status) {

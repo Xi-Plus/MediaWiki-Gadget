@@ -1,6 +1,6 @@
 javascript:
 /* globals APIedit */
-/* 本工具需配合 https://github.com/Xi-Plus/Xiplus-zhWP/blob/master/APIedit.js 使用 */
+/* 本工具需配合 https://github.com/Xi-Plus/MediaWiki-Gadget/blob/master/APIedit.js 使用 */
 (function() {
 
 	var username = "";
