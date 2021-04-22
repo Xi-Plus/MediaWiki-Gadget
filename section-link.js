@@ -24,7 +24,7 @@
 				readonly: ''
 			})
 			.val(value)
-			.on('focus', function() {
+			.on('click', function() {
 				this.select();
 				var copied;
 				try {
