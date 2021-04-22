@@ -1,3 +1,7 @@
+/**
+ * Some codes are copied from https://gerrit.wikimedia.org/g/mediawiki/core/+/a43542143016fadf670625b82832ee917aaded83/resources/src/mediawiki.widgets/mw.widgets.CopyTextLayout.js#73
+ */
+
 (function() {
 
 	mw.util.addCSS(`
