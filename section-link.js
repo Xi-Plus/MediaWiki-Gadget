@@ -15,8 +15,16 @@
 	`);
 
 	$('.mw-headline').each(function(i, sec) {
-		var secname = $(sec).attr('id').replaceAll('_', ' ');
-		var value = mw.config.get('wgPageName').replaceAll('_', ' ') + '#' + decodeURIComponent(secname);
+		var pagename = mw.config.get('wgPageName')
+			.replaceAll('_', ' ');
+
+		var secname = $(sec).attr('id')
+			.replaceAll('_', ' ')
+			.replaceAll('{', '&#123;')
+			.replaceAll('}', '&#125;');
+		secname = decodeURIComponent(secname);
+
+		var value = pagename + '#' + secname;
 
 		$('<input>')
 			.addClass('sectionlink')
