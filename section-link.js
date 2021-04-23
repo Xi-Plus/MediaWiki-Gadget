@@ -21,6 +21,7 @@
 		var secname = $(sec).attr('id')
 			.replaceAll('_', ' ')
 			.replaceAll('{', '&#123;')
+			.replaceAll('|', '&#124;')
 			.replaceAll('}', '&#125;');
 		secname = decodeURIComponent(secname);
 
