@@ -1,6 +1,7 @@
 /**
  * 修改自中文維基百科連結翻譯器 https://zh.wikipedia.org/w/index.php?title=MediaWiki%3AGadget-link-ts.js&oldid=63948978
  */
+/* globals wikitextEditor:true */
 
 mw.loader.using(['jquery.ui']).then(function() {
     'use strict';
