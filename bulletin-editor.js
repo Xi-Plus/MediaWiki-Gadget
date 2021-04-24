@@ -540,7 +540,12 @@
 
 	mw.loader.using(['ext.gadget.morebits', 'mediawiki.api', 'mediawiki.diff.styles'], function() {
 		if (mw.config.get('wgPageName') === 'Template:Bulletin') {
-			var link = mw.util.addPortletLink('p-cactions', '#', '公告欄編輯器');
+			var link = mw.util.addPortletLink(
+				'p-views', '#', '視覺化編輯', 'ca-bulletin-editor',
+				'使用公告欄編輯器編輯此頁面',
+				null, '#ca-history'
+			);
+			$(link).addClass('collapsible');
 			$(link).on('click', main);
 		}
 		if (mw.config.get('wgCanonicalSpecialPageName') === 'Blankpage' && /\/bulletin-editor$/.test(mw.config.get('wgPageName'))) {
