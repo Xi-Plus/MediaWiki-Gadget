@@ -4,6 +4,10 @@
 
 (function() {
 
+	if (mw.config.get('wgCanonicalSpecialPageName') !== 'Newpages') {
+		return;
+	}
+
 	mw.loader.using(['mediawiki.api']).done(function() {
 
 		let api = new mw.Api();
