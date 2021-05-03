@@ -51,7 +51,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 ret = {},
                 i = len - 1;
             while (i >= 0) {
-                if (translations.hasOwnProperty(chain[i])) {
+                if (Object.hasOwnProperty.call(translations, chain[i])) {
                     $.extend(ret, translations[chain[i]]);
                 }
                 i = i - 1;

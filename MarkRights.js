@@ -63,7 +63,7 @@ $(function() {
         var done = function() {
             var group, j;
             for (group in groups) {
-                if (groups.hasOwnProperty(group)) {
+                if (Object.hasOwnProperty.call(groups, group)) {
                     for (j = 0; j < groups[group].list.length; j++) {
                         $('a.mw-userlink[title="User:' + groups[group].list[j] + '"]').append('<sup class="' + groups[group].class + '"></sup>');
                     }
@@ -82,7 +82,7 @@ $(function() {
                 var user = users[i];
                 if (user.groups) {
                     for (group in groups) {
-                        if (groups.hasOwnProperty(group) && user.groups.indexOf(group) > -1) {
+                        if (Object.hasOwnProperty.call(groups, group) && user.groups.indexOf(group) > -1) {
                             groups[group].list.push(user.name);
                         }
                     }

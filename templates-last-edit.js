@@ -29,7 +29,7 @@
 			}).done(function(data) {
 				for (const pageid in data.query.pages) {
 					const page = data.query.pages[pageid];
-					if (elmap.hasOwnProperty(page.title)) {
+					if (Object.hasOwnProperty.call(elmap, page.title)) {
 						var timestamp = page.revisions[0].timestamp;
 						timestamp = timestamp.replace(/^(\d+-\d+-\d+)T(\d+:\d+):\d+Z$/, '$1 $2');
 						$(elmap[page.title]).parent().append(timestamp);

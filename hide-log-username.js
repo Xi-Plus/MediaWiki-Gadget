@@ -157,7 +157,7 @@
 
                 var diffids = [];
                 data.query.usercontribs.forEach(contribution => {
-                    if (!diffids.hasOwnProperty(contribution.title)) {
+                    if (!Object.hasOwnProperty.call(diffids, contribution.title)) {
                         diffids[contribution.title] = [];
                     }
                     diffids[contribution.title].push(contribution.revid);

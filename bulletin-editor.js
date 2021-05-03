@@ -378,7 +378,7 @@
 
 				var $ul = row.find('.be-items');
 				for (let i = 2; ; i++) {
-					if (tem.parameters.hasOwnProperty(i)) {
+					if (Object.hasOwnProperty.call(tem.parameters, i)) {
 						createItem(tem.parameters[i]).appendTo($ul);
 					} else {
 						break;

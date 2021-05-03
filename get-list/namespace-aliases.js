@@ -14,7 +14,7 @@ api.get({
 	});
 	var text = '';
 	for (const key in result) {
-		if (result.hasOwnProperty(key)) {
+		if (Object.hasOwnProperty.call(result, key)) {
 			text += '* ' + key + '（{{ns:' + key + '}}）：' + result[key].map(function(v) { return '&lt;code&gt;' + v + '&lt;/code&gt;' }).join('、') + '<br>';
 		}
 	}
