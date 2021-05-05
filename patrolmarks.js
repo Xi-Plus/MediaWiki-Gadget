@@ -13,11 +13,11 @@
 		let api = new mw.Api();
 		let is_autoreviewer = {};
 
-		let users = [];
+		let users = new Set();
 		$('#mw-content-text>ul>li').each((i, e) => {
 			let creator = $(e).find('a.mw-userlink').text();
 			if (!mw.util.isIPAddress(creator)) {
-				users.push(creator);
+				users.add(creator);
 			} else {
 				is_autoreviewer[creator] = false;
 			}
@@ -27,10 +27,11 @@
 			'format': 'json',
 			'list': 'users',
 			'usprop': 'rights',
-			'ususers': users.join('|')
+			'ususers': Array.from(users).join('|')
 		}).then(data => {
 			data.query.users.forEach(user => {
-				is_autoreviewer[user.name] = (user.rights.indexOf('autopatrol') !== -1);
+				let user_rights = user.rights || [];
+				is_autoreviewer[user.name] = (user_rights.indexOf('autopatrol') !== -1);
 			});
 		}).then(() => {
 			$('#mw-content-text>ul>li').each((i, e) => {
