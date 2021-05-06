@@ -72,12 +72,9 @@
             if (key == 0) {
                 return;
             }
-            var node = current.getElementsByClassName('mw-headline')[0];
-            var headlineChildren = $(current).find('.mw-headline').children();
-            if (headlineChildren.length === 0) {
-                return;
-            }
-            var title = headlineChildren[2].id;
+            var headline = $(current).find('.mw-headline').first();
+            var vandal = headline.find('.template-Vandal').first();
+            var title = vandal.next().attr('id');
             var sectionid = mw.util.getParamValue('section', $(current).find('.mw-editsection a')[0].href);
 
             var tmpNode = delNode.cloneNode(true);
@@ -85,7 +82,7 @@
                 processClose(key, sectionid, title);
                 return false;
             });
-            node.appendChild(tmpNode)
+            headline.append(tmpNode)
         });
     }
 
