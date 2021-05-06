@@ -37,16 +37,16 @@
         }).then(function(data) {
             var page, revision;
             if (!data.query || !data.query.pages) {
-                mw.notify('未能抓取頁面內容（unknown）');
+                mw.notify('未能抓取頁面內容（unknown）', { type: 'error' });
                 reject('unknown');
             }
             page = data.query.pages[0];
             if (!page || page.invalid) {
-                mw.notify('未能抓取頁面內容（invalidtitle）');
+                mw.notify('未能抓取頁面內容（invalidtitle）', { type: 'error' });
                 reject('invalidtitle');
             }
             if (page.missing) {
-                mw.notify('未能抓取頁面內容（nocreate-missing）');
+                mw.notify('未能抓取頁面內容（nocreate-missing）', { type: 'error' });
                 reject('nocreate-missing');
             }
             revision = page.revisions[0];
@@ -161,9 +161,9 @@
             mw.notify('已關閉 ' + title);
         }, function(e) {
             if (e == 'editconflict') {
-                mw.notify('關閉 ' + title + ' 時發生編輯衝突');
+                mw.notify('關閉 ' + title + ' 時發生編輯衝突', { type: 'error' });
             } else {
-                mw.notify('關閉 ' + title + ' 時發生未知錯誤：' + e);
+                mw.notify('關閉 ' + title + ' 時發生未知錯誤：' + e, { type: 'error' });
             }
         });
     }
@@ -172,7 +172,7 @@
         window.content = result.content;
         var lenintext = result.content.split("{{Revdel").length - 1;
         if ($('div.mw-parser-output>div.plainlinks').length !== lenintext) {
-            mw.notify('抓取章節錯誤，在HTML找到 ' + $('div.mw-parser-output>div.plainlinks').length + ' 個章節，在原始碼找到 ' + lenintext + ' 個章節');
+            mw.notify('抓取章節錯誤，在HTML找到 ' + $('div.mw-parser-output>div.plainlinks').length + ' 個章節，在原始碼找到 ' + lenintext + ' 個章節', { type: 'error' });
         } else {
             showCloseButton();
         }
