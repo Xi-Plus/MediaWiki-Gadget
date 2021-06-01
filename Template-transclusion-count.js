@@ -5,11 +5,11 @@
 		var node = document.createElement("span");
 		node.id = "template-transclusion-count";
 		node.style = "margin-left: 5px;";
-		node.innerHTML = '<a href="' + path.replace('$1', 'Special:链入页面/' + mw.config.get('wgPageName') + '?hidelinks=1&hideredirs=1&limit=500') + '">使用量</a>：<a id="ttclink" href="https://tools.wmflabs.org/templatecount/index.php?lang=zh&namespace=' + mw.config.get('wgNamespaceNumber') + '&name=' + encodeURIComponent(mw.config.get('wgTitle')) + '">未取得</a>';
-		if (document.getElementsByClassName("mw-indicators mw-body-content").length === 0) {
+		node.innerHTML = '<a href="' + path.replace('$1', 'Special:链入页面/' + mw.config.get('wgPageName') + '?hidelinks=1&hideredirs=1&limit=500') + '">使用量</a>：<a id="ttclink" href="https://templatecount.toolforge.org/index.php?lang=zh&namespace=' + mw.config.get('wgNamespaceNumber') + '&name=' + encodeURIComponent(mw.config.get('wgTitle')) + '">未取得</a>';
+		if (document.getElementsByClassName("mw-indicators").length === 0) {
 			return;
 		}
-		document.getElementsByClassName("mw-indicators mw-body-content")[0].appendChild(node);
+		document.getElementsByClassName("mw-indicators")[0].appendChild(node);
 		$.ajax({
 			type: 'GET',
 			url: "https://xiplus.ddns.net/MediaWiki-Gadget/Template-transclusion-count.php?namespace=" + mw.config.get('wgNamespaceNumber') + "&title=" + encodeURIComponent(mw.config.get('wgTitle')),
