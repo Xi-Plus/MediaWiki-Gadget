@@ -12,6 +12,7 @@ javascript:
 	var text = "";
 	$(".mw-search-result-heading>a").each(function(i, e) {
 		var page = decodeURI(e.href.split(prefix)[1]);
+		page = page.replace(/\?.+$/, '', page);
 		text += add.replace(/\$1/g, page);
 	});
 
