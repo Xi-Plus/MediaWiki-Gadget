@@ -7,7 +7,7 @@ javascript:
 
     mw.loader.using(['mediawiki.util']).done(function() {
 
-        $('li.mw-logline-move>a.new').each(function(_, e) {
+        $('li.mw-logline-move>a.new:not(.mw-userlink)').each(function(_, e) {
             $(document.createTextNode(")")).insertAfter(e);
             var url = mw.config.get('wgScript') + '?' + $.param({
                 title: 'Special:WhatLinksHere',
