@@ -154,7 +154,7 @@
             var contents = content.split(splittoken);
             var newtext = contents[sectionid - 1];
             newtext = newtext.trim();
-            newtext = newtext.replace(/{{bugstatus\|status=([^|\n}]*?)\|res=([^|\n}]*?)}}/, '{{bugstatus|status=' + status + '|res=' + res + '}}');
+            newtext = newtext.replace(/{{bugstatus(\|status=[^|\n}]*?)?(\|res=[^|\n}]*?)?}}/, '{{bugstatus|status=' + status + '|res=' + res + '}}');
             if (comment.replace(/[\s:*]/g, '') !== '') {
                 comment = comment.trim();
                 if (comment.search(/[.?!;。？！；]$/) === -1) {
