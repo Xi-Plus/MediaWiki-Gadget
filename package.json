@@ -3,7 +3,8 @@
   "name": "mediawiki-gadget",
   "private": true,
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
