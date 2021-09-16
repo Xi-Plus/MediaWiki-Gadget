@@ -1,5 +1,5 @@
-/* eslint semi: ["error", "always"]*/
 javascript: (function() {
+    /* eslint semi: ["error", "always"]*/
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:当前的破坏'
         || mw.config.get('wgAction') !== 'edit') {
