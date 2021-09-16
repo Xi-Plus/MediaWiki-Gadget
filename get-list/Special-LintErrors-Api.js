@@ -13,7 +13,7 @@ javascript: (function() {
         "format": "json",
         "list": "linterrors",
         "lntcategories": type,
-        "lntlimit": "max"
+        "lntlimit": "max",
     };
     if (mw.util.getParamValue('namespace')) {
         qdata['lntnamespace'] = mw.util.getParamValue('namespace');

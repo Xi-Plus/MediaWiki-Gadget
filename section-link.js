@@ -30,7 +30,7 @@
 		$('<input>')
 			.addClass('sectionlink')
 			.attr({
-				readonly: ''
+				readonly: '',
 			})
 			.val(value)
 			.on('click', function() {

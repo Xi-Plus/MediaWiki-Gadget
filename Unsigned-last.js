@@ -13,7 +13,7 @@ javascript:
 			prop: "revisions",
 			titles: mw.config.get('wgPageName'),
 			rvprop: "user",
-			rvlimit: "1"
+			rvlimit: "1",
 		},
 		success: function success(data) {
 			for (var id in data.query.pages) {
@@ -28,7 +28,7 @@ javascript:
 		},
 		error: function error() {
 			alert("抓取最後編者錯誤");
-		}
+		},
 	});
 
 	function unsignedit(content) {

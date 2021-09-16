@@ -27,7 +27,7 @@
 			'format': 'json',
 			'list': 'users',
 			'usprop': 'rights',
-			'ususers': Array.from(users).join('|')
+			'ususers': Array.from(users).join('|'),
 		}).then(data => {
 			data.query.users.forEach(user => {
 				let user_rights = user.rights || [];
@@ -47,7 +47,7 @@
 					'format': 'json',
 					'list': 'logevents',
 					'letype': 'patrol',
-					'letitle': pagename
+					'letitle': pagename,
 				}).then(data => {
 					if (data.query.logevents.length == 0) {
 						if (!is_autoreviewer[creator]) {

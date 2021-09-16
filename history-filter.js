@@ -45,16 +45,16 @@
 							$(this).dialog('close');
 							saveconfig();
 							filter();
-						}
+						},
 					},
 					{
 						text: '取消',
 						click: function() {
 							saveconfig();
 							$(this).dialog('close');
-						}
-					}
-				]
+						},
+					},
+				],
 			});
 		}
 
@@ -84,7 +84,7 @@
 			'class': 'historysubmit mw-history-filter-button mw-ui-button',
 			'type': 'button',
 			'title': '對編輯歷史進行篩選',
-			'text': '篩選編輯歷史'
+			'text': '篩選編輯歷史',
 		});
 		$filter.on('click', main);
 		$(".historysubmit.mw-history-compareselectedversions-button").after($filter);

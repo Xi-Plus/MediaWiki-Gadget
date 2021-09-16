@@ -51,16 +51,16 @@
 							$(this).dialog('close');
 							saveconfig();
 							filter();
-						}
+						},
 					},
 					{
 						text: '取消',
 						click: function() {
 							saveconfig();
 							$(this).dialog('close');
-						}
-					}
-				]
+						},
+					},
+				],
 			});
 		}
 
@@ -98,7 +98,7 @@
 			'class': 'mw-ui-button',
 			'type': 'button',
 			'title': '對使用者貢獻進行篩選',
-			'text': '篩選使用者貢獻'
+			'text': '篩選使用者貢獻',
 		});
 		$filter.on('click', main);
 		$filter.appendTo($('.mw-contributions-list').prev());

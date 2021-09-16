@@ -69,7 +69,7 @@ javascript:
 				var api = new mw.ForeignApi('https://www.wikidata.org/w/api.php');
 				api.get({
 					action: 'query',
-					meta: 'tokens'
+					meta: 'tokens',
 				}).done(function() {
 					if (!hasitem) {
 						if (!confirm("對應項目沒有維基數據。是否添加？")) {
@@ -99,7 +99,7 @@ javascript:
 									site: mw.config.get('wgDBname'),
 									title: localname,
 								}],
-							})
+							}),
 						}).done(function() {
 							mw.notify('成功連結至維基數據。');
 						}).fail(function() {
@@ -128,7 +128,7 @@ javascript:
 		},
 		error: function() {
 			mw.notify('取得條目名稱時發生錯誤。');
-		}
+		},
 	});
 
 }

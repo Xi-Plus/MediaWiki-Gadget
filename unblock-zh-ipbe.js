@@ -71,7 +71,7 @@
             user: username,
             add: 'ipblock-exempt',
             expiry: duration,
-            reason: urlshort + UnblockZhIpbe.summarySuffix
+            reason: urlshort + UnblockZhIpbe.summarySuffix,
         }).then(function() {
             mw.notify('成功授予 ' + username + ' IPBE ' + duration);
         }, function(e) {
@@ -89,7 +89,7 @@
         new mw.Api().get({
             action: 'query',
             prop: 'info',
-            titles: usertalk
+            titles: usertalk,
         }).done(function(data) {
             var page = Object.values(data.query.pages)[0];
             if (page.missing !== undefined) {
@@ -119,7 +119,7 @@
                 new mw.Api().edit(usertalk, function(revision) {
                     return {
                         text: (revision.content + '\n\n' + message).trim(),
-                        summary: '授予IP封禁例外權通知' + UnblockZhIpbe.summarySuffix
+                        summary: '授予IP封禁例外權通知' + UnblockZhIpbe.summarySuffix,
                     };
                 }).then(function() {
                     mw.notify('成功發送通知給 ' + username);
@@ -134,7 +134,7 @@
         new mw.Api().edit('Wikipedia:權限申請/申請IP封禁例外權', function(revision) {
             return {
                 text: revision.content + '\n\n{{subst:rfp|' + username + '|2=[' + urllong + ' unblock-zh]|status=+}}--~~~~',
-                summary: '授予 ' + username + ' IP封禁例外權備案' + UnblockZhIpbe.summarySuffix
+                summary: '授予 ' + username + ' IP封禁例外權備案' + UnblockZhIpbe.summarySuffix,
             };
         }).then(function() {
             mw.notify('成功為 ' + username + ' 備案');

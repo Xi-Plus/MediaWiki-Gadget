@@ -129,7 +129,7 @@ javascript:
 						'ids': dataid,
 						'redirects': 'yes',
 						'props': 'sitelinks',
-						'sitefilter': mw.config.get('wgDBname')
+						'sitefilter': mw.config.get('wgDBname'),
 					}).done(function(data) {
 						if (data.entities[dataid].missing === '') {
 							mw.notify('該維基數據項目已被刪除，動作已取消');

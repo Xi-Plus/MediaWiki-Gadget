@@ -39,7 +39,7 @@
 			'zh-hant': '繁體',
 			'zh-hk': '香港繁體',
 			'zh-mo': '澳門繁體',
-			'zh-tw': '臺灣正體'
+			'zh-tw': '臺灣正體',
 		}
 		let result = {};
 
@@ -72,7 +72,7 @@
 			rvprop: ['content', 'timestamp'],
 			titles: [mw.config.get('wgPageName')],
 			formatversion: '2',
-			curtimestamp: true
+			curtimestamp: true,
 		}).then(function(data) {
 			var page, revision;
 			if (!data.query || !data.query.pages) {
@@ -87,7 +87,7 @@
 			}
 			revision = page.revisions[0];
 			return {
-				content: revision.content
+				content: revision.content,
 			};
 		}).then(function(data) {
 			let text = data.content;
@@ -135,7 +135,7 @@
 				'{{NoteTA|G1=IT|G2=MediaWiki}}<div id="TVcontent">' + basepagetext + '</div>',
 				{
 					'uselang': lang,
-					'prop': 'text'
+					'prop': 'text',
 				}
 			).then(function(data) {
 				newtext = $('<div/>').html(data).find('#TVcontent').text();
@@ -184,7 +184,7 @@
 								return {
 									text: newtext,
 									summary: TranslateVariants.summary.replace(/\$1/g, mw.config.get('wgPageName')),
-									nocreate: false
+									nocreate: false,
 								};
 							}
 						).then(function() {

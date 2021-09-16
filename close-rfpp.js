@@ -22,7 +22,7 @@
             rvprop: ['content', 'timestamp'],
             titles: 'Wikipedia:请求保护页面',
             formatversion: '2',
-            curtimestamp: true
+            curtimestamp: true,
         }).then(function(data) {
             var page, revision;
             if (!data.query || !data.query.pages) {
@@ -45,7 +45,7 @@
             resolve({
                 content: content,
                 basetimestamp: basetimestamp,
-                curtimestamp: curtimestamp
+                curtimestamp: curtimestamp,
             });
         })
     }
@@ -161,13 +161,13 @@
                             mw.notify('動作已取消');
                         }
                         $(this).dialog('close');
-                    }
+                    },
                 }, {
                     text: '取消',
                     click: function() {
                         $(this).dialog('close');
-                    }
-                }]
+                    },
+                }],
             });
             $('.rfpp').on('change', function(e) {
                 var comment = $(e.target).parent().find(".comment");
@@ -247,7 +247,7 @@
                 text: newtext,
                 section: sectionid,
                 basetimestamp: revision.timestamp,
-                summary: '/* ' + title + ' */ ' + summary + CloseRfpp.summarySuffix
+                summary: '/* ' + title + ' */ ' + summary + CloseRfpp.summarySuffix,
             };
         }).then(function() {
             mw.notify('已修改 ' + title);

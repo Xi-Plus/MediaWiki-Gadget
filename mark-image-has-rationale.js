@@ -78,14 +78,14 @@
                     text: content,
                     basetimestamp: revision.timestamp,
                     summary: '標記 image has rationale',
-                    minor: true
+                    minor: true,
                 };
             }).then(function() {
                 mw.notify('已標記 image has rationale');
                 window.location = mw.util.wikiScript("index") + "?" + $.param({
                     'title': mw.config.get('wgPageName'),
                     'diff': 'cur',
-                    'oldid': 'prev'
+                    'oldid': 'prev',
                 });
             }, function(e) {
                 if (e == 'editconflict') {

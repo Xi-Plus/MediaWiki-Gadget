@@ -27,7 +27,7 @@ javascript:
 				action: "query",
 				format: "json",
 				prop: "categoryinfo",
-				titles: "Category:快速删除候选"
+				titles: "Category:快速删除候选",
 			}).done(function(data) {
 				$.each(data.query.pages, function(i, item) {
 					document.all["adminbacklog-csd"].innerHTML = 'CSD ' + item.categoryinfo.size;
@@ -39,7 +39,7 @@ javascript:
 				action: "query",
 				format: "json",
 				prop: "categoryinfo",
-				titles: "Category:維基百科編輯被保護頁面請求"
+				titles: "Category:維基百科編輯被保護頁面請求",
 			}).done(function(data) {
 				$.each(data.query.pages, function(i, item) {
 					document.all["adminbacklog-ep"].innerHTML = 'EP ' + item.categoryinfo.pages;
@@ -51,7 +51,7 @@ javascript:
 				action: "query",
 				format: "json",
 				prop: "categoryinfo",
-				titles: "Category:封禁及禁制申诉"
+				titles: "Category:封禁及禁制申诉",
 			}).done(function(data) {
 				$.each(data.query.pages, function(i, item) {
 					document.all["adminbacklog-ub"].innerHTML = 'UB ' + item.categoryinfo.pages;

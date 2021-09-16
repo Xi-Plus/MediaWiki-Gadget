@@ -19,7 +19,7 @@ javascript: (async () => {
             'format': 'json',
             'prop': 'info',
             'pageids': pageids,
-            'inprop': 'varianttitles'
+            'inprop': 'varianttitles',
         }).then(data => {
             for (const pageid in data.query.pages) {
                 const page = data.query.pages[pageid];

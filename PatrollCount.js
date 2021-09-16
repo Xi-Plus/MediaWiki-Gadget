@@ -28,7 +28,7 @@ javascript:
 				rcnamespace: "1",
 				rcshow: "!patrolled",
 				rclimit: "max",
-				rctype: "new"
+				rctype: "new",
 			}).done(function(data) {
 				// eslint-disable-next-line no-undef
 				unpatrollTalk.innerHTML = data.query.recentchanges.length;
@@ -40,7 +40,7 @@ javascript:
 				rcnamespace: "2",
 				rcshow: "!patrolled",
 				rclimit: "max",
-				rctype: "new"
+				rctype: "new",
 			}).done(function(data) {
 				unpatrollUser.innerHTML = data.query.recentchanges.length; // eslint-disable-line no-undef
 			});
@@ -51,7 +51,7 @@ javascript:
 				rcnamespace: "3",
 				rcshow: "!patrolled",
 				rclimit: "max",
-				rctype: "new"
+				rctype: "new",
 			}).done(function(data) {
 				unpatrollUsertalk.innerHTML = data.query.recentchanges.length; // eslint-disable-line no-undef
 			});

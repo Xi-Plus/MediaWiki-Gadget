@@ -20,7 +20,7 @@
         flags: ['primary', 'destructive'],
         label: msg_button_label,
         icon: 'trash',
-        title: msg_button_title
+        title: msg_button_title,
     }).on('click', function() {
         var target = mw.config.get('wgFormattedNamespaces')[document.getElementsByName('wpNewTitleNs')[0].value];
         if (target !== '') {
@@ -31,7 +31,7 @@
         new mw.Api().postWithEditToken({
             action: 'delete',
             title: target,
-            reason: msg_delete_reason
+            reason: msg_delete_reason,
         }).then(function() {
             mw.notify(msg_delete_success + target);
         }, function(e) {

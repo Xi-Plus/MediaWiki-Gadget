@@ -8,12 +8,12 @@ javascript: (function() {
         return {
             text: text,
             summary: '[[Special:PermaLink/53078964#優良條目和典范条目子頁面繁簡皆有的問題|統一子頁面繁簡]]',
-            minor: true
+            minor: true,
         };
     }).then(function() {
         mw.notify('成功');
         location.reload();
-        /*document.location = mw.config.get('wgArticlePath').replace('$1', mw.config.get('wgPageName')) + "?diff=cur&oldid=prev";*/
+        /* document.location = mw.config.get('wgArticlePath').replace('$1', mw.config.get('wgPageName')) + "?diff=cur&oldid=prev";*/
     }, function(e) {
         if (e == 'nocreate-missing') {
             mw.notify('頁面不存在');

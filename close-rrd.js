@@ -16,7 +16,7 @@
             '未刪除。',
             '未刪除，未達RD2準則。',
             '未刪除，未達RD3準則。',
-            '未刪除，頁面已被傳統刪除。'
+            '未刪除，頁面已被傳統刪除。',
         ];
     }
 
@@ -33,7 +33,7 @@
             rvprop: ['content', 'timestamp'],
             titles: 'Wikipedia:修订版本删除请求',
             formatversion: '2',
-            curtimestamp: true
+            curtimestamp: true,
         }).then(function(data) {
             var page, revision;
             if (!data.query || !data.query.pages) {
@@ -56,7 +56,7 @@
             resolve({
                 content: content,
                 basetimestamp: basetimestamp,
-                curtimestamp: curtimestamp
+                curtimestamp: curtimestamp,
             });
         })
     }
@@ -122,13 +122,13 @@
                     click: function() {
                         processEdit(key, title, $(this).find('#status').val(), $(this).find('#comment').val());
                         $(this).dialog('close');
-                    }
+                    },
                 }, {
                     text: '取消',
                     click: function() {
                         $(this).dialog('close');
-                    }
-                }]
+                    },
+                }],
             });
         });
     }
@@ -155,7 +155,7 @@
                 text: content,
                 basetimestamp: revision.timestamp,
                 summary: CloseRrd.summary,
-                minor: true
+                minor: true,
             };
         }).then(function() {
             mw.notify('已關閉 ' + title);

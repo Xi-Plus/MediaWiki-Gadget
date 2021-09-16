@@ -39,7 +39,7 @@ javascript: (function() {
 				'{{NoteTA|G1=IT|G2=MediaWiki}}<div id="TVcontent">' + text + '</div>',
 				{
 					'uselang': lang,
-					'prop': 'text'
+					'prop': 'text',
 				}
 			).then(function(data) {
 				var newtext = $('<div/>').html(data).find('#TVcontent').text();

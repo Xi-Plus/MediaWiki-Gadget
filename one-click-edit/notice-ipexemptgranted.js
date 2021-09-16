@@ -20,7 +20,7 @@ javascript: (function() {
     new mw.Api().get({
         action: 'query',
         prop: 'info',
-        titles: usertalk
+        titles: usertalk,
     }).done(function(data) {
 
         if (Object.values(data.query.pages)[0].contentmodel == 'flow-board') {

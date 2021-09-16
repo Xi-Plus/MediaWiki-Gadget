@@ -25,7 +25,7 @@
             'leprop': 'comment|details|ids|parsedcomment|tags|timestamp|title|type|user|userid',
             'letype': 'rights',
             'letitle': 'User:' + mw.config.get('wgRelevantUserName'),
-            'lelimit': 'max'
+            'lelimit': 'max',
         });
     }
     if (mw.config.get('wgDiffNewId')) {

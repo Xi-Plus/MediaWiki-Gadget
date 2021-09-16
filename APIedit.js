@@ -18,7 +18,7 @@ function APIedit(pagename, summary, editfunc, minoredit = false, finish, testmod
 				content = "";
 				revisions = "";
 				editPage();
-			}
+			},
 		});
 	}
 	function getPageRevision() {
@@ -30,7 +30,7 @@ function APIedit(pagename, summary, editfunc, minoredit = false, finish, testmod
 				'format': 'json',
 				'prop': 'revisions',
 				'rvprop': 'timestamp',
-				'titles': pagename
+				'titles': pagename,
 			},
 			success: function success(data) {
 				var info = data.query.pages;
@@ -42,7 +42,7 @@ function APIedit(pagename, summary, editfunc, minoredit = false, finish, testmod
 			},
 			error: function error() {
 				alert("getPageRevision Error!");
-			}
+			},
 		});
 	}
 	function editPage() {
@@ -60,14 +60,14 @@ function APIedit(pagename, summary, editfunc, minoredit = false, finish, testmod
 				'summary': summary,
 				'basetimestamp': revisions,
 				'text': content,
-				'token': mw.user.tokens.get('csrfToken')
+				'token': mw.user.tokens.get('csrfToken'),
 			},
 			success: function success() {
 				finish();
 			},
 			error: function error() {
 				alert("editPage Error!");
-			}
+			},
 		};
 		if (minoredit) {
 			temp.data.minor = "";

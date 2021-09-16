@@ -197,7 +197,7 @@
 					prop: 'revisions',
 					rvprop: ['content'],
 					titles: archiveTitle,
-					formatversion: '2'
+					formatversion: '2',
 				}).done(function(data) {
 					var page, text = '';
 					page = data.query.pages[0];
@@ -527,11 +527,11 @@
 					},
 					change: function(_event, _ui) {
 					},
-					connectWith: '.be-items'
+					connectWith: '.be-items',
 				}).disableSelection();
 			});
 			$('#be-active-tbody').sortable({
-				handle: '.be-sortable-row-handle'
+				handle: '.be-sortable-row-handle',
 			});
 		}).fail(function(e) {
 			mw.notify('載入內容時發生錯誤：' + e, { type: 'error' });

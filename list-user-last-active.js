@@ -23,7 +23,7 @@
 			'zh-sg': sg || hans || cn || my,
 			'zh-tw': tw || hant || hk || mo,
 			'zh-hk': hk || hant || mo || tw,
-			'zh-mo': mo || hant || hk || tw
+			'zh-mo': mo || hant || hk || tw,
 		}
 		return ret[wg] || zh || hans || hant || cn || tw || hk || sg || mo || my;
 	}
@@ -139,7 +139,7 @@
 			"uclimit": "1",
 			"ucuser": name,
 			"ucdir": "older",
-			"ucprop": "timestamp"
+			"ucprop": "timestamp",
 		}).done(function(data) {
 			if (data.query.usercontribs[0] !== undefined) {
 				maxdate = new Date(data.query.usercontribs[0].timestamp);
@@ -151,7 +151,7 @@
 				"list": "logevents",
 				"leprop": "timestamp",
 				"leuser": name,
-				"lelimit": "1"
+				"lelimit": "1",
 			}).done(function(data) {
 				if (data.query.logevents[0] !== undefined) {
 					var date = new Date(data.query.logevents[0].timestamp);

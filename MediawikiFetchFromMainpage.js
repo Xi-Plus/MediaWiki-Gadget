@@ -9,7 +9,7 @@ javascript:
 		},
 		error: function error() {
 			alert("get fail!");
-		}
+		},
 	});
 
 })();

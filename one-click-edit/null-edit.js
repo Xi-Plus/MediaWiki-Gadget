@@ -4,7 +4,7 @@ javascript: (function() {
         return {
             text: revision.content,
             summary: 'Null edit',
-            minor: true
+            minor: true,
         };
     }).then(function() {
         mw.notify('成功');

@@ -5,7 +5,7 @@ javascript: (function() {
 		content = content.replace(/{{(delete|d)\|.+?}}\n*/, "");
 		return {
 			text: content,
-			summary: '不符快速刪除準則'
+			summary: '不符快速刪除準則',
 		};
 	}).then(function() {
 		mw.notify('成功');

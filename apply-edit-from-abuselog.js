@@ -27,7 +27,7 @@
 				url = "/w/index.php?title=Special:MovePage/" + encodeURIComponent(mw.config.get("wgAbuseFilterVariables")["moved_from_prefixedtitle"])
 			}
 			var form = $("<form target='_blank' method='POST' style='display:none;'></form>").attr({
-				action: url
+				action: url,
 			}).appendTo(document.body);
 
 			if (type === "edit") {
@@ -42,7 +42,7 @@
 
 				$('<input type="hidden" />').attr({
 					name: "wpTextbox1",
-					value: mw.config.get("wgAbuseFilterVariables")["new_wikitext"]
+					value: mw.config.get("wgAbuseFilterVariables")["new_wikitext"],
 				}
 				).appendTo(form);
 
@@ -50,23 +50,23 @@
 				var edittime = "" + d.getFullYear() + ("0" + (d.getMonth() + 1)).substr(-2) + ("0" + d.getDate()).substr(-2) + d.getHours() + d.getMinutes() + d.getSeconds();
 				$('<input type="hidden" />').attr({
 					name: "wpEdittime",
-					value: edittime
+					value: edittime,
 				}).appendTo(form);
 			} else if (type === "move") {
 				$('<input type="hidden" />').attr({
 					name: "wpNewTitle",
-					value: mw.config.get("wgAbuseFilterVariables")["moved_to_prefixedtitle"]
+					value: mw.config.get("wgAbuseFilterVariables")["moved_to_prefixedtitle"],
 				}).appendTo(form);
 
 				$('<input type="hidden" />').attr({
 					name: "wpLeaveRedirect",
-					value: "1"
+					value: "1",
 				}).appendTo(form);
 			}
 
 			$('<input type="hidden" />').attr({
 				name: "wpEditToken",
-				value: mw.user.tokens.get('csrfToken')
+				value: mw.user.tokens.get('csrfToken'),
 			}).appendTo(form);
 
 			var summary = "套用";

@@ -35,7 +35,7 @@ javascript:
 					return {
 						text: revision.content + '\n\n' + talkmessage,
 						summary: talksummary,
-						nocreate: false
+						nocreate: false,
 					};
 				}
 			).then(function() {
@@ -46,7 +46,7 @@ javascript:
 					api.create(
 						talkpage,
 						{
-							summary: talksummary
+							summary: talksummary,
 						},
 						talkmessage
 					).then(function() {

@@ -11,14 +11,14 @@ javascript: (function() {
             prop: 'revisions',
             rvprop: ['content'],
             titles: targetname,
-            formatversion: '2'
+            formatversion: '2',
         }).done(function(data) {
             content = data.query.pages[0].revisions[0].content;
 
             new mw.Api().postWithEditToken({
                 action: 'delete',
                 title: targetname,
-                reason: '刪除以便移動'
+                reason: '刪除以便移動',
             }).then(function() {
                 mw.notify('刪除成功');
 
@@ -28,14 +28,14 @@ javascript: (function() {
                     to: targetname,
                     movetalk: 1,
                     noredirect: 1,
-                    reason: '合併歷史'
+                    reason: '合併歷史',
                 }).then(function() {
                     mw.notify('移動成功');
 
                     new mw.Api().postWithEditToken({
                         action: 'undelete',
                         title: targetname,
-                        reason: '合併歷史'
+                        reason: '合併歷史',
                     }).then(function() {
                         mw.notify('還原成功');
 
@@ -44,7 +44,7 @@ javascript: (function() {
                             return {
                                 text: content,
                                 summary: '合併歷史',
-                                minor: true
+                                minor: true,
                             };
                         }).then(function() {
                             mw.notify('編輯成功');

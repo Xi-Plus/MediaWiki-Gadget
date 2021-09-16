@@ -1,4 +1,4 @@
-/*global jQuery, mediaWiki, OO*/
+/* global jQuery, mediaWiki, OO*/
 /*
  * 在提報頁進行篩選
  */
@@ -174,7 +174,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 action: 'save',
                 label: '篩選',
                 title: '篩選',
-                flags: ['primary', 'constructive']
+                flags: ['primary', 'constructive'],
             },
         ];
 
@@ -189,17 +189,17 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 items: [
                     new OO.ui.RadioOptionWidget({
                         data: 'off',
-                        label: '不啟用'
+                        label: '不啟用',
                     }),
                     new OO.ui.RadioOptionWidget({
                         data: 'show',
-                        label: '僅顯示'
+                        label: '僅顯示',
                     }),
                     new OO.ui.RadioOptionWidget({
                         data: 'hide',
-                        label: '隱藏'
-                    })
-                ]
+                        label: '隱藏',
+                    }),
+                ],
             })
             this.filtertypeWidget.selectItemByData(filter.filtertype);
             fieldset.addItems([
@@ -207,27 +207,27 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     this.filtertypeWidget,
                     {
                         align: 'top',
-                        label: '顯示選項'
+                        label: '顯示選項',
                     }
-                )
+                ),
             ]);
 
             this.usernameWidget = new mw.widgets.UsersMultiselectWidget({
-                selected: filter.username
+                selected: filter.username,
             });
             fieldset.addItems([
                 new OO.ui.FieldLayout(
                     this.usernameWidget,
                     {
                         align: 'top',
-                        label: '用戶名'
+                        label: '用戶名',
                     }
-                )
+                ),
             ]);
 
             var content = new OO.ui.PanelLayout({
                 padded: true,
-                expanded: false
+                expanded: false,
             });
             content.$element.append(fieldset.$element);
             this.$body.append(content.$element);

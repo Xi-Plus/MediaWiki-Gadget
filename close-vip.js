@@ -22,7 +22,7 @@
             rvprop: ['content', 'timestamp'],
             titles: 'Wikipedia:当前的破坏',
             formatversion: '2',
-            curtimestamp: true
+            curtimestamp: true,
         }).then(function(data) {
             var page, revision;
             if (!data.query || !data.query.pages) {
@@ -45,7 +45,7 @@
             resolve({
                 content: content,
                 basetimestamp: basetimestamp,
-                curtimestamp: curtimestamp
+                curtimestamp: curtimestamp,
             });
         })
     }
@@ -147,13 +147,13 @@
                             mw.notify('動作已取消');
                         }
                         $(this).dialog('close');
-                    }
+                    },
                 }, {
                     text: '取消',
                     click: function() {
                         $(this).dialog('close');
-                    }
-                }]
+                    },
+                }],
             });
         });
     }
@@ -184,7 +184,7 @@
                 section: sectionid,
                 basetimestamp: revision.timestamp,
                 summary: CloseVip.summary,
-                minor: true
+                minor: true,
             };
         }).then(function() {
             mw.notify('已關閉 ' + title);

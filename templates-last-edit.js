@@ -25,7 +25,7 @@
 				"format": "json",
 				"prop": "revisions",
 				"titles": chunks.join('|'),
-				"rvprop": "timestamp"
+				"rvprop": "timestamp",
 			}).done(function(data) {
 				for (const pageid in data.query.pages) {
 					const page = data.query.pages[pageid];

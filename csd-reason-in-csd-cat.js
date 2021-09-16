@@ -20,7 +20,7 @@ javascript:
 				"format": "json",
 				"prop": "revisions",
 				"titles": titlestr,
-				"rvprop": "content"
+				"rvprop": "content",
 			},
 			success: function success(data) {
 				for (i in data.query.pages) {
@@ -50,7 +50,7 @@ javascript:
 			},
 			error: function error() {
 				alert("Error!");
-			}
+			},
 		});
 	}
 

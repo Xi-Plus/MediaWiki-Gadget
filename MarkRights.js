@@ -100,7 +100,7 @@ $(function() {
                 action: 'query',
                 list: 'users',
                 usprop: 'groups',
-                ususers: queue2[j].join('|')
+                ususers: queue2[j].join('|'),
             }).done(process);
         }
     };

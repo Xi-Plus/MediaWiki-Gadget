@@ -51,7 +51,7 @@ javascript:
 			'format': 'json',
 			'prop': 'revisions',
 			'titles': pagename,
-			'rvprop': 'content|ids|timestamp|user'
+			'rvprop': 'content|ids|timestamp|user',
 		}).done(function(data) {
 			var page;
 			for (const key in data.query.pages) {

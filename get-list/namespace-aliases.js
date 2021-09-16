@@ -3,7 +3,7 @@ api.get({
 	"action": "query",
 	"format": "json",
 	"meta": "siteinfo",
-	"siprop": "namespacealiases"
+	"siprop": "namespacealiases",
 }).then(function(data) {
 	var result = {};
 	data['query']['namespacealiases'].forEach(ns => {

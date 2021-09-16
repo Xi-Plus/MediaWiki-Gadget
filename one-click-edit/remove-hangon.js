@@ -5,7 +5,7 @@ javascript: (function() {
         content.replace(/{{hang ?on\|.+?}}\n*/, "");
         return {
             text: content,
-            summary: '移除hangon'
+            summary: '移除hangon',
         };
     }).then(function() {
         mw.notify('成功');

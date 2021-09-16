@@ -6,7 +6,7 @@ javascript: (function() {
         "list": "categorymembers",
         "cmtitle": mw.config.get('wgPageName'),
         "cmprop": "title",
-        "cmlimit": "max"
+        "cmlimit": "max",
     }).done(function(data) {
         var result = "";
 

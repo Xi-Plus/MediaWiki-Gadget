@@ -1,4 +1,4 @@
-/*global jQuery, mediaWiki, OO*/
+/* global jQuery, mediaWiki, OO*/
 /*
  * 修改自 https://www.wikidata.org/w/index.php?title=MediaWiki:Gadget-Merge.js&oldid=835856716
  * 使用方法請見 https://meta.wikimedia.org/wiki/User:Xiplus/js/history-merge
@@ -44,7 +44,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     summarySuffix: ' via [[:m:User:Xiplus/js/history-merge.js|history-merge]]',
                     undeleteTarget: '還原目標頁面……',
                     undeleteTargetSummary: '合併歷史 via [[:m:User:Xiplus/js/history-merge.js|history-merge]]',
-                }
+                },
             },
                 chain = mw.language.getFallbackLanguageChain(),
                 len = chain.length,
@@ -83,7 +83,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     text: '{{subst:msgnw::' + to + '}}',
                     summary: messages.copyTargetSummary,
                     nocreate: true,
-                    minor: true
+                    minor: true,
                 };
             });
         }
@@ -95,7 +95,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             return api.postWithEditToken({
                 action: 'delete',
                 title: to,
-                reason: messages.deleteTargetSummary
+                reason: messages.deleteTargetSummary,
             });
         }
 
@@ -107,7 +107,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 action: 'move',
                 from: from,
                 to: to,
-                reason: summary + messages.summarySuffix
+                reason: summary + messages.summarySuffix,
             };
             if (movetalk) {
                 data.movetalk = 1;
@@ -126,7 +126,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 action: 'undelete',
                 title: to,
                 timestamps: revids,
-                reason: messages.undeleteTargetSummary
+                reason: messages.undeleteTargetSummary,
             });
         }
 
@@ -166,7 +166,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 rvprop: ['timestamps'],
                 rvlimit: 'max',
                 titles: to,
-                formatversion: '2'
+                formatversion: '2',
             }).then(function(data) {
                 revids = $.map(data.query.pages[0].revisions, function(e, _) {
                     return e.revid;
@@ -241,19 +241,19 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 action: 'postpone',
                 label: messages.postpone,
                 title: messages.postponeTitle,
-                flags: 'progressive'
+                flags: 'progressive',
             },
             {
                 action: 'merge',
                 label: messages.merge,
                 title: messages.mergeProcess,
-                flags: ['primary', 'constructive']
+                flags: ['primary', 'constructive'],
             },
             {
                 action: 'cancel',
                 label: mw.msg('ooui-dialog-message-reject'),
-                flags: 'safe'
-            }
+                flags: 'safe',
+            },
         ];
 
         /**
@@ -263,96 +263,96 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             MergeDialog.parent.prototype.initialize.apply(this, arguments);
             var fieldset = new OO.ui.FieldsetLayout({});
             this.mergeSourcePagename = new OO.ui.TextInputWidget({
-                value: this.sourcePageName
+                value: this.sourcePageName,
             });
             fieldset.addItems([
                 new OO.ui.FieldLayout(
                     this.mergeSourcePagename,
                     {
                         align: 'left',
-                        label: messages.mergeWithInput
+                        label: messages.mergeWithInput,
                     }
-                )
+                ),
             ]);
             fieldset.$element.append($('<span>', {
                 id: 'history-merge-input-validation-message',
-                style: 'color: red;'
+                style: 'color: red;',
             }));
             this.mergeSummary = new OO.ui.TextInputWidget({
-                value: mw.storage.get('history-merge-summary')
+                value: mw.storage.get('history-merge-summary'),
             });
             fieldset.addItems([
                 new OO.ui.FieldLayout(
                     this.mergeSummary,
                     {
                         align: 'left',
-                        label: messages.mergeSummary
+                        label: messages.mergeSummary,
                     }
-                )
+                ),
             ]);
             this.mergeKeepTargetContent = new OO.ui.CheckboxInputWidget({
-                selected: mw.storage.get('history-merge-keep-target-content') === 'true'
+                selected: mw.storage.get('history-merge-keep-target-content') === 'true',
             });
             fieldset.addItems([
                 new OO.ui.FieldLayout(
                     this.mergeKeepTargetContent,
                     {
                         align: 'inline',
-                        label: messages.mergeKeepTargetContent
+                        label: messages.mergeKeepTargetContent,
                     }
-                )
+                ),
             ]);
             this.mergeMoveTalk = new OO.ui.CheckboxInputWidget({
-                selected: mw.storage.get('history-merge-move-talk') === 'true'
+                selected: mw.storage.get('history-merge-move-talk') === 'true',
             });
             fieldset.addItems([
                 new OO.ui.FieldLayout(
                     this.mergeMoveTalk,
                     {
                         align: 'inline',
-                        label: messages.moveTalk
+                        label: messages.moveTalk,
                     }
-                )
+                ),
             ]);
             this.mergeLeaveRedirect = new OO.ui.CheckboxInputWidget({
-                selected: mw.storage.get('history-merge-leave-redirect') === 'true'
+                selected: mw.storage.get('history-merge-leave-redirect') === 'true',
             });
             fieldset.addItems([
                 new OO.ui.FieldLayout(
                     this.mergeLeaveRedirect,
                     {
                         align: 'inline',
-                        label: messages.leaveRedirect
+                        label: messages.leaveRedirect,
                     }
-                )
+                ),
             ]);
             this.mergeNoRestore = new OO.ui.CheckboxInputWidget({
-                selected: mw.storage.get('history-merge-no-restore') === 'true'
+                selected: mw.storage.get('history-merge-no-restore') === 'true',
             });
             fieldset.addItems([
                 new OO.ui.FieldLayout(
                     this.mergeNoRestore,
                     {
                         align: 'inline',
-                        label: messages.noRestore
+                        label: messages.noRestore,
                     }
-                )
+                ),
             ]);
             this.loadMergeDestination = new OO.ui.CheckboxInputWidget({
-                selected: mw.storage.get('history-merge-load-destination') === 'true'
+                selected: mw.storage.get('history-merge-load-destination') === 'true',
             });
             fieldset.addItems([
                 new OO.ui.FieldLayout(
                     this.loadMergeDestination,
                     {
                         align: 'inline',
-                        label: messages.loadMergeDestination
+                        label: messages.loadMergeDestination,
                     }
-                )
+                ),
             ]);
             var content = new OO.ui.PanelLayout({
                 padded: true,
-                expanded: false
+                expanded: false,
             });
             content.$element.append(fieldset.$element);
             this.$body.append(content.$element);
@@ -459,7 +459,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             $('<div>').css({
                 'text-align': 'center',
                 'margin': '3em 0',
-                'font-size': '120%'
+                'font-size': '120%',
             }).append(
                 this.$progressMessage
             ).appendTo(this.$body);
@@ -487,7 +487,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
             }
             this.$body.append($('<div>', {
                 style: 'color: #990000; margin-top: 0.4em;',
-                html: '<p>' + messages.errorWhile.replace(/\$1/, this.$progressMessage.text()) + ' ' + error + '</p>' + reportLink
+                html: '<p>' + messages.errorWhile.replace(/\$1/, this.$progressMessage.text()) + ' ' + error + '</p>' + reportLink,
             }));
             this.updateSize();
         };
@@ -500,7 +500,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                 sourcePageName = '';
             }
             var dialog = new MergeDialog({
-                sourcePageName: sourcePageName
+                sourcePageName: sourcePageName,
             });
             var windowManager = new OO.ui.WindowManager();
             $('body').append(windowManager.$element);
@@ -516,13 +516,13 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     mw.storage.get('history-merge-pending-pagename') !== '' &&
                     mw.storage.get('history-merge-pending-pagename') !== targetPageName) {
                     $('#p-views ul')[$(document).prop('dir') === 'rtl' ? 'append' : 'prepend']($('<li>', {
-                        id: 'ca-merge-queue-process'
+                        id: 'ca-merge-queue-process',
                     }).append($('<a>', {
                         href: '#',
-                        title: 'process the postponed merge'
+                        title: 'process the postponed merge',
                     }).append($('<img>', {
                         src: '//upload.wikimedia.org/wikipedia/commons/thumb/1/10/Pictogram_voting_merge.svg/26px-Pictogram_voting_merge.svg.png',
-                        alt: 'merge icon'
+                        alt: 'merge icon',
                     }))).click(function(event) {
                         event.preventDefault();
                         launchDialog(mw.storage.get('history-merge-pending-pagename'));

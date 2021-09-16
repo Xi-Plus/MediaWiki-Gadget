@@ -22,7 +22,7 @@
             rvprop: ['content', 'timestamp'],
             titles: 'Wikipedia:防滥用过滤器/错误报告',
             formatversion: '2',
-            curtimestamp: true
+            curtimestamp: true,
         }).then(function(data) {
             var page, revision;
             if (!data.query || !data.query.pages) {
@@ -45,7 +45,7 @@
             resolve({
                 content: content,
                 basetimestamp: basetimestamp,
-                curtimestamp: curtimestamp
+                curtimestamp: curtimestamp,
             });
         })
     }
@@ -135,13 +135,13 @@
                     click: function() {
                         processEdit(sectionid, title, $(this).find('#status').val(), $(this).find('#res').val(), $(this).find('#comment').val());
                         $(this).dialog('close');
-                    }
+                    },
                 }, {
                     text: '取消',
                     click: function() {
                         $(this).dialog('close');
-                    }
-                }]
+                    },
+                }],
             });
         });
     }
@@ -169,7 +169,7 @@
                 section: sectionid,
                 basetimestamp: revision.timestamp,
                 summary: CloseAffp.summary,
-                minor: true
+                minor: true,
             };
         }).then(function() {
             mw.notify('已關閉 ' + title);

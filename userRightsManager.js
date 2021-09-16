@@ -71,7 +71,7 @@
 			'zh-sg': sg || hans || cn || my,
 			'zh-tw': tw || hant || hk || mo,
 			'zh-hk': hk || hant || mo || tw,
-			'zh-mo': mo || hant || hk || tw
+			'zh-mo': mo || hant || hk || tw,
 		}
 		return ret[wg] || zh || hans || hant || cn || tw || hk || sg || mo || my;
 	}
@@ -85,7 +85,7 @@
 		Dialog.static.title = '授予' + permissionNames[permission] + wgULS('给', '給') + userName;
 		Dialog.static.actions = [
 			{ action: 'submit', label: wgULS('授权', '授權'), flags: ['primary', 'progressive'] },
-			{ label: '取消', flags: 'safe' }
+			{ label: '取消', flags: 'safe' },
 		];
 		Dialog.prototype.getApiManager = function() {
 			return this.apiManager;
@@ -96,10 +96,10 @@
 		Dialog.prototype.initialize = function() {
 			Dialog.super.prototype.initialize.call(this);
 			this.editFieldset = new OO.ui.FieldsetLayout({
-				classes: ['container']
+				classes: ['container'],
 			});
 			this.editPanel = new OO.ui.PanelLayout({
-				expanded: false
+				expanded: false,
 			});
 			this.editPanel.$element.append(this.editFieldset.$element);
 
@@ -109,7 +109,7 @@
 			rightLogWapper.append('：');
 			var rightLogText = $('<span>').text('取得中').appendTo(rightLogWapper);
 			this.rightLog = new OO.ui.LabelWidget({
-				label: rightLogWapper
+				label: rightLogWapper,
 			});
 
 			api.get({
@@ -118,7 +118,7 @@
 				list: 'logevents',
 				leaction: 'rights/rights',
 				letitle: 'User:' + userName,
-				lelimit: '1'
+				lelimit: '1',
 			}).done(function(data) {
 				var logs = data.query.logevents;
 				if (logs.length === 0) {
@@ -132,7 +132,7 @@
 
 			this.rightsChangeSummaryInput = new OO.ui.TextInputWidget({
 				value: '',
-				placeholder: '可留空'
+				placeholder: '可留空',
 			});
 			this.expiryInput = new mw.widgets.ExpiryWidget({
 				$overlay: $('.oo-ui-window'),
@@ -154,41 +154,41 @@
 					},
 					textinput: {
 						required: true,
-					}
-				}
+					},
+				},
 			});
 			this.closingRemarksInput = new OO.ui.TextInputWidget({
-				value: '{{done}} ~~~~'
+				value: '{{done}} ~~~~',
 			});
 			this.watchTalkPageCheckbox = new OO.ui.CheckboxInputWidget({
-				selected: false
+				selected: false,
 			});
 			this.editFieldset.addItems(this.rightLog);
 			var formElements = [
 				new OO.ui.FieldLayout(this.rightsChangeSummaryInput, {
-					label: wgULS('授权原因', '授權原因')
+					label: wgULS('授权原因', '授權原因'),
 				}),
 				new OO.ui.FieldLayout(this.expiryInput, {
-					label: wgULS('结束时间', '結束時間')
+					label: wgULS('结束时间', '結束時間'),
 				}),
 				new OO.ui.FieldLayout(this.closingRemarksInput, {
-					label: wgULS('关闭请求留言', '關閉請求留言')
-				})
+					label: wgULS('关闭请求留言', '關閉請求留言'),
+				}),
 			];
 			if (!!templates[permission]) {
 				formElements.push(
 					new OO.ui.FieldLayout(this.watchTalkPageCheckbox, {
-						label: wgULS('监视用户讨论页', '監視使用者討論頁')
+						label: wgULS('监视用户讨论页', '監視使用者討論頁'),
 					})
 				);
 			}
 			this.editFieldset.addItems(formElements);
 			this.submitPanel = new OO.ui.PanelLayout({
 				$: this.$,
-				expanded: false
+				expanded: false,
 			});
 			this.submitFieldset = new OO.ui.FieldsetLayout({
-				classes: ['container']
+				classes: ['container'],
 			});
 			this.submitPanel.$element.append(this.submitFieldset.$element);
 			this.changeRightsProgressLabel = new OO.ui.LabelWidget();
@@ -199,7 +199,7 @@
 			this.issueTemplateProgressField = new OO.ui.FieldLayout(this.issueTemplateProgressLabel);
 			this.stackLayout = new OO.ui.StackLayout({
 				items: [this.editPanel, this.submitPanel],
-				padded: true
+				padded: true,
 			});
 			this.$body.append(this.stackLayout.$element);
 		};
@@ -287,7 +287,7 @@
 		};
 
 		dialog = new Dialog({
-			size: 'medium'
+			size: 'medium',
 		});
 
 		var windowManager = new OO.ui.WindowManager();
@@ -310,7 +310,7 @@
 			user: userName.replace(/ /g, '_'),
 			add: permission,
 			reason: fullSummary,
-			expiry: expiry === '' ? 'infinity' : expiry
+			expiry: expiry === '' ? 'infinity' : expiry,
 		});
 	}
 
@@ -327,7 +327,7 @@
 			titles: [pageName],
 			rvsection: sectionNumber,
 			formatversion: '2',
-			curtimestamp: true
+			curtimestamp: true,
 		})
 			.then(function(data) {
 				if (!data.query || !data.query.pages) {
@@ -361,7 +361,7 @@
 					assert: mw.config.get('wgUserName') ? 'user' : undefined,
 					basetimestamp: basetimestamp,
 					starttimestamp: curtimestamp,
-					nocreate: true
+					nocreate: true,
 				});
 			});
 	}
@@ -374,7 +374,7 @@
 			title: talkPage,
 			summary: '根據' + permaLink + '授予' + permissionNames[permission] + tagLine,
 			appendtext: '\n\n{{subst:' + templates[permission] + '}}',
-			watchlist: watch ? 'watch' : 'unwatch'
+			watchlist: watch ? 'watch' : 'unwatch',
 		});
 	}
 })();

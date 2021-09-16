@@ -104,7 +104,7 @@ mw.loader.using(['jquery.ui']).then(function() {
             }
         }
 
-        //$('#linktranslator-progressbar').progressbar('value', respcount * 100 / links.length);
+        // $('#linktranslator-progressbar').progressbar('value', respcount * 100 / links.length);
         $('#linktranslator-progressbar').progressbar('value', 100);
         $('#linktranslator').prepend('<div id="linktranlator-done"><strong>' + LTUI.Done + '</strong></div>');
 
@@ -158,9 +158,9 @@ mw.loader.using(['jquery.ui']).then(function() {
                     click: function() {
                         $('#linktranslator').dialog('option', 'buttons', []);
                         processLinks();
-                    }
-                }
-            ]
+                    },
+                },
+            ],
         });
     };
 

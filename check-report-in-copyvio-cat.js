@@ -29,7 +29,7 @@
 			},
 			error: function error() {
 				mw.notify("Get CV page failed.");
-			}
+			},
 		});
 
 	});

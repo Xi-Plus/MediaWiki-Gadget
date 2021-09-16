@@ -4,7 +4,7 @@ javascript:
 	function watchlistmarkseen(title) {
 		new mw.Api().postWithEditToken({
 			"action": "setnotificationtimestamp",
-			"titles": title
+			"titles": title,
 		}).done(function() {
 			mw.notify(['已將頁面 "<a href="/wiki/' + title + '">' + title + '</a>" 標記為已查看。'])
 		});

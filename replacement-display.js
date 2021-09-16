@@ -14,7 +14,7 @@
         };
     }
 
-    /*if (typeof (ReplacementDisplay.activePage) != 'function') {
+    /* if (typeof (ReplacementDisplay.activePage) != 'function') {
         ReplacementDisplay.activePage = function() {
             if (mw.config.get('wgIsArticle')) {
                 return true;
@@ -30,13 +30,13 @@
         prop: 'revisions',
         rvprop: ['content'],
         titles: [mw.config.get('wgPageName')],
-        formatversion: '2'
+        formatversion: '2',
     }).done(function(data) {
         new mw.Api().post({
             action: 'parse',
             title: [mw.config.get('wgPageName')],
             text: ReplacementDisplay.replace(data.query.pages[0].revisions[0].content),
-            prop: 'text'
+            prop: 'text',
         }).done(function(data) {
             content.html(data.parse.text['*']);
         });

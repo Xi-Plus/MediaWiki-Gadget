@@ -50,13 +50,13 @@
                     click: function() {
                         processEdit($(this).find('#summary').val(), $(this).find('#summary2').val());
                         $(this).dialog('close');
-                    }
+                    },
                 }, {
                     text: '取消',
                     click: function() {
                         $(this).dialog('close');
-                    }
-                }]
+                    },
+                }],
             });
         });
     }
@@ -73,7 +73,7 @@
                 text: content,
                 basetimestamp: revision.timestamp,
                 summary: reason,
-                minor: false
+                minor: false,
             };
         }).then(function() {
             mw.notify('已移除移動請求模板');

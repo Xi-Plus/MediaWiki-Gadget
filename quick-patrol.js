@@ -11,7 +11,7 @@
                 'action': 'patrol',
                 'format': 'json',
                 'revid': revid,
-                'token': mw.user.tokens.get('patrolToken')
+                'token': mw.user.tokens.get('patrolToken'),
             },
             success: function success(data) {
                 if (data.error !== undefined) {
@@ -26,7 +26,7 @@
             error: function error() {
                 document.all["patrol_" + btnid].innerHTML = "Ajax失敗";
                 document.all["patrol_" + btnid].style.color = "#F00";
-            }
+            },
         });
     }
 

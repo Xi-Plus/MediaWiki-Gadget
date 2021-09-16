@@ -41,7 +41,7 @@ javascript: (function() {
     new mw.Api().postWithEditToken({
         action: "delete",
         title: pagename,
-        reason: reason
+        reason: reason,
     }).then(function() {
         mw.notify('成功刪除');
     }, function(e) {

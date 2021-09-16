@@ -20,7 +20,7 @@
 				prop: "revisions",
 				titles: mw.config.get('wgPageName'),
 				rvprop: "user|tags",
-				rvlimit: "50"
+				rvlimit: "50",
 			},
 			success: function success(data) {
 				var path = mw.config.get('wgArticlePath');
@@ -44,7 +44,7 @@
 			},
 			error: function error() {
 				alert("抓取錯誤");
-			}
+			},
 		});
 	}
 	if (mw.config.get('wgNamespaceNumber') !== -1 && (mw.config.get('wgAction') === "view" || mw.config.get('wgAction') === "edit")) {
@@ -63,7 +63,7 @@
 				list: "logevents",
 				leprop: "comment|type",
 				letype: "delete",
-				letitle: mw.config.get('wgPageName')
+				letitle: mw.config.get('wgPageName'),
 			},
 			success: function success(data) {
 				var message = "沒有";
@@ -107,7 +107,7 @@
 			},
 			error: function error() {
 				dellog.innerHTML = "抓取錯誤";
-			}
+			},
 		});
 	}
 

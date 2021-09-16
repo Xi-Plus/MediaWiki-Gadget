@@ -7,7 +7,7 @@ function getpage(idx, link, check) {
 		},
 		error: function error() {
 			write(idx, "<span style='color: white; background-color: red;'>fetch fail</span>");
-		}
+		},
 	});
 }
 

@@ -50,13 +50,13 @@
                             mw.notify('動作已取消');
                         }
                         $(this).dialog('close');
-                    }
+                    },
                 }, {
                     text: '取消',
                     click: function() {
                         $(this).dialog('close');
-                    }
-                }]
+                    },
+                }],
             });
         }
 
@@ -83,7 +83,7 @@
                 ids: ids,
                 hide: hide,
                 show: show,
-                reason: comment
+                reason: comment,
             }).then(function() {
                 mw.notify('成功刪除 ' + target + ' 的 ' + count + ' 個版本');
             }, function(e) {
@@ -104,7 +104,7 @@
                 'class': 'mass-revision-delete-checkbox',
                 'data-target': target,
                 'data-id': id,
-                'name': 'ids[' + id + ']'
+                'name': 'ids[' + id + ']',
             });
             $(e).after($filter);
         });
@@ -117,7 +117,7 @@
             'class': 'mw-ui-button',
             'type': 'button',
             'title': '批量版本刪除',
-            'text': '批量版本刪除'
+            'text': '批量版本刪除',
         });
         $filter.on('click', main);
         $filter.appendTo($('.mw-contributions-list').prev());

@@ -38,13 +38,13 @@
                             mw.notify('動作已取消');
                         }
                         $(this).dialog('close');
-                    }
+                    },
                 }, {
                     text: '取消',
                     click: function() {
                         $(this).dialog('close');
-                    }
-                }]
+                    },
+                }],
             });
         }
 
@@ -74,7 +74,7 @@
                     type: 'logging',
                     ids: logids,
                     hide: 'user',
-                    reason: comment
+                    reason: comment,
                 }).then(function() {
                     mw.notify('成功刪除日誌中的 ' + data.query.logevents.length + ' 個操作者');
                 }, function(e) {
@@ -88,7 +88,7 @@
                 "list": "logevents",
                 "leprop": "ids",
                 "letitle": "User:" + badname,
-                "lelimit": "max"
+                "lelimit": "max",
             }).then(function(data) {
                 if (data.query.logevents.length == 0) {
                     mw.notify('沒有可刪除的目標（User）日誌');
@@ -104,7 +104,7 @@
                     type: 'logging',
                     ids: logids,
                     hide: 'content',
-                    reason: comment
+                    reason: comment,
                 }).then(function() {
                     mw.notify('成功刪除日誌中的 ' + data.query.logevents.length + ' 個目標（User）');
                 }, function(e) {
@@ -118,7 +118,7 @@
                 "list": "logevents",
                 "leprop": "ids",
                 "letitle": "User talk:" + badname,
-                "lelimit": "max"
+                "lelimit": "max",
             }).then(function(data) {
                 if (data.query.logevents.length == 0) {
                     mw.notify('沒有可刪除的目標（User talk）日誌');
@@ -134,7 +134,7 @@
                     type: 'logging',
                     ids: logids,
                     hide: 'content',
-                    reason: comment
+                    reason: comment,
                 }).then(function() {
                     mw.notify('成功刪除日誌中的 ' + data.query.logevents.length + ' 個目標（User talk）');
                 }, function(e) {
@@ -148,7 +148,7 @@
                 "list": "usercontribs",
                 "uclimit": "max",
                 "ucuser": badname,
-                "ucprop": "ids|title"
+                "ucprop": "ids|title",
             }).then(function(data) {
                 if (data.query.usercontribs.length == 0) {
                     mw.notify('沒有可刪除的編輯');
@@ -170,7 +170,7 @@
                         type: 'revision',
                         ids: ids,
                         hide: 'user',
-                        reason: comment
+                        reason: comment,
                     }).then(function() {
                         mw.notify('成功刪除 ' + title + ' 的 ' + diffids[title].length + ' 個版本');
                     }, function(e) {

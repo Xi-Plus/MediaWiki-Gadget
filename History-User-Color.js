@@ -36,8 +36,8 @@
 		'title': '將相同的使用者名稱塗上相同的顏色',
 		'text': '使用者名稱上色',
 		'css': {
-			'background': RandomColor()
-		}
+			'background': RandomColor(),
+		},
 	});
 	$node.on('click', usercolor);
 	$(".historysubmit.mw-history-compareselectedversions-button").after($node);

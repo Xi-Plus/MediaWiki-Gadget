@@ -19,7 +19,7 @@ javascript:
 				new mw.Api().postWithToken('csrf', {
 					action: 'unblock',
 					user: user,
-					reason: reason
+					reason: reason,
 				}).done(function() {
 					document.location = mw.config.get('wgScript') + "?title=Special:Log&page=" + encodeURIComponent("User:" + user) + "&type=block";
 				}).fail(function() {

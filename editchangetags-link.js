@@ -7,7 +7,7 @@
 				href: mw.util.wikiScript() + "?" + $.param({
 					action: 'editchangetags',
 					type: mw.util.getParamValue('type', url),
-					ids: mw.util.getParamValue('ids', url)
+					ids: mw.util.getParamValue('ids', url),
 				}),
 			})
 			.text("編輯標籤")

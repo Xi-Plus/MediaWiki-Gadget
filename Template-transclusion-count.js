@@ -29,7 +29,7 @@
 			},
 			error: function error() {
 				document.getElementById('ttclink').innerHTML = "抓取錯誤1";
-			}
+			},
 		});
 	}
 
