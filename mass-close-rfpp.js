@@ -1,5 +1,4 @@
-// <nowiki>
-/* globals Morebits:true */
+/* eslint semi: ["error", "always"]*/
 (function() {
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:请求保护页面'
@@ -31,16 +30,16 @@
             'leprop': 'type|user|timestamp|details',
             'letype': 'protect',
             'letitle': pagename,
-            'lelimit': '1'
+            'lelimit': '1',
         }).then(function(res) {
             if (res.query.logevents.length === 0) {
                 updateText();
-                return
+                return;
             }
             var logevent = res.query.logevents[0];
             if (!['protect', 'modify'].includes(logevent.action)) {
                 updateText();
-                return
+                return;
             }
             var protectTime = new Morebits.date(logevent.timestamp);
             var expiry = logevent.params.details[0].expiry;
@@ -95,8 +94,8 @@
             }
 
             updateText();
-        })
-    }
+        });
+    };
 
     var updateText = function() {
         remainingTask--;
@@ -105,7 +104,7 @@
         }
         $('#wpTextbox1').val(sections.join(''));
         $('#wpSummary').val('標記已處理提報');
-    }
+    };
 
     for (let i = 1; i < sections.length; i++) {
         const content = sections[i];
@@ -122,4 +121,3 @@
 
 }
 )();
-// </nowiki>

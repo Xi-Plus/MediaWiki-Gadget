@@ -1,5 +1,4 @@
-// <nowiki>
-/* globals Morebits:true */
+/* eslint semi: ["error", "always"]*/
 (function() {
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:当前的破坏'
@@ -22,16 +21,16 @@
             'leprop': 'type|user|timestamp|details',
             'letype': 'block',
             'letitle': 'User:' + username,
-            'lelimit': '1'
+            'lelimit': '1',
         }).then(function(res) {
             if (res.query.logevents.length === 0) {
                 updateText();
-                return
+                return;
             }
             var logevent = res.query.logevents[0];
             if (!['block', 'reblock'].includes(logevent.action)) {
                 updateText();
-                return
+                return;
             }
             var duration = logevent.params.duration;
             var blocktime = new Morebits.date(logevent.timestamp);
@@ -52,8 +51,8 @@
             }
 
             updateText();
-        })
-    }
+        });
+    };
 
     var updateText = function() {
         remainingTask--;
@@ -62,7 +61,7 @@
         }
         $('#wpTextbox1').val(sections.join(''));
         $('#wpSummary').val('標記已處理提報');
-    }
+    };
 
     for (let i = 1; i < sections.length; i++) {
         const content = sections[i];
@@ -79,4 +78,3 @@
 
 }
 )();
-// </nowiki>

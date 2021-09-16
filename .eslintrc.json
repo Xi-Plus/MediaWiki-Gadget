@@ -16,7 +16,8 @@
         "wpMinoredit": true,
         "wpSummary": true,
         "wpSave": true,
-        "wpDiff": true
+        "wpDiff": true,
+        "Morebits": true
     },
     "rules": {
         "no-unused-labels": "off",
@@ -26,6 +27,14 @@
             {
                 "argsIgnorePattern": "^_"
             }
+        ],
+        "spaced-comment": [
+            "error",
+            "always"
+        ],
+        "comma-dangle": [
+            "error",
+            "always-multiline"
         ]
     }
 }
