@@ -1,5 +1,5 @@
 /* eslint semi: ["error", "always"]*/
-(function() {
+javascript: (function() {
 
     if (mw.config.get('wgPageName') !== 'Wikipedia:请求保护页面'
         || mw.config.get('wgAction') !== 'edit') {
