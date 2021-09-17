@@ -47,7 +47,7 @@ javascript: (function() {
 
             if (blocktime.isAfter(reqtime)) {
                 var comment = '{{Blocked|ad=' + admin + '|' + Morebits.string.formatTime(duration) + '}}。--~~~~';
-                sections[sectionId] = sections[sectionId].replace(/(\* 处理：)/, '$1' + comment);
+                sections[sectionId] = sections[sectionId].replace(/(\* 处理：)(?:<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?/, '$1' + comment);
             }
 
             updateText();
@@ -66,7 +66,7 @@ javascript: (function() {
     for (let i = 1; i < sections.length; i++) {
         const content = sections[i];
 
-        if (/\* 处理：\n/.test(content)) {
+        if (/\* 处理：(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?\n/.test(content)) {
             var m = content.match(/===\s*{{vandal\|(?:1=)?([^|]+?)(?:\||}})/i);
             if (m) {
                 var username = m[1];
