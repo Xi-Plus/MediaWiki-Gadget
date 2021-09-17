@@ -61,6 +61,7 @@ javascript: (function() {
         }
         $('#wpTextbox1').val(sections.join(''));
         $('#wpSummary').val('標記已處理提報');
+        $('#wpDiff').click();
     };
 
     for (let i = 1; i < sections.length; i++) {
