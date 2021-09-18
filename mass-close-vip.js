@@ -70,10 +70,12 @@ javascript: (function() {
         $('#wpDiff').click();
     };
 
+    console.log(sections);
+
     for (let i = 1; i < sections.length; i++) {
         const content = sections[i];
 
-        if (/\* 处理：(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?\n/.test(content)) {
+        if (/\* 处理：(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?(\n|$)/.test(content)) {
             var m = content.match(/===\s*{{vandal\|(?:1=)?([^|]+?)(?:\||}})/i);
             if (m) {
                 var username = m[1];
