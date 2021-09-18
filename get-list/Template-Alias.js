@@ -53,10 +53,17 @@ javascript: (async () => {
     });
 
     let regexci = '(' + regexcilist.join('|') + ')';
-    let templateprefix = '{{[\\s_]*(Template|T|样板|模板|樣板)?[\\s_]*:?[\\s_]*';
+    let compre = '{{[\\s_]*';
+    let templateprefix = '(Template|T|样板|模板|樣板)?[\\s_]*:?[\\s_]*';
 
-    result += '<br>Regex:<br>' + templateprefix + regex;
-    result += '<br>Regex (case insensitive):<br>' + templateprefix + regexci;
+    result += '<br>Simple Regex:<br>' + regexci + '<br>';
+    result += '<br>Simple Regex (case sensitive):<br>' + regex + '<br>';
+
+    result += '<br>Regex:<br>' + compre + regexci + '<br>';
+    result += '<br>Regex (case sensitive):<br>' + compre + regexci + '<br>';
+
+    result += '<br>Regex with namespace:<br>' + compre + templateprefix + regexci + '<br>';
+    result += '<br>Regex with namespace (case sensitive):<br>' + compre + templateprefix + regex + '<br>';
 
     var win = window.open('');
     win.document.body.innerHTML = result;
