@@ -45,8 +45,14 @@ javascript: (function() {
                 }
             }
 
+            if (Morebits.string.isInfinity(duration)) {
+                duration = 'indef';
+            } else {
+                duration = Morebits.string.formatTime(duration);
+            }
+
             if (blocktime.isAfter(reqtime)) {
-                var comment = '{{Blocked|ad=' + admin + '|' + Morebits.string.formatTime(duration) + '}}。--~~~~';
+                var comment = '{{Blocked|ad=' + admin + '|' + duration + '}}。--~~~~';
                 sections[sectionId] = sections[sectionId].replace(/(\* 处理：)(?:<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?/, '$1' + comment);
             }
 
