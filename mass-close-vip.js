@@ -52,7 +52,11 @@ javascript: (function() {
             }
 
             if (blocktime.isAfter(reqtime)) {
-                var comment = '{{Blocked|ad=' + admin + '|' + duration + '}}。--~~~~';
+                var comment = '{{Blocked|' + duration;
+                if (admin !== mw.config.get('wgUserName')) {
+                    comment += '|ad=' + admin;
+                }
+                comment += '}}。--~~~~';
                 sections[sectionId] = sections[sectionId].replace(/(\* 处理：)(?:<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?/, '$1' + comment);
             }
 

@@ -88,7 +88,11 @@ javascript: (function() {
             }
 
             if (protectTime.isAfter(reqTime)) {
-                var comment = ':{{RFPP|' + rfppType + '|' + duration + '|by=' + admin + '}}。--~~~~';
+                var comment = ':{{RFPP|' + rfppType + '|' + duration;
+                if (admin !== mw.config.get('wgUserName')) {
+                    '|by=' + admin;
+                }
+                comment += '}}。--~~~~';
                 sections[sectionId] = sections[sectionId].trimRight();
                 sections[sectionId] += '\n' + comment + '\n\n';
             }
