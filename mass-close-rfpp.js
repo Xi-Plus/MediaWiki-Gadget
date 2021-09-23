@@ -90,7 +90,7 @@ javascript: (function() {
             if (protectTime.isAfter(reqTime)) {
                 var comment = ':{{RFPP|' + rfppType + '|' + duration;
                 if (admin !== mw.config.get('wgUserName')) {
-                    '|by=' + admin;
+                    comment += '|by=' + admin;
                 }
                 comment += '}}。--~~~~';
                 sections[sectionId] = sections[sectionId].trimRight();
