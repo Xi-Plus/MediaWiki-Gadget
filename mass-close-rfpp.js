@@ -23,12 +23,22 @@ javascript: (function() {
     var remainingTask = 0;
 
     var runSection = function(sectionId, pagename) {
+        var allTextTime = [...sections[sectionId].matchAll(/\d{4}年\d{1,2}月\d{1,2}日 \(.\) \d{2}:\d{2} \(UTC\)/g)];
+        var reqTime = new Morebits.date();
+        for (let j = 0; j < allTextTime.length; j++) {
+            var temptime = new Morebits.date(allTextTime[j][0]);
+            if (temptime.isBefore(reqTime)) {
+                reqTime = temptime;
+            }
+        }
+
         new mw.Api().get({
             'action': 'query',
             'format': 'json',
             'list': 'logevents',
             'leprop': 'type|user|timestamp|details',
             'letype': 'protect',
+            'leend': reqTime.format('YYYY-MM-DD HH:mm:ss', 'utc'),
             'letitle': pagename,
             'lelimit': '1',
         }).then(function(res) {
@@ -78,24 +88,13 @@ javascript: (function() {
                 }
             }
 
-            var allTextTime = [...sections[sectionId].matchAll(/\d{4}年\d{1,2}月\d{1,2}日 \(.\) \d{2}:\d{2} \(UTC\)/g)];
-            var reqTime = new Morebits.date();
-            for (let j = 0; j < allTextTime.length; j++) {
-                var temptime = new Morebits.date(allTextTime[j][0]);
-                if (temptime.isBefore(reqTime)) {
-                    reqTime = temptime;
-                }
+            var comment = ':{{RFPP|' + rfppType + '|' + duration;
+            if (admin !== mw.config.get('wgUserName')) {
+                comment += '|by=' + admin;
             }
-
-            if (protectTime.isAfter(reqTime)) {
-                var comment = ':{{RFPP|' + rfppType + '|' + duration;
-                if (admin !== mw.config.get('wgUserName')) {
-                    comment += '|by=' + admin;
-                }
-                comment += '}}。--~~~~';
-                sections[sectionId] = sections[sectionId].trimRight();
-                sections[sectionId] += '\n' + comment + '\n\n';
-            }
+            comment += '}}。--~~~~';
+            sections[sectionId] = sections[sectionId].trimRight();
+            sections[sectionId] += '\n' + comment + '\n\n';
 
             updateText();
         });
@@ -114,7 +113,7 @@ javascript: (function() {
     for (let i = 1; i < sections.length; i++) {
         const content = sections[i];
 
-        if (!/{{RFPP\|/.test(content)) {
+        if (!/{{RFPP\|/i.test(content)) {
             var m = content.match(/===\s*\[\[:?([^\]]+?)]]\s*===/i);
             if (m) {
                 var pagename = m[1];

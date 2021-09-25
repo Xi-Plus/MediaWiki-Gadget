@@ -14,12 +14,22 @@ javascript: (function() {
     var remainingTask = 0;
 
     var runSection = function(sectionId, username) {
+        var alltexttime = [...sections[sectionId].matchAll(/\d{4}年\d{1,2}月\d{1,2}日 \(.\) \d{2}:\d{2} \(UTC\)/g)];
+        var reqTime = new Morebits.date();
+        for (let j = 0; j < alltexttime.length; j++) {
+            var temptime = new Morebits.date(alltexttime[j][0]);
+            if (temptime.isBefore(reqTime)) {
+                reqTime = temptime;
+            }
+        }
+
         new mw.Api().get({
             'action': 'query',
             'format': 'json',
             'list': 'logevents',
             'leprop': 'type|user|timestamp|details',
             'letype': 'block',
+            'leend': reqTime.format('YYYY-MM-DD HH:mm:ss', 'utc'),
             'letitle': 'User:' + username,
             'lelimit': '1',
         }).then(function(res) {
@@ -33,17 +43,7 @@ javascript: (function() {
                 return;
             }
             var duration = logevent.params.duration;
-            var blocktime = new Morebits.date(logevent.timestamp);
             var admin = logevent.user;
-
-            var alltexttime = [...sections[sectionId].matchAll(/\d{4}年\d{1,2}月\d{1,2}日 \(.\) \d{2}:\d{2} \(UTC\)/g)];
-            var reqtime = new Morebits.date();
-            for (let j = 0; j < alltexttime.length; j++) {
-                var temptime = new Morebits.date(alltexttime[j][0]);
-                if (temptime.isBefore(reqtime)) {
-                    reqtime = temptime;
-                }
-            }
 
             if (Morebits.string.isInfinity(duration)) {
                 duration = 'indef';
@@ -51,14 +51,12 @@ javascript: (function() {
                 duration = Morebits.string.formatTime(duration);
             }
 
-            if (blocktime.isAfter(reqtime)) {
-                var comment = '{{Blocked|' + duration;
-                if (admin !== mw.config.get('wgUserName')) {
-                    comment += '|ad=' + admin;
-                }
-                comment += '}}。--~~~~';
-                sections[sectionId] = sections[sectionId].replace(/(\* 处理：)(?:<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?/, '$1' + comment);
+            var comment = '{{Blocked|' + duration;
+            if (admin !== mw.config.get('wgUserName')) {
+                comment += '|ad=' + admin;
             }
+            comment += '}}。--~~~~';
+            sections[sectionId] = sections[sectionId].replace(/(\* 处理：)(?:<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?/, '$1' + comment);
 
             updateText();
         });
