@@ -60,7 +60,7 @@ javascript: (async () => {
     result += '<br>Simple Regex (case sensitive):<br>' + regex + '<br>';
 
     result += '<br>Regex:<br>' + compre + regexci + '<br>';
-    result += '<br>Regex (case sensitive):<br>' + compre + regexci + '<br>';
+    result += '<br>Regex (case sensitive):<br>' + compre + regex + '<br>';
 
     result += '<br>Regex with namespace:<br>' + compre + templateprefix + regexci + '<br>';
     result += '<br>Regex with namespace (case sensitive):<br>' + compre + templateprefix + regex + '<br>';
