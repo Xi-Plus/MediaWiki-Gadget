@@ -10,19 +10,20 @@ javascript: (async () => {
         'prop': 'redirects',
         'titles': mw.config.get('wgPageName'),
         'rdlimit': 'max',
+        'formatversion': '2',
     }).then(async data => {
-        let pageids = mw.config.get('wgArticleId') + '|' + $.map(data.query.pages[mw.config.get('wgArticleId')].redirects, redirect => redirect.pageid).join('|');
-        pageids = pageids.replace(/\|$/, '');
+        let redirects = mw.config.get('wgPageName') + '|' + $.map(data.query.pages[0].redirects || [], redirect => redirect.title).join('|');
+        redirects = redirects.replace(/\|$/, '');
 
         await api.get({
             'action': 'query',
             'format': 'json',
             'prop': 'info',
-            'pageids': pageids,
+            'titles': redirects,
             'inprop': 'varianttitles',
+            'formatversion': '2',
         }).then(data => {
-            for (const pageid in data.query.pages) {
-                const page = data.query.pages[pageid];
+            data.query.pages.forEach(page => {
                 for (const variant in page.varianttitles) {
                     const title = page.varianttitles[variant].replace(/^[^:]+?:/, '');
                     if (titles.indexOf(title) === -1) {
@@ -30,7 +31,7 @@ javascript: (async () => {
                         result += title + '<br>';
                     }
                 }
-            }
+            });
         });
     });
 
