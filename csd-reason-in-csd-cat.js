@@ -13,7 +13,7 @@ javascript:
 		titlelist.push(title);
 	});
 	var addText = function(title, type, text) {
-		$('<span>').text('（' + text + '）').addClass('cricc-' + type).appendTo('#cricc-item-' + title.replace(/([():/])/g, '\\$1'));
+		$('<span>').text('（' + text + '）').addClass('cricc-' + type).appendTo('#cricc-item-' + title.replace(/([():/.])/g, '\\$1'));
 	}
 
 	for (var i = 0; i < titlelist.length; i += 50) {
@@ -59,7 +59,7 @@ javascript:
 		'action': 'query',
 		'list': 'recentchanges',
 		'rcprop': 'timestamp|comment',
-		'rclimit': '100',
+		'rclimit': '500',
 		'rctype': 'categorize',
 		'rctitle': 'Category:快速删除候选',
 	}).done(data => {
