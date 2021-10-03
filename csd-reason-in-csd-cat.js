@@ -59,7 +59,7 @@ javascript:
 		'action': 'query',
 		'list': 'recentchanges',
 		'rcprop': 'timestamp|comment',
-		'rclimit': '500',
+		'rclimit': 'max',
 		'rctype': 'categorize',
 		'rctitle': 'Category:快速删除候选',
 	}).done(data => {
