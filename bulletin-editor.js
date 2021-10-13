@@ -34,7 +34,10 @@
 			curtimestamp: true,
 		};
 
-		if (mw.config.get('wgPageName') === 'Template:Bulletin' && mw.config.get('wgRevisionId') !== mw.config.get('wgCurRevisionId')) {
+		if (mw.config.get('wgPageName') === 'Template:Bulletin'
+			&& mw.config.get('wgRevisionId') !== 0
+			&& mw.config.get('wgRevisionId') !== mw.config.get('wgCurRevisionId')
+		) {
 			params.rvstartid = mw.config.get('wgRevisionId');
 
 			$wrapper.append(
