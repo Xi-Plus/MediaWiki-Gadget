@@ -24,8 +24,19 @@
 			return;
 		}
 
-		var revisionId = mw.config.get('wgRevisionId') || mw.config.get('wgCurRevisionId');
-		if (revisionId !== mw.config.get('wgCurRevisionId')) {
+		var params = {
+			action: 'query',
+			format: 'json',
+			prop: 'revisions',
+			titles: bulletinTitle,
+			rvprop: ['content', 'timestamp'],
+			formatversion: '2',
+			curtimestamp: true,
+		};
+
+		if (mw.config.get('wgPageName') === 'Template:Bulletin' && mw.config.get('wgRevisionId') !== mw.config.get('wgCurRevisionId')) {
+			params.rvstartid = mw.config.get('wgRevisionId');
+
 			$wrapper.append(
 				$('<div>').addClass('warningbox')
 					.append($('<b>').text('警告：'))
@@ -33,16 +44,7 @@
 			);
 		}
 
-		api.get({
-			action: 'query',
-			format: 'json',
-			prop: 'revisions',
-			titles: bulletinTitle,
-			rvstartid: revisionId,
-			rvprop: ['content', 'timestamp'],
-			formatversion: '2',
-			curtimestamp: true,
-		}).done(function(data) {
+		api.get(params).done(function(data) {
 			var revision = data.query.pages[0].revisions[0];
 			var basetimestamp = revision.timestamp;
 			var curtimestamp = data.curtimestamp;
