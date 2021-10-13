@@ -12,10 +12,25 @@
 
 		$('#firstHeading').text('公告欄編輯器');
 
+		$('#be-editor').remove();
+		var $wrapper = $('<div>').attr('id', 'be-editor');
+		$('#bodyContent').html($wrapper);
+
 		if (mw.config.get('wgUserGroups').indexOf('autoconfirmed') === -1) {
-			mw.notify('您沒有權限使用公告欄編輯器', { type: 'error' });
-			$('#bodyContent').html('您沒有權限使用公告欄編輯器。');
+			$wrapper.append(
+				$('<div>').addClass('errorbox')
+					.append('您沒有權限使用公告欄編輯器。')
+			);
 			return;
+		}
+
+		var revisionId = mw.config.get('wgRevisionId') || mw.config.get('wgCurRevisionId');
+		if (revisionId !== mw.config.get('wgCurRevisionId')) {
+			$wrapper.append(
+				$('<div>').addClass('warningbox')
+					.append($('<b>').text('警告：'))
+					.append('您正在編輯的是本頁的舊版本。如果您保存它的話，在本版本之後的任何修改都會丟失。')
+			);
 		}
 
 		api.get({
@@ -23,6 +38,7 @@
 			format: 'json',
 			prop: 'revisions',
 			titles: bulletinTitle,
+			rvstartid: revisionId,
 			rvprop: ['content', 'timestamp'],
 			formatversion: '2',
 			curtimestamp: true,
@@ -40,8 +56,6 @@
 			var mainText = bulletinText.substring(idxStart + flagStart.length, idxEnd);
 			var re = /{{\s*Bulletin\/item\s*\|/gi;
 			var m = re.exec(mainText);
-			$('#be-editor').remove();
-			var $wrapper = $('<div>').attr('id', 'be-editor');
 
 			function copyDataFromParent(item, row) {
 				item.find('.be-item-type').val(row.find('.be-row-type').val());
@@ -507,9 +521,6 @@
 				border-color: #36c;
 			}
 			`));
-
-			$('#bodyContent').html($wrapper);
-			$('#firstHeading').text('公告欄編輯器');
 
 			$(function() {
 				var oldList;
