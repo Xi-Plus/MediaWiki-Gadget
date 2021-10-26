@@ -41,6 +41,9 @@ javascript:
 					if (page.revisions[0]['*'].match(/{{\s*Notmandarin\s*\|/i)) {
 						addText(title, 'reason', 'G14');
 					}
+					if (page.revisions[0]['*'].match(/{{\s*(Nowcommons|Now[ _]+Commons|Ncd|F7)\s*\|/i)) {
+						addText(title, 'reason', 'F7');
+					}
 					if (page.revisions[0]['*'].match(/{{\s*AFC submission\s*\|/i)) {
 						addText(title, 'reason', 'AFC');
 					}
