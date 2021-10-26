@@ -13,7 +13,7 @@ javascript:
 		titlelist.push(title);
 	});
 	var addText = function(title, type, text) {
-		$('<span>').text('（' + text + '）').addClass('cricc-' + type).appendTo('#cricc-item-' + title.replace(/([():/.])/g, '\\$1'));
+		$('<span>').text('（' + text + '）').addClass('cricc-' + type).appendTo(document.getElementById('cricc-item-' + title));
 	}
 
 	for (var i = 0; i < titlelist.length; i += 50) {
