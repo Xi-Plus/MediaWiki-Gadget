@@ -16,18 +16,30 @@
 		SpecialInterlanguageLink.namespace = [-1, 2, 3, 8];
 	}
 
+	const portletId = 'p-SpecialInterlanguageLink';
+
 	function createLinks(pagename) {
 		for (var lang in SpecialInterlanguageLink.lang) {
 			var name = SpecialInterlanguageLink.lang[lang];
 			var interlink = lang + ":" + pagename;
 			var link = mw.config.get('wgServer') + mw.config.get('wgArticlePath').replace("$1", interlink);
-			var content = `<li class="interlanguage-link interwiki-${lang}">
-			<a href="${link}" title="${interlink}" lang="${lang}" hreflang="${lang}" class="interlanguage-link-target">${name}</a>
-		</li>`;
 
-			$('#p-lang>div>ul').append(content);
+			mw.util.addPortletLink(portletId, link, name, null, interlink)
 		}
 	}
+
+	$('#mw-panel').append(
+		$('<nav>').attr('id', portletId).addClass('mw-portlet mw-portlet-help vector-menu vector-menu-portal portal').append(
+			$('<h3>').addClass('vector-menu-heading').append(
+				$('<span>').text('跨語言連結')
+			)
+		).append(
+			$('<div>').addClass('vector-menu-content').append(
+				$('<ul>').addClass('vector-menu-content-list')
+			)
+		)
+	)
+	mw.util.hidePortlet(portletId);
 
 	if ($.inArray(mw.config.get('wgNamespaceNumber'), SpecialInterlanguageLink.namespace) !== -1) {
 		if (mw.config.get('wgNamespaceNumber') === -1) {
