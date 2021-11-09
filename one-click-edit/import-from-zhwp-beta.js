@@ -33,6 +33,7 @@ javascript: (function() {
             for (var i = 0; i < e.import.length; i++) {
                 mw.notify('成功匯入 ' + e.import[i].title + ' ' + e.import[i].revisions + ' 個版本');
             }
+            location.reload();
         }
     }, function(e) {
         mw.notify('未知錯誤：' + e);
