@@ -20,9 +20,10 @@
 		});
 	};
 
-	setTimeout(updateLinks, 1000);
 
-	if (mw.util.getParamValue('dtenable') === null) {
+	if (mw.util.getParamValue('dtenable')) {
+		setTimeout(updateLinks, 1000);
+	} else {
 		var url = new URL(window.location.href);
 		url.searchParams.set('dtenable', '1');
 		mw.util.addPortletLink(
