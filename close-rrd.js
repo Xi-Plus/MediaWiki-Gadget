@@ -111,7 +111,7 @@
                 html += '<option value="' + CloseRrd.presetcomment[i] + '">' + CloseRrd.presetcomment[i] + '</option>'
             }
             html += '</select><br>';
-            html += '<input type="text" id="comment" size="70" value=":">';
+            html += '<input type="text" id="comment" size="70" value="::">';
             html += '</div>';
             $(html).dialog({
                 title: '關閉修訂版本刪除請求 - ' + title,
