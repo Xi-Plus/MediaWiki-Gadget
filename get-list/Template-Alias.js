@@ -55,16 +55,17 @@ javascript: (async () => {
 
     let regexci = '(' + regexcilist.join('|') + ')';
     let compre = '{{[\\s_]*';
-    let templateprefix = '(Template|T|样板|模板|樣板)?[\\s_]*:?[\\s_]*';
+    let prefix = '(Template|T|样板|模板|樣板)?[\\s_]*:?[\\s_]*';
+    let suffix = '[\\s_]*\\|';
 
     result += '<br>Simple Regex:<br>' + regexci + '<br>';
     result += '<br>Simple Regex (case sensitive):<br>' + regex + '<br>';
 
-    result += '<br>Regex:<br>' + compre + regexci + '<br>';
-    result += '<br>Regex (case sensitive):<br>' + compre + regex + '<br>';
+    result += '<br>Regex:<br>' + compre + regexci + suffix + '<br>';
+    result += '<br>Regex (case sensitive):<br>' + compre + regex + suffix + '<br>';
 
-    result += '<br>Regex with namespace:<br>' + compre + templateprefix + regexci + '<br>';
-    result += '<br>Regex with namespace (case sensitive):<br>' + compre + templateprefix + regex + '<br>';
+    result += '<br>Regex with namespace:<br>' + compre + prefix + regexci + suffix + '<br>';
+    result += '<br>Regex with namespace (case sensitive):<br>' + compre + prefix + regex + suffix + '<br>';
 
     var win = window.open('');
     win.document.body.innerHTML = result;
