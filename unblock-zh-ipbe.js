@@ -27,18 +27,20 @@
     if (typeof (UnblockZhIpbe.duration) != 'object') {
         UnblockZhIpbe.duration = ['3 months', '6 months'];
     }
-    UnblockZhIpbe.duration.push('infinite');
+    if (UnblockZhIpbe.duration.indexOf('infinite') === -1) {
+        UnblockZhIpbe.duration.push('infinite');
+    }
 
     function AskUnblockZhUrl() {
         var url;
         var msgprefix = '';
         while (true) { /* eslint-disable-line no-constant-condition */
-            url = prompt(msgprefix + '請輸入 unblock-zh 郵件網址\n形如 https://lists.wikimedia.org/mailman/private/unblock-zh/2018-November/012345.html');
+            url = prompt(msgprefix + '請輸入 unblock-zh 郵件網址\n形如 https://lists.wikimedia.org/hyperkitty/list/unblock-zh@lists.wikimedia.org/message/AAAAA/');
             if (url === null) {
                 return false;
             }
             var m;
-            if ((m = url.match(/(https?:\/\/lists\.wikimedia\.org\/mailman\/private\/(unblock-zh\/\d+-.+\/\d+)\.html)/)) !== null) {
+            if ((m = url.match(/^\s*(https?:\/\/lists.wikimedia.org\/hyperkitty\/list\/unblock-zh@lists.wikimedia.org\/message\/(.+)\/?)\s*$/)) !== null) {
                 return { 'long': m[1], 'short': m[2] };
             }
             msgprefix = '格式錯誤！請重新輸入\n';
@@ -53,7 +55,7 @@
             msg += '\n' + (i + 1) + '. ' + UnblockZhIpbe.duration[i];
         }
         while (true) { /* eslint-disable-line no-constant-condition */
-            duration = prompt(msgprefix + msg);
+            duration = prompt(msgprefix + msg, '3');
             if (duration === null) {
                 return false;
             }
@@ -65,13 +67,13 @@
         }
     }
 
-    function GrantIpbe(username, duration, urlshort) {
+    function GrantIpbe(username, duration, url) {
         new mw.Api().postWithToken('userrights', {
             action: 'userrights',
             user: username,
             add: 'ipblock-exempt',
             expiry: duration,
-            reason: urlshort + UnblockZhIpbe.summarySuffix,
+            reason: url + UnblockZhIpbe.summarySuffix,
         }).then(function() {
             mw.notify('成功授予 ' + username + ' IPBE ' + duration);
         }, function(e) {
@@ -130,10 +132,10 @@
         });
     }
 
-    function Report(username, urllong) {
+    function Report(username, url) {
         new mw.Api().edit('Wikipedia:權限申請/申請IP封禁例外權', function(revision) {
             return {
-                text: revision.content + '\n\n{{subst:rfp|' + username + '|2=[' + urllong + ' unblock-zh]|status=+}}--~~~~',
+                text: revision.content + '\n\n{{subst:rfp|' + username + '|2=[' + url + ' unblock-zh]|status=+}}--~~~~',
                 summary: '授予 ' + username + ' IP封禁例外權備案' + UnblockZhIpbe.summarySuffix,
             };
         }).then(function() {
@@ -198,7 +200,7 @@
             }
 
             if (action.indexOf('1') !== -1) {
-                GrantIpbe(user, duration, url.short);
+                GrantIpbe(user, duration, url.long);
             }
             if (action.indexOf('2') !== -1) {
                 NotifyUser(user, duration);
