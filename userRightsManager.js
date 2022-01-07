@@ -158,7 +158,7 @@
 				},
 			});
 			this.closingRemarksInput = new OO.ui.TextInputWidget({
-				value: '{{done}} ~~~~',
+				value: '{{done}}--~~~~',
 			});
 			this.watchTalkPageCheckbox = new OO.ui.CheckboxInputWidget({
 				selected: false,
