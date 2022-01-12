@@ -69,9 +69,6 @@
         delNode.appendChild(delLink);
 
         titles.each(function(key, current) {
-            if (key == 0) {
-                return;
-            }
             var headline = $(current).find('.mw-headline').first();
             var vandal = headline.find('.template-Vandal').first();
             var title = vandal.next().attr('id');
@@ -200,7 +197,7 @@
     getPageContent.then(function(result) {
         window.content = result.content;
         var lenintext = result.content.split(/^===[^=]/gm).length - 1;
-        var leninhtml = $('#bodyContent').find('h3').length - 1;
+        var leninhtml = $('#bodyContent').find('h3').length;
         if (leninhtml !== lenintext) {
             mw.notify('抓取章節錯誤，在HTML找到 ' + leninhtml + ' 個章節，在原始碼找到 ' + lenintext + ' 個章節');
         } else {
