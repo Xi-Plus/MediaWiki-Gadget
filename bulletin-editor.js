@@ -303,7 +303,7 @@
 				$('<table>').attr('id', 'be-active-zone').addClass('wikitable')
 					.append($('<thead>')
 						.append($('<tr>')
-							.append($('<th>').css('width', '30px').text('類別')
+							.append($('<th>').css('width', '30px').text(wgULS('类型', '類別'))
 								.append($('<img>').attr({
 									'src': 'https://upload.wikimedia.org/wikipedia/commons/0/06/OOjs_UI_icon_add.svg',
 									'title': wgULS('增加一个公告类型', '增加一個公告類別'),
