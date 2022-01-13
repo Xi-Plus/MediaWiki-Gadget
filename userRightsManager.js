@@ -24,19 +24,6 @@
 		return;
 	}
 
-	var permissionNames = {
-		'ipblock-exempt': wgULS('IP封禁豁免', 'IP封鎖例外'),
-		'patroller': '巡查員',
-		'rollbacker': '回退員',
-		'autoreviewer': '巡查豁免者',
-		'confirmed': '已確認的使用者',
-		'massmessage-sender': '大量訊息傳送者',
-		'accountcreator': '大量帳號建立者',
-		'filemover': '檔案移動員',
-		'transwiki': '跨維基匯入者',
-		'templateeditor': '模板編輯員',
-	};
-
 	var templates = {
 		'ipblock-exempt': 'Ipexemptgranted',
 		'patroller': 'Patrolgranted',
@@ -48,9 +35,22 @@
 
 	var api,
 		tagLine = '（使用[[User:Xiplus/js/userRightsManager|userRightsManager]]）',
-		permaLink, userName, dialog;
+		permaLink, userName, dialog, permissionNames;
 
-	mw.loader.using(['oojs-ui', 'mediawiki.api', 'mediawiki.widgets.SelectWithInputWidget', 'mediawiki.widgets.expiry', 'ext.gadget.morebits'], function() {
+	mw.loader.using(['oojs-ui', 'mediawiki.api', 'mediawiki.widgets.SelectWithInputWidget', 'mediawiki.widgets.expiry', 'ext.gadget.morebits', 'ext.gadget.site-lib'], function() {
+		permissionNames = {
+			'ipblock-exempt': wgULS('IP封禁豁免', 'IP封鎖例外'),
+			'patroller': wgULS('巡查员', '巡查員'),
+			'rollbacker': wgULS('回退员', '回退員'),
+			'autoreviewer': '巡查豁免者',
+			'confirmed': wgULS('已确认的用户', '已確認的使用者'),
+			'massmessage-sender': wgULS('大量消息发送者', '大量訊息傳送者'),
+			'accountcreator': wgULS('大量账户创建者', '大量帳號建立者'),
+			'filemover': wgULS('文件移动员', '檔案移動員'),
+			'transwiki': wgULS('跨维基导入者', '跨維基匯入者'),
+			'templateeditor': wgULS('模板编辑员', '模板編輯員'),
+		};
+
 		api = new mw.Api();
 		$('.perm-assign-permissions a').on('click', function(e) {
 			if (permission === 'AutoWikiBrowser') return true;
@@ -59,22 +59,6 @@
 			showDialog();
 		});
 	});
-
-	/* 修改自 https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-site-lib.js&oldid=36816755 */
-	function wgULS(hans, hant, cn, tw, hk, sg, zh, mo, my) {
-		var wg = mw.config.get('wgUserLanguage');
-		var ret = {
-			'zh': zh || hans || hant || cn || tw || hk || sg || mo || my,
-			'zh-hans': hans || cn || sg || my,
-			'zh-hant': hant || tw || hk || mo,
-			'zh-cn': cn || hans || sg || my,
-			'zh-sg': sg || hans || cn || my,
-			'zh-tw': tw || hant || hk || mo,
-			'zh-hk': hk || hant || mo || tw,
-			'zh-mo': mo || hant || hk || tw,
-		}
-		return ret[wg] || zh || hans || hant || cn || tw || hk || sg || mo || my;
-	}
 
 	function showDialog() {
 		var Dialog = function(config) {
@@ -105,9 +89,9 @@
 
 			var rightLogWapper = $('<span>');
 			var url = mw.util.getUrl('Special:Log/rights', { type: 'rights', page: 'User:' + userName });
-			$('<a>').text('最近權限日誌').attr({ 'href': url, 'target': '_blank' }).appendTo(rightLogWapper);
+			$('<a>').text(wgULS('最近权限日志', '最近權限日誌')).attr({ 'href': url, 'target': '_blank' }).appendTo(rightLogWapper);
 			rightLogWapper.append('：');
-			var rightLogText = $('<span>').text('取得中').appendTo(rightLogWapper);
+			var rightLogText = $('<span>').text(wgULS('获取中', '取得中')).appendTo(rightLogWapper);
 			this.rightLog = new OO.ui.LabelWidget({
 				label: rightLogWapper,
 			});
@@ -122,11 +106,11 @@
 			}).done(function(data) {
 				var logs = data.query.logevents;
 				if (logs.length === 0) {
-					rightLogText.text('沒有任何日誌');
+					rightLogText.text(wgULS('没有任何日志', '沒有任何日誌'));
 				} else {
 					var timestamp = new Morebits.date(logs[0].timestamp).calendar();
-					var rights = logs[0].params.newgroups.join('、') || '（無）';
-					rightLogText.text(timestamp + ' ' + logs[0].user + '將使用者群組改為' + rights);
+					var rights = logs[0].params.newgroups.join('、') || wgULS('（无）', '（無）');
+					rightLogText.text(timestamp + ' ' + logs[0].user + wgULS('将用户组改为', '將使用者群組改為') + rights);
 				}
 			});
 
@@ -142,13 +126,13 @@
 					dropdowninput: {
 						options: [
 							{ data: '1 day', label: '1天' },
-							{ data: '1 week', label: '1週' },
-							{ data: '1 month', label: '1個月' },
-							{ data: '3 months', label: '3個月' },
-							{ data: '6 months', label: '6個月' },
+							{ data: '1 week', label: wgULS('1周', '1週') },
+							{ data: '1 month', label: wgULS('1个月', '1個月') },
+							{ data: '3 months', label: wgULS('3个月', '3個月') },
+							{ data: '6 months', label: wgULS('6个月', '6個月') },
 							{ data: '1 year', label: '1年' },
-							{ data: 'infinite', label: '沒有期限' },
-							{ data: 'other', label: '其他時間' },
+							{ data: 'infinite', label: wgULS('没有期限', '沒有期限') },
+							{ data: 'other', label: wgULS('其他时间', '其他時間') },
 						],
 						value: 'infinite',
 					},
@@ -219,12 +203,12 @@
 				}).fail(function(obj) {
 					if (obj && obj.error && obj.error.info) {
 						field.$field.append($('<span>')
-							.text('錯誤：' + obj.error.info)
+							.text(wgULS('错误：', '錯誤：') + obj.error.info)
 							.prop('style', 'position:relative; top:0.5em; color: #cc0000; font-weight: bold')
 						);
 					} else {
 						field.$field.append($('<span>')
-							.text('發生未知錯誤。')
+							.text(wgULS('发生未知错误。', '發生未知錯誤。'))
 							.prop('style', 'position:relative; top:0.5em; color: #cc0000; font-weight: bold')
 						);
 					}
@@ -242,13 +226,13 @@
 				return promise;
 			};
 
-			self.markAsDoneProgressField.setLabel('標記請求為已完成...');
+			self.markAsDoneProgressField.setLabel(wgULS('标记请求为已完成...', '標記請求為已完成...'));
 			self.submitFieldset.addItems([self.markAsDoneProgressField]);
-			self.changeRightsProgressField.setLabel('授予權限...');
+			self.changeRightsProgressField.setLabel(wgULS('授予权限...', '授予權限...'));
 			self.submitFieldset.addItems([self.changeRightsProgressField]);
 
 			if (!!templates[permission]) {
-				self.issueTemplateProgressField.setLabel('發送通知...');
+				self.issueTemplateProgressField.setLabel(wgULS('发送通知...', '發送通知...'));
 				self.submitFieldset.addItems([self.issueTemplateProgressField]);
 			}
 
@@ -297,7 +281,7 @@
 	}
 
 	function assignPermission(summary, revId, expiry) {
-		permaLink = '[[Special:PermaLink/' + revId + '#User:' + userName + '|權限申請]]';
+		permaLink = '[[Special:PermaLink/' + revId + '#User:' + userName + '|' + wgULS('权限申请', '權限申請') + ']]';
 		var fullSummary = '+' + permissionNames[permission] + '；' + permaLink;
 		if (summary !== '') {
 			fullSummary += '；' + summary;
@@ -372,7 +356,7 @@
 			format: 'json',
 			action: 'edit',
 			title: talkPage,
-			summary: '根據' + permaLink + '授予' + permissionNames[permission] + tagLine,
+			summary: wgULS('根据', '根據') + permaLink + '授予' + permissionNames[permission] + tagLine,
 			appendtext: '\n\n{{subst:' + templates[permission] + '}}',
 			watchlist: watch ? 'watch' : 'unwatch',
 		});
