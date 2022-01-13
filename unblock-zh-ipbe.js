@@ -64,7 +64,7 @@
             if (UnblockZhIpbe.duration[duration] !== undefined) {
                 return UnblockZhIpbe.duration[duration];
             }
-            msgprefix = wgULS('输入不在列表内，请重新输入', '輸入不在列表內，請重新輸入');
+            msgprefix = wgULS('输入不在列表内，请重新输入\n', '輸入不在列表內，請重新輸入\n');
         }
     }
 
@@ -98,7 +98,7 @@
             if (page.missing !== undefined) {
                 new mw.Api().create(
                     usertalk,
-                    { summary: wgULS('授予IP封禁豁免权通知', '授予IP封禁例外權通知') + UnblockZhIpbe.summarySuffix },
+                    { summary: wgULS('授予IP封禁豁免权通知', '授予IP封鎖例外權通知') + UnblockZhIpbe.summarySuffix },
                     message
                 ).then(function() {
                     mw.notify(wgULS('成功发送通知给 ', '成功發送通知給 ') + username);
@@ -110,7 +110,7 @@
                     action: 'flow',
                     page: usertalk,
                     submodule: 'new-topic',
-                    nttopic: wgULS('授予IP封禁豁免权通知', '授予IP封禁例外權通知'),
+                    nttopic: wgULS('授予IP封禁豁免权通知', '授予IP封鎖例外權通知'),
                     ntcontent: message,
                     ntformat: 'wikitext',
                 }).then(function() {
@@ -122,7 +122,7 @@
                 new mw.Api().edit(usertalk, function(revision) {
                     return {
                         text: (revision.content + '\n\n' + message).trim(),
-                        summary: wgULS('授予IP封禁豁免权通知', '授予IP封禁例外權通知') + UnblockZhIpbe.summarySuffix,
+                        summary: wgULS('授予IP封禁豁免权通知', '授予IP封鎖例外權通知') + UnblockZhIpbe.summarySuffix,
                     };
                 }).then(function() {
                     mw.notify(wgULS('成功发送通知给 ', '成功發送通知給 ') + username);
@@ -135,7 +135,7 @@
 
     function Report(username, url) {
         new mw.Api().edit('Wikipedia:權限申請/申請IP封禁例外權', function(revision) {
-            var summary = '[[Special:UserRights/' + username + '|' + '授予' + username + wgULS('IP封禁豁免权备案', 'IP封鎖例外權備案') + ']]'
+            var summary = '[[Special:UserRights/' + username + '|' + '授予' + username + wgULS('IP封禁豁免权', 'IP封鎖例外權') + ']]' + wgULS('备案', '備案');
             return {
                 text: revision.content + '\n\n{{subst:rfp|' + username + '|2=[' + url + ' unblock-zh]|status=+}}--~~~~',
                 summary: summary + UnblockZhIpbe.summarySuffix,
