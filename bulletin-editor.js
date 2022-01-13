@@ -10,7 +10,7 @@
 		var bulletinTitle = 'Template:Bulletin';
 		var archiveTitle = 'Wikipedia:公告欄/存檔/' + date.format('YYYY年');
 
-		$('#firstHeading').text('公告欄編輯器');
+		$('#firstHeading').text(wgULS('公告栏编辑器', '公告欄編輯器'));
 
 		$('#be-editor').remove();
 		var $wrapper = $('<div>').attr('id', 'be-editor');
@@ -19,7 +19,7 @@
 		if (mw.config.get('wgUserGroups').indexOf('autoconfirmed') === -1) {
 			$wrapper.append(
 				$('<div>').addClass('errorbox')
-					.append('您沒有權限使用公告欄編輯器。')
+					.append(wgULS('您没有权限使用公告栏编辑器。', '您沒有權限使用公告欄編輯器。'))
 			);
 			return;
 		}
@@ -43,7 +43,7 @@
 			$wrapper.append(
 				$('<div>').addClass('warningbox')
 					.append($('<b>').text('警告：'))
-					.append('您正在編輯的是本頁的舊版本。如果您保存它的話，在本版本之後的任何修改都會丟失。')
+					.append(wgULS('您正在编辑的是本页的旧版本。如果您保存它的话，在本版本之后的任何修改都会丢失。', '您正在編輯的是本頁的舊版本。如果您保存它的話，在本版本之後的任何修改都會丟失。'))
 			);
 		}
 
@@ -55,7 +55,7 @@
 			var idxStart = bulletinText.indexOf(flagStart);
 			var idxEnd = bulletinText.indexOf(flagEnd);
 			if (idxStart === -1 || idxEnd === -1) {
-				mw.notify('無法從文本解析公告位置', { type: 'error' });
+				mw.notify(wgULS('无法从文本解析公告位置', '無法從文本解析公告位置'), { type: 'error' });
 				return;
 			}
 			var mainText = bulletinText.substring(idxStart + flagStart.length, idxEnd);
@@ -183,7 +183,7 @@
 					$('#be-preview-box').show();
 					$('#be-preview-body').html(data.parse.text);
 				}).fail(function(error) {
-					mw.notify('產生預覽時發生錯誤：' + error);
+					mw.notify(wgULS('产生预览时发生错误：', '產生預覽時發生錯誤：') + error);
 				});
 			}
 
@@ -199,14 +199,14 @@
 					$('#be-diff-box').show();
 					var diff = data.query.pages[0].revisions[0].diff.body;
 					if (diff == '') {
-						$('#be-diff-nochange').text('公告欄無變更').show();
+						$('#be-diff-nochange').text(wgULS('公告栏无变更', '公告欄無變更')).show();
 						$('#be-diff-body').hide();
 					} else {
 						$('#be-diff-nochange').hide();
 						$('#be-diff-body').html(diff).show();
 					}
 				}).fail(function(error) {
-					mw.notify('產生差異時發生錯誤：' + error, { type: 'error' });
+					mw.notify(wgULS('产生差异时发生错误：', '產生差異時發生錯誤：') + error, { type: 'error' });
 				});
 			}
 
@@ -235,17 +235,17 @@
 						$('#be-diff-box').show();
 						var diff = data.query.pages[0].revisions[0].diff.body;
 						if (diff == '') {
-							$('#be-diff-nochange').text('存檔頁無變更').show();
+							$('#be-diff-nochange').text(wgULS('存档页无变更', '存檔頁無變更')).show();
 							$('#be-diff-body').hide();
 						} else {
 							$('#be-diff-nochange').hide();
 							$('#be-diff-body').html(diff).show();
 						}
 					}).fail(function(error) {
-						mw.notify('產生差異時發生錯誤：' + error, { type: 'error' });
+						mw.notify(wgULS('产生差异时发生错误：', '產生差異時發生錯誤：') + error, { type: 'error' });
 					});
 				}).fail(function(error) {
-					mw.notify('產生差異時發生錯誤：' + error, { type: 'error' });
+					mw.notify(wgULS('产生差异时发生错误：', '產生差異時發生錯誤：') + error, { type: 'error' });
 				});
 			}
 
@@ -257,7 +257,7 @@
 			}
 
 			function savePage() {
-				if (!confirm('確認發布變更？')) {
+				if (!confirm(wgULS('确认发布变更？', '確認發布變更？'))) {
 					mw.notify('已取消操作');
 					return;
 				}
@@ -269,10 +269,10 @@
 						starttimestamp: curtimestamp,
 					};
 				}).done(function() {
-					mw.notify('成功儲存公告欄');
+					mw.notify(wgULS('成功保存公告栏', '成功儲存公告欄'));
 
 					if (generateArchiveText() === '') {
-						mw.notify('沒有東西要存檔，即將重新載入頁面...');
+						mw.notify(wgULS('没有东西要存档，即将重新加载页面...', '沒有東西要存檔，即將重新載入頁面...'));
 						setTimeout(function() { location.reload(); }, 1000);
 						return;
 					}
@@ -280,20 +280,20 @@
 					api.edit(archiveTitle, function(revision) {
 						return {
 							text: mergeArchiveText(revision.content),
-							summary: '存檔' + summarySuffix,
+							summary: wgULS('存档', '存檔') + summarySuffix,
 						};
 					}).done(function() {
-						mw.notify('成功儲存存檔頁，即將重新載入頁面...');
+						mw.notify(wgULS('成功保存存档页，即将重新加载页面...', '成功儲存存檔頁，即將重新載入頁面...'));
 						setTimeout(function() { location.reload(); }, 1000);
 					}).fail(function(error) {
-						mw.notify('儲存存檔頁時發生錯誤：' + error, { type: 'error' });
+						mw.notify(wgULS('保存存档页时发生错误：', '儲存存檔頁時發生錯誤：') + error, { type: 'error' });
 					});
 				}).fail(function(error) {
 					if (error === 'editconflict') {
 						showEditConflict();
-						mw.notify('儲存公告欄時發生編輯衝突，請從下方複製您的版本並使用傳統編輯框解決衝突', { type: 'error' });
+						mw.notify(wgULS('保存公告栏时发生编辑冲突，请从下方复制您的版本并使用传统编辑框解决冲突', '儲存公告欄時發生編輯衝突，請從下方複製您的版本並使用傳統編輯框解決衝突'), { type: 'error' });
 					} else {
-						mw.notify('儲存公告欄時發生錯誤：' + error, { type: 'error' });
+						mw.notify(wgULS('保存公告栏时发生错误：', '儲存公告欄時發生錯誤：') + error, { type: 'error' });
 					}
 				});
 			}
@@ -306,12 +306,12 @@
 							.append($('<th>').css('width', '30px').text('類別')
 								.append($('<img>').attr({
 									'src': 'https://upload.wikimedia.org/wikipedia/commons/0/06/OOjs_UI_icon_add.svg',
-									'title': '增加一個公告類別',
+									'title': wgULS('增加一个公告类型', '增加一個公告類別'),
 								}).on('click', function() {
 									var $row = createRow().prependTo($tbody);
 									createItem().appendTo($row.find('.be-items'));
 								})))
-							.append($('<th>').css('width', '100%').text('公告內容'))
+							.append($('<th>').css('width', '100%').text(wgULS('公告内容', '公告內容')))
 						)
 					).append($tbody)
 			);
@@ -327,7 +327,7 @@
 				var $type = $('<td>').addClass('be-type-col').appendTo($tr);
 				$type.append($('<img>').addClass('be-sortable-row-handle').attr({
 					'src': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/OOjs_UI_icon_move.svg',
-					'title': '調整公告類別順序',
+					'title': wgULS('调整公告类型顺序', '調整公告類別順序'),
 				}));
 				$type.append($('<br>'));
 				$type.append($('<input>').addClass('be-type-text be-row-type').val(type));
@@ -342,7 +342,7 @@
 				$items.append($('<span>').text('Items: '));
 				$items.append($('<img>').attr({
 					'src': 'https://upload.wikimedia.org/wikipedia/commons/0/06/OOjs_UI_icon_add.svg',
-					'title': '增加一個公告項目',
+					'title': wgULS('增加一个公告项目', '增加一個公告項目'),
 				}).on('click', function(event) {
 					createItem().prependTo($(event.target).parents('.be-item-col').find('.be-items'));
 				}));
@@ -361,7 +361,7 @@
 				var $li = $('<li>').addClass('be-item').appendTo($ul);
 				$li.append($('<img>').addClass('be-sortable-item-handle').attr({
 					'src': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/OOjs_UI_icon_move.svg',
-					'title': '調整公告項目順序或移動到其他公告類別',
+					'title': wgULS('调整公告项目顺序或移动到其他公告类型', '調整公告項目順序或移動到其他公告類別'),
 				}));
 
 				// hidden type input
@@ -372,7 +372,7 @@
 
 				// item input
 				$li.append($('<input>').addClass('be-item-text be-item-main').val(text)
-					.attr('placeholder', '空的項目將在發布變更時自動被忽略')
+					.attr('placeholder', wgULS('空的项目将在发布变更时自动被忽略', '空的項目將在發布變更時自動被忽略'))
 				);
 
 				// hidden suffix input
@@ -381,7 +381,7 @@
 				// archive button
 				$li.append($('<img>').addClass('be-archive-btn').attr({
 					'src': 'https://upload.wikimedia.org/wikipedia/commons/7/72/OOjs_UI_icon_tray.svg',
-					'title': '存檔',
+					'title': wgULS('存档', '存檔'),
 				}).on('click', moveToArchive));
 
 				return $li;
@@ -408,47 +408,47 @@
 			}
 
 			var $archiveZone = $('<div>').attr('id', 'be-archive-zone').appendTo($wrapper);
-			$archiveZone.append(document.createTextNode('存檔至'));
+			$archiveZone.append(document.createTextNode(wgULS('存档至', '存檔至')));
 			$archiveZone.append($('<a>').attr({
 				href: mw.util.getUrl(archiveTitle),
 				target: '_blank',
 			}).text(archiveTitle));
-			$archiveZone.append(document.createTextNode('（發布變更時會自動合併Prefix、Suffix）'));
+			$archiveZone.append(document.createTextNode(wgULS('（发布变更时会自动合并Prefix、Suffix）', '（發布變更時會自動合併Prefix、Suffix）')));
 			$archiveZone.append($('<ul>').attr('id', 'be-archiveul').addClass('be-items'));
 
-			$wrapper.append($('<span>').text('公告欄編輯摘要：'));
+			$wrapper.append($('<span>').text(wgULS('公告栏编辑摘要：', '公告欄編輯摘要：')));
 			$wrapper.append($('<input>').attr('id', 'be-summary'));
 			$wrapper.append($('<br>'));
 
-			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-preview').text('公告欄預覽').on('click', previewPage));
-			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-diff-page').text('公告欄差異').on('click', diffPage));
-			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-diff-archive').text('存檔差異').on('click', diffArchive));
-			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-publish').text('發布變更').on('click', savePage));
+			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-preview').text(wgULS('公告栏预览', '公告欄預覽')).on('click', previewPage));
+			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-diff-page').text(wgULS('公告栏差异', '公告欄差異')).on('click', diffPage));
+			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-diff-archive').text(wgULS('存档差异', '存檔差異')).on('click', diffArchive));
+			$wrapper.append($('<button>').addClass('be-button').attr('id', 'be-publish').text(wgULS('发布变更', '發布變更')).on('click', savePage));
 
-			$wrapper.append($('<span>').text('警告：本工具未經測試，您需要複查您的編輯並對於負起完整責任。').css('color', 'red'));
+			$wrapper.append($('<span>').text(wgULS('警告：本工具未经测试，您需要复查您的编辑并对于负起完整责任。', '警告：本工具未經測試，您需要複查您的編輯並對於負起完整責任。')).css('color', 'red'));
 
 			var $conflictBox = $('<div>').attr('id', 'be-conflict-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
-			$conflictBox.append($('<span>').attr('id', 'be-conflict-label').text('發生了編輯衝突！請從下方複製您的版本並使用傳統編輯框來完成您的編輯，或是重新載入公告欄編輯器（您之前的變更將遺失）。'));
+			$conflictBox.append($('<span>').attr('id', 'be-conflict-label').text(wgULS('发生了编辑冲突！请从下方复制您的版本并使用传统编辑框来完成您的编辑，或是重新加载公告栏编辑器（您之前的变更将丢失）。', '發生了編輯衝突！請從下方複製您的版本並使用傳統編輯框來完成您的編輯，或是重新載入公告欄編輯器（您之前的變更將遺失）。')));
 			$conflictBox.append($('<br>'))
-			$conflictBox.append($('<span>').text('公告欄文字'))
+			$conflictBox.append($('<span>').text(wgULS('公告栏文字', '公告欄文字')))
 			$conflictBox.append($(document.createTextNode('（')))
 			$conflictBox.append($('<a>').attr({
 				href: mw.util.getUrl(bulletinTitle, { action: 'edit' }),
 				target: '_blank',
-			}).text('編輯'))
+			}).text(wgULS('编辑', '編輯')))
 			$conflictBox.append($(document.createTextNode('）')))
 			$conflictBox.append($('<textarea>').attr({ id: 'be-conflict-main', rows: 10 }))
-			$conflictBox.append($('<span>').text('存檔頁文字'))
+			$conflictBox.append($('<span>').text(wgULS('存档页文字', '存檔頁文字')))
 			$conflictBox.append($(document.createTextNode('（')))
 			$conflictBox.append($('<a>').attr({
 				href: mw.util.getUrl(archiveTitle, { action: 'edit' }),
 				target: '_blank',
-			}).text('編輯'))
+			}).text(wgULS('编辑', '編輯')))
 			$conflictBox.append($(document.createTextNode('）')))
 			$conflictBox.append($('<textarea>').attr({ id: 'be-conflict-archive', rows: 5 }))
 
 			var $summaryBox = $('<div>').attr('id', 'be-summary-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
-			$summaryBox.append($('<span>').text('公告欄編輯摘要預覽：'));
+			$summaryBox.append($('<span>').text(wgULS('公告栏编辑摘要预览：', '公告欄編輯摘要預覽：')));
 			$summaryBox.append($('<span>').attr('id', 'be-summary-body'));
 
 			var $previewBox = $('<div>').attr('id', 'be-preview-box').addClass('be-preview-boxes').hide().appendTo($wrapper);
@@ -550,15 +550,15 @@
 				handle: '.be-sortable-row-handle',
 			});
 		}).fail(function(e) {
-			mw.notify('載入內容時發生錯誤：' + e, { type: 'error' });
+			mw.notify(wgULS('加载内容时发生错误：', '載入內容時發生錯誤：') + e, { type: 'error' });
 		});
 	}
 
-	mw.loader.using(['ext.gadget.morebits', 'mediawiki.api', 'mediawiki.diff.styles'], function() {
+	mw.loader.using(['ext.gadget.site-lib', 'ext.gadget.morebits', 'mediawiki.api', 'mediawiki.diff.styles'], function() {
 		if (mw.config.get('wgPageName') === 'Template:Bulletin') {
 			var link = mw.util.addPortletLink(
-				'p-views', '#', '視覺化編輯', 'ca-bulletin-editor',
-				'使用公告欄編輯器編輯此頁面',
+				'p-views', '#', wgULS('可视化编辑', '視覺化編輯'), 'ca-bulletin-editor',
+				wgULS('使用公告栏编辑器编辑此页面', '使用公告欄編輯器編輯此頁面'),
 				null, '#ca-history'
 			);
 			$(link).addClass('collapsible');
