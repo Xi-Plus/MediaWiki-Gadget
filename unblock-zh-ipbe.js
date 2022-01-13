@@ -40,7 +40,7 @@
                 return false;
             }
             var m;
-            if ((m = url.match(/^\s*(https?:\/\/lists.wikimedia.org\/hyperkitty\/list\/unblock-zh@lists.wikimedia.org\/message\/(.+)\/?)\s*$/)) !== null) {
+            if ((m = url.match(/^\s*(https?:\/\/lists.wikimedia.org\/hyperkitty\/list\/unblock-zh@lists.wikimedia.org\/(?:message|thread)\/(.+)\/?)\s*$/)) !== null) {
                 return { 'long': m[1], 'short': m[2] };
             }
             msgprefix = '格式錯誤！請重新輸入\n';
