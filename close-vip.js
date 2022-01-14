@@ -2,8 +2,9 @@
 /* globals CloseVip:true */
 (function() {
 
-    if (typeof CloseVip == 'undefined')
+    if (typeof CloseVip == 'undefined') {
         CloseVip = {};
+    }
 
     if (typeof CloseVip.summary == 'undefined') {
         CloseVip.summary = '關閉報告 via [[User:Xiplus/js/close-vip.js|close-vip]]';
@@ -15,11 +16,16 @@
         return;
     }
 
+    var titles = $('#bodyContent').find('h3');
+    var api = new mw.Api();
+    var content, curtimestamp;
+
     var getPageContent = new Promise(function(resolve, reject) {
-        new mw.Api().get({
+        api.get({
             action: 'query',
             prop: 'revisions',
             rvprop: ['content', 'timestamp'],
+            rvslots: '*',
             titles: 'Wikipedia:当前的破坏',
             formatversion: '2',
             curtimestamp: true,
@@ -39,7 +45,7 @@
                 reject('nocreate-missing');
             }
             revision = page.revisions[0];
-            var content = revision.content;
+            var content = revision.slots.main.content;
             var basetimestamp = revision.timestamp;
             var curtimestamp = data.curtimestamp;
             resolve({
@@ -52,8 +58,6 @@
     );
 
     function showCloseButton() {
-        var titles = $('#bodyContent').find('h3');
-
         var spanTag = function(color, content) {
             var span = document.createElement('span');
             span.style.color = color;
@@ -75,6 +79,8 @@
             var sectionid = mw.util.getParamValue('section', $(current).find('.mw-editsection a')[0].href);
 
             var tmpNode = delNode.cloneNode(true);
+            $(tmpNode).attr('data-key', key);
+            $(tmpNode).attr('data-section-id', sectionid);
             $(tmpNode.firstChild).click(function() {
                 processClose(key, sectionid, title);
                 return false;
@@ -156,13 +162,8 @@
     }
 
     function processEdit(key, sectionid, title, comment) {
-        new mw.Api().edit('Wikipedia:当前的破坏', function(revision) {
-            var content = revision.content;
-            const splittoken = 'CLOSE_SPLIT_TOKEN';
-            content = content.replace(/^(===[^=])/gm, splittoken + '$1');
-            var contents = content.split(splittoken);
-            var newtext = contents[key];
-            newtext = newtext.trim();
+        api.edit('Wikipedia:当前的破坏', function() {
+            var newtext = content[key + 1].trim();
             comment = comment.trim();
             if (comment !== '') {
                 if (comment.search(/[.?!;。？！；]$/) === -1) {
@@ -175,11 +176,11 @@
                     newtext += '\n* 处理：' + comment + '--~~~~';
                 }
             }
-            $($('#bodyContent').find('h3')[key]).find('.CloseVipBtn span').css('color', 'grey');
+            $(titles[key]).find('.CloseVipBtn span').css('color', 'grey');
             return {
                 text: newtext,
                 section: sectionid,
-                basetimestamp: revision.timestamp,
+                starttimestamp: curtimestamp,
                 summary: CloseVip.summary,
                 minor: true,
             };
@@ -187,19 +188,24 @@
             mw.notify('已關閉 ' + title);
         }, function(e) {
             if (e == 'editconflict') {
-                mw.notify('關閉 ' + title + ' 時發生編輯衝突');
+                mw.notify('關閉 ' + title + ' 時發生編輯衝突，請重新載入頁面', { type: 'error' });
             } else {
-                mw.notify('關閉 ' + title + ' 時發生未知錯誤：' + e);
+                mw.notify('關閉 ' + title + ' 時發生未知錯誤：' + e, { type: 'error' });
             }
         });
     }
 
     getPageContent.then(function(result) {
-        window.content = result.content;
-        var lenintext = result.content.split(/^===[^=]/gm).length - 1;
-        var leninhtml = $('#bodyContent').find('h3').length;
+        content = result.content;
+        curtimestamp = result.curtimestamp;
+
+        const SPLIT_TOKEN = 'CLOSE_SPLIT_TOKEN';
+        content = content.replace(/^(===[^=])/gm, SPLIT_TOKEN + '$1').split(SPLIT_TOKEN);
+
+        var lenintext = content.length - 1;
+        var leninhtml = titles.length;
         if (leninhtml !== lenintext) {
-            mw.notify('抓取章節錯誤，在HTML找到 ' + leninhtml + ' 個章節，在原始碼找到 ' + lenintext + ' 個章節');
+            mw.notify('抓取章節錯誤，在HTML找到 ' + leninhtml + ' 個三級章節，在原始碼找到 ' + lenintext + ' 個三級章節');
         } else {
             showCloseButton();
         }
