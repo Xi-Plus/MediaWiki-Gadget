@@ -169,7 +169,7 @@ const spiHelperCUTemplates = [
 
 /** @type {SelectOption[]} Templates that a clerk or admin might insert */
 const spiHelperAdminTemplates = [
-  { label: 'Admin/clerk templates', selected: true, value: '', disabled: true },
+  { label: wgULS('管理员/助理模板', '管理員/助理模板'), selected: true, value: '', disabled: true },
   { label: 'Duck', selected: false, value: '{{duck}}' },
   { label: 'Megaphone Duck', selected: false, value: '{{megaphone duck}}' },
   { label: 'Blocked and tagged', selected: false, value: '{{bnt}}' },
@@ -222,21 +222,21 @@ if (mw.config.get('wgPageName').includes('Wikipedia:傀儡調查/案件/') &&
 
 const spiHelperTopViewHTML = `
 <div id="spiHelper_topViewDiv">
-  <h3>`+wgULS('处理SPI案件', '處理SPI案件')+`</h3>
+  <h3>`+ wgULS('处理SPI案件', '處理SPI案件') +`</h3>
   <select id="spiHelper_sectionSelect"></select>
   <h4 id="spiHelper_warning" class="spiHelper-errortext" hidden></h4>
   <ul>
     <li id="spiHelper_actionLine"  class="spiHelper_singleCaseOnly">
       <input type="checkbox" name="spiHelper_Case_Action" id="spiHelper_Case_Action" />
-      <label for="spiHelper_Case_Action">`+wgULS('修改案件状态', '修改案件狀態')+`</label>
+      <label for="spiHelper_Case_Action">`+ wgULS('修改案件状态', '修改案件狀態') +`</label>
     </li>
     <li id="spiHelper_spiMgmtLine"  class="spiHelper_allCasesOnly">
       <input type="checkbox" id="spiHelper_SpiMgmt" />
-      <label for="spiHelper_SpiMgmt">`+wgULS('修改SPI选项', '修改SPI選項')+`</label>
+      <label for="spiHelper_SpiMgmt">`+ wgULS('修改SPI选项', '修改SPI選項') +`</label>
     </li>
     <li id="spiHelper_blockLine" class="spiHelper_adminClerkClass">
       <input type="checkbox" name="spiHelper_BlockTag" id="spiHelper_BlockTag" />
-      <label for="spiHelper_BlockTag">`+wgULS('封禁/标记傀儡', '封鎖/標記傀儡')+`</label>
+      <label for="spiHelper_BlockTag">`+ wgULS('封禁/标记傀儡', '封鎖/標記傀儡') +`</label>
     </li>
     <li id="spiHelper_commentLine" class="spiHelper_singleCaseOnly">
       <input type="checkbox" name="spiHelper_Comment" id="spiHelper_Comment" />
@@ -244,18 +244,18 @@ const spiHelperTopViewHTML = `
       </li>
     <li id="spiHelper_closeLine" class="spiHelper_adminClerkClass spiHelper_singleCaseOnly">
       <input type="checkbox" name="spiHelper_Close" id="spiHelper_Close")" />
-      <label for="spiHelper_Close">`+wgULS('关闭案件', '關閉案件')+`</label>
+      <label for="spiHelper_Close">`+ wgULS('关闭案件', '關閉案件') +`</label>
     </li>
     <li id="spiHelper_moveLine" class="spiHelper_clerkClass">
       <input type="checkbox" name="spiHelper_Move" id="spiHelper_Move" />
-      <label for="spiHelper_Move" id="spiHelper_moveLabel">`+wgULS('移动/合并完整案例（仅限助理）', '移動/合併完整案例（僅限助理）')+`</label>
+      <label for="spiHelper_Move" id="spiHelper_moveLabel">`+ wgULS('移动/合并整个案例（仅限助理）', '移動/合併整個案例（僅限助理）') +`</label>
     </li>
     <li id="spiHelper_archiveLine" class="spiHelper_clerkClass">
       <input type="checkbox" name="spiHelper_Archive" id="spiHelper_Archive"/>
-      <label for="spiHelper_Archive">`+wgULS('存档案件（仅限助理）', '存檔案件（僅限助理）')+`</label>
+      <label for="spiHelper_Archive">`+ wgULS('存档案件（仅限助理）', '存檔案件（僅限助理）') +`</label>
     </li>
   </ul>
-  <input type="button" id="spiHelper_GenerateForm" name="spiHelper_GenerateForm" value="Continue" onclick="spiHelperGenerateForm()" />
+  <input type="button" id="spiHelper_GenerateForm" name="spiHelper_GenerateForm" value="`+ wgULS('继续', '繼續') +`" onclick="spiHelperGenerateForm()" />
 </div>
 `
 
@@ -317,12 +317,12 @@ async function spiHelperInit () {
 
 const spiHelperActionViewHTML = `
 <div id="spiHelper_actionViewDiv">
-  <small><a id="spiHelper_backLink">`+wgULS('回到顶层菜单', '回到頂層選單')+`</a></small>
+  <small><a id="spiHelper_backLink">`+ wgULS('回到顶层菜单', '回到頂層選單') +`</a></small>
   <br />
-  <h3>`+wgULS('处理SPI案件', '處理SPI案件')+`</h3>
+  <h3>`+ wgULS('处理SPI案件', '處理SPI案件') +`</h3>
   <div id="spiHelper_actionView">
-    <h4>Changing case status</h4>
-    <label for="spiHelper_CaseAction">`+wgULS('新状态：', '新狀態：')+`</label>
+    <h4>`+ wgULS('修改案件状态', '修改案件狀態') +`</h4>
+    <label for="spiHelper_CaseAction">`+ wgULS('新状态：', '新狀態：') +`</label>
     <select id="spiHelper_CaseAction"></select>
   </div>
   <div id="spiHelper_spiMgmtView">
@@ -334,28 +334,28 @@ const spiHelperActionViewHTML = `
       </li>
       <li>
         <input type="checkbox" id="spiHelper_spiMgmt_deny" />
-        <label for="spiHelper_spiMgmt_deny">`+wgULS('根据en:WP:DENY不应标记傀儡', '根據en:WP:DENY不應標記傀儡')+`</label>
+        <label for="spiHelper_spiMgmt_deny">`+ wgULS('根据en:WP:DENY不应标记傀儡', '根據en:WP:DENY不應標記傀儡') +`</label>
       </li>
       <li>
         <input type="checkbox" id="spiHelper_spiMgmt_notalk" />
-        <label for="spiHelper_spiMgmt_notalk">`+wgULS('由于之前滥用过，傀儡应被禁止编辑讨论页及发送电子邮件', '由於之前濫用過，傀儡應被禁止編輯討論頁及發送電子郵件')+`</label>
+        <label for="spiHelper_spiMgmt_notalk">`+ wgULS('由于之前滥用过，傀儡应被禁止编辑讨论页及发送电子邮件', '由於之前濫用過，傀儡應被禁止編輯討論頁及發送電子郵件') +`</label>
       </li>
     </ul>
   </div>
   <div id="spiHelper_blockTagView">
-    <h4 id="spiHelper_blockTagHeader">`+wgULS('封禁和标记傀儡', '封鎖和標記傀儡')+`</h4>
+    <h4 id="spiHelper_blockTagHeader">`+ wgULS('封禁和标记傀儡', '封鎖和標記傀儡') +`</h4>
     <ul>
       <li class="spiHelper_adminClass">
         <input type="checkbox" name="spiHelper_noblock" id="spiHelper_noblock" />
-        <label for="spiHelper_noblock">`+wgULS('不要进行任何封禁（这会覆盖下方的“封禁”单选框）', '不要進行任何封鎖（這會覆蓋下方的「封鎖」單選框）')+`</label>
+        <label for="spiHelper_noblock">`+ wgULS('不要进行任何封禁（这会覆盖下方的“封禁”单选框）', '不要進行任何封鎖（這會覆蓋下方的「封鎖」單選框）') +`</label>
       </li>
       <li class="spiHelper_adminClass">
         <input type="checkbox" name="spiHelper_override" id="spiHelper_override" />
-        <label for="spiHelper_override">`+wgULS('覆盖现有的任何封禁', '覆蓋現有的任何封鎖')+`</label>
+        <label for="spiHelper_override">`+ wgULS('覆盖现有的任何封禁', '覆蓋現有的任何封鎖') +`</label>
       </li>
       <li class="spiHelper_cuClass">
         <input type="checkbox" name="spiHelper_cublock" id="spiHelper_cublock" />
-        <label for="spiHelper_cublock">`+wgULS('标记为用户查核封禁', '標記為使用者查核封鎖')+`</label>
+        <label for="spiHelper_cublock">`+ wgULS('标记为用户查核封禁', '標記為使用者查核封鎖') +`</label>
       </li>
       <li class="spiHelper_cuClass">
         <input type="checkbox" name="spiHelper_cublockonly" id="spiHelper_cublockonly" />
@@ -365,36 +365,36 @@ const spiHelperActionViewHTML = `
       </li>
       <li class="spiHelper_adminClass">
         <input type="checkbox" checked="checked" name="spiHelper_blocknoticemaster" id="spiHelper_blocknoticemaster" />
-        <label for="spiHelper_blocknoticemaster">`+wgULS('封禁主账户时发送讨论页通知', '封鎖主帳號時發送討論頁通知')+`</label>
+        <label for="spiHelper_blocknoticemaster">`+ wgULS('封禁主账户时发送讨论页通知', '封鎖主帳號時發送討論頁通知') +`</label>
       </li>
       <li class="spiHelper_adminClass">
         <input type="checkbox" checked="checked" name="spiHelper_blocknoticesocks" id="spiHelper_blocknoticesocks" />
-        <label for="spiHelper_blocknoticesocks">`+wgULS('封禁傀儡时发送讨论页通知', '封鎖傀儡時發送討論頁通知')+`</label>
+        <label for="spiHelper_blocknoticesocks">`+ wgULS('封禁傀儡时发送讨论页通知', '封鎖傀儡時發送討論頁通知') +`</label>
       </li>
       <li class="spiHelper_adminClass">
         <input type="checkbox" name="spiHelper_blanktalk" id="spiHelper_blanktalk" />
-        <label for="spiHelper_blanktalk">`+wgULS('发送讨论页通知前先清空讨论页', '發送討論頁通知前先清空討論頁')+`</label>
+        <label for="spiHelper_blanktalk">`+ wgULS('发送讨论页通知前先清空讨论页', '發送討論頁通知前先清空討論頁') +`</label>
       </li>
       <li>
         <input type="checkbox" name="spiHelper_hidelocknames" id="spiHelper_hidelocknames" />
-        <label for="spiHelper_hidelocknames">`+wgULS('请求全域锁定时隐藏用户名', '請求全域鎖定時隱藏使用者名稱')+`</label>
+        <label for="spiHelper_hidelocknames">`+ wgULS('请求全域锁定时隐藏用户名', '請求全域鎖定時隱藏使用者名稱') +`</label>
       </li>
     </ul>
     <table id="spiHelper_blockTable" style="border-collapse:collapse;">
       <tr>
-        <th>Username</th>
-        <th class="spiHelper_adminClass"><span title="Block user" class="rt-commentedText spihelper-hovertext">Blk?</span></th>
-        <th class="spiHelper_adminClass"><span title="Block duration" class="rt-commentedText spihelper-hovertext">`+'期限'+`</span></th>
-        <th class="spiHelper_adminClass"><span title="`+wgULS('禁止创建账户', '禁止建立帳號')+`" class="rt-commentedText spihelper-hovertext">`+'建'+`</span></th>
-        <th class="spiHelper_adminClass"><span title="`+wgULS('自动封禁（对于账户）/仅限匿名用户（对于IP）', '自動封鎖（對於帳號）/僅限匿名使用者（對於IP）')+`" class="rt-commentedText spihelper-hovertext">`+wgULS('自/软', '自/軟')+`</span></th>
-        <th class="spiHelper_adminClass"><span title="`+wgULS('禁止编辑讨论页', '禁止編輯討論頁')+`" class="rt-commentedText spihelper-hovertext">`+wgULS('讨', '討')+`</span></th>
-        <th class="spiHelper_adminClass"><span title="`+wgULS('禁止发送电子邮件', '禁止發送電子郵件')+`" class="rt-commentedText spihelper-hovertext">`+wgULS('邮', '郵')+`</span></th>
-        <th>`+wgULS('标记', '標記')+`</th>
+        <th>`+ wgULS('用户名', '使用者名稱') +`</th>
+        <th class="spiHelper_adminClass"><span title="`+ wgULS('封禁用户', '封鎖使用者') + `" class="rt-commentedText spihelper-hovertext">` + wgULS('封禁', '封鎖') +`</span></th>
+        <th class="spiHelper_adminClass"><span title="`+ wgULS('封禁期限', '封鎖期限') + `" class="rt-commentedText spihelper-hovertext">` + '期限' +`</span></th>
+        <th class="spiHelper_adminClass"><span title="`+ wgULS('禁止创建账户', '禁止建立帳號') + `" class="rt-commentedText spihelper-hovertext">` + wgULS('建账', '建帳') +`</span></th>
+        <th class="spiHelper_adminClass"><span title="`+ wgULS('自动封禁（对于账户）/仅限匿名用户（对于IP）', '自動封鎖（對於帳號）/僅限匿名使用者（對於IP）') + `" class="rt-commentedText spihelper-hovertext">` + wgULS('自动/仅匿', '自動/僅匿') +`</span></th>
+        <th class="spiHelper_adminClass"><span title="`+ wgULS('禁止编辑讨论页', '禁止編輯討論頁') + `" class="rt-commentedText spihelper-hovertext">` + wgULS('讨论', '討論') +`</span></th>
+        <th class="spiHelper_adminClass"><span title="`+ wgULS('禁止发送电子邮件', '禁止發送電子郵件') + `" class="rt-commentedText spihelper-hovertext">` + wgULS('邮件', '郵件') +`</span></th>
+        <th>`+ wgULS('标记', '標記') +`</th>
         <th><span title="Tag the user with a suspected alternate master" class="rt-commentedText spihelper-hovertext">Alt Master</span></th>
-        <th><span title="`+wgULS('在Meta:SRG请求全域锁定', '在Meta:SRG請求全域鎖定')+`" class="rt-commentedText spihelper-hovertext">`+wgULS('请求锁定？', '請求鎖定？')+`</span></th>
+        <th><span title="`+ wgULS('在Meta:SRG请求全域锁定', '在Meta:SRG請求全域鎖定') + `" class="rt-commentedText spihelper-hovertext">` + wgULS('锁定', '鎖定') +`</span></th>
       </tr>
       <tr style="border-bottom:2px solid black">
-        <td style="text-align:center;">`+wgULS('（所有用户）', '（所有使用者）')+`</td>
+        <td style="text-align:center;">`+ wgULS('（所有用户）', '（所有使用者）') +`</td>
         <td class="spiHelper_adminClass"><input type="checkbox" id="spiHelper_block_doblock"/></td>
         <td class="spiHelper_adminClass"></td>
         <td class="spiHelper_adminClass"><input type="checkbox" id="spiHelper_block_acb" checked="checked"/></td>
@@ -407,22 +407,22 @@ const spiHelperActionViewHTML = `
         <td><input type="checkbox" name="spiHelper_block_lock_all" id="spiHelper_block_lock"/></td>
       </tr>
     </table>
-    <span><input type="button" id="moreSerks" value="Add Row" onclick="spiHelperAddBlankUserLine();"/></span>
+    <span><input type="button" id="moreSerks" value="`+'加入一行'+`" onclick="spiHelperAddBlankUserLine();"/></span>
   </div>
   <div id="spiHelper_closeView">
-    <h4>Marking case as closed</h4>
+    <h4>`+ wgULS('将案件标记为关闭', '將案件標記為關閉') +`</h4>
     <input type="checkbox" checked="checked" id="spiHelper_CloseCase" />
-    <label for="spiHelper_CloseCase">`+wgULS('关闭SPI案件', '關閉SPI案件')+`</label>
+    <label for="spiHelper_CloseCase">`+ wgULS('关闭SPI案件', '關閉SPI案件') +`</label>
   </div>
   <div id="spiHelper_moveView">
-    <h4 id="spiHelper_moveHeader">`+wgULS('移动章节', '移動章節')+`</h4>
-    <label for="spiHelper_moveTarget">`+wgULS('新的主账户用户名：', '新的主帳號使用者名稱：')+`</label>
+    <h4 id="spiHelper_moveHeader">`+ wgULS('移动章节', '移動章節') +`</h4>
+    <label for="spiHelper_moveTarget">`+ wgULS('新的主账户用户名：', '新的主帳號使用者名稱：') +`</label>
     <input type="text" name="spiHelper_moveTarget" id="spiHelper_moveTarget" />
   </div>
   <div id="spiHelper_archiveView">
     <h4>Archiving case</h4>
     <input type="checkbox" checked="checked" name="spiHelper_ArchiveCase" id="spiHelper_ArchiveCase" />
-    <label for="spiHelper_ArchiveCase">`+wgULS('存档此SPI案件', '存檔此SPI案件')+`</label>
+    <label for="spiHelper_ArchiveCase">`+ wgULS('存档此SPI案件', '存檔此SPI案件') +`</label>
   </div>
   <div id="spiHelper_commentView">
     <h4>`+'留言'+`</h4>
@@ -434,11 +434,11 @@ const spiHelperActionViewHTML = `
     <div>
       <label for="spiHelper_CommentText">`+'留言：'+`</label>
       <textarea rows="3" cols="80" id="spiHelper_CommentText">*</textarea>
-      <div><a id="spiHelper_previewLink">`+wgULS('预览', '預覽')+`</a></div>
+      <div><a id="spiHelper_previewLink">`+ wgULS('预览', '預覽') +`</a></div>
     </div>
     <div class="spihelper-previewbox" id="spiHelper_previewBox" hidden></div>
   </div>
-  <input type="button" id="spiHelper_performActions" value="Done" />
+  <input type="button" id="spiHelper_performActions" value="`+'完成'+`" />
 </div>
 `
 /**
@@ -679,7 +679,7 @@ async function spiHelperGenerateForm () {
     if (spiHelperSectionId) {
       $('#spiHelper_moveHeader', $actionView).text(wgULS('移动章节“', '移動章節「') + spiHelperSectionName + wgULS('”', '」'))
     } else {
-      $('#spiHelper_moveHeader', $actionView).text(wgULS('移动/合并完整案件', '移動/合併完整案件'))
+      $('#spiHelper_moveHeader', $actionView).text(wgULS('移动/合并整个案件', '移動/合併整個案件'))
     }
   } else {
     $('#spiHelper_moveView', $actionView).hide()
@@ -694,7 +694,7 @@ async function spiHelperGenerateForm () {
     // generate the note prefixes
     /** @type {SelectOption[]} */
     const spiHelperNoteTemplates = [
-      { label: 'Comment templates', selected: true, value: '', disabled: true },
+      { label: '留言模板', selected: true, value: '', disabled: true },
     ]
     if (spiHelperIsClerk()) {
       spiHelperNoteTemplates.push({ label: wgULS('助理备注', '助理備註'), selected: false, value: 'clerknote' })
@@ -2511,7 +2511,7 @@ async function spiHelperSetCheckboxesBySection () {
     // Show inputs only visible in all-case mode
     $('.spiHelper_allCasesOnly', $topView).show()
     // Fix the move label
-    $('#spiHelper_moveLabel', $topView).text('Move/merge full case (Clerk only)')
+    $('#spiHelper_moveLabel', $topView).text(wgULS('移动/合并整个案件（仅限助理）', '移動/合併整個案件（僅限助理）'))
     // enable the move box
     $moveBox.prop('disabled', false)
   } else {
@@ -2550,9 +2550,9 @@ async function spiHelperSetCheckboxesBySection () {
     }
 
     // Change the label on the rename button
-    $('#spiHelper_moveLabel', $topView).html('Move case section (<span title="You probably want to move the full case, ' +
-      'select All Sections instead of a specific date in the drop-down"' +
-      'class="rt-commentedText spihelper-hovertext"><b>READ ME FIRST</b></span>)')
+    $('#spiHelper_moveLabel', $topView).html(wgULS('移动案件章节（', '移動案件章節（') + '<span title="' + wgULS('你可能想要移动整个案件', '你可能想要移動整個案件') +
+      wgULS('在下拉菜单选择所有章节而非特定日期', '在下拉式選單選擇所有章節而非特定日期') + '"' +
+      'class="rt-commentedText spihelper-hovertext"><b>' + wgULS('请先阅读', '請先閱讀') + '</b></span>' + '）')
   }
 }
 
