@@ -79,7 +79,7 @@ const spiHelperSettings = {
   // decide to set these (especially the CU option), it is YOUR responsibility to make sure
   // you don't do something that violates policy
   debugForceCheckuserState: null,
-  debugForceAdminState: null
+  debugForceAdminState: null,
 }
 
 /** @type {string} Name of the SPI page in wiki title form
@@ -114,7 +114,7 @@ const spiHelperActionsSelected = {
   Close: false,
   Rename: false,
   Archive: false,
-  SpiMgmt: false
+  SpiMgmt: false,
 }
 
 /** @type {BlockEntry[]} Requested blocks */
@@ -139,14 +139,14 @@ const spiHelperTagOptions = [
   { label: 'CU confirmed sock', value: 'confirmed', selected: false },
   { label: 'Blocked master', value: 'master', selected: false },
   { label: 'CU confirmed master', value: 'sockmasterchecked', selected: false },
-  { label: '3X banned master', value: 'bannedmaster', selected: false }
+  { label: '3X banned master', value: 'bannedmaster', selected: false },
 ]
 
 /** @type {SelectOption[]} List of possible selections for tagging a user's altmaster in the block/tag interface */
 const spiHelperAltMasterTagOptions = [
   { label: 'None', selected: true, value: '' },
   { label: 'Suspected alt master', value: 'suspected', selected: false },
-  { label: 'Proven alt master', value: 'proven', selected: false }
+  { label: 'Proven alt master', value: 'proven', selected: false },
 ]
 
 /** @type {SelectOption[]} List of templates that CUs might insert */
@@ -164,7 +164,7 @@ const spiHelperCUTemplates = [
   { label: 'Need behavioral eval', selected: false, value: '{{behav}}' },
   { label: 'No sleepers', selected: false, value: '{{nosleepers}}' },
   { label: 'Stale', selected: false, value: '{{IPstale}}' },
-  { label: 'No comment (IP)', selected: false, value: '{{ncip}}' }
+  { label: 'No comment (IP)', selected: false, value: '{{ncip}}' },
 ]
 
 /** @type {SelectOption[]} Templates that a clerk or admin might insert */
@@ -177,7 +177,7 @@ const spiHelperAdminTemplates = [
   { label: 'Blocked, awaiting tags', selected: false, value: '{{sblock}}' },
   { label: 'Blocked, tagged, closed', selected: false, value: '{{btc}}' },
   { label: 'Diffs needed', selected: false, value: '{{DiffsNeeded|moreinfo}}' },
-  { label: 'Locks requested', selected: false, value: '{{GlobalLocksRequested}}' }
+  { label: 'Locks requested', selected: false, value: '{{GlobalLocksRequested}}' },
 ]
 
 // Regex to match the case status, group 1 is the actual status
@@ -492,7 +492,7 @@ async function spiHelperGenerateForm () {
 
     /** @type {SelectOption[]} Generated array of values for the case status select box */
     const selectOpts = [
-      { label: wgULS('无操作', '無操作'), value: 'noaction', selected: true }
+      { label: wgULS('无操作', '無操作'), value: 'noaction', selected: true },
     ]
     if (spiHelperCaseClosedRegex.test(casestatus)) {
       selectOpts.push({ label: wgULS('重开', '重開'), value: 'reopen', selected: false })
@@ -694,7 +694,7 @@ async function spiHelperGenerateForm () {
     // generate the note prefixes
     /** @type {SelectOption[]} */
     const spiHelperNoteTemplates = [
-      { label: 'Comment templates', selected: true, value: '', disabled: true }
+      { label: 'Comment templates', selected: true, value: '', disabled: true },
     ]
     if (spiHelperIsClerk()) {
       spiHelperNoteTemplates.push({ label: wgULS('助理备注', '助理備註'), selected: false, value: 'clerknote' })
@@ -835,7 +835,7 @@ async function spiHelperPerformActions () {
             noticetype = 'sock'
           }
 
-          const currentBlock = await spiHelperGetUserBlockSettings(username)
+          // const currentBlock = await spiHelperGetUserBlockSettings(username)
 
           /** @type {BlockEntry} */
           const item = {
@@ -845,7 +845,7 @@ async function spiHelperPerformActions () {
             ab: $('#spiHelper_block_ab' + i, $actionView).prop('checked'),
             ntp: $('#spiHelper_block_tp' + i, $actionView).prop('checked'),
             nem: $('#spiHelper_block_email' + i, $actionView).prop('checked'),
-            tpn: noticetype
+            tpn: noticetype,
           }
           spiHelperBlocks.push(item)
         }
@@ -861,7 +861,7 @@ async function spiHelperPerformActions () {
             username: spiHelperNormalizeUsername($('#spiHelper_block_username' + i, $actionView).val().toString()),
             tag: $('#spiHelper_block_tag' + i, $actionView).val().toString(),
             altmasterTag: $('#spiHelper_block_tag_altmaster' + i, $actionView).val().toString(),
-            blocking: $('#spiHelper_block_doblock' + i, $actionView).prop('checked')
+            blocking: $('#spiHelper_block_doblock' + i, $actionView).prop('checked'),
           }
           spiHelperTags.push(item)
         }
@@ -877,7 +877,7 @@ async function spiHelperPerformActions () {
             username: spiHelperNormalizeUsername($('#spiHelper_block_username' + i, $actionView).val().toString()),
             tag: $('#spiHelper_block_tag' + i, $actionView).val().toString(),
             altmasterTag: $('#spiHelper_block_tag_altmaster' + i, $actionView).val().toString(),
-            blocking: false
+            blocking: false,
           }
           spiHelperTags.push(item)
         }
@@ -1793,7 +1793,7 @@ async function spiHelperGetPostExpandSize (title, sectionId = null) {
   const request = {
     action: 'parse',
     prop: 'limitreportdata',
-    page: finalTitle
+    page: finalTitle,
   }
   if (sectionId) {
     request.section = sectionId
@@ -1923,7 +1923,7 @@ async function spiHelperGetPageText (title, show, sectionId = null) {
     rvprop: 'content',
     rvslots: 'main',
     indexpageids: true,
-    titles: finalTitle
+    titles: finalTitle,
   }
 
   if (sectionId) {
@@ -1987,7 +1987,7 @@ async function spiHelperEditPage (title, newtext, summary, createonly, watch, wa
     text: newtext,
     title: finalTitle,
     createonly: createonly,
-    baserevid: baseRevId
+    baserevid: baseRevId,
   }
   if (sectionId) {
     request.section = sectionId
@@ -2039,7 +2039,7 @@ async function spiHelperMovePage (sourcePage, destPage, summary, ignoreWarnings)
       reason: summary + spihelperAdvert,
       noredirect: false,
       movesubpages: true,
-      ignoreWarnings: ignoreWarnings
+      ignoreWarnings: ignoreWarnings,
     })
     $statusLine.html('Moved ' + $sourceLink.prop('outerHTML') + ' to ' + $destLink.prop('outerHTML'))
     spiHelperActiveOperations.set(activeOpKey, 'success')
@@ -2067,7 +2067,7 @@ async function spiHelperPurgePage (title) {
   try {
     await api.postWithToken('csrf', {
       action: 'purge',
-      titles: strippedTitle
+      titles: strippedTitle,
     })
     $statusLine.html('Purged ' + $link.prop('outerHTML'))
   } catch (error) {
@@ -2123,7 +2123,7 @@ async function spiHelperBlockUser (user, duration, reason, reblock, anononly, ac
       noemail: email,
       watchuser: watchBlockedUser,
       watchlistexpiry: watchExpiry,
-      user: user
+      user: user,
     })
     $statusLine.html('Blocked ' + $link.prop('outerHTML'))
     spiHelperActiveOperations.set(activeOpKey, 'success')
@@ -2151,7 +2151,7 @@ async function spiHelperGetUserBlockReason (user) {
       list: 'blocks',
       bklimit: '1',
       bkusers: user,
-      bkprop: 'user|reason'
+      bkprop: 'user|reason',
     })
     if (response.query.blocks.length === 0) {
       // If the length is 0, then the user isn't blocked
@@ -2179,7 +2179,7 @@ async function spiHelperGetUserBlockSettings (user) {
       list: 'blocks',
       bklimit: '1',
       bkusers: user,
-      bkprop: 'user|reason|flags|expiry'
+      bkprop: 'user|reason|flags|expiry',
     })
     if (response.query.blocks.length === 0) {
       // If the length is 0, then the user isn't blocked
@@ -2194,7 +2194,7 @@ async function spiHelperGetUserBlockSettings (user) {
       ab: 'autoblock' in response.query.blocks[0],
       ntp: !('allowusertalk' in response.query.blocks[0]),
       nem: 'noemail' in response.query.blocks[0],
-      tpn: ''
+      tpn: '',
     }
     return item
   } catch (error) {
@@ -2219,7 +2219,7 @@ async function spiHelperIsUserGloballyLocked (user) {
       agulimit: '1',
       agufrom: user,
       aguto: user,
-      aguprop: 'lockinfo'
+      aguprop: 'lockinfo',
     })
     if (response.query.globalallusers.length === 0) {
       // If the length is 0, then we couldn't find the global user
@@ -2247,7 +2247,7 @@ async function spiHelperGetPageRev (title) {
     prop: 'revisions',
     rvslots: 'main',
     indexpageids: true,
-    titles: finalTitle
+    titles: finalTitle,
   }
 
   try {
@@ -2283,7 +2283,7 @@ async function spiHelperDeletePage (title, reason) {
     await api.postWithToken('csrf', {
       action: 'delete',
       title: title,
-      reason: reason
+      reason: reason,
     })
     $statusLine.html('Deleted ' + $link.prop('outerHTML'))
     spiHelperActiveOperations.set(activeOpKey, 'success')
@@ -2313,7 +2313,7 @@ async function spiHelperUndeletePage (title, reason) {
     await api.postWithToken('csrf', {
       action: 'undelete',
       title: title,
-      reason: reason
+      reason: reason,
     })
     $statusLine.html('Undeleted ' + $link.prop('outerHTML'))
     spiHelperActiveOperations.set(activeOpKey, 'success')
@@ -2338,7 +2338,7 @@ async function spiHelperRenderText (title, text) {
     prop: 'text',
     pst: 'true',
     text: text,
-    title: title
+    title: title,
   }
 
   try {
@@ -2365,7 +2365,7 @@ async function spiHelperGetInvestigationSectionIDs () {
   const response = await api.get({
     action: 'parse',
     prop: 'sections',
-    page: spiHelperPageName
+    page: spiHelperPageName,
   })
   const dateSections = []
   for (let i = 0; i < response.parse.sections.length; i++) {
@@ -2907,7 +2907,7 @@ async function spiHelperParseArchiveNotice (page) {
     username: username,
     deny: deny,
     xwiki: xwiki,
-    notalk: notalk
+    notalk: notalk,
   }
 }
 
