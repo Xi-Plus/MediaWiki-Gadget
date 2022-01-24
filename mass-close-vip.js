@@ -72,8 +72,6 @@ javascript: (function() {
         $('#wpDiff').click();
     };
 
-    console.log(sections);
-
     for (let i = 1; i < sections.length; i++) {
         const content = sections[i];
 
