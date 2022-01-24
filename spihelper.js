@@ -135,33 +135,36 @@ const spiHelperSectionRegex = /^(?:===[^=]*===|=====[^=]*=====)\s*$/m
 const spiHelperTagOptions = [
   { label: wgULS('无', '無'), selected: true, value: '' },
   { label: wgULS('确认为傀儡', '確認為傀儡'), value: 'blocked', selected: false },
+  // { label: 'Proven sock', value: 'proven', selected: false },
   { label: wgULS('CU确认为傀儡', 'CU確認為傀儡'), value: 'confirmed', selected: false },
   { label: wgULS('确认为傀儡主账户', '確認為傀儡主帳號'), value: 'master', selected: false },
   { label: wgULS('CU确认为傀儡主账户', 'CU確認為傀儡主帳號'), value: 'sockmasterchecked', selected: false },
+  // { label: '3X banned master', value: 'bannedmaster', selected: false },
 ]
 
 /** @type {SelectOption[]} List of possible selections for tagging a user's altmaster in the block/tag interface */
 const spiHelperAltMasterTagOptions = [
   { label: wgULS('无', '無'), selected: true, value: '' },
   { label: wgULS('确认为其他主账户的傀儡', '確認為其他主帳號的傀儡'), value: 'suspected', selected: false },
+  // { label: 'Proven alt master', value: 'proven', selected: false },
 ]
 
 /** @type {SelectOption[]} List of templates that CUs might insert */
 const spiHelperCUTemplates = [
-  { label: 'CU templates', selected: true, value: '', disabled: true },
-  { label: 'Confirmed', selected: false, value: '{{confirmed}}' },
-  { label: 'Confirmed/No Comment', selected: false, value: '{{confirmed-nc}}' },
-  { label: 'Indistinguishable', selected: false, value: '{{tallyho}}' },
-  { label: 'Likely', selected: false, value: '{{likely}}' },
-  { label: 'Possilikely', selected: false, value: '{{possilikely}}' },
-  { label: 'Possible', selected: false, value: '{{possible}}' },
-  { label: 'Unlikely', selected: false, value: '{{unlikely}}' },
-  { label: 'Unrelated', selected: false, value: '{{unrelated}}' },
-  { label: 'Inconclusive', selected: false, value: '{{inconclusive}}' },
-  { label: 'Need behavioral eval', selected: false, value: '{{behav}}' },
-  { label: 'No sleepers', selected: false, value: '{{nosleepers}}' },
-  { label: 'Stale', selected: false, value: '{{IPstale}}' },
-  { label: 'No comment (IP)', selected: false, value: '{{ncip}}' },
+  { label: wgULS('查核员模板', '查核員模板'), selected: true, value: '', disabled: true },
+  { label: wgULS('已确认', '已確認'), selected: false, value: '{{confirmed}}' },
+  { label: wgULS('已确认/无可奉告', '已確認/無可奉告'), selected: false, value: '{{confirmed-nc}}' },
+  { label: wgULS('难以区分', '難以區分'), selected: false, value: '{{tallyho}}' },
+  { label: '很可能', selected: false, value: '{{likely}}' },
+  { label: wgULS('可能和很可能之间', '可能和很可能之間'), selected: false, value: '{{possilikely}}' },
+  { label: '可能', selected: false, value: '{{possible}}' },
+  { label: '不太可能', selected: false, value: '{{unlikely}}' },
+  { label: wgULS('不相关', '不相關'), selected: false, value: '{{unrelated}}' },
+  { label: wgULS('无结论', '無結論'), selected: false, value: '{{inconclusive}}' },
+  { label: wgULS('需要评估行为证据', '需要評估行為證據'), selected: false, value: '{{behav}}' },
+  // { label: 'No sleepers', selected: false, value: '{{nosleepers}}' },
+  { label: wgULS('数据过期', '數據過期'), selected: false, value: '{{Stale}}' },
+  // { label: 'No comment (IP)', selected: false, value: '{{ncip}}' },
 ]
 
 /** @type {SelectOption[]} Templates that a clerk or admin might insert */
@@ -322,7 +325,7 @@ const spiHelperActionViewHTML = `
     <select id="spiHelper_CaseAction"></select>
   </div>
   <div id="spiHelper_spiMgmtView">
-    <h4>Changing SPI settings</h4>
+    <h4>`+ wgULS('修改SPI设置', '修改SPI設定') +`</h4>
     <ul>
       <li>
         <input type="checkbox" id="spiHelper_spiMgmt_crosswiki" />
@@ -356,7 +359,7 @@ const spiHelperActionViewHTML = `
       <li class="spiHelper_cuClass">
         <input type="checkbox" name="spiHelper_cublockonly" id="spiHelper_cublockonly" />
         <label for="spiHelper_cublockonly">
-          Suppress the usual block summary and only use {{checkuserblock-account}} and {{checkuserblock}} (no effect if "mark blocks as CU blocks" is not checked).
+        `+ wgULS('不使用常规的封禁摘要，仅使用{{checkuserblock-account}}和{{checkuserblock}}（如果未选择“标记为用户查核封禁”则无效）', '不使用常規的封鎖摘要，僅使用{{checkuserblock-account}}和{{checkuserblock}}（如果未選擇「標記為使用者查核封鎖」則無效）') +`
         </label>
       </li>
       <li class="spiHelper_adminClass">
@@ -763,7 +766,7 @@ async function spiHelperOneClickArchive () {
   displayMessage('<ul id="spiHelper_status"/>')
   await spiHelperArchiveCase()
   await spiHelperPurgePage(spiHelperPageName)
-  const logMessage = '* [[' + spiHelperPageName + ']]：'+wgULS('使用一键存档器', '使用一鍵存檔器')+'~~~~~'
+  const logMessage = '* [[' + spiHelperPageName + ']]：' + wgULS('使用一键存档器', '使用一鍵存檔器') + '~~~~~'
   if (spiHelperSettings.log) {
     spiHelperLog(logMessage)
   }
@@ -1061,7 +1064,7 @@ async function spiHelperPerformActions () {
           if (blockEntry.tpn) {
             // Also warn the user if we were going to post a block notice on their talk page
             const $statusLine = $('<li>').appendTo($('#spiHelper_status', document))
-            $statusLine.addClass('spiHelper-errortext').html('<b>' + wgULS('封禁', '封鎖') + blockEntry.username + wgULS('时失败，没有发送讨论页通知', '時失敗，沒有發送討論頁通知') + '</b>')
+            $statusLine.addClass('spiHelper-errortext').html('<b>' + wgULS('封禁', '封鎖') + blockEntry.username + wgULS('失败，没有发送讨论页通知', '失敗，沒有發送討論頁通知') + '</b>')
           }
           return
         }
@@ -1968,7 +1971,7 @@ async function spiHelperEditPage (title, newtext, summary, createonly, watch, wa
   const $statusLine = $('<li>').appendTo($('#spiHelper_status', document))
   const $link = $('<a>').attr('href', mw.util.getUrl(title)).attr('title', title).text(title)
 
-  $statusLine.html('Editing ' + $link.prop('outerHTML'))
+  $statusLine.html(wgULS('编辑', '編輯') + $link.prop('outerHTML'))
 
   if (!baseRevId) {
     baseRevId = await spiHelperGetPageRev(title)
@@ -1993,11 +1996,11 @@ async function spiHelperEditPage (title, newtext, summary, createonly, watch, wa
   }
   try {
     await api.postWithToken('csrf', request)
-    $statusLine.html('Saved ' + $link.prop('outerHTML'))
+    $statusLine.html(wgULS('已保存', '已儲存') + $link.prop('outerHTML'))
     spiHelperActiveOperations.set(activeOpKey, 'success')
     return true
   } catch (error) {
-    $statusLine.addClass('spiHelper-errortext').html('<b>Edit failed on ' + $link.html() + '</b>: ' + error)
+    $statusLine.addClass('spiHelper-errortext').html('<b>' + wgULS('编辑', '編輯') + $link.html() + wgULS('失败', '失敗') + '</b>：' + error)
     console.error(error)
     spiHelperActiveOperations.set(activeOpKey, 'failed')
     return false
@@ -2025,7 +2028,7 @@ async function spiHelperMovePage (sourcePage, destPage, summary, ignoreWarnings)
   const $sourceLink = $('<a>').attr('href', mw.util.getUrl(sourcePage)).attr('title', sourcePage).text(sourcePage)
   const $destLink = $('<a>').attr('href', mw.util.getUrl(destPage)).attr('title', destPage).text(destPage)
 
-  $statusLine.html('Moving ' + $sourceLink.prop('outerHTML') + ' to ' + $destLink.prop('outerHTML'))
+  $statusLine.html(wgULS('移动', '移動') + $sourceLink.prop('outerHTML') + '到' + $destLink.prop('outerHTML'))
 
   try {
     await api.postWithToken('csrf', {
@@ -2037,10 +2040,10 @@ async function spiHelperMovePage (sourcePage, destPage, summary, ignoreWarnings)
       movesubpages: true,
       ignoreWarnings: ignoreWarnings,
     })
-    $statusLine.html('Moved ' + $sourceLink.prop('outerHTML') + ' to ' + $destLink.prop('outerHTML'))
+    $statusLine.html(wgULS('已移动', '已移動') + $sourceLink.prop('outerHTML') + '到' + $destLink.prop('outerHTML'))
     spiHelperActiveOperations.set(activeOpKey, 'success')
   } catch (error) {
-    $statusLine.addClass('spihelper-errortext').html('<b>Failed to move ' + $sourceLink.prop('outerHTML') + ' to ' + $destLink.prop('outerHTML') + '</b>: ' + error)
+    $statusLine.addClass('spihelper-errortext').html('<b>' + wgULS('移动', '移動') + $sourceLink.prop('outerHTML') + '到' + $destLink.prop('outerHTML') + wgULS('失败', '失敗') + '</b>：' + error)
     spiHelperActiveOperations.set(activeOpKey, 'failed')
   }
 }
@@ -2056,7 +2059,7 @@ async function spiHelperPurgePage (title) {
   'use strict'
   const $statusLine = $('<li>').appendTo($('#spiHelper_status', document))
   const $link = $('<a>').attr('href', mw.util.getUrl(title)).attr('title', title).text(title)
-  $statusLine.html('Purging ' + $link.prop('outerHTML'))
+  $statusLine.html(wgULS('清楚缓存', '清楚快取') + $link.prop('outerHTML'))
   const strippedTitle = spiHelperStripXWikiPrefix(title)
 
   const api = spiHelperGetAPI(title)
@@ -2065,9 +2068,9 @@ async function spiHelperPurgePage (title) {
       action: 'purge',
       titles: strippedTitle,
     })
-    $statusLine.html('Purged ' + $link.prop('outerHTML'))
+    $statusLine.html(wgULS('已清理缓存', '已清除快取') + $link.prop('outerHTML'))
   } catch (error) {
-    $statusLine.addClass('spihelper-errortext').html('<b>Failed to purge ' + $link.prop('outerHTML') + '</b>: ' + error)
+    $statusLine.addClass('spihelper-errortext').html('<b>' + '清除' + $link.prop('outerHTML') + wgULS('的缓存失败', '的快取失敗') + '</b>：' + error)
   }
 }
 
@@ -2102,7 +2105,7 @@ async function spiHelperBlockUser (user, duration, reason, reblock, anononly, ac
   const userPage = 'User:' + user
   const $statusLine = $('<li>').appendTo($('#spiHelper_status', document))
   const $link = $('<a>').attr('href', mw.util.getUrl(userPage)).attr('title', userPage).text(user)
-  $statusLine.html('Blocking ' + $link.prop('outerHTML'))
+  $statusLine.html(wgULS('封禁', '封鎖') + $link.prop('outerHTML'))
 
   // This is not something which should ever be cross-wiki
   const api = new mw.Api()
@@ -2125,7 +2128,7 @@ async function spiHelperBlockUser (user, duration, reason, reblock, anononly, ac
     spiHelperActiveOperations.set(activeOpKey, 'success')
     return true
   } catch (error) {
-    $statusLine.addClass('spihelper-errortext').html('<b>Failed to block ' + $link.prop('outerHTML') + '</b>: ' + error)
+    $statusLine.addClass('spihelper-errortext').html('<b>' + wgULS('封禁', '封鎖') + $link.prop('outerHTML') + wgULS('失败', '失敗') + '</b>：' + error)
     spiHelperActiveOperations.set(activeOpKey, 'failed')
     return false
   }
@@ -2272,7 +2275,7 @@ async function spiHelperDeletePage (title, reason) {
 
   const $statusLine = $('<li>').appendTo($('#spiHelper_status', document))
   const $link = $('<a>').attr('href', mw.util.getUrl(title)).attr('title', title).text(title)
-  $statusLine.html('Deleting ' + $link.prop('outerHTML'))
+  $statusLine.html(wgULS('删除', '刪除') + $link.prop('outerHTML'))
 
   const api = spiHelperGetAPI(title)
   try {
@@ -2281,10 +2284,10 @@ async function spiHelperDeletePage (title, reason) {
       title: title,
       reason: reason,
     })
-    $statusLine.html('Deleted ' + $link.prop('outerHTML'))
+    $statusLine.html(wgULS('已删除', '已刪除') + $link.prop('outerHTML'))
     spiHelperActiveOperations.set(activeOpKey, 'success')
   } catch (error) {
-    $statusLine.addClass('spihelper-errortext').html('<b>Failed to delete ' + $link.prop('outerHTML') + '</b>: ' + error)
+    $statusLine.addClass('spihelper-errortext').html('<b>' + wgULS('删除', '刪除') + $link.prop('outerHTML') + wgULS('失败', '失敗') + '</b>：' + error)
     spiHelperActiveOperations.set(activeOpKey, 'failed')
   }
 }
@@ -2302,7 +2305,7 @@ async function spiHelperUndeletePage (title, reason) {
 
   const $statusLine = $('<li>').appendTo($('#spiHelper_status', document))
   const $link = $('<a>').attr('href', mw.util.getUrl(title)).attr('title', title).text(title)
-  $statusLine.html('Undeleting ' + $link.prop('outerHTML'))
+  $statusLine.html(wgULS('恢复', '恢復') + $link.prop('outerHTML'))
 
   const api = spiHelperGetAPI(title)
   try {
@@ -2311,10 +2314,10 @@ async function spiHelperUndeletePage (title, reason) {
       title: title,
       reason: reason,
     })
-    $statusLine.html('Undeleted ' + $link.prop('outerHTML'))
+    $statusLine.html(wgULS('已恢复', '已恢復') + $link.prop('outerHTML'))
     spiHelperActiveOperations.set(activeOpKey, 'success')
   } catch (error) {
-    $statusLine.addClass('spihelper-errortext').html('<b>Failed to undelete ' + $link.prop('outerHTML') + '</b>: ' + error)
+    $statusLine.addClass('spihelper-errortext').html('<b>' + wgULS('恢复', '恢復') + $link.prop('outerHTML') + wgULS('失败', '失敗') + '</b>：' + error)
     spiHelperActiveOperations.set(activeOpKey, 'failed')
   }
 }
@@ -2341,7 +2344,7 @@ async function spiHelperRenderText (title, text) {
     const response = await spiHelperGetAPI(title).get(request)
     return response.parse.text['*']
   } catch (error) {
-    console.error('Error rendering text: ' + error)
+    console.error(wgULS('渲染文字失败：', '渲染文字失敗：') + error)
     return ''
   }
 }
@@ -2380,7 +2383,7 @@ async function spiHelperGetInvestigationSectionIDs () {
  * @return {string} Name of the archive page
  */
 function spiHelperGetArchiveName () {
-  return spiHelperPageName + '/Archive'
+  return spiHelperPageName + '/存檔'
 }
 
 // UI helper functions
@@ -2739,7 +2742,7 @@ async function spiHelperAddLink () {
   'use strict'
   await spiHelperLoadSettings()
   await mw.loader.load('mediawiki.util')
-  const initLink = mw.util.addPortletLink('p-cactions', '#', 'SPI', 'ca-spiHelper')
+  const initLink = mw.util.addPortletLink('p-cactions', '#', wgULS('傀儡调查', '傀儡調查'), 'ca-spiHelper')
   initLink.addEventListener('click', (e) => {
     e.preventDefault()
     return spiHelperInit()
@@ -2790,9 +2793,9 @@ async function spiHelperLoadSettings () {
       })
     }
   } catch (error) {
-    mw.log.error('Error retrieving your spihelper-options.js')
+    mw.log.error(wgULS('抓取您的spihelper-options.js时发生错误', '抓取您的spihelper-options.js時發生錯誤'))
     // More detailed error in the console
-    console.error('Error getting local spihelper-options.js: ' + error)
+    console.error(wgULS('抓取您的spihelper-options.js时发生错误：', '抓取您的spihelper-options.js時發生錯誤：') + error)
   }
 }
 
@@ -2821,7 +2824,7 @@ function spiHelperIsCheckuser () {
   if (spiHelperSettings.debugForceCheckuserState !== null) {
     return spiHelperSettings.debugForceCheckuserState
   }
-  return mw.config.get('wgUserGroups').includes('checkuser')
+  return mw.config.get('wgUserGroups').includes('checkuser') || spiHelperSettings.clerk // Allow clerk to use CU templates
 }
 
 /**
@@ -2880,7 +2883,7 @@ async function spiHelperParseArchiveNotice (page) {
       }
       const splitEntry = entry.split('=')
       if (splitEntry.length !== 2) {
-        console.error('Malformed archivenotice parameter ' + entry)
+        console.error(wgULS('存档通知参数', '存檔通知參數') + entry + wgULS('格式错误', '格式錯誤'))
         continue
       }
       const key = splitEntry[0]
