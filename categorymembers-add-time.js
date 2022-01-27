@@ -39,9 +39,9 @@ javascript:
 						var current = new Date(row.timestamp);
 						var period = (now.getTime() - current.getTime()) / 1000 / 3600;
 						if (period > 1) {
-							addText(title, 'period', Math.round(period) + ' hr');
+							addText(title, 'cmat-period', Math.round(period) + ' hr');
 						} else {
-							addText(title, 'period', Math.round(period * 60) + ' min')
+							addText(title, 'cmat-period', Math.round(period * 60) + ' min')
 						}
 					}
 					usedTitle.push(title);
