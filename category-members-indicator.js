@@ -10,7 +10,7 @@ javascript:
 		$('<span>').attr('id', 'cmi-item-' + title).insertAfter(e);
 	});
 
-	CategoryMembersIndicator = {};
+	window.CategoryMembersIndicator = CategoryMembersIndicator = {};
 	CategoryMembersIndicator.addText = function(title, className, text) {
 		$('<span>').text('（' + text + '）').addClass('cmi-' + className).appendTo(document.getElementById('cmi-item-' + title));
 	}
