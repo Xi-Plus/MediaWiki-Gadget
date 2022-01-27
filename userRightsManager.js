@@ -352,13 +352,41 @@
 
 	function issueTemplate(watch) {
 		var talkPage = 'User talk:' + userName.replace(/ /g, '_');
-		return api.postWithToken('edit', {
-			format: 'json',
-			action: 'edit',
-			title: talkPage,
-			summary: wgULS('根据', '根據') + permaLink + '授予' + permissionNames[permission] + tagLine,
-			appendtext: '\n\n{{subst:' + templates[permission] + '}}',
-			watchlist: watch ? 'watch' : 'unwatch',
+		var message = '{{subst:' + templates[permission] + '}}';
+
+		return api.get({
+			action: 'query',
+			prop: 'info',
+			titles: talkPage,
+		}).then(function(data) {
+			var page = Object.values(data.query.pages)[0];
+			if (page.missing !== undefined) {
+				return api.create(
+					talkPage,
+					{
+						summary: wgULS('根据', '根據') + permaLink + '授予' + permissionNames[permission] + tagLine,
+						watchlist: watch ? 'watch' : 'unwatch',
+					},
+					message
+				);
+			} else if (page.contentmodel == 'flow-board') {
+				return api.postWithEditToken({
+					action: 'flow',
+					page: talkPage,
+					submodule: 'new-topic',
+					nttopic: wgULS('根据', '根據') + permaLink + '授予' + permissionNames[permission],
+					ntcontent: message,
+					ntformat: 'wikitext',
+				});
+			} else {
+				return api.edit(talkPage, function(revision) {
+					return {
+						text: (revision.content + '\n\n' + message).trim(),
+						summary: wgULS('根据', '根據') + permaLink + '授予' + permissionNames[permission] + tagLine,
+						watchlist: watch ? 'watch' : 'unwatch',
+					};
+				});
+			}
 		});
 	}
 })();
