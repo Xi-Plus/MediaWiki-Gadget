@@ -38,7 +38,9 @@ javascript:
 					if (usedTitle.indexOf(title) === -1 && row.comment.indexOf('已添加至分类') > -1) {
 						var current = new Date(row.timestamp);
 						var period = (now.getTime() - current.getTime()) / 1000 / 3600;
-						if (period > 1) {
+						if (period >= 72) {
+							addText(title, 'cmat-period', Math.round(period / 24) + ' day');
+						} else if (period > 1) {
 							addText(title, 'cmat-period', Math.round(period) + ' hr');
 						} else {
 							addText(title, 'cmat-period', Math.round(period * 60) + ' min')
