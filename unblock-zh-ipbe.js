@@ -101,7 +101,7 @@
                     { summary: wgULS('授予IP封禁豁免权通知', '授予IP封鎖例外權通知') + UnblockZhIpbe.summarySuffix },
                     message
                 ).then(function() {
-                    mw.notify(wgULS('成功发送通知给 ', '成功發送通知給 ') + username);
+                    mw.notify(wgULS('成功发送通知给“', '成功發送通知給「') + username + wgULS('”', '」'));
                 }, function(e) {
                     mw.notify(wgULS('未知错误：', '未知錯誤：') + e);
                 });
@@ -114,7 +114,7 @@
                     ntcontent: message,
                     ntformat: 'wikitext',
                 }).then(function() {
-                    mw.notify(wgULS('成功发送通知给 ', '成功發送通知給 ') + username);
+                    mw.notify(wgULS('成功发送通知给“', '成功發送通知給「') + username + wgULS('”', '」'));
                 }, function(e) {
                     mw.notify(wgULS('未知错误：', '未知錯誤：') + e);
                 });
@@ -125,7 +125,7 @@
                         summary: wgULS('授予IP封禁豁免权通知', '授予IP封鎖例外權通知') + UnblockZhIpbe.summarySuffix,
                     };
                 }).then(function() {
-                    mw.notify(wgULS('成功发送通知给 ', '成功發送通知給 ') + username);
+                    mw.notify(wgULS('成功发送通知给“', '成功發送通知給「') + username + wgULS('”', '」'));
                 }, function(e) {
                     mw.notify(wgULS('未知错误：', '未知錯誤：') + e);
                 });
@@ -135,13 +135,14 @@
 
     function Report(username, url) {
         new mw.Api().edit('Wikipedia:權限申請/申請IP封禁例外權', function(revision) {
+            var content = '{{subst:rfp|' + username + '|2=' + wgULS('经由', '經由') + '[' + url + ' unblock-zh]' + wgULS('申请的授权备案', '申請的授權備案') + '。|status=+}}--~~~~';
             var summary = '[[Special:UserRights/' + username + '|' + '授予' + username + wgULS('IP封禁豁免权', 'IP封鎖例外權') + ']]' + wgULS('备案', '備案');
             return {
-                text: revision.content + '\n\n{{subst:rfp|' + username + '|2=[' + url + ' unblock-zh]|status=+}}--~~~~',
+                text: revision.content + '\n\n' + content,
                 summary: summary + UnblockZhIpbe.summarySuffix,
             };
         }).then(function() {
-            mw.notify(wgULS('成功为 ', '成功為 ') + username + wgULS(' 备案', ' 備案'));
+            mw.notify(wgULS('成功为“', '成功為「') + username + wgULS('”备案', '」備案'));
         }, function(e) {
             mw.notify(wgULS('未知错误：', '未知錯誤：') + e);
         });
