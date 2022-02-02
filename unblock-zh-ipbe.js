@@ -76,7 +76,7 @@
             expiry: duration,
             reason: url + UnblockZhIpbe.summarySuffix,
         }).then(function() {
-            mw.notify('成功授予 ' + username + ' IPBE ' + duration);
+            mw.notify(wgULS('成功授予“', '成功授予「') + username + wgULS('”IPBE，期限为“', '」IPBE，期限為「') + duration + wgULS('”', '」'));
         }, function(e) {
             mw.notify(wgULS('未知错误：', '未知錯誤：') + e);
         });
