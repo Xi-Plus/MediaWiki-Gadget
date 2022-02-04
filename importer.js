@@ -30,7 +30,7 @@ javascript:
 		 * $4 - Revision User
 		 * $5 - Revision Timestamp
 		 */
-		Importer.summary = 'Imported from [[$2:Special:PermanentLink/$3|$2:$1]] via [[m:User:Xiplus/js/importer.js|importer.js]]';
+		Importer.summary = "Copied content from [[$2:Special:PermanentLink/$3|$2:$1]]; see [[$2:Special:PageHistory/$1|that page's history]] for attribution; via [[m:User:Xiplus/js/importer.js|importer.js]]";
 	}
 
 	mw.messages.set({
