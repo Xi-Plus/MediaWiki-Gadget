@@ -3,9 +3,9 @@
 	function main() {
 		$('.template-sock-list').each(function(_, template) {
 			var usernames = [];
-			$(template).find('.template-sock-list-user').each(function(_, checkuser) {
-				var username = $(checkuser).attr('data-user');
-				if (usernames.indexOf(username) === -1) {
+			$(template).find('.template-sock-list-user, .template-sock-list-ip').each(function(_, checkuser) {
+				var username = $(checkuser).attr('data-user') || $(checkuser).attr('data-ip');
+				if (username && usernames.indexOf(username) === -1) {
 					usernames.push(username);
 				}
 			});
