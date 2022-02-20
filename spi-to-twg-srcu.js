@@ -13,7 +13,7 @@
 				$(template).find('.template-sock-list-tools').append(' • ');
 				$('<a>').text(wgULS('报告到SRCU', '報告到SRCU')).on('click', function() {
 					if (typeof TwinkleGlobal === 'undefined') {
-						mw.notify(wgULS('您没有安装Twinkle Global', '您沒有安裝Twinkle Global'), { type: 'error' });
+						mw.notify(wgULS('您没有安装TwinkleGlobal', '您沒有安裝TwinkleGlobal'), { type: 'error' });
 					} else {
 						TwinkleGlobal.arv.callback(usernames, 'srcu');
 						// hack to insert discussion
