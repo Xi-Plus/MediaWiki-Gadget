@@ -41,8 +41,12 @@
                 return false;
             }
             var m;
-            if ((m = url.match(/^\s*(https?:\/\/lists.wikimedia.org\/hyperkitty\/list\/unblock-zh@lists.wikimedia.org\/(?:message|thread)\/(.+)\/?)\s*$/)) !== null) {
-                return { 'long': m[1], 'short': m[2] };
+            if ((m = url.match(/^\s*(https?:\/\/lists.wikimedia.org\/hyperkitty\/(list\/unblock-zh@lists.wikimedia.org\/(?:message|thread)\/(.+?)\/?))\s*$/)) !== null) {
+                return {
+                    'full': m[1],
+                    'long': m[2],
+                    'short': m[3],
+                };
             }
             msgprefix = wgULS('格式错误！请重新输入\n', '格式錯誤！請重新輸入\n');
         }
@@ -68,13 +72,13 @@
         }
     }
 
-    function GrantIpbe(username, duration, url) {
+    function GrantIpbe(username, duration, urllong) {
         new mw.Api().postWithToken('userrights', {
             action: 'userrights',
             user: username,
             add: 'ipblock-exempt',
             expiry: duration,
-            reason: url + UnblockZhIpbe.summarySuffix,
+            reason: '+' + wgULS('IP封禁豁免', 'IP封鎖例外') + '，[[listarchive:' + urllong + '|unblock-zh' + wgULS('申请', '申請') + ']]' + UnblockZhIpbe.summarySuffix,
         }).then(function() {
             mw.notify(wgULS('成功授予“', '成功授予「') + username + wgULS('”IPBE，期限为“', '」IPBE，期限為「') + duration + wgULS('”', '」'));
         }, function(e) {
@@ -133,9 +137,9 @@
         });
     }
 
-    function Report(username, url) {
+    function Report(username, urllong) {
         new mw.Api().edit('Wikipedia:權限申請/申請IP封禁例外權', function(revision) {
-            var content = '{{subst:rfp|' + username + '|2=' + wgULS('经由', '經由') + '[' + url + ' unblock-zh]' + wgULS('申请的授权备案', '申請的授權備案') + '。|status=+}}--~~~~';
+            var content = '{{subst:rfp|' + username + '|2=' + wgULS('经由', '經由') + '[[listarchive:' + urllong + '|unblock-zh' + wgULS('申请', '申請') + ']]' + wgULS('的授权备案', '的授權備案') + '。|status=+}}--~~~~';
             var summary = '[[Special:UserRights/' + username + '|' + '授予' + username + wgULS('IP封禁豁免权', 'IP封鎖例外權') + ']]' + wgULS('备案', '備案');
             return {
                 text: revision.content + '\n\n' + content,
