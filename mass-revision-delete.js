@@ -120,7 +120,7 @@
             'text': '批量版本刪除',
         });
         $filter.on('click', main);
-        $filter.appendTo($('.mw-contributions-list').prev());
+        $filter.appendTo($('.mw-contributions-list').parent().find('.mw-pager-navigation-bar'));
 
     });
 
