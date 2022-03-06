@@ -79,13 +79,9 @@
 		};
 		Dialog.prototype.initialize = function() {
 			Dialog.super.prototype.initialize.call(this);
-			this.editFieldset = new OO.ui.FieldsetLayout({
-				classes: ['container'],
-			});
 			this.editPanel = new OO.ui.PanelLayout({
 				expanded: false,
 			});
-			this.editPanel.$element.append(this.editFieldset.$element);
 
 			var rightLogWapper = $('<span>');
 			var url = mw.util.getUrl('Special:Log/rights', { type: 'rights', page: 'User:' + userName });
@@ -95,6 +91,7 @@
 			this.rightLog = new OO.ui.LabelWidget({
 				label: rightLogWapper,
 			});
+			this.editPanel.$element.append(this.rightLog.$element);
 
 			api.get({
 				action: 'query',
@@ -113,6 +110,11 @@
 					rightLogText.text(timestamp + ' ' + logs[0].user + wgULS('将用户组改为', '將使用者群組改為') + rights);
 				}
 			});
+
+			this.editFieldset = new OO.ui.FieldsetLayout({
+				classes: ['container'],
+			});
+			this.editPanel.$element.append(this.editFieldset.$element);
 
 			this.rightsChangeSummaryInput = new OO.ui.TextInputWidget({
 				value: '',
@@ -147,7 +149,6 @@
 			this.watchTalkPageCheckbox = new OO.ui.CheckboxInputWidget({
 				selected: false,
 			});
-			this.editFieldset.addItems(this.rightLog);
 			var formElements = [
 				new OO.ui.FieldLayout(this.rightsChangeSummaryInput, {
 					label: wgULS('授权原因', '授權原因'),
