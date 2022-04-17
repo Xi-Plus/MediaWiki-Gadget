@@ -8,7 +8,8 @@ javascript: (async function() {
 	const RVLIMIT = 50;
 
 	var username = '',
-		timestamp = '';
+		timestamp = '',
+		revid;
 	if (selectedText) {
 		await api
 			.get({
@@ -31,10 +32,10 @@ javascript: (async function() {
 				}
 				for (let i = revisions.length - 2; i >= 0; i--) {
 					if (revisions[i].slots.main.content.includes(selectedText)) {
-						console.log(revisions[i])
 						found = true;
 						username = revisions[i].user;
 						timestamp = revisions[i].timestamp;
+						revid = revisions[i].revid;
 						break;
 					}
 				}
@@ -75,8 +76,12 @@ javascript: (async function() {
 		} else {
 			summary += '[[Special:Contributions/' + username + '|' + username + ']]（[[User talk:' + username + '|留言]]）';
 		}
+		if (revid) {
+			summary += ' rev [[Special:Diff/' + revid + '|' + revid + ']]';
+		}
 		document.getElementById('wpSummary').value = summary;
 		document.getElementById('wpMinoredit').click();
+		document.getElementById('wpDiff').click();
 
 		var finish = function() {
 			if (confirm('Save?')) {
