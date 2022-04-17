@@ -61,24 +61,19 @@ javascript: (async function() {
 			new Morebits.date(timestamp).format('YYYY年M月D日 (ddd) HH:mm', 'utc') +
 			' (UTC)}}' +
 			mySuffix;
-		var summary = '[[Template:Unsigned|補簽名]]';
+		var summary = '為';
 		if (mw.util.isIPAddress(username)) {
-			summary +=
-				'[[User:' +
-				username +
-				'|' +
-				username +
-				']]（[[User talk:' +
-				username +
-				'|對話]]｜[[Special:Contributions/' +
-				username +
-				'|貢獻]]）';
+			summary += '[[Special:Contributions/' + username + '|' + username + ']]';
 		} else {
-			summary += '[[Special:Contributions/' + username + '|' + username + ']]（[[User talk:' + username + '|留言]]）';
+			summary += '[[User:' + username + '|' + username + ']]';
 		}
+		summary += '的';
 		if (revid) {
-			summary += ' rev [[Special:Diff/' + revid + '|' + revid + ']]';
+			summary += '[[Special:Diff/' + revid + '|編輯]]';
+		} else {
+			summary += '編輯';
 		}
+		summary += '[[Template:Unsigned|補簽名]]';
 		document.getElementById('wpSummary').value = summary;
 		document.getElementById('wpMinoredit').click();
 		document.getElementById('wpDiff').click();
