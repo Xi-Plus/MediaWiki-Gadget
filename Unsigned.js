@@ -1,10 +1,11 @@
-javascript: (async function () {
+javascript: (async function() {
 	var api = new mw.Api();
 	var textbox = document.getElementById('wpTextbox1');
 
 	var myPrefix = textbox.value.substring(0, textbox.selectionStart);
 	var selectedText = textbox.value.substring(textbox.selectionStart, textbox.selectionEnd);
 	var mySuffix = textbox.value.substring(textbox.selectionEnd);
+	const RVLIMIT = 50;
 
 	var username = '',
 		timestamp = '';
@@ -17,28 +18,30 @@ javascript: (async function () {
 				titles: mw.config.get('wgPageName'),
 				utf8: 1,
 				formatversion: '2',
-				rvprop: 'timestamp|user|content',
+				rvprop: 'ids|timestamp|user|content',
 				rvslots: 'main',
-				rvlimit: '50',
+				rvlimit: RVLIMIT,
 			})
-			.done(function (res) {
+			.done(function(res) {
 				var found = false;
-				for (const revision of res.query.pages[0].revisions) {
-					console.log(revision.user, revision.timestamp);
-					if (revision.slots.main.content.includes(selectedText)) {
+				var revisions = res.query.pages[0].revisions;
+				if (revisions[revisions.length - 1].slots.main.content.includes(selectedText)) {
+					mw.notify('The text existed before ' + revisions.length + ' revisions', { type: 'error' });
+					return;
+				}
+				for (let i = revisions.length - 2; i >= 0; i--) {
+					if (revisions[i].slots.main.content.includes(selectedText)) {
+						console.log(revisions[i])
 						found = true;
-						username = revision.user;
-						timestamp = revision.timestamp;
-					} else {
-						if (found) {
-							break;
-						}
+						username = revisions[i].user;
+						timestamp = revisions[i].timestamp;
+						break;
 					}
 				}
 				if (found) {
 					mw.notify('Added by ' + username + ' at ' + timestamp);
 				} else {
-					mw.notify('Author not found', { type: 'error' });
+					mw.notify('The text is not found', { type: 'error' });
 				}
 			});
 	}
@@ -75,7 +78,7 @@ javascript: (async function () {
 		document.getElementById('wpSummary').value = summary;
 		document.getElementById('wpMinoredit').click();
 
-		var finish = function () {
+		var finish = function() {
 			if (confirm('Save?')) {
 				document.getElementById('wpSave').click();
 			}
@@ -87,7 +90,7 @@ javascript: (async function () {
 			var talkpage = 'User_talk:' + username;
 
 			api
-				.edit(talkpage, function (revision) {
+				.edit(talkpage, function(revision) {
 					return {
 						text: revision.content + '\n\n' + talkmessage,
 						summary: talksummary,
@@ -95,11 +98,11 @@ javascript: (async function () {
 					};
 				})
 				.then(
-					function () {
+					function() {
 						mw.notify('已通知');
 						finish();
 					},
-					function (e) {
+					function(e) {
 						if (e == 'nocreate-missing') {
 							api
 								.create(
@@ -110,11 +113,11 @@ javascript: (async function () {
 									talkmessage
 								)
 								.then(
-									function () {
+									function() {
 										mw.notify('已通知');
 										finish();
 									},
-									function (e) {
+									function(e) {
 										mw.notify('建立討論頁發生錯誤：' + e);
 										finish();
 									}
