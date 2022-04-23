@@ -23,6 +23,9 @@
 	if (!permission) {
 		return;
 	}
+	if (permission === 'accountcreator' && mw.config.get('wgUserGroups').indexOf('bureaucrat') === -1) {
+		return;
+	}
 
 	var templates = {
 		'ipblock-exempt': 'Ipexemptgranted',
