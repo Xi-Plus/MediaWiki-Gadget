@@ -5,20 +5,28 @@ javascript:
 		return;
 	}
 
-	if (typeof Importer === 'undefined')
+	if (typeof Importer === 'undefined') {
 		Importer = {};
+	}
 
 	if (typeof Importer.wikis !== 'object') {
 		if (mw.config.get('wgWikiFamily') === 'wikipedia') {
 			Importer.wikis = [
-				{ text: 'zhwp', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'zh' },
-				{ text: 'enwp', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'en' },
+				{ text: 'zhwp', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'zh:' },
+				{ text: 'enwp', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'en:' },
 			];
 		} else {
 			Importer.wikis = [
-				{ text: 'zhwp', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'w:zh' },
-				{ text: 'enwp', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'w:en' },
+				{ text: 'zhwp', url: 'https://zh.wikipedia.org/w/api.php', interwiki: 'w:zh:' },
+				{ text: 'enwp', url: 'https://en.wikipedia.org/w/api.php', interwiki: 'w:en:' },
 			];
+		}
+		if (['zhwiki', 'enwiki'].indexOf(mw.config.get('wgDBname')) === -1) {
+			Importer.wikis.push({
+				text: mw.config.get('wgDBname'),
+				url: 'https://' + location.host + mw.util.wikiScript('api'),
+				interwiki: '',
+			})
 		}
 	}
 
@@ -30,7 +38,7 @@ javascript:
 		 * $4 - Revision User
 		 * $5 - Revision Timestamp
 		 */
-		Importer.summary = "Copied content from [[$2:Special:PermanentLink/$3|$2:$1]]; see [[$2:Special:PageHistory/$1|that page's history]] for attribution; via [[m:User:Xiplus/js/importer.js|importer.js]]";
+		Importer.summary = "Copied content from [[$2Special:PermanentLink/$3|$2$1]]; see [[$2Special:PageHistory/$1|that page's history]] for attribution; via [[m:User:Xiplus/js/importer.js|importer.js]]";
 	}
 
 	mw.messages.set({
