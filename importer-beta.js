@@ -87,6 +87,7 @@ javascript:
 					}
 				).done(function() {
 					mw.notify('Page edited.');
+					location.href = mw.util.getUrl(null, { diff: 'cur', oldid: 'prev' });
 				}).fail(function() {
 					mw.notify('An error occurred while editing:' + e);
 				});
