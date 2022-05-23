@@ -335,7 +335,7 @@
 			})
 			.then(function() {
 				content = content.trim();
-				content = content.replace(/:{{(Status)(\|.*?)?}}/i, ':{{$1|+}}');
+				content = content.replace(/(:\s*{{Status)(\|.*?)?}}/i, '$1|+}}');
 				content += closingRemarks;
 
 				return api.postWithEditToken({
