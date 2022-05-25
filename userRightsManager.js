@@ -285,6 +285,13 @@
 	}
 
 	function assignPermission(summary, revId, expiry) {
+		if (expiry === '') {
+			expiry = 'infinite';
+		}
+		var removePermission = '';
+		if (permission === 'patroller' && expiry === 'infinite') {
+			removePermission = 'autoreviewer';
+		}
 		permaLink = '[[Special:PermaLink/' + revId + '#User:' + userName + '|' + wgULS('权限申请', '權限申請') + ']]';
 		var fullSummary = '+' + permissionNames[permission] + '；' + permaLink;
 		if (summary !== '') {
@@ -297,8 +304,9 @@
 			format: 'json',
 			user: userName.replace(/ /g, '_'),
 			add: permission,
+			remove: removePermission,
 			reason: fullSummary,
-			expiry: expiry === '' ? 'infinity' : expiry,
+			expiry: expiry,
 		});
 	}
 
