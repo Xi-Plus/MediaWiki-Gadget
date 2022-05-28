@@ -1,4 +1,4 @@
-/* global jQuery, mediaWiki, OO*/
+/* global jQuery, mediaWiki, OO */
 /*
  * 修改自 https://www.wikidata.org/w/index.php?title=MediaWiki:Gadget-Merge.js&oldid=835856716
  * 使用方法請見 https://meta.wikimedia.org/wiki/User:Xiplus/js/history-merge
@@ -46,7 +46,7 @@ mw.loader.using(['mediawiki.api', 'mediawiki.util', 'mediawiki.language', 'oojs-
                     undeleteTargetSummary: '合併歷史 via [[:m:User:Xiplus/js/history-merge.js|history-merge]]',
                 },
             },
-                chain = mw.language.getFallbackLanguageChain(),
+                chain = mw.language.getFallbackLanguageChain().concat(['zh-hant']),
                 len = chain.length,
                 ret = {},
                 i = len - 1;
