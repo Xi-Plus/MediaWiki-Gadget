@@ -120,7 +120,11 @@
             'text': '批量版本刪除',
         });
         $filter.on('click', main);
-        $filter.appendTo($('.mw-contributions-list').parents('#mw-content-text').find('.mw-pager-navigation-bar'));
+        if ($('.mw-pager-navigation-bar').length > 0) {
+            $filter.appendTo($('.mw-contributions-list').parents('#mw-content-text').find('.mw-pager-navigation-bar'));
+        } else {
+            $filter.insertBefore($('.mw-contributions-list').parents('#mw-content-text').find('.mw-pager-body'));
+        }
 
     });
 
