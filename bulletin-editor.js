@@ -14,6 +14,7 @@
 
 		$('#be-editor').remove();
 		var $wrapper = $('<div>').attr('id', 'be-editor');
+		var editorText = $('#wpTextbox1').val();
 		$('#bodyContent').html($wrapper);
 
 		if (mw.config.get('wgUserGroups').indexOf('autoconfirmed') === -1) {
@@ -41,7 +42,7 @@
 			params.rvstartid = mw.config.get('wgRevisionId');
 
 			$wrapper.append(
-				$('<div>').addClass('warningbox')
+				$('<div>').addClass('mw-message-box-warning mw-message-box')
 					.append($('<b>').text('警告：'))
 					.append(wgULS('您正在编辑的是本页的旧版本。如果您保存它的话，在本版本之后的任何修改都会丢失。', '您正在編輯的是本頁的舊版本。如果您保存它的話，在本版本之後的任何修改都會丟失。'))
 			);
@@ -52,6 +53,17 @@
 			var basetimestamp = revision.timestamp;
 			var curtimestamp = data.curtimestamp;
 			var bulletinText = revision.content;
+
+			if (editorText) {
+				bulletinText = editorText;
+
+				$wrapper.append(
+					$('<div>').addClass('mw-message-box-warning mw-message-box')
+						.append($('<b>').text('警告：'))
+						.append(wgULS('已从编辑框加载内容，而非是最新版本内容。', '已從編輯框載入內容，而非是最新版本內容。'))
+				);
+			}
+
 			var idxStart = bulletinText.indexOf(flagStart);
 			var idxEnd = bulletinText.indexOf(flagEnd);
 			if (idxStart === -1 || idxEnd === -1) {
