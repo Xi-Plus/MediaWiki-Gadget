@@ -18,7 +18,7 @@
 						TwinkleGlobal.arv.callback(usernames, 'srcu');
 						// hack to insert discussion
 						var discussion = '[[:w:zh:Special:PermaLink/' + mw.config.get('wgRevisionId') + '|w:zh:' + mw.config.get('wgPageName') + ']]'
-						$('.morebits-dialog').find('input[name="discussion"]').val(discussion);
+						$('.morebitsglobal-dialog').find('input[name="discussion"]').val(discussion);
 					}
 				}).appendTo($(template).find('.template-sock-list-tools'));
 			}
