@@ -18,9 +18,11 @@
 						TwinkleGlobal.arv.callback(usernames, 'srcu');
 						// hack to insert discussion
 						var discussion = '[[:w:zh:Special:PermaLink/' + mw.config.get('wgRevisionId') + '|w:zh:' + mw.config.get('wgPageName') + ']]'
-						var header = mw.config.get('wgPageName').replace('Wikipedia:傀儡調查/案件/', '').replace(/_/g, ' ') + '@zh.wikipedia';
 						$('.morebitsglobal-dialog').find('input[name="discussion"]').val(discussion);
-						$('.morebitsglobal-dialog').find('input[name="header"]').val(header);
+						if (/^Wikipedia:傀儡調查\/案件\/[^/]+$/.test(mw.config.get('wgPageName'))) {
+							var header = mw.config.get('wgPageName').replace('Wikipedia:傀儡調查/案件/', '').replace(/_/g, ' ') + '@zh.wikipedia';
+							$('.morebitsglobal-dialog').find('input[name="header"]').val(header);
+						}
 					}
 				}).appendTo($(template).find('.template-sock-list-tools'));
 			}
