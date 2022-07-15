@@ -63,7 +63,7 @@
     );
 
     function showCloseButton() {
-        var titles = $('div.mw-parser-output>div.plainlinks');
+        var titles = $('.template-Revdel');
 
         var spanTag = function(color, content) {
             var span = document.createElement('span');
@@ -171,7 +171,7 @@
     getPageContent.then(function(result) {
         window.content = result.content;
         var lenintext = result.content.split("{{Revdel").length - 1;
-        if ($('div.mw-parser-output>div.plainlinks').length !== lenintext) {
+        if ($('.template-Revdel').length !== lenintext) {
             mw.notify('抓取章節錯誤，在HTML找到 ' + $('div.mw-parser-output>div.plainlinks').length + ' 個章節，在原始碼找到 ' + lenintext + ' 個章節', { type: 'error' });
         } else {
             showCloseButton();
