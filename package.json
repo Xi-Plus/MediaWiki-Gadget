@@ -7,7 +7,7 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.16.0",
+    "@babel/eslint-parser": "^7.18.9",
     "eslint": "^8.1.0"
   }
 }
