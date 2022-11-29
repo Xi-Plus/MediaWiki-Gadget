@@ -121,6 +121,7 @@
             html += '<select class="rfpp2">';
             html += '<option value="">選擇等級</option>';
             html += '<option value="s" data-summary="半保護">半保護X，X過後系統會自動解除此頁保護</option>';
+            html += '<option value="e" data-summary="延伸確認保護">延伸確認保護X，X過後系統會自動解除此頁保護</option>';
             html += '<option value="tp" data-summary="模板保護">模板保護X，X過後系統會自動解除此頁保護</option>';
             html += '<option value="p" data-summary="全保護">全保護X，X過後系統會自動解除此頁保護</option>';
             html += '<option value="m" data-summary="移動保護">移動保護X，X過後系統會自動解除此頁保護</option>';
