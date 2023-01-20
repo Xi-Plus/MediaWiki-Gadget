@@ -1,7 +1,7 @@
 javascript: (function() {
     /* eslint semi: ["error", "always"]*/
 
-    if (mw.config.get('wgPageName') !== 'Wikipedia:当前的破坏'
+    if (['Wikipedia:当前的破坏', 'Wikipedia:管理员布告板/编辑争议', 'Wikipedia:管理员布告板/其他不当行为'].indexOf(mw.config.get('wgPageName')) === -1
         || mw.config.get('wgAction') !== 'edit') {
         return;
     }
