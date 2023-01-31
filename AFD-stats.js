@@ -10,12 +10,15 @@ javascript:
 			var title = decodeURI(toc.children[0].href.substr(toc.children[0].href.indexOf("#") + 1));
 			if (toc.children[1] !== undefined) continue;
 			cntall++;
-			var article = document.getElementById(title);
-			if (article.parentNode.nextElementSibling.nodeName === "DIV") {
+			var section = document.getElementById(title).parentNode;
+			if (section.nodeName == 'H2') {
+				section = section.parentNode;
+			}
+			if (section.nextElementSibling.nodeName === 'DIV') {
 				toc.children[0].children[1].style["color"] = "#000000";
 				toc.children[0].children[1].style["font-weight"] = "bold";
 				cntcls++;
-			} else if (article.children[0] !== undefined && article.children[0].classList.contains('new')) {
+			} else if (section.children[0] !== undefined && section.children[0].classList.contains('new')) {
 				toc.children[0].children[1].style["color"] = "#ba0000";
 				cntdel++;
 			}
