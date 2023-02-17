@@ -16,6 +16,16 @@
         return;
     }
 
+    mw.util.addCSS(`
+    a.close-vip-link {
+        color: red;
+        font-weight: bold;
+    }
+    a.close-vip-link-closed {
+        color: gray;
+    }
+    `)
+
     var titles = $('#bodyContent').find('h3');
     var api = new mw.Api();
     var content, curtimestamp;
@@ -58,34 +68,25 @@
     );
 
     function showCloseButton() {
-        var spanTag = function(color, content) {
-            var span = document.createElement('span');
-            span.style.color = color;
-            span.appendChild(document.createTextNode(content));
-            return span;
-        };
-        var delNode = document.createElement('strong');
-        var delLink = document.createElement('a');
-        delLink.appendChild(spanTag('Black', '['));
-        delLink.appendChild(spanTag('Red', wgULS('关闭', '關閉')));
-        delLink.appendChild(spanTag('Black', ']'));
-        delNode.setAttribute('class', 'CloseVipBtn');
-        delNode.appendChild(delLink);
-
         titles.each(function(key, current) {
-            var headline = $(current).find('.mw-headline').first();
-            var vandal = headline.find('.template-Vandal').first();
-            var title = vandal.next().attr('id');
+            var title = $(current).find('.mw-headline').first().text();
+
             var sectionid = mw.util.getParamValue('section', $(current).find('.mw-editsection a')[0].href);
 
-            var tmpNode = delNode.cloneNode(true);
-            $(tmpNode).attr('data-key', key);
-            $(tmpNode).attr('data-section-id', sectionid);
-            $(tmpNode.firstChild).click(function() {
+            var closeLink = document.createElement('a');
+            closeLink.href = '#';
+            closeLink.className = 'close-vip-link';
+            closeLink.innerText = wgULS('关闭', '關閉');
+            $(closeLink).on('click', function() {
                 processClose(key, sectionid, title);
                 return false;
             });
-            headline.append(tmpNode)
+
+            var node = current.getElementsByClassName('mw-editsection')[0];
+            var delDivider = document.createElement('span');
+            delDivider.appendChild(document.createTextNode(' | '));
+            node.insertBefore(delDivider, node.childNodes[1]);
+            node.insertBefore(closeLink, node.childNodes[1]);
         });
     }
 
@@ -176,7 +177,7 @@
                     newtext += '\n* 处理：' + comment + '--~~~~';
                 }
             }
-            $(titles[key]).find('.CloseVipBtn span').css('color', 'grey');
+            $(titles[key]).find('.close-vip-link').addClass('close-vip-link-closed');
             return {
                 text: newtext,
                 section: sectionid,
