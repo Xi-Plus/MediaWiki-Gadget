@@ -83,7 +83,7 @@
                 ids: ids,
                 hide: hide,
                 show: show,
-                reason: comment,
+                reason: comment + ' ([[User:Xiplus/js/mass-revision-delete.js|mrd.js]])',
             }).then(function() {
                 mw.notify('成功刪除 ' + target + ' 的 ' + count + ' 個版本');
             }, function(e) {
