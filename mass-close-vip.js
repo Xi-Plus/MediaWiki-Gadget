@@ -76,7 +76,7 @@ javascript: (function() {
         const content = sections[i];
 
         if (/\* 处理：(<!-- 非管理員僅可標記已執行的封禁，針對提報的意見請放在下一行 -->)?(\n|$)/.test(content)) {
-            var m = content.match(/===\s*{{vandal\|(?:1=)?([^|]+?)(?:\||}})/i);
+            var m = content.match(/{{vandal\|(?:1=)?([^|]+?)(?:\||}})/i);
             if (m) {
                 var username = m[1];
                 remainingTask++;
