@@ -91,7 +91,7 @@
 				alert('nocreate-missing');
 				return;
 			}
-			revision = page.revisions[0];
+			let revision = page.revisions[0];
 			text = revision.content;
 		}
 		result['zh'] = text;
