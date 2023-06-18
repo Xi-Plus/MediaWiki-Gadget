@@ -28,7 +28,7 @@
 		TranslateVariants.summary = '自動轉換變體自[[$1]] via [[User:Xiplus/js/TranslateVariants.js|TranslateVariants]]'
 	}
 
-	function main() {
+	async function main() {
 		const langs = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
 		const langname = {
 			'zh': '原始',
@@ -66,51 +66,53 @@
 			return langs.indexOf(lang) !== -1
 		});
 
-		api.get({
-			action: 'query',
-			prop: 'revisions',
-			rvprop: ['content', 'timestamp'],
-			titles: [mw.config.get('wgPageName')],
-			formatversion: '2',
-			curtimestamp: true,
-		}).then(function(data) {
-			var page, revision;
+		let text;
+		if ($('#wpTextbox1').length === 1) {
+			text = $('#wpTextbox1').val();
+		} else {
+			let data = await api.get({
+				action: 'query',
+				prop: 'revisions',
+				rvprop: ['content', 'timestamp'],
+				titles: [mw.config.get('wgPageName')],
+				formatversion: '2',
+				curtimestamp: true,
+			});
 			if (!data.query || !data.query.pages) {
-				return $.Deferred().reject('unknown');
+				alert('unknown error');
+				return;
 			}
-			page = data.query.pages[0];
+			let page = data.query.pages[0];
 			if (!page || page.invalid) {
-				return $.Deferred().reject('invalidtitle');
+				alert('invalidtitle');
+				return;
 			}
 			if (page.missing) {
-				return $.Deferred().reject('nocreate-missing');
+				alert('nocreate-missing');
+				return;
 			}
 			revision = page.revisions[0];
-			return {
-				content: revision.content,
-			};
-		}).then(function(data) {
-			let text = data.content;
-			result['zh'] = text;
+			text = revision.content;
+		}
+		result['zh'] = text;
 
-			text = text.replace(/[[\]{}<>|:*'_#&\s]/gim, function(s) {
-				return "&#" + s.charCodeAt(0) + ";";
-			});
-			text = text.replace(/(&#91;&#91;)((?:(?!&#124;)(?!&#93;).)+?)(&#124;(?:(?!&#93;).)+?&#93;&#93;)/g, '$1-{$2}-$3');
-			text = text.replace(/-&#123;(.+?)&#125;-/g, function(s) {
-				return s
-					.replace('-&#123;', '-{')
-					.replace('&#125;-', '}-')
-					.replace(/&#124;/g, '|')
-					.replace(/&#32;/g, ' ')
-					.replace(/&#61;/g, '=')
-					.replace(/&#62;/g, '>')
-					.replace(/&#58;/g, ':')
-			});
-			basepagetext = text;
-
-			process();
+		text = text.replace(/[[\]{}<>|:*'_#&\s]/gim, function(s) {
+			return "&#" + s.charCodeAt(0) + ";";
 		});
+		text = text.replace(/(&#91;&#91;)((?:(?!&#124;)(?!&#93;).)+?)(&#124;(?:(?!&#93;).)+?&#93;&#93;)/g, '$1-{$2}-$3');
+		text = text.replace(/-&#123;(.+?)&#125;-/g, function(s) {
+			return s
+				.replace('-&#123;', '-{')
+				.replace('&#125;-', '}-')
+				.replace(/&#124;/g, '|')
+				.replace(/&#32;/g, ' ')
+				.replace(/&#61;/g, '=')
+				.replace(/&#62;/g, '>')
+				.replace(/&#58;/g, ':')
+		});
+		basepagetext = text;
+
+		process();
 
 		function process() {
 			if (langqueue.length === 0) {
