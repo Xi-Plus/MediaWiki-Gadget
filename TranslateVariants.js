@@ -52,6 +52,24 @@
 		}
 		var basepagetext = '';
 		let table = $('<div id="TranslateVariants">').prependTo('#bodyContent');
+
+		let submitall = $('<button>發佈所有變更</button>');
+		submitall.on('click', function() {
+			let buttons = $('.TranslateVariants-publish-changes');
+			if (buttons.length === 0) {
+				mw.notify('沒有任何變更可發佈', { type: 'error' });
+				return;
+			}
+			if (!confirm('發佈 ' + buttons.length + ' 個變更？')) {
+				mw.notify('已取消發佈', { type: 'warn' });
+				return;
+			}
+			buttons.each(function(_, button) {
+				$(button).click();
+			});
+		});
+		table.append($('<div style="text-align: right;">').append(submitall));
+
 		$('<div style="color:red">提醒：TranslateVariants工具使用IT及MediaWiki兩個轉換組進行自動轉換，請確認轉換結果是否正確！</div>').appendTo(table);
 
 		var defaultlangs = 'zh,zh-hans,zh-cn,zh-my,zh-sg,zh-hant,zh-hk,zh-mo,zh-tw';
@@ -177,7 +195,7 @@
 				if (diff == '') {
 					$('<span style="float: right;">無變更</span>').appendTo(tool);
 				} else {
-					let submit = $('<button style="float: right;">發佈變更</button>').appendTo(tool);
+					let submit = $('<button class="TranslateVariants-publish-changes" style="float: right;">發佈變更</button>').appendTo(tool);
 					submit.on('click', function() {
 						this.remove();
 						api.edit(
