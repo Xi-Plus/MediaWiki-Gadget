@@ -82,13 +82,16 @@
 					$(e).hide();
 					return;
 				}
-				if (config.diffbytes1 && +$(e).find('.mw-diff-bytes').text() < config.diffbytes1) {
-					$(e).hide();
-					return;
-				}
-				if (config.diffbytes2 && +$(e).find('.mw-diff-bytes').text() > config.diffbytes2) {
-					$(e).hide();
-					return;
+				let diffBytes = parseInt($(e).find('.mw-diff-bytes').text().replace('−', '-').replaceAll(',', ''));
+				if (!isNaN(diffBytes)) {
+					if (config.diffbytes1 && diffBytes < config.diffbytes1) {
+						$(e).hide();
+						return;
+					}
+					if (config.diffbytes2 && diffBytes > config.diffbytes2) {
+						$(e).hide();
+						return;
+					}
 				}
 				$(e).show();
 			});
@@ -101,7 +104,7 @@
 			'text': '篩選使用者貢獻',
 		});
 		$filter.on('click', main);
-		$filter.appendTo($('.mw-contributions-list').prev());
+		$filter.appendTo($('.mw-pager-navigation-bar'));
 
 	});
 
