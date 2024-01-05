@@ -118,7 +118,7 @@
 			return "&#" + s.charCodeAt(0) + ";";
 		});
 		text = text.replace(/(&#91;&#91;)((?:(?!&#124;)(?!&#93;).)+?)(&#124;(?:(?!&#93;).)+?&#93;&#93;)/g, '$1-{$2}-$3');
-		text = text.replace(/-&#123;(.+?)&#125;-/g, function(s) {
+		text = text.replace(/-&#123;(.*?)&#125;-/g, function(s) {
 			return s
 				.replace('-&#123;', '-{')
 				.replace('&#125;-', '}-')
