@@ -28,7 +28,7 @@
 
     var titles = $('#bodyContent').find('h3');
     var api = new mw.Api();
-    var content, curtimestamp;
+    var content, curtimestamp, basetimestamp;
 
     var getPageContent = new Promise(function(resolve, reject) {
         api.get({
@@ -181,6 +181,7 @@
             return {
                 text: newtext,
                 section: sectionid,
+                basetimestamp: basetimestamp,
                 starttimestamp: curtimestamp,
                 summary: CloseVip.summary,
                 minor: true,
@@ -199,6 +200,7 @@
     getPageContent.then(function(result) {
         content = result.content;
         curtimestamp = result.curtimestamp;
+        basetimestamp = result.basetimestamp;
 
         const SPLIT_TOKEN = 'CLOSE_SPLIT_TOKEN';
         content = content.replace(/^(===[^=])/gm, SPLIT_TOKEN + '$1').split(SPLIT_TOKEN);
