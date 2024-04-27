@@ -5,7 +5,7 @@
 // Adapted from https://en.wikipedia.org/wiki/User:MusikAnimal/userRightsManager.js
 (function() {
 	var pagePermissions = {
-		'Wikipedia:權限申請/申請IP封禁例外權': 'ipblock-exempt',
+		'Wikipedia:權限申請/申請IP封禁豁免權': 'ipblock-exempt',
 		'Wikipedia:權限申請/申請巡查權': 'patroller',
 		'Wikipedia:權限申請/申請回退權': 'rollbacker',
 		'Wikipedia:權限申請/申請巡查豁免權': 'autoreviewer',
