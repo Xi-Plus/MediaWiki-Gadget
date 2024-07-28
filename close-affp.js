@@ -54,13 +54,6 @@
     function showCloseButton() {
         var titles = $('#bodyContent').find('h3');
 
-        var spanTag = function(color, content) {
-            var span = document.createElement('span');
-            span.style.color = color;
-            span.appendChild(document.createTextNode(content));
-            return span;
-        };
-
         titles.each(function(key, current) {
             var title = current.id;
             var node = current.parentNode.getElementsByClassName('mw-editsection')[0];
