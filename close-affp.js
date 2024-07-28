@@ -60,29 +60,24 @@
             span.appendChild(document.createTextNode(content));
             return span;
         };
-        var delNode = document.createElement('strong');
-        var delLink = document.createElement('a');
-        delLink.appendChild(spanTag('Black', '['));
-        delLink.appendChild(spanTag('Red', wgULS('关闭', '關閉')));
-        delLink.appendChild(spanTag('Black', ']'));
-        delNode.setAttribute('class', 'CloseAffpBtn');
-        delNode.appendChild(delLink);
 
         titles.each(function(key, current) {
-            var node = current.getElementsByClassName('mw-headline')[0];
-            var title = $(current).find('.mw-headline')[0].id;
-            if (title.match(/^（过滤器日志）/)) {
-                title = '（無標題）';
-            } else {
-                title = title.replace(/（过滤器日志）.*/, '');
-            }
+            var title = current.id;
+            var node = current.parentNode.getElementsByClassName('mw-editsection')[0];
+            var delDivider = document.createElement('span');
+            delDivider.appendChild(document.createTextNode(' | '));
+            node.insertBefore(delDivider, node.childNodes[1]);
 
-            var tmpNode = delNode.cloneNode(true);
-            $(tmpNode.firstChild).click(function() {
+            var delLink = document.createElement('a');
+            delLink.innerText = wgULS('关闭', '關閉');
+            delLink.style.color = 'red';
+            delLink.style.fontWeight = 'bold';
+            delLink.setAttribute('class', 'CloseAffpBtn');
+            $(delLink).click(function() {
                 processClose(key + 2, title);
                 return false;
             });
-            node.appendChild(tmpNode)
+            node.insertBefore(delLink, node.childNodes[1]);
         });
     }
 
