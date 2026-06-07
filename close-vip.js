@@ -26,7 +26,7 @@
     }
     `)
 
-    var titles = $('#bodyContent').find('h3');
+    var titles = $('#bodyContent').find('.mw-heading2');
     var api = new mw.Api();
     var content, curtimestamp, basetimestamp;
 
@@ -203,7 +203,7 @@
         basetimestamp = result.basetimestamp;
 
         const SPLIT_TOKEN = 'CLOSE_SPLIT_TOKEN';
-        content = content.replace(/^(===[^=])/gm, SPLIT_TOKEN + '$1').split(SPLIT_TOKEN);
+        content = content.replace(/^(==[^=])/gm, SPLIT_TOKEN + '$1').split(SPLIT_TOKEN);
 
         var lenintext = content.length - 1;
         var leninhtml = titles.length;
