@@ -208,7 +208,7 @@
         var lenintext = content.length - 1;
         var leninhtml = titles.length;
         if (leninhtml !== lenintext) {
-            mw.notify('抓取章節錯誤，在HTML找到 ' + leninhtml + ' 個三級章節，在原始碼找到 ' + lenintext + ' 個三級章節');
+            mw.notify('抓取章節錯誤，在HTML找到 ' + leninhtml + ' 個二級章節，在原始碼找到 ' + lenintext + ' 個二級章節');
         } else {
             showCloseButton();
         }
