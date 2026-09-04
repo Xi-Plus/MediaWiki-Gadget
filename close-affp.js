@@ -57,9 +57,6 @@
         titles.each(function(key, current) {
             var title = current.id;
             var node = current.parentNode.getElementsByClassName('mw-editsection')[0];
-            var delDivider = document.createElement('span');
-            delDivider.appendChild(document.createTextNode(' | '));
-            node.insertBefore(delDivider, node.childNodes[1]);
 
             var delLink = document.createElement('a');
             delLink.innerText = wgULS('关闭', '關閉');

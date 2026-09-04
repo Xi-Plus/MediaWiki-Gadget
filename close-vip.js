@@ -83,9 +83,6 @@
             });
 
             var node = current.getElementsByClassName('mw-editsection')[0];
-            var delDivider = document.createElement('span');
-            delDivider.appendChild(document.createTextNode(' | '));
-            node.insertBefore(delDivider, node.childNodes[1]);
             node.insertBefore(closeLink, node.childNodes[1]);
         });
     }
