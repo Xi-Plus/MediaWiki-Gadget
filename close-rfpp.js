@@ -62,20 +62,22 @@
     );
 
     function showCloseButton() {
-        var titles = $('#bodyContent').find('h2:has(.mw-headline), h3:has(.mw-headline)');
+        var titles = $('#bodyContent').find('.mw-heading2, .mw-heading3');
 
         titles.each(function(key, current) {
-            if (current.nodeName != 'H3') {
+            if (!$(current).hasClass('mw-heading3')) {
                 return;
             }
-            var title = $(current).find('.mw-headline')[0].id;
+            var title = $(current).find('h3').first().text();
+
+            var sectionid = mw.util.getParamValue('section', $(current).find('.mw-editsection a')[0].href);
 
             var closeLink = document.createElement('a');
             closeLink.href = '#';
             closeLink.className = 'close-rfpp-link';
             closeLink.innerText = wgULS('关闭', '關閉');
             $(closeLink).on('click', function() {
-                processClose(key, title);
+                processClose(key, sectionid, title);
                 return false;
             });
 
@@ -84,7 +86,7 @@
         });
     }
 
-    function processClose(sectionid, title) {
+    function processClose(key, sectionid, title) {
         mw.loader.using(['jquery.ui'], function() {
             var html = '<div>';
             html += '{{RFPP}}<br>';
@@ -153,6 +155,7 @@
                     click: function() {
                         if ($(this).find('.comment').val().trim() !== '') {
                             processEdit(
+                                key,
                                 sectionid,
                                 title,
                                 $(this).find('.comment').val(),
@@ -228,7 +231,7 @@
         });
     }
 
-    function processEdit(sectionid, title, comment, summary) {
+    function processEdit(key, sectionid, title, comment, summary) {
         new mw.Api().edit('Wikipedia:请求保护页面', function(revision) {
             var content = revision.content;
             const splittoken = 'CLOSE_SPLIT_TOKEN';
@@ -243,7 +246,7 @@
                 }
                 newtext += '\n: ' + comment + '--~~~~';
             }
-            $($('#bodyContent').find('h2:has(.mw-headline), h3:has(.mw-headline)')[sectionid]).find('.close-rfpp-link').addClass('close-rfpp-link-closed');
+            $($('#bodyContent').find('.mw-heading2, .mw-heading3')[sectionid]).find('.close-rfpp-link').addClass('close-rfpp-link-closed');
             return {
                 text: newtext,
                 section: sectionid,
@@ -264,7 +267,7 @@
     getPageContent.then(function(result) {
         window.content = result.content;
         var lenintext = result.content.split(/^==/gm).length - 2;
-        var leninhtml = $('#bodyContent').find('h2:has(.mw-headline), h3:has(.mw-headline)').length - 2;
+        var leninhtml = $('#bodyContent').find('.mw-heading2, .mw-heading3').length - 2;
         if (leninhtml !== lenintext) {
             mw.notify('抓取章節錯誤，在HTML找到 ' + leninhtml + ' 個章節，在原始碼找到 ' + lenintext + ' 個章節');
         } else {
