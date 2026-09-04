@@ -69,7 +69,7 @@
 
     function showCloseButton() {
         titles.each(function(key, current) {
-            var title = $(current).find('.mw-headline').first().text();
+            var title = $(current).find('h2').first().text();
 
             var sectionid = mw.util.getParamValue('section', $(current).find('.mw-editsection a')[0].href);
 
